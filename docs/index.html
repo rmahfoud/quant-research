@@ -103,6 +103,27 @@
       text-underline-offset: 3px;
     }
 
+    footer {
+      margin-top: 2.75rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.92rem;
+      animation: rise 0.7s ease-out 0.2s both;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover,
+    footer a:focus-visible {
+      color: var(--accent-hover);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
     @keyframes rise {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -144,6 +165,11 @@
         </div>
       </article>
     </nav>
+
+    <footer>
+      Source markdown and figures live in
+      <a href="https://github.com/rmahfoud/quant-research">github.com/rmahfoud/quant-research</a>.
+    </footer>
   </main>
 </body>
 </html>

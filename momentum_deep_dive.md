@@ -604,125 +604,125 @@ This is a curated reading list, not a bibliography. I have ordered each category
 
 | Work | Why it matters | Read it for |
 |---|---|---|
-| Lefèvre, E. (1923). *Reminiscences of a Stock Operator.* | The founding text of speculative discipline; a novelization of Jesse Livermore | The asymmetric payoff mindset: small losses, large wins, pyramiding into strength. Read as literature and psychology, not method |
-| Rhea, R. (1932). *The Dow Theory.* | Codification of Dow/Hamilton | Multi-timescale trend structure and confirmation logic |
-| Edwards, R. D. & Magee, J. (1948). *Technical Analysis of Stock Trends.* | The pattern canon | Historical literacy. Understand what practitioners believed; do not adopt the patterns uncritically |
-| Wilder, J. W. (1978). *New Concepts in Technical Trading Systems.* | Source of RSI, ADX/DMI, ATR, Parabolic SAR | The original definitions, which differ from most software implementations. Essential if you implement these |
-| Graham, B. & Dodd, D. (1934). *Security Analysis.* | The intellectual opposition | Understand the value case; value and momentum are the two halves of a well-diversified factor book |
-| Schwager, J. (1989, 1992). *Market Wizards* / *The New Market Wizards.* | Interviews with practitioners including many trend followers | Practitioner intuition about risk sizing and drawdown tolerance, unavailable in journals. Heavily survivorship-biased — read accordingly |
+| Lefèvre, E. (1923). [*Reminiscences of a Stock Operator.*](https://archive.org/details/reminiscencesofs00lefe) | The founding text of speculative discipline; a novelization of Jesse Livermore | The asymmetric payoff mindset: small losses, large wins, pyramiding into strength. Read as literature and psychology, not method |
+| Rhea, R. (1932). [*The Dow Theory.*](https://openlibrary.org/books/OL6279382M/The_Dow_theory) | Codification of Dow/Hamilton | Multi-timescale trend structure and confirmation logic |
+| Edwards, R. D. & Magee, J. (1948). [*Technical Analysis of Stock Trends.*](https://doi.org/10.4324/9781315115719) | The pattern canon | Historical literacy. Understand what practitioners believed; do not adopt the patterns uncritically |
+| Wilder, J. W. (1978). [*New Concepts in Technical Trading Systems.*](https://archive.org/details/newconceptsintec00wild) | Source of RSI, ADX/DMI, ATR, Parabolic SAR | The original definitions, which differ from most software implementations. Essential if you implement these |
+| Graham, B. & Dodd, D. (1934). [*Security Analysis.*](https://openlibrary.org/isbn/9780070244962) | The intellectual opposition | Understand the value case; value and momentum are the two halves of a well-diversified factor book |
+| Schwager, J. (1989, 1992). [*Market Wizards*](https://openlibrary.org/isbn/9780887306105) / *The New Market Wizards.* | Interviews with practitioners including many trend followers | Practitioner intuition about risk sizing and drawdown tolerance, unavailable in journals. Heavily survivorship-biased — read accordingly |
 
 ## 3.2 Modern books
 
 | Work | Why it matters |
 |---|---|
-| ★ Grinold, R. C. & Kahn, R. N. (1999). *Active Portfolio Management*, 2nd ed. | The framework for turning any signal into a portfolio. The Fundamental Law, information coefficients, transfer coefficients, risk budgeting. If you build momentum portfolios and have not read this, stop and read it |
-| ★ Bouchaud, J.-P., Bonart, J., Donier, J. & Gould, M. (2018). *Trades, Quotes and Prices: Financial Markets Under the Microscope.* | The definitive modern microstructure text: order-flow long memory, propagator models, the square-root impact law. This is where momentum's *mechanism* and *capacity limit* both live |
-| ★ López de Prado, M. (2018). *Advances in Financial Machine Learning.* | Purged/embargoed cross-validation, triple-barrier labeling, meta-labeling, fractional differentiation, backtest overfitting. Opinionated and occasionally overreaching, but the CV methodology alone justifies it |
-| Ilmanen, A. (2011). *Expected Returns.* | The best single synthesis of the empirical evidence on all major return sources, momentum included. Encyclopedic and even-handed |
-| Antonacci, G. (2014). *Dual Momentum Investing.* | The clearest practitioner exposition of combining absolute (time-series) and relative (cross-sectional) momentum. Simple, and the simplicity is the point |
-| Clenow, A. (2013). *Following the Trend.* | An honest, implementable account of how a diversified futures trend program is actually built — universe, sizing, rebalancing, and realistic expectations |
-| Chan, E. (2013). *Algorithmic Trading: Winning Strategies and Their Rationale.* | Practical treatment of momentum vs. mean reversion with runnable code and sane discussion of regime |
-| Harvey, C. R., Rattray, S. & Van Hemert, O. (2021). *Strategic Risk Management.* | Modern treatment of defensive strategies, drawdown control, and where trend fits in a portfolio |
-| Satchell, S. & Grant, A., eds. (2020). *Market Momentum: Theory and Practice.* | Edited volume; includes the published version of Baltas & Kosowski's TSMOM implementation study |
-| Tsay, R. S. (2010). *Analysis of Financial Time Series*, 3rd ed. | The econometrics substrate: ARMA, GARCH, state space, regime switching |
-| Durbin, J. & Koopman, S. J. (2012). *Time Series Analysis by State Space Methods*, 2nd ed. | The reference for Kalman/state-space trend extraction (§4.7.1) |
+| ★ Grinold, R. C. & Kahn, R. N. (1999). [*Active Portfolio Management*](https://archive.org/details/activeportfoliom0000grin), 2nd ed. | The framework for turning any signal into a portfolio. The Fundamental Law, information coefficients, transfer coefficients, risk budgeting. If you build momentum portfolios and have not read this, stop and read it |
+| ★ Bouchaud, J.-P., Bonart, J., Donier, J. & Gould, M. (2018). [*Trades, Quotes and Prices: Financial Markets Under the Microscope.*](https://doi.org/10.1017/9781316659335) | The definitive modern microstructure text: order-flow long memory, propagator models, the square-root impact law. This is where momentum's *mechanism* and *capacity limit* both live |
+| ★ López de Prado, M. (2018). [*Advances in Financial Machine Learning.*](https://openlibrary.org/isbn/9781119482086) | Purged/embargoed cross-validation, triple-barrier labeling, meta-labeling, fractional differentiation, backtest overfitting. Opinionated and occasionally overreaching, but the CV methodology alone justifies it |
+| Ilmanen, A. (2011). [*Expected Returns.*](https://doi.org/10.1002/9781118467190) | The best single synthesis of the empirical evidence on all major return sources, momentum included. Encyclopedic and even-handed |
+| Antonacci, G. (2014). [*Dual Momentum Investing.*](https://openlibrary.org/isbn/9780071849449) | The clearest practitioner exposition of combining absolute (time-series) and relative (cross-sectional) momentum. Simple, and the simplicity is the point |
+| Clenow, A. (2013). [*Following the Trend.*](https://doi.org/10.1002/9781394320516) | An honest, implementable account of how a diversified futures trend program is actually built — universe, sizing, rebalancing, and realistic expectations |
+| Chan, E. (2013). [*Algorithmic Trading: Winning Strategies and Their Rationale.*](https://doi.org/10.1002/9781118676998) | Practical treatment of momentum vs. mean reversion with runnable code and sane discussion of regime |
+| Harvey, C. R., Rattray, S. & Van Hemert, O. (2021). [*Strategic Risk Management.*](https://openlibrary.org/isbn/9781119773917) | Modern treatment of defensive strategies, drawdown control, and where trend fits in a portfolio |
+| Satchell, S. & Grant, A., eds. (2020). [*Market Momentum: Theory and Practice.*](https://doi.org/10.1002/9781119599364) | Edited volume; includes the published version of Baltas & Kosowski's TSMOM implementation study |
+| Tsay, R. S. (2010). [*Analysis of Financial Time Series*](https://doi.org/10.1002/9780470644560), 3rd ed. | The econometrics substrate: ARMA, GARCH, state space, regime switching |
+| Durbin, J. & Koopman, S. J. (2012). [*Time Series Analysis by State Space Methods*](https://doi.org/10.1093/acprof:oso/9780199641178.001.0001), 2nd ed. | The reference for Kalman/state-space trend extraction (§4.7.1) |
 
 ## 3.3 Foundational academic papers
 
 **The core momentum papers** (read in this order):
 
-1. ★ **Jegadeesh, N. & Titman, S. (1993).** "Returns to Buying Winners and Selling Losers: Implications for Stock Market Efficiency." *Journal of Finance* 48(1), 65–91. — *The* paper.
-2. **De Bondt, W. & Thaler, R. (1985).** "Does the Stock Market Overreact?" *Journal of Finance* 40(3), 793–805. — The long-horizon reversal counterpart.
-3. **Jegadeesh, N. & Titman, S. (2001).** "Profitability of Momentum Strategies: An Evaluation of Alternative Explanations." *Journal of Finance* 56(2), 699–720. — The out-of-sample confirmation and the reversal evidence.
-4. **Carhart, M. (1997).** "On Persistence in Mutual Fund Performance." *Journal of Finance* 52(1), 57–82. — Momentum as a factor.
-5. ★ **Moskowitz, T., Ooi, Y. H. & Pedersen, L. H. (2012).** "Time Series Momentum." *Journal of Financial Economics* 104(2), 228–250.
-6. ★ **Asness, C., Moskowitz, T. & Pedersen, L. H. (2013).** "Value and Momentum Everywhere." *Journal of Finance* 68(3), 929–985.
-7. ★ **Daniel, K. & Moskowitz, T. (2016).** "Momentum Crashes." *Journal of Financial Economics* 122(2), 221–247.
-8. **Barroso, P. & Santa-Clara, P. (2015).** "Momentum Has Its Moments." *Journal of Financial Economics* 116(1), 111–120.
+1. ★ **Jegadeesh, N. & Titman, S. (1993).** "[Returns to Buying Winners and Selling Losers: Implications for Stock Market Efficiency](https://doi.org/10.1111/j.1540-6261.1993.tb04702.x)." *Journal of Finance* 48(1), 65–91. — *The* paper.
+2. **De Bondt, W. & Thaler, R. (1985).** "[Does the Stock Market Overreact](https://doi.org/10.1111/j.1540-6261.1985.tb05004.x)?" *Journal of Finance* 40(3), 793–805. — The long-horizon reversal counterpart.
+3. **Jegadeesh, N. & Titman, S. (2001).** "[Profitability of Momentum Strategies: An Evaluation of Alternative Explanations](https://doi.org/10.3386/w7159)." *Journal of Finance* 56(2), 699–720. — The out-of-sample confirmation and the reversal evidence.
+4. **Carhart, M. (1997).** "[On Persistence in Mutual Fund Performance](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/j.1540-6261.1997.tb03808.x)." *Journal of Finance* 52(1), 57–82. — Momentum as a factor.
+5. ★ **Moskowitz, T., Ooi, Y. H. & Pedersen, L. H. (2012).** "[Time Series Momentum](https://doi.org/10.2139/ssrn.2089463)." *Journal of Financial Economics* 104(2), 228–250.
+6. ★ **Asness, C., Moskowitz, T. & Pedersen, L. H. (2013).** "[Value and Momentum Everywhere](https://doi.org/10.2139/ssrn.2174501)." *Journal of Finance* 68(3), 929–985.
+7. ★ **Daniel, K. & Moskowitz, T. (2016).** "[Momentum Crashes](https://doi.org/10.3386/w20439)." *Journal of Financial Economics* 122(2), 221–247.
+8. **Barroso, P. & Santa-Clara, P. (2015).** "[Momentum Has Its Moments](https://doi.org/10.1016/j.jfineco.2014.11.010)." *Journal of Financial Economics* 116(1), 111–120.
 
 **Statistical foundations:**
 
-9. ★ **Lo, A. W. & MacKinlay, A. C. (1988).** "Stock Market Prices Do Not Follow Random Walks: Evidence from a Simple Specification Test." *Review of Financial Studies* 1(1), 41–66. — The variance ratio.
-10. ★ **Lo, A. W. & MacKinlay, A. C. (1990).** "When Are Contrarian Profits Due to Stock Market Overreaction?" *Review of Financial Studies* 3(2), 175–205. — The decomposition of cross-sectional profits into autocovariance, cross-serial covariance, and dispersion in means. Essential for understanding *what you are actually harvesting*.
-11. **Lewellen, J. (2002).** "Momentum and Autocorrelation in Stock Returns." *Review of Financial Studies* 15(2), 533–564. — Shows momentum in size/B-M portfolios arises largely from negative cross-serial correlation, not own-autocorrelation.
-12. **Jegadeesh, N. (1990).** "Evidence of Predictable Behavior of Security Returns." *Journal of Finance* 45(3), 881–898; and **Lehmann, B. (1990),** "Fads, Martingales, and Market Efficiency," *QJE* 105(1), 1–28. — Short-horizon reversal; why you skip the last month.
+9. ★ **Lo, A. W. & MacKinlay, A. C. (1988).** "[Stock Market Prices Do Not Follow Random Walks: Evidence from a Simple Specification Test](https://www.nber.org/papers/w2168)." *Review of Financial Studies* 1(1), 41–66. — The variance ratio.
+10. ★ **Lo, A. W. & MacKinlay, A. C. (1990).** "[When Are Contrarian Profits Due to Stock Market Overreaction](https://doi.org/10.3386/w2977)?" *Review of Financial Studies* 3(2), 175–205. — The decomposition of cross-sectional profits into autocovariance, cross-serial covariance, and dispersion in means. Essential for understanding *what you are actually harvesting*.
+11. **Lewellen, J. (2002).** "[Momentum and Autocorrelation in Stock Returns](https://doi.org/10.1093/rfs/15.2.533)." *Review of Financial Studies* 15(2), 533–564. — Shows momentum in size/B-M portfolios arises largely from negative cross-serial correlation, not own-autocorrelation.
+12. **Jegadeesh, N. (1990).** "[Evidence of Predictable Behavior of Security Returns](https://doi.org/10.1111/j.1540-6261.1990.tb05110.x)." *Journal of Finance* 45(3), 881–898; and **Lehmann, B. (1990),** "Fads, Martingales, and Market Efficiency," *QJE* 105(1), 1–28. — Short-horizon reversal; why you skip the last month.
 
 **Mechanism papers:**
 
-13. **Barberis, N., Shleifer, A. & Vishny, R. (1998).** "A Model of Investor Sentiment." *JFE* 49(3), 307–343.
-14. **Daniel, K., Hirshleifer, D. & Subrahmanyam, A. (1998).** "Investor Psychology and Security Market Under- and Overreactions." *Journal of Finance* 53(6), 1839–1885.
-15. ★ **Hong, H. & Stein, J. (1999).** "A Unified Theory of Underreaction, Momentum Trading, and Overreaction in Asset Markets." *Journal of Finance* 54(6), 2143–2184.
-16. **Hong, H., Lim, T. & Stein, J. (2000).** "Bad News Travels Slowly: Size, Analyst Coverage, and the Profitability of Momentum Strategies." *Journal of Finance* 55(1), 265–295.
-17. ★ **Grinblatt, M. & Han, B. (2005).** "Prospect Theory, Mental Accounting, and Momentum." *JFE* 78(2), 311–339.
-18. **Vayanos, D. & Woolley, P. (2013).** "An Institutional Theory of Momentum and Reversal." *RFS* 26(5), 1087–1145. — Momentum from delegated-management fund flows; a rational, flow-based alternative to behavioral stories.
-19. ★ **Kelly, B., Moskowitz, T. & Pruitt, S. (2021).** "Understanding Momentum and Reversal." *JFE* 140(3), 726–743. — The strongest modern conditional-risk explanation.
+13. **Barberis, N., Shleifer, A. & Vishny, R. (1998).** "[A Model of Investor Sentiment](https://doi.org/10.3386/w5926)." *JFE* 49(3), 307–343.
+14. **Daniel, K., Hirshleifer, D. & Subrahmanyam, A. (1998).** "[Investor Psychology and Security Market Under- and Overreactions](http://deepblue.lib.umich.edu/bitstream/2027.42/73431/1/0022-1082.00077.pdf)." *Journal of Finance* 53(6), 1839–1885.
+15. ★ **Hong, H. & Stein, J. (1999).** "[A Unified Theory of Underreaction, Momentum Trading, and Overreaction in Asset Markets](https://www.nber.org/papers/w6324)." *Journal of Finance* 54(6), 2143–2184.
+16. **Hong, H., Lim, T. & Stein, J. (2000).** "[Bad News Travels Slowly: Size, Analyst Coverage, and the Profitability of Momentum Strategies](https://doi.org/10.3386/w6553)." *Journal of Finance* 55(1), 265–295.
+17. ★ **Grinblatt, M. & Han, B. (2005).** "[Prospect Theory, Mental Accounting, and Momentum](https://utoronto.scholaris.ca/bitstreams/3a09de05-9370-4e68-a03d-ccce917a5cb6/download)." *JFE* 78(2), 311–339.
+18. **Vayanos, D. & Woolley, P. (2013).** "[An Institutional Theory of Momentum and Reversal](https://doi.org/10.1093/rfs/hht014)." *RFS* 26(5), 1087–1145. — Momentum from delegated-management fund flows; a rational, flow-based alternative to behavioral stories.
+19. ★ **Kelly, B., Moskowitz, T. & Pruitt, S. (2021).** "[Understanding Momentum and Reversal](https://doi.org/10.1016/j.jfineco.2020.06.024)." *JFE* 140(3), 726–743. — The strongest modern conditional-risk explanation.
 
 **Microstructure:**
 
-20. **Kyle, A. (1985).** "Continuous Auctions and Insider Trading." *Econometrica* 53(6), 1315–1335.
-21. **Glosten, L. & Milgrom, P. (1985).** "Bid, Ask and Transaction Prices in a Specialist Market…" *JFE* 14(1), 71–100.
-22. ★ **Lillo, F. & Farmer, J. D. (2004).** "The Long Memory of the Efficient Market." *Studies in Nonlinear Dynamics & Econometrics* 8(3).
-23. **Bouchaud, J.-P., Gefen, Y., Potters, M. & Wyart, M. (2004).** "Fluctuations and Response in Financial Markets: The Subtle Nature of 'Random' Price Changes." *Quantitative Finance* 4(2), 176–190. — The propagator model.
-24. **Cont, R., Kukanov, A. & Stoikov, S. (2014).** "The Price Impact of Order Book Events." *Journal of Financial Econometrics* 12(1), 47–88.
+20. **Kyle, A. (1985).** "[Continuous Auctions and Insider Trading](https://doi.org/10.2307/1913210)." *Econometrica* 53(6), 1315–1335.
+21. **Glosten, L. & Milgrom, P. (1985).** "[Bid, Ask and Transaction Prices in a Specialist Market…](https://doi.org/10.1016/0304-405x(85)90044-3)" *JFE* 14(1), 71–100.
+22. ★ **Lillo, F. & Farmer, J. D. (2004).** "[The Long Memory of the Efficient Market](https://doi.org/10.2202/1558-3708.1226)." *Studies in Nonlinear Dynamics & Econometrics* 8(3).
+23. **Bouchaud, J.-P., Gefen, Y., Potters, M. & Wyart, M. (2004).** "[Fluctuations and Response in Financial Markets: The Subtle Nature of 'Random' Price Changes](https://doi.org/10.2139/ssrn.507322)." *Quantitative Finance* 4(2), 176–190. — The propagator model.
+24. **Cont, R., Kukanov, A. & Stoikov, S. (2014).** "[The Price Impact of Order Book Events](https://doi.org/10.2139/ssrn.1712822)." *Journal of Financial Econometrics* 12(1), 47–88.
 
 **Refinements and variants:**
 
-25. **Moskowitz, T. & Grinblatt, M. (1999).** "Do Industries Explain Momentum?" *Journal of Finance* 54(4), 1249–1290.
-26. **George, T. & Hwang, C.-Y. (2004).** "The 52-Week High and Momentum Investing." *Journal of Finance* 59(5), 2145–2176.
-27. **Novy-Marx, R. (2012).** "Is Momentum Really Momentum?" *JFE* 103(3), 429–453. — Echo momentum.
-28. **Blitz, D., Huij, J. & Martens, M. (2011).** "Residual Momentum." *Journal of Empirical Finance* 18(3), 506–518.
-29. **Rouwenhorst, K. G. (1998).** "International Momentum Strategies." *Journal of Finance* 53(1), 267–284.
-30. **Menkhoff, L., Sarno, L., Schmeling, M. & Schrimpf, A. (2012).** "Currency Momentum Strategies." *JFE* 106(3), 660–684.
-31. **Ehsani, S. & Linnainmaa, J. (2022).** "Factor Momentum and the Momentum Factor." *Journal of Finance* 77(3), 1877–1919.
-32. **Arnott, R., Clements, M., Kalesnik, V. & Linnainmaa, J. (2023).** "Factor Momentum." *RFS* 36(8), 3034–3070.
+25. **Moskowitz, T. & Grinblatt, M. (1999).** "[Do Industries Explain Momentum](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/0022-1082.00146)?" *Journal of Finance* 54(4), 1249–1290.
+26. **George, T. & Hwang, C.-Y. (2004).** "[The 52-Week High and Momentum Investing](https://doi.org/10.1111/j.1540-6261.2004.00695.x)." *Journal of Finance* 59(5), 2145–2176.
+27. **Novy-Marx, R. (2012).** "[Is Momentum Really Momentum](https://doi.org/10.1016/j.jfineco.2011.05.003)?" *JFE* 103(3), 429–453. — Echo momentum.
+28. **Blitz, D., Huij, J. & Martens, M. (2011).** "[Residual Momentum](https://doi.org/10.2139/ssrn.2319861)." *Journal of Empirical Finance* 18(3), 506–518.
+29. **Rouwenhorst, K. G. (1998).** "[International Momentum Strategies](https://doi.org/10.2139/ssrn.4407)." *Journal of Finance* 53(1), 267–284.
+30. **Menkhoff, L., Sarno, L., Schmeling, M. & Schrimpf, A. (2012).** "[Currency Momentum Strategies](https://doi.org/10.2139/ssrn.1773543)." *JFE* 106(3), 660–684.
+31. **Ehsani, S. & Linnainmaa, J. (2022).** "[Factor Momentum and the Momentum Factor](https://doi.org/10.1111/jofi.13131)." *Journal of Finance* 77(3), 1877–1919.
+32. **Arnott, R., Clements, M., Kalesnik, V. & Linnainmaa, J. (2023).** "[Factor Momentum](https://doi.org/10.1093/rfs/hhad006)." *RFS* 36(8), 3034–3070.
 
 **Critiques you must read:**
 
-33. ★ **Huang, D., Li, J., Wang, L. & Zhou, G. (2020).** "Time Series Momentum: Is It There?" *JFE* 135(3), 774–794.
-34. **Goyal, A. & Jegadeesh, N. (2018).** "Cross-Sectional and Time-Series Tests of Return Predictability: What Is the Difference?" *RFS* 31(5), 1784–1824.
-35. ★ **Sullivan, R., Timmermann, A. & White, H. (1999).** "Data-Snooping, Technical Trading Rule Performance, and the Bootstrap." *Journal of Finance* 54(5), 1647–1691.
-36. ★ **Harvey, C., Liu, Y. & Zhu, H. (2016).** "…and the Cross-Section of Expected Returns." *RFS* 29(1), 5–68.
-37. **Hou, K., Xue, C. & Zhang, L. (2020).** "Replicating Anomalies." *RFS* 33(5), 2019–2133.
-38. **Novy-Marx, R. & Velikov, M. (2016).** "A Taxonomy of Anomalies and Their Trading Costs." *RFS* 29(1), 104–147.
+33. ★ **Huang, D., Li, J., Wang, L. & Zhou, G. (2020).** "[Time Series Momentum: Is It There](https://doi.org/10.2139/ssrn.3165284)?" *JFE* 135(3), 774–794.
+34. **Goyal, A. & Jegadeesh, N. (2018).** "[Cross-Sectional and Time-Series Tests of Return Predictability: What Is the Difference](https://doi.org/10.1093/rfs/hhx131)?" *RFS* 31(5), 1784–1824.
+35. ★ **Sullivan, R., Timmermann, A. & White, H. (1999).** "[Data-Snooping, Technical Trading Rule Performance, and the Bootstrap](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/0022-1082.00163)." *Journal of Finance* 54(5), 1647–1691.
+36. ★ **Harvey, C., Liu, Y. & Zhu, H. (2016).** "[…and the Cross-Section of Expected Returns](https://doi.org/10.3386/w20592)." *RFS* 29(1), 5–68.
+37. **Hou, K., Xue, C. & Zhang, L. (2020).** "[Replicating Anomalies](https://doi.org/10.1093/rfs/hhy131)." *RFS* 33(5), 2019–2133.
+38. **Novy-Marx, R. & Velikov, M. (2016).** "[A Taxonomy of Anomalies and Their Trading Costs](https://doi.org/10.3386/w20721)." *RFS* 29(1), 104–147.
 
 **Methodology / evaluation:**
 
-39. ★ **White, H. (2000).** "A Reality Check for Data Snooping." *Econometrica* 68(5), 1097–1126.
-40. **Hansen, P. R. (2005).** "A Test for Superior Predictive Ability." *Journal of Business & Economic Statistics* 23(4), 365–380.
-41. **Romano, J. & Wolf, M. (2005).** "Stepwise Multiple Testing as Formalized Data Snooping." *Econometrica* 73(4), 1237–1282.
-42. **Politis, D. & Romano, J. (1994).** "The Stationary Bootstrap." *JASA* 89(428), 1303–1313.
-43. ★ **Bailey, D. & López de Prado, M. (2014).** "The Deflated Sharpe Ratio: Correcting for Selection Bias, Backtest Overfitting, and Non-Normality." *Journal of Portfolio Management* 40(5), 94–107.
-44. **Lo, A. W. (2002).** "The Statistics of Sharpe Ratios." *Financial Analysts Journal* 58(4), 36–52.
-45. **Newey, W. & West, K. (1987).** "A Simple, Positive Semi-Definite, Heteroskedasticity and Autocorrelation Consistent Covariance Matrix." *Econometrica* 55(3), 703–708.
-46. **Benjamini, Y. & Hochberg, Y. (1995).** "Controlling the False Discovery Rate." *JRSS-B* 57(1), 289–300.
+39. ★ **White, H. (2000).** "[A Reality Check for Data Snooping](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/1468-0262.00152)." *Econometrica* 68(5), 1097–1126.
+40. **Hansen, P. R. (2005).** "[A Test for Superior Predictive Ability](https://doi.org/10.2139/ssrn.264569)." *Journal of Business & Economic Statistics* 23(4), 365–380.
+41. **Romano, J. & Wolf, M. (2005).** "[Stepwise Multiple Testing as Formalized Data Snooping](https://doi.org/10.2139/ssrn.563209)." *Econometrica* 73(4), 1237–1282.
+42. **Politis, D. & Romano, J. (1994).** "[The Stationary Bootstrap](https://doi.org/10.1080/01621459.1994.10476870)." *JASA* 89(428), 1303–1313.
+43. ★ **Bailey, D. & López de Prado, M. (2014).** "[The Deflated Sharpe Ratio: Correcting for Selection Bias, Backtest Overfitting, and Non-Normality](https://doi.org/10.2139/ssrn.2460551)." *Journal of Portfolio Management* 40(5), 94–107.
+44. **Lo, A. W. (2002).** "[The Statistics of Sharpe Ratios](https://doi.org/10.2469/faj.v58.n4.2453)." *Financial Analysts Journal* 58(4), 36–52.
+45. **Newey, W. & West, K. (1987).** "[A Simple, Positive Semi-Definite, Heteroskedasticity and Autocorrelation Consistent Covariance Matrix](https://doi.org/10.2307/1913610)." *Econometrica* 55(3), 703–708.
+46. **Benjamini, Y. & Hochberg, Y. (1995).** "[Controlling the False Discovery Rate](https://doi.org/10.1111/j.2517-6161.1995.tb02031.x)." *JRSS-B* 57(1), 289–300.
 
 ## 3.4 Review and survey papers
 
-- ★ **Jegadeesh, N. & Titman, S. (2011).** "Momentum." *Annual Review of Financial Economics* 3, 493–509. — The authors' own retrospective; the single best short survey.
-- **Asness, C., Frazzini, A., Israel, R. & Moskowitz, T. (2014).** "Fact, Fiction, and Momentum Investing." *Journal of Portfolio Management* 40(5), 75–92. — Systematically addresses the ten most common objections (taxes, costs, small caps, crashes, short-side dependence). Written by interested parties, and still the best rebuttal document available.
-- **Subrahmanyam, A. (2018).** "Equity Market Momentum: A Synthesis of the Literature and Suggestions for Future Work." *Pacific-Basin Finance Journal* 51, 291–296.
-- **Bouchaud, J.-P., Farmer, J. D. & Lillo, F. (2009).** "How Markets Slowly Digest Changes in Supply and Demand." In *Handbook of Financial Markets: Dynamics and Evolution*. — The microstructure survey most relevant to momentum.
-- **Nagel, S. (2013).** "Empirical Cross-Sectional Asset Pricing." *Annual Review of Financial Economics* 5, 167–199.
-- **Gu, S., Kelly, B. & Xiu, D. (2020).** "Empirical Asset Pricing via Machine Learning." *RFS* 33(5), 2223–2273. — Functions as the ML survey for this domain.
+- ★ **Jegadeesh, N. & Titman, S. (2011).** "[Momentum](https://doi.org/10.2139/ssrn.1919226)." *Annual Review of Financial Economics* 3, 493–509. — The authors' own retrospective; the single best short survey.
+- **Asness, C., Frazzini, A., Israel, R. & Moskowitz, T. (2014).** "[Fact, Fiction, and Momentum Investing](https://doi.org/10.2139/ssrn.2435323)." *Journal of Portfolio Management* 40(5), 75–92. — Systematically addresses the ten most common objections (taxes, costs, small caps, crashes, short-side dependence). Written by interested parties, and still the best rebuttal document available.
+- **Subrahmanyam, A. (2018).** "[Equity Market Momentum: A Synthesis of the Literature and Suggestions for Future Work](https://doi.org/10.1016/j.pacfin.2018.08.004)." *Pacific-Basin Finance Journal* 51, 291–296.
+- **Bouchaud, J.-P., Farmer, J. D. & Lillo, F. (2009).** "[How Markets Slowly Digest Changes in Supply and Demand](https://doi.org/10.2139/ssrn.1266681)." In *Handbook of Financial Markets: Dynamics and Evolution*. — The microstructure survey most relevant to momentum.
+- **Nagel, S. (2013).** "[Empirical Cross-Sectional Asset Pricing](https://doi.org/10.3386/w18554)." *Annual Review of Financial Economics* 5, 167–199.
+- **Gu, S., Kelly, B. & Xiu, D. (2020).** "[Empirical Asset Pricing via Machine Learning](https://doi.org/10.3386/w25398)." *RFS* 33(5), 2223–2273. — Functions as the ML survey for this domain.
 
 ## 3.5 Practitioner papers
 
 These are white papers and practitioner-journal articles. They are less rigorously refereed than journal articles and their authors have commercial interests — but several contain the most directly usable results in the entire literature.
 
-- ★ **Hurst, B., Ooi, Y. H. & Pedersen, L. H. (2017).** "A Century of Evidence on Trend-Following Investing." *Journal of Portfolio Management* 44(1), 15–29. (AQR.) — 1880–2016, 67 markets.
-- ★ **Lempérière, Y., Deremble, C., Seager, P., Potters, M. & Bouchaud, J.-P. (2014).** "Two Centuries of Trend Following." *Journal of Investment Strategies* 3(3), 41–61. (CFM.) — arXiv:1404.3274.
-- ★ **Dao, T.-L., Nguyen, T.-T., Deremble, C., Lempérière, Y., Bouchaud, J.-P. & Potters, M. (2017).** "Tail Protection for Long Investors: Trend Convexity at Work." *Journal of Investment Strategies*. — arXiv:1607.02410. The variance-difference decomposition of trend P&L.
-- ★ **Fung, W. & Hsieh, D. (2001).** "The Risk in Hedge Fund Strategies: Theory and Evidence from Trend Followers." *RFS* 14(2), 313–341. — Lookback straddles. (Academic, but functions as the practitioner's model of CTA payoff.)
-- **Geczy, C. & Samonov, M. (2016).** "Two Centuries of Price Return Momentum." *Financial Analysts Journal* 72(5), 32–56.
-- **Levine, A. & Pedersen, L. H. (2016).** "Which Trend Is Your Friend?" *Financial Analysts Journal* 72(3), 51–66. — Shows that time-series regression, moving-average crossover, and other trend rules are near-equivalent once horizon-matched. A liberating result: stop tuning indicator forms, start tuning horizons.
-- ★ **Baltas, N. & Kosowski, R. (2020).** "Demystifying Time-Series Momentum Strategies: Volatility Estimators, Trading Rules and Pairwise Correlations." In Satchell & Grant, eds., *Market Momentum.* (SSRN 2140091.) — The most practically useful implementation study: which volatility estimator, which trading rule, and how correlation structure affects diversification and turnover.
-- **Bruder, B., Dao, T.-L., Richard, J.-C. & Roncalli, T. (2013).** "Trend Filtering Methods for Momentum Strategies." SSRN 2289097. (Lyxor.) — Explicit treatment of moving averages, L1/L2 trend filtering, and Kalman filters as signal extraction.
-- **Moreira, A. & Muir, T. (2017).** "Volatility-Managed Portfolios." *Journal of Finance* 72(4), 1611–1644.
-- **Harvey, C., Hoyle, E., Korgaonkar, R., Rattray, S., Sargaison, M. & Van Hemert, O. (2018).** "The Impact of Volatility Targeting." *Journal of Portfolio Management* 45(1), 14–33. (Man Group.)
-- **Frazzini, A., Israel, R. & Moskowitz, T. (2018).** "Trading Costs." SSRN 3229719. (AQR.) — Live-execution cost estimates from ~$1.7 trillion of real trades; the best public evidence on momentum's true capacity, and it is far more optimistic than academic estimates based on quoted spreads. **[Contested]** — for the obvious reason that AQR runs momentum.
-- **Grinold, R. (1989).** "The Fundamental Law of Active Management." *Journal of Portfolio Management* 15(3), 30–37. — $\mathrm{IR} \approx \mathrm{IC}\sqrt{\mathrm{breadth}}$.
-- **Clarke, R., de Silva, H. & Thorley, S. (2002).** "Portfolio Constraints and the Fundamental Law of Active Management." *Financial Analysts Journal* 58(5), 48–66. — Adds the transfer coefficient; explains why real portfolios capture far less than the theoretical IR.
-- **Lim, B., Zohren, S. & Roberts, S. (2019).** "Enhancing Time-Series Momentum Strategies Using Deep Neural Networks." *Journal of Financial Data Science* 1(4), 19–38.
+- ★ **Hurst, B., Ooi, Y. H. & Pedersen, L. H. (2017).** "[A Century of Evidence on Trend-Following Investing](https://doi.org/10.2139/ssrn.2993026)." *Journal of Portfolio Management* 44(1), 15–29. (AQR.) — 1880–2016, 67 markets.
+- ★ **Lempérière, Y., Deremble, C., Seager, P., Potters, M. & Bouchaud, J.-P. (2014).** "[Two Centuries of Trend Following](https://arxiv.org/abs/1404.3274)." *Journal of Investment Strategies* 3(3), 41–61. (CFM.) — arXiv:1404.3274.
+- ★ **Dao, T.-L., Nguyen, T.-T., Deremble, C., Lempérière, Y., Bouchaud, J.-P. & Potters, M. (2017).** "[Tail Protection for Long Investors: Trend Convexity at Work](https://arxiv.org/abs/1607.02410)." *Journal of Investment Strategies*. — arXiv:1607.02410. The variance-difference decomposition of trend P&L.
+- ★ **Fung, W. & Hsieh, D. (2001).** "[The Risk in Hedge Fund Strategies: Theory and Evidence from Trend Followers](https://doi.org/10.1093/rfs/14.2.313)." *RFS* 14(2), 313–341. — Lookback straddles. (Academic, but functions as the practitioner's model of CTA payoff.)
+- **Geczy, C. & Samonov, M. (2016).** "[Two Centuries of Price Return Momentum](https://doi.org/10.2469/faj.v72.n5.1)." *Financial Analysts Journal* 72(5), 32–56.
+- **Levine, A. & Pedersen, L. H. (2016).** "[Which Trend Is Your Friend](https://doi.org/10.2139/ssrn.2603731)?" *Financial Analysts Journal* 72(3), 51–66. — Shows that time-series regression, moving-average crossover, and other trend rules are near-equivalent once horizon-matched. A liberating result: stop tuning indicator forms, start tuning horizons.
+- ★ **Baltas, N. & Kosowski, R. (2020).** "[Demystifying Time-Series Momentum Strategies: Volatility Estimators, Trading Rules and Pairwise Correlations](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2140091)." In Satchell & Grant, eds., *Market Momentum.* (SSRN 2140091.) — The most practically useful implementation study: which volatility estimator, which trading rule, and how correlation structure affects diversification and turnover.
+- **Bruder, B., Dao, T.-L., Richard, J.-C. & Roncalli, T. (2013).** "[Trend Filtering Methods for Momentum Strategies](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2289097)." SSRN 2289097. (Lyxor.) — Explicit treatment of moving averages, L1/L2 trend filtering, and Kalman filters as signal extraction.
+- **Moreira, A. & Muir, T. (2017).** "[Volatility-Managed Portfolios](https://doi.org/10.3386/w22208)." *Journal of Finance* 72(4), 1611–1644.
+- **Harvey, C., Hoyle, E., Korgaonkar, R., Rattray, S., Sargaison, M. & Van Hemert, O. (2018).** "[The Impact of Volatility Targeting](https://doi.org/10.2139/ssrn.3175538)." *Journal of Portfolio Management* 45(1), 14–33. (Man Group.)
+- **Frazzini, A., Israel, R. & Moskowitz, T. (2018).** "[Trading Costs](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3229719)." SSRN 3229719. (AQR.) — Live-execution cost estimates from ~$1.7 trillion of real trades; the best public evidence on momentum's true capacity, and it is far more optimistic than academic estimates based on quoted spreads. **[Contested]** — for the obvious reason that AQR runs momentum.
+- **Grinold, R. (1989).** "[The Fundamental Law of Active Management](https://doi.org/10.3905/jpm.1989.409211)." *Journal of Portfolio Management* 15(3), 30–37. — $\mathrm{IR} \approx \mathrm{IC}\sqrt{\mathrm{breadth}}$.
+- **Clarke, R., de Silva, H. & Thorley, S. (2002).** "[Portfolio Constraints and the Fundamental Law of Active Management](https://doi.org/10.2469/faj.v58.n5.2468)." *Financial Analysts Journal* 58(5), 48–66. — Adds the transfer coefficient; explains why real portfolios capture far less than the theoretical IR.
+- **Lim, B., Zohren, S. & Roberts, S. (2019).** "[Enhancing Time-Series Momentum Strategies Using Deep Neural Networks](https://doi.org/10.2139/ssrn.3369195)." *Journal of Financial Data Science* 1(4), 19–38.
 
 ## 3.6 If you only read six things
 
@@ -3152,50 +3152,52 @@ with a decaying kernel $G$ fine-tuned against the flow autocorrelation to leave 
 
 # Appendix B: Additional works cited {#appendix-b-additional-works-cited}
 
-- Adams, R. P. & MacKay, D. J. C. (2007). "Bayesian Online Changepoint Detection." arXiv:0710.3742.
-- Alexander, S. (1961). "Price Movements in Speculative Markets: Trends or Random Walks." *Industrial Management Review* 2(2), 7–26.
-- Bachelier, L. (1900). *Théorie de la spéculation.* *Annales Scientifiques de l'École Normale Supérieure* 3(17), 21–86. *(The original random-walk model of prices, five years before Einstein.)*
-- Baz, J., Granger, N., Harvey, C. R., Le Roux, N. & Rattray, S. (2015). "Dissecting Investment Strategies in the Cross Section and Time Series." SSRN 2695101. *(Source of the volatility-normalized MACD and the $z e^{-z^2/4}$ response function.)*
-- Bailey, D., Borwein, J., López de Prado, M. & Zhu, Q. J. (2014). "Pseudo-Mathematics and Financial Charlatanism: The Effects of Backtest Overfitting on Out-of-Sample Performance." *Notices of the AMS* 61(5), 458–471.
-- Bailey, D., Borwein, J., López de Prado, M. & Zhu, Q. J. (2017). "The Probability of Backtest Overfitting." *Journal of Computational Finance* 20(4), 39–69.
-- Bernard, V. & Thomas, J. (1989). "Post-Earnings-Announcement Drift: Delayed Price Response or Risk Premium?" *Journal of Accounting Research* 27, 1–36.
-- Berk, J., Green, R. & Naik, V. (1999). "Optimal Investment, Growth Options, and Security Returns." *Journal of Finance* 54(5), 1553–1607.
-- Brock, W., Lakonishok, J. & LeBaron, B. (1992). "Simple Technical Trading Rules and the Stochastic Properties of Stock Returns." *Journal of Finance* 47(5), 1731–1764.
-- Brown, S., Goetzmann, W. & Kumar, A. (1998). "The Dow Theory: William Peter Hamilton's Track Record Reconsidered." *Journal of Finance* 53(4), 1311–1333.
-- Bruder, B., Dao, T.-L., Richard, J.-C. & Roncalli, T. (2013). "Trend Filtering Methods for Momentum Strategies." SSRN 2289097.
-- Campbell, J. & Thompson, S. (2008). "Predicting Excess Stock Returns Out of Sample: Can Anything Beat the Historical Average?" *RFS* 21(4), 1509–1531.
-- Campbell, J. Y., Lo, A. W. & MacKinlay, A. C. (1997). *The Econometrics of Financial Markets.* Princeton University Press. *(Source of the RW1/RW2/RW3 taxonomy.)*
-- Chan, L., Jegadeesh, N. & Lakonishok, J. (1996). "Momentum Strategies." *Journal of Finance* 51(5), 1681–1713.
-- Cooper, M., Gutierrez, R. & Hameed, A. (2004). "Market States and Momentum." *Journal of Finance* 59(3), 1345–1365.
-- Dickey, D. & Fuller, W. (1979). "Distribution of the Estimators for Autoregressive Time Series with a Unit Root." *JASA* 74(366), 427–431.
-- Erb, C. & Harvey, C. (2006). "The Strategic and Tactical Value of Commodity Futures." *Financial Analysts Journal* 62(2), 69–97.
-- Fama, E. (1970). "Efficient Capital Markets: A Review of Theory and Empirical Work." *Journal of Finance* 25(2), 383–417.
-- Fama, E. & Blume, M. (1966). "Filter Rules and Stock Market Trading." *Journal of Business* 39(1), 226–241.
-- Fama, E. & French (1996, 2015, 2016). Three-factor, five-factor, and "Dissecting Anomalies with a Five-Factor Model" (*RFS* 29(1), 69–103).
-- Frazzini, A. (2006). "The Disposition Effect and Underreaction to News." *Journal of Finance* 61(4), 2017–2046.
-- Gao, L., Han, Y., Li, S. Z. & Zhou, G. (2018). "Market Intraday Momentum." *JFE* 129(2), 394–414.
-- Gârleanu, N. & Pedersen, L. H. (2013). "Dynamic Trading with Predictable Returns and Transaction Costs." *Journal of Finance* 68(6), 2309–2340.
-- Garman, M. & Klass, M. (1980). "On the Estimation of Security Price Volatilities from Historical Data." *Journal of Business* 53(1), 67–78.
-- Goyal, A. & Welch, I. (2008). "A Comprehensive Look at the Empirical Performance of Equity Premium Prediction." *RFS* 21(4), 1455–1508.
-- Granger, C. & Newbold, P. (1974). "Spurious Regressions in Econometrics." *Journal of Econometrics* 2(2), 111–120.
-- Grossman, S. & Stiglitz, J. (1980). "On the Impossibility of Informationally Efficient Markets." *American Economic Review* 70(3), 393–408.
-- Hamilton, J. (1989). "A New Approach to the Economic Analysis of Nonstationary Time Series and the Business Cycle." *Econometrica* 57(2), 357–384.
-- Hamilton, J. (2018). "Why You Should Never Use the Hodrick-Prescott Filter." *Review of Economics and Statistics* 100(5), 831–843.
-- Hansen, L. P. & Hodrick, R. (1980). "Forward Exchange Rates as Optimal Predictors of Future Spot Rates." *Journal of Political Economy* 88(5), 829–853.
-- Jegadeesh, N. & Titman, S. (1995). "Overreaction, Delayed Reaction, and Contrarian Profits." *RFS* 8(4), 973–993.
-- Johnson, T. (2002). "Rational Momentum Effects." *Journal of Finance* 57(2), 585–608.
-- Kelly, B., Malamud, S. & Zhou, K. (2024). "The Virtue of Complexity in Return Prediction." *Journal of Finance* 79(1), 459–503.
-- Kim, S.-J., Koh, K., Boyd, S. & Gorinevsky, D. (2009). "$\ell_1$ Trend Filtering." *SIAM Review* 51(2), 339–360.
-- Lesmond, D., Schill, M. & Zhou, C. (2004). "The Illusory Nature of Momentum Profits." *JFE* 71(2), 349–380.
-- Levin, D., Lyons, T. & Ni, H. (2013). "Learning from the Past, Predicting the Statistics for the Future, Learning an Evolving System." arXiv:1309.0260. *(Path signatures.)*
-- Lo, A. W. & MacKinlay, A. C. (1990b). "An Econometric Analysis of Nonsynchronous Trading." *Journal of Econometrics* 45(1–2), 181–211. *(Distinct from the 1990 contrarian-profits paper, §3.3 item 10.)*
-- Magdon-Ismail, M., Atiya, A., Pratap, A. & Abu-Mostafa, Y. (2004). "On the Maximum Drawdown of a Brownian Motion." *Journal of Applied Probability* 41(1), 147–161.
-- Merton, R. (1980). "On Estimating the Expected Return on the Market." *JFE* 8(4), 323–361.
-- Parkinson, M. (1980). "The Extreme Value Method for Estimating the Variance of the Rate of Return." *Journal of Business* 53(1), 61–65.
-- Phillips, P. C. B. (1986). "Understanding Spurious Regressions in Econometrics." *Journal of Econometrics* 33(3), 311–340.
-- Roll, R. (1984). "A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market." *Journal of Finance* 39(4), 1127–1139.
-- Samuelson, P. (1965). "Proof That Properly Anticipated Prices Fluctuate Randomly." *Industrial Management Review* 6(2), 41–49.
-- Sirignano, J. & Cont, R. (2019). "Universal Features of Price Formation in Financial Markets: Perspectives from Deep Learning." *Quantitative Finance* 19(9), 1449–1459.
-- Wood, K., Giegerich, S., Roberts, S. & Zohren, S. (2021). "Trading with the Momentum Transformer." arXiv:2112.08534.
-- Yang, D. & Zhang, Q. (2000). "Drift-Independent Volatility Estimation Based on High, Low, Open, and Close Prices." *Journal of Business* 73(3), 477–492.
-- Zhang, Z., Zohren, S. & Roberts, S. (2019). "DeepLOB: Deep Convolutional Neural Networks for Limit Order Books." *IEEE Transactions on Signal Processing* 67(11), 3001–3012.
+- Adams, R. P. & MacKay, D. J. C. (2007). "[Bayesian Online Changepoint Detection](https://arxiv.org/abs/0710.3742)." arXiv:0710.3742.
+- Alexander, S. (1961). "Price Movements in Speculative Markets: Trends or Random Walks." *Industrial Management Review* 2(2), 7–26. *(No open source for the original; reprinted as ch. 7 of Cootner, P., ed. (1964),* [*The Random Character of Stock Market Prices*](https://archive.org/details/randomcharactero00coot)*.)*
+- Bachelier, L. (1900). [*Théorie de la spéculation.*](http://www.numdam.org/item/10.24033/asens.476.pdf) *Annales Scientifiques de l'École Normale Supérieure* 3(17), 21–86. *(The original random-walk model of prices, five years before Einstein.)*
+- Baz, J., Granger, N., Harvey, C. R., Le Roux, N. & Rattray, S. (2015). "[Dissecting Investment Strategies in the Cross Section and Time Series](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2695101)." SSRN 2695101. *(Source of the volatility-normalized MACD and the $z e^{-z^2/4}$ response function.)*
+- Bailey, D., Borwein, J., López de Prado, M. & Zhu, Q. J. (2014). "[Pseudo-Mathematics and Financial Charlatanism: The Effects of Backtest Overfitting on Out-of-Sample Performance](https://doi.org/10.1090/noti1105)." *Notices of the AMS* 61(5), 458–471.
+- Bailey, D., Borwein, J., López de Prado, M. & Zhu, Q. J. (2017). "[The Probability of Backtest Overfitting](https://escholarship.org/uc/item/4w1110bb)." *Journal of Computational Finance* 20(4), 39–69.
+- Bernard, V. & Thomas, J. (1989). "[Post-Earnings-Announcement Drift: Delayed Price Response or Risk Premium](https://doi.org/10.2307/2491062)?" *Journal of Accounting Research* 27, 1–36.
+- Berk, J., Green, R. & Naik, V. (1999). "[Optimal Investment, Growth Options, and Security Returns](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/0022-1082.00161)." *Journal of Finance* 54(5), 1553–1607.
+- Brock, W., Lakonishok, J. & LeBaron, B. (1992). "[Simple Technical Trading Rules and the Stochastic Properties of Stock Returns](https://doi.org/10.1111/j.1540-6261.1992.tb04681.x)." *Journal of Finance* 47(5), 1731–1764.
+- Brown, S., Goetzmann, W. & Kumar, A. (1998). "[The Dow Theory: William Peter Hamilton's Track Record Reconsidered](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/0022-1082.00054)." *Journal of Finance* 53(4), 1311–1333.
+- Bruder, B., Dao, T.-L., Richard, J.-C. & Roncalli, T. (2013). "[Trend Filtering Methods for Momentum Strategies](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2289097)." SSRN 2289097.
+- Campbell, J. & Thompson, S. (2008). "[Predicting Excess Stock Returns Out of Sample: Can Anything Beat the Historical Average](http://nrs.harvard.edu/urn-3:HUL.InstRepos:2622619)?" *RFS* 21(4), 1509–1531.
+- Campbell, J. Y., Lo, A. W. & MacKinlay, A. C. (1997). [*The Econometrics of Financial Markets.*](https://doi.org/10.1515/9781400830213) Princeton University Press. *(Source of the RW1/RW2/RW3 taxonomy.)*
+- Chan, L., Jegadeesh, N. & Lakonishok, J. (1996). "[Momentum Strategies](https://doi.org/10.3386/w5375)." *Journal of Finance* 51(5), 1681–1713.
+- Cooper, M., Gutierrez, R. & Hameed, A. (2004). "[Market States and Momentum](https://doi.org/10.2139/ssrn.299927)." *Journal of Finance* 59(3), 1345–1365.
+- Dickey, D. & Fuller, W. (1979). "[Distribution of the Estimators for Autoregressive Time Series with a Unit Root](https://doi.org/10.2307/2286348)." *JASA* 74(366), 427–431.
+- Erb, C. & Harvey, C. (2006). "[The Strategic and Tactical Value of Commodity Futures](https://doi.org/10.3386/w11222)." *Financial Analysts Journal* 62(2), 69–97.
+- Fama, E. (1970). "[Efficient Capital Markets: A Review of Theory and Empirical Work](https://doi.org/10.2307/2325486)." *Journal of Finance* 25(2), 383–417.
+- Fama, E. & Blume, M. (1966). "[Filter Rules and Stock Market Trading](https://doi.org/10.1086/294849)." *Journal of Business* 39(1), 226–241.
+- Fama, E. & French, K. (1996). "[Multifactor Explanations of Asset Pricing Anomalies](https://doi.org/10.1111/j.1540-6261.1996.tb05202.x)." *Journal of Finance* 51(1), 55–84.
+- Fama, E. & French, K. (2015). "[A Five-Factor Asset Pricing Model](https://doi.org/10.1016/j.jfineco.2014.10.010)." *JFE* 116(1), 1–22.
+- Fama, E. & French, K. (2016). "[Dissecting Anomalies with a Five-Factor Model](https://doi.org/10.1093/rfs/hhv043)." *RFS* 29(1), 69–103.
+- Frazzini, A. (2006). "[The Disposition Effect and Underreaction to News](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/j.1540-6261.2006.00896.x)." *Journal of Finance* 61(4), 2017–2046.
+- Gao, L., Han, Y., Li, S. Z. & Zhou, G. (2018). "[Market Intraday Momentum](https://doi.org/10.1016/j.jfineco.2018.05.009)." *JFE* 129(2), 394–414.
+- Gârleanu, N. & Pedersen, L. H. (2013). "[Dynamic Trading with Predictable Returns and Transaction Costs](https://research.cbs.dk/en/publications/a781b731-1e3f-4875-b746-db13b3a88b9e)." *Journal of Finance* 68(6), 2309–2340.
+- Garman, M. & Klass, M. (1980). "[On the Estimation of Security Price Volatilities from Historical Data](https://doi.org/10.1086/296072)." *Journal of Business* 53(1), 67–78.
+- Goyal, A. & Welch, I. (2008). "[A Comprehensive Look at the Empirical Performance of Equity Premium Prediction](https://doi.org/10.1093/rfs/hhm014)." *RFS* 21(4), 1455–1508.
+- Granger, C. & Newbold, P. (1974). "[Spurious Regressions in Econometrics](https://doi.org/10.1016/0304-4076(74)90034-7)." *Journal of Econometrics* 2(2), 111–120.
+- Grossman, S. & Stiglitz, J. (1980). "[On the Impossibility of Informationally Efficient Markets](https://www.aeaweb.org/aer/top20/70.3.393-408.pdf)." *American Economic Review* 70(3), 393–408.
+- Hamilton, J. (1989). "[A New Approach to the Economic Analysis of Nonstationary Time Series and the Business Cycle](https://doi.org/10.2307/1912559)." *Econometrica* 57(2), 357–384.
+- Hamilton, J. (2018). "[Why You Should Never Use the Hodrick-Prescott Filter](https://doi.org/10.3386/w23429)." *Review of Economics and Statistics* 100(5), 831–843.
+- Hansen, L. P. & Hodrick, R. (1980). "[Forward Exchange Rates as Optimal Predictors of Future Spot Rates](https://doi.org/10.1086/260910)." *Journal of Political Economy* 88(5), 829–853.
+- Jegadeesh, N. & Titman, S. (1995). "[Overreaction, Delayed Reaction, and Contrarian Profits](https://doi.org/10.1093/rfs/8.4.973)." *RFS* 8(4), 973–993.
+- Johnson, T. (2002). "[Rational Momentum Effects](https://doi.org/10.2139/ssrn.250760)." *Journal of Finance* 57(2), 585–608.
+- Kelly, B., Malamud, S. & Zhou, K. (2024). "[The Virtue of Complexity in Return Prediction](https://doi.org/10.3386/w30217)." *Journal of Finance* 79(1), 459–503.
+- Kim, S.-J., Koh, K., Boyd, S. & Gorinevsky, D. (2009). "[$\ell_1$ Trend Filtering](https://doi.org/10.1137/070690274)." *SIAM Review* 51(2), 339–360.
+- Lesmond, D., Schill, M. & Zhou, C. (2004). "[The Illusory Nature of Momentum Profits](https://doi.org/10.2139/ssrn.256926)." *JFE* 71(2), 349–380.
+- Levin, D., Lyons, T. & Ni, H. (2013). "[Learning from the Past, Predicting the Statistics for the Future, Learning an Evolving System](https://arxiv.org/abs/1309.0260)." arXiv:1309.0260. *(Path signatures.)*
+- Lo, A. W. & MacKinlay, A. C. (1990b). "[An Econometric Analysis of Nonsynchronous Trading](https://www.nber.org/papers/w2960)." *Journal of Econometrics* 45(1–2), 181–211. *(Distinct from the 1990 contrarian-profits paper, §3.3 item 10.)*
+- Magdon-Ismail, M., Atiya, A., Pratap, A. & Abu-Mostafa, Y. (2004). "[On the Maximum Drawdown of a Brownian Motion](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/F9E3B8A454B020DDEBF0AC3390EF7807/S0021900200014108a.pdf/div-class-title-on-the-maximum-drawdown-of-a-brownian-motion-div.pdf)." *Journal of Applied Probability* 41(1), 147–161.
+- Merton, R. (1980). "[On Estimating the Expected Return on the Market](https://doi.org/10.1016/0304-405x(80)90007-0)." *JFE* 8(4), 323–361.
+- Parkinson, M. (1980). "[The Extreme Value Method for Estimating the Variance of the Rate of Return](https://doi.org/10.1086/296071)." *Journal of Business* 53(1), 61–65.
+- Phillips, P. C. B. (1986). "[Understanding Spurious Regressions in Econometrics](https://doi.org/10.1016/0304-4076(86)90001-1)." *Journal of Econometrics* 33(3), 311–340.
+- Roll, R. (1984). "[A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market](https://doi.org/10.2307/2327617)." *Journal of Finance* 39(4), 1127–1139.
+- Samuelson, P. (1965). "[Proof That Properly Anticipated Prices Fluctuate Randomly](https://doi.org/10.1142/9789814566926_0002)." *Industrial Management Review* 6(2), 41–49.
+- Sirignano, J. & Cont, R. (2019). "[Universal Features of Price Formation in Financial Markets: Perspectives from Deep Learning](https://doi.org/10.2139/ssrn.3141294)." *Quantitative Finance* 19(9), 1449–1459.
+- Wood, K., Giegerich, S., Roberts, S. & Zohren, S. (2021). "[Trading with the Momentum Transformer](https://arxiv.org/abs/2112.08534)." arXiv:2112.08534.
+- Yang, D. & Zhang, Q. (2000). "[Drift-Independent Volatility Estimation Based on High, Low, Open, and Close Prices](https://doi.org/10.1086/209650)." *Journal of Business* 73(3), 477–492.
+- Zhang, Z., Zohren, S. & Roberts, S. (2019). "[DeepLOB: Deep Convolutional Neural Networks for Limit Order Books](https://arxiv.org/pdf/1808.03668)." *IEEE Transactions on Signal Processing* 67(11), 3001–3012.

@@ -6,7 +6,7 @@ source "$(dirname "$0")/../../scripts/shell_support.sh"
 # Usage:
 #   ./quant-research/scripts/render_docs.sh <doc|all> [pdf|html|both] [--figures]
 #
-# Renders quant-research/<doc>.md to quant-research/rendered/<doc>.{pdf,html}.
+# Renders quant-research/<doc>.md to quant-research/docs/<doc>.{pdf,html}.
 # Format defaults to "both". The mermaid filter is applied only to documents
 # that actually contain mermaid blocks.
 #
@@ -18,8 +18,8 @@ source "$(dirname "$0")/../../scripts/shell_support.sh"
 # outputs are committed and deterministic, so this is only needed after editing
 # a generator.
 
-DOCS_DIR="$BASE_DIR/quant-research"
-OUT_DIR="$DOCS_DIR/rendered"
+QR_DIR="$BASE_DIR/quant-research"
+OUT_DIR="$QR_DIR/docs"
 
 PDF_ARGS=(
     --pdf-engine=xelatex
@@ -69,7 +69,7 @@ resolve_docs() {
     local arg="$1"
     if [[ "$arg" == "all" ]]; then
         local f base
-        for f in "$DOCS_DIR"/*.md; do
+        for f in "$QR_DIR"/*.md; do
             base="$(basename "$f" .md)"
             [[ "$base" == "README" ]] && continue
             echo "$base"
@@ -83,10 +83,10 @@ resolve_docs() {
 
 render() {
     local doc="$1" fmt="$2"
-    local src="$DOCS_DIR/$doc.md"
+    local src="$QR_DIR/$doc.md"
     [[ -f "$src" ]] || fail "No such document: $src"
 
-    local args=(pandoc "quant-research/$doc.md" -o "quant-research/rendered/$doc.$fmt")
+    local args=(pandoc "quant-research/$doc.md" -o "quant-research/docs/$doc.$fmt")
     local uses_mermaid=0
     grep -q '^```mermaid' "$src" && uses_mermaid=1
 
@@ -108,14 +108,14 @@ render() {
     ( cd "$BASE_DIR" && "${args[@]}" )
     (( uses_mermaid )) && rm -f "$BASE_DIR/mermaid-filter.err"
 
-    print_success "quant-research/rendered/$doc.$fmt"
+    print_success "quant-research/docs/$doc.$fmt"
 }
 
 mkdir -p "$OUT_DIR"
 
 if (( RUN_FIGURES )); then
     shopt -s nullglob
-    for gen in "$DOCS_DIR"/figures/*.py; do
+    for gen in "$QR_DIR"/figures/*.py; do
         echo "Generating figures: $(basename "$gen")"
         ( cd "$BASE_DIR" && uv run --no-project --with matplotlib python "$gen" )
     done

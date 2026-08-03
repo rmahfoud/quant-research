@@ -64,37 +64,43 @@
       animation: rise 0.7s ease-out 0.12s both;
     }
 
-    a.doc {
-      display: block;
+    .doc {
       padding: 1.35rem 0;
-      text-decoration: none;
-      color: inherit;
       border-bottom: 1px solid var(--line);
-      transition: transform 0.2s ease, color 0.2s ease;
-    }
-
-    a.doc:hover,
-    a.doc:focus-visible {
-      transform: translateX(4px);
-    }
-
-    a.doc:hover .title,
-    a.doc:focus-visible .title {
-      color: var(--accent-hover);
     }
 
     .title {
       font-family: "Instrument Serif", Georgia, serif;
       font-size: 1.55rem;
       font-weight: 400;
-      color: var(--accent);
+      color: var(--ink);
       margin-bottom: 0.35rem;
-      transition: color 0.2s ease;
     }
 
     .desc {
       color: var(--muted);
       font-size: 0.98rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .formats {
+      display: flex;
+      gap: 1.1rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .formats a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .formats a:hover,
+    .formats a:focus-visible {
+      color: var(--accent-hover);
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
     @keyframes rise {
@@ -115,20 +121,28 @@
     </header>
 
     <nav aria-label="Documents">
-      <a class="doc" href="rendered/momentum_deep_dive.html">
+      <article class="doc">
         <div class="title">Momentum in Financial Markets</div>
         <p class="desc">
           A first-principles tutorial covering measurement, taxonomy,
           implementation, and evaluation of momentum signals.
         </p>
-      </a>
-      <a class="doc" href="rendered/stochastic_processes.html">
+        <div class="formats">
+          <a href="momentum_deep_dive.html">HTML</a>
+          <a href="momentum_deep_dive.pdf">PDF</a>
+        </div>
+      </article>
+      <article class="doc">
         <div class="title">Stochastic Processes</div>
         <p class="desc">
           The formal definition unpacked ingredient by ingredient, with a
           measure-theoretic appendix from σ-algebras up.
         </p>
-      </a>
+        <div class="formats">
+          <a href="stochastic_processes.html">HTML</a>
+          <a href="stochastic_processes.pdf">PDF</a>
+        </div>
+      </article>
     </nav>
   </main>
 </body>

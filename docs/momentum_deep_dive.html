@@ -341,23 +341,25 @@ from first principles</a>
 <ul>
 <li><a href="#a.1-time-series-and-stochastic-processes" id="toc-a.1-time-series-and-stochastic-processes">A.1 Time series and
 stochastic processes</a></li>
-<li><a href="#a.2-estimation-inference-and-the-multiple-testing-apparatus" id="toc-a.2-estimation-inference-and-the-multiple-testing-apparatus">A.2
+<li><a href="#a.2-the-random-walk-in-markets" id="toc-a.2-the-random-walk-in-markets">A.2 The random walk in
+markets</a></li>
+<li><a href="#a.3-estimation-inference-and-the-multiple-testing-apparatus" id="toc-a.3-estimation-inference-and-the-multiple-testing-apparatus">A.3
 Estimation, inference, and the multiple-testing apparatus</a></li>
-<li><a href="#a.3-volatility-and-its-estimation" id="toc-a.3-volatility-and-its-estimation">A.3 Volatility and its
+<li><a href="#a.4-volatility-and-its-estimation" id="toc-a.4-volatility-and-its-estimation">A.4 Volatility and its
 estimation</a></li>
-<li><a href="#a.4-state-space-models-and-filtering" id="toc-a.4-state-space-models-and-filtering">A.4 State-space models and
+<li><a href="#a.5-state-space-models-and-filtering" id="toc-a.5-state-space-models-and-filtering">A.5 State-space models and
 filtering</a></li>
-<li><a href="#a.5-signal-processing" id="toc-a.5-signal-processing">A.5
+<li><a href="#a.6-signal-processing" id="toc-a.6-signal-processing">A.6
 Signal processing</a></li>
-<li><a href="#a.6-portfolio-theory-and-performance-measurement" id="toc-a.6-portfolio-theory-and-performance-measurement">A.6 Portfolio
+<li><a href="#a.7-portfolio-theory-and-performance-measurement" id="toc-a.7-portfolio-theory-and-performance-measurement">A.7 Portfolio
 theory and performance measurement</a></li>
-<li><a href="#a.7-market-microstructure-and-trading-costs" id="toc-a.7-market-microstructure-and-trading-costs">A.7 Market
+<li><a href="#a.8-market-microstructure-and-trading-costs" id="toc-a.8-market-microstructure-and-trading-costs">A.8 Market
 microstructure and trading costs</a></li>
-<li><a href="#a.8-asset-pricing-and-behavioral-concepts" id="toc-a.8-asset-pricing-and-behavioral-concepts">A.8 Asset pricing and
+<li><a href="#a.9-asset-pricing-and-behavioral-concepts" id="toc-a.9-asset-pricing-and-behavioral-concepts">A.9 Asset pricing and
 behavioral concepts</a></li>
-<li><a href="#a.9-machine-learning-in-a-low-signal-setting" id="toc-a.9-machine-learning-in-a-low-signal-setting">A.9 Machine
+<li><a href="#a.10-machine-learning-in-a-low-signal-setting" id="toc-a.10-machine-learning-in-a-low-signal-setting">A.10 Machine
 learning in a low-signal setting</a></li>
-<li><a href="#a10-glossary-of-symbols" id="toc-a10-glossary-of-symbols">A.10 Glossary of symbols</a></li>
+<li><a href="#a11-glossary-of-symbols" id="toc-a11-glossary-of-symbols">A.11 Glossary of symbols</a></li>
 </ul></li>
 <li><a href="#appendix-b-additional-works-cited" id="toc-appendix-b-additional-works-cited">Appendix B: Additional works
 cited</a></li>
@@ -414,7 +416,7 @@ and Jensen’s alpha in §7; <span class="math inline">\(\beta\)</span> is
 a regression slope in §4.2 and a factor loading in §4.6.4 and §7.4.4;
 <span class="math inline">\(\lambda\)</span> is an EWMA decay in §4 and
 Kyle’s price-impact coefficient in §2.6. Each occurrence is
-disambiguated locally, and the full glossary is in <a href="#a10-glossary-of-symbols">Appendix A.10</a>.</p>
+disambiguated locally, and the full glossary is in <a href="#a11-glossary-of-symbols">Appendix A.11</a>.</p>
 <hr />
 <h2 id="table-of-contents">Table of contents</h2>
 <ol type="1">
@@ -6425,14 +6427,11 @@ volatility.</li>
 and emphatically not iid — volatility is predictable (§1.4). This
 hierarchy is why “returns are unforecastable” and “returns are random”
 are different claims.</p>
-<p><strong>Random walk.</strong> <em>Idea:</em> the null hypothesis of
-the whole field. Tomorrow’s price is today’s price plus an
-unforecastable shock, so the only forecast of any future price is the
-current one. Its defining fingerprint is that <strong>variance grows
-linearly with horizon</strong>. <em>Formally:</em> <span class="math inline">\(p_t = p_{t-1} + \varepsilon_t\)</span> with <span class="math inline">\(\{\varepsilon_t\}\)</span> an MDS, giving <span class="math inline">\(\operatorname{Var}(p_{t+q}-p_t) =
-q\sigma^2\)</span>. Every variance-ratio statement in this document is a
-measurement of departure from that linear scaling. <em>Used in:</em>
-§1.2, §4.5.1.</p>
+<p><strong>Random walk.</strong> The null hypothesis of the entire
+field, and the object every measure in §4 is defined against. Because it
+carries more weight than any other single concept here — and because a
+random walk generates far more apparent structure than people expect —
+it has its own section: see <strong>A.2</strong> below.</p>
 <p><strong>Moving-average process and the Wold representation.</strong>
 <em>Idea:</em> any well-behaved stationary series can be written as a
 weighted sum of its own past shocks. The weights <em>are</em> the
@@ -6510,20 +6509,6 @@ line.</strong> Whenever the real profile is not a straight line — and it
 never is, since real markets revert at short horizons and trend at
 intermediate ones — a single <span class="math inline">\(H\)</span> is
 an average over incompatible regimes.</p>
-<p><strong>Diffusion, drift and volatility.</strong> <em>Idea:</em> the
-continuous-time picture: over a short interval, a price moves by a
-predictable part proportional to elapsed <em>time</em> and an
-unpredictable part proportional to the square root of elapsed time.
-Because the two scale differently, sampling more often within a fixed
-calendar span buys you information about the second and none about the
-first. <em>Formally:</em> <span class="math inline">\(dp_t = \mu\,dt +
-\sigma\,dW_t\)</span> with <span class="math inline">\(W\)</span> a
-Wiener process. Over span <span class="math inline">\(T\)</span> sampled
-<span class="math inline">\(n\)</span> times: <span class="math inline">\(\operatorname{SE}(\hat\mu) =
-\sigma/\sqrt{T}\)</span>, independent of <span class="math inline">\(n\)</span>; <span class="math inline">\(\operatorname{SE}(\hat\sigma)\approx\sigma/\sqrt{2n}\)</span>.
-This is <strong>Merton’s (1980) result</strong> and it is the reason
-momentum research is constrained by calendar span rather than by data
-volume. <em>Used in:</em> §6.2.</p>
 <p><strong>Jensen’s inequality and the arithmetic/geometric
 gap.</strong> <em>Idea:</em> compounding punishes volatility. Two assets
 with the same average return but different volatilities do not end up in
@@ -6537,7 +6522,308 @@ expansion,</p>
 }\mu} \;-\; \frac{\sigma^2}{2}\]</span></p>
 <p><em>Used in:</em> §4.1.2.</p>
 <hr />
-<h2 id="a.2-estimation-inference-and-the-multiple-testing-apparatus">A.2
+<h2 id="a.2-the-random-walk-in-markets">A.2 The random walk in
+markets</h2>
+<p>The random walk is not just one model among many. It is the
+<strong>null hypothesis against which every claim in this document is
+defined</strong>: momentum is a departure from it, mean reversion is the
+opposite departure, and the variance ratio is a direct measurement of
+the size of the departure. Getting it right therefore matters twice over
+— once for what it says about markets, and once because <em>a random
+walk manufactures a startling amount of apparent structure on its
+own</em>, and most false discoveries in this field are that structure
+being mistaken for signal.</p>
+<p>Historically, the model is older than everything in §2: Louis
+<strong>Bachelier</strong> (1900) modelled Paris bond prices as what we
+now call Brownian motion, five years before Einstein used the same
+mathematics for suspended particles, and sixty years before the finance
+profession rediscovered it.</p>
+<p><strong>The random walk, in three strengths.</strong> <em>Idea:</em>
+“random walk” names three different claims of increasing severity, and
+conflating them is the single most common confusion in this literature.
+Financial returns satisfy the weakest, arguably satisfy the middle one,
+and definitively violate the strongest — because volatility is
+predictable even when direction is not. A test that rejects the
+strongest version may be detecting nothing but volatility clustering.
+<em>Formally:</em> writing <span class="math inline">\(p_t = \mu +
+p_{t-1} + \varepsilon_t\)</span>, the standard taxonomy (Campbell, Lo
+&amp; MacKinlay, 1997) is:</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th></th>
+<th>Assumption on <span class="math inline">\(\{\varepsilon_t\}\)</span></th>
+<th>Rules out</th>
+<th>Consistent with markets?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RW1</strong></td>
+<td>iid</td>
+<td>Any dependence at all, including in volatility</td>
+<td><strong>No</strong> — volatility clusters</td>
+</tr>
+<tr>
+<td><strong>RW2</strong></td>
+<td>Independent, not identically distributed</td>
+<td>Any dependence, allows changing variance</td>
+<td>Closer, but still strong</td>
+</tr>
+<tr>
+<td><strong>RW3</strong></td>
+<td>Uncorrelated (<span class="math inline">\(\operatorname{Cov}(\varepsilon_t,\varepsilon_{t-k})=0\)</span>)</td>
+<td>Linear predictability only</td>
+<td><strong>Approximately yes</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Momentum is a claim that even RW3 fails. This is why §4.5.1 insists
+on the <strong>heteroskedasticity-robust</strong> variance-ratio
+statistic: the naive version tests RW1, so it rejects on volatility
+clustering alone and tells you nothing about predictability. It also
+maps onto the hierarchy in A.1 — RW3 is white-noise increments, RW2 is
+close to an MDS, RW1 is full independence. <em>Used in:</em> §1.4,
+§4.5.1.</p>
+<p><strong>Why the random walk is the right null: Samuelson’s
+argument.</strong> <em>Idea:</em> unpredictability is not an assumption
+about investor psychology; it is a <em>consequence</em> of forecasting
+being done well. If everyone’s best estimate of tomorrow’s price is
+already today’s price, then whatever moves the price tomorrow must be
+something nobody could forecast — otherwise it would already be in
+today’s price. Randomness is what competent anticipation looks like from
+the outside. <em>Formally:</em> if <span class="math inline">\(p_t =
+\mathbb{E}[p_{t+1}\mid\mathcal{F}_t]\)</span>, then <span class="math inline">\(\varepsilon_{t+1} = p_{t+1}-p_t\)</span> satisfies
+<span class="math inline">\(\mathbb{E}[\varepsilon_{t+1}\mid\mathcal{F}_t]=0\)</span>
+— a martingale difference sequence by construction. Samuelson (1965).
+The general no-arbitrage version is the <strong>First Fundamental
+Theorem of Asset Pricing</strong>: absence of arbitrage is equivalent to
+the existence of a measure <span class="math inline">\(\mathbb{Q}\)</span> under which discounted prices
+are martingales.</p>
+<p><strong>But a random walk is neither necessary nor sufficient for
+efficiency.</strong> <em>Idea:</em> the point on which half the popular
+discussion goes wrong. Efficiency requires prices to be a martingale
+<em>after</em> adjusting for the equilibrium expected return; if that
+expected return varies over time — as risk premia demonstrably do — then
+prices are predictable and the market may still be perfectly efficient.
+Conversely, a price could pass every random-walk test and still be
+wildly mispriced relative to fundamentals. <em>Formally:</em> efficiency
+asserts <span class="math inline">\(\mathbb{E}[r_{t+1}\mid\mathcal{F}_t]
+= \mu_t\)</span> where <span class="math inline">\(\mu_t\)</span> is the
+model-implied required return; a random walk asserts <span class="math inline">\(\mu_t = \mu\)</span> constant. The gap between
+these two statements <em>is</em> the joint hypothesis problem (§1.3),
+and it is why rejecting the random walk does not by itself demonstrate
+inefficiency. <em>Used in:</em> §1.3, §2.2.</p>
+<p><strong>Moments and covariance structure.</strong> <em>Idea:</em> the
+arithmetic that produces every scaling rule in the document. A random
+walk’s level has a variance that grows without bound, which is why
+prices are not stationary and why you must work with returns; but its
+<em>increments</em> are perfectly well behaved. Also worth
+internalizing: the correlation between the price now and the price later
+decays only like a square root, so a random walk is extremely persistent
+in levels while being entirely unpredictable in changes.
+<em>Formally:</em> with <span class="math inline">\(p_t = p_0 + \mu t +
+\sum_{i\le t}\varepsilon_i\)</span> and <span class="math inline">\(\operatorname{Var}(\varepsilon)=\sigma^2\)</span>,</p>
+<p><span class="math display">\[\mathbb{E}[p_t] = p_0 + \mu t, \qquad
+\operatorname{Var}(p_t) = \sigma^2 t, \qquad \operatorname{Cov}(p_s,p_t)
+= \sigma^2\min(s,t), \qquad \operatorname{Corr}(p_s,p_t) =
+\sqrt{s/t}\]</span></p>
+<p>for <span class="math inline">\(s&lt;t\)</span>. Increments over
+non-overlapping intervals are uncorrelated and <span class="math inline">\(\operatorname{Var}(p_{t+q}-p_t) =
+q\sigma^2\)</span> — variance linear in horizon, the fingerprint the
+variance ratio measures.</p>
+<p><strong>The two scaling laws — and the single most consequential
+piece of arithmetic here.</strong> <em>Idea:</em> over a span of <span class="math inline">\(T\)</span> periods, the <em>drift</em> accumulates
+in proportion to <span class="math inline">\(T\)</span> while the
+<em>noise</em> accumulates only in proportion to <span class="math inline">\(\sqrt{T}\)</span>. Signal therefore grows faster
+than noise, but only slowly — and everything about how hard this field
+is follows from that one fact. It sets the annualization conventions, it
+sets how long you must wait to know whether a strategy works, and it is
+the reason more frequent sampling does not help. <em>Formally:</em>
+signal <span class="math inline">\(\mu T\)</span> against noise <span class="math inline">\(\sigma\sqrt T\)</span> gives a <span class="math inline">\(t\)</span>-statistic</p>
+<p><span class="math display">\[t = \frac{\mu T}{\sigma\sqrt T} =
+\frac{\mu}{\sigma}\sqrt{T} = \mathrm{SR}\cdot\sqrt{T}\]</span></p>
+<p>with <span class="math inline">\(\mathrm{SR}\)</span> the annualized
+Sharpe ratio and <span class="math inline">\(T\)</span> in
+<strong>years</strong>. Three direct consequences:</p>
+<ul>
+<li><strong>Annualization.</strong> Mean returns scale by <span class="math inline">\(A\)</span>, volatilities by <span class="math inline">\(\sqrt A\)</span>, and Sharpe ratios by <span class="math inline">\(\sqrt A\)</span> (§7.4.1).</li>
+<li><strong>Detection time.</strong> To reach <span class="math inline">\(t = 2\)</span> requires <span class="math inline">\(T = (2/\mathrm{SR})^2\)</span> years: <strong>4
+years at Sharpe 1.0, 16 years at Sharpe 0.5, 64 years at Sharpe
+0.25.</strong> Since §8.5 puts a realistic momentum program at Sharpe
+0.4–0.8, <em>a full career is barely enough to establish that it
+works</em> — and by the Harvey–Liu–Zhu threshold of <span class="math inline">\(t&gt;3\)</span>, it is not enough. This is the
+honest reason the field leans so hard on breadth, on centuries of data,
+and on the Fundamental Law.</li>
+<li><strong>Frequency does not help.</strong> Both <span class="math inline">\(\mu T\)</span> and <span class="math inline">\(\sigma\sqrt T\)</span> depend on the calendar
+span, not on how finely you slice it. Sampling ten times more often
+within the same span leaves <span class="math inline">\(\operatorname{SE}(\hat\mu) = \sigma/\sqrt
+T\)</span> untouched while cutting <span class="math inline">\(\operatorname{SE}(\hat\sigma)\approx\sigma/\sqrt{2n}\)</span>
+by a factor of three. This is <strong>Merton’s (1980) result</strong>:
+high-frequency data is a gift for the denominator of your signal and
+useless for the numerator. <em>Used in:</em> §6.2, §7.4.1.</li>
+</ul>
+<p><strong>Continuous-time limit: Brownian motion.</strong>
+<em>Idea:</em> zoom out from a random walk with tiny steps and you get a
+continuous process whose shape does not depend on what the individual
+steps looked like. This universality is why the Gaussian appears
+everywhere in finance despite nobody believing returns are Gaussian — it
+is a statement about <em>sums</em>, not about individual returns. It
+also tells you exactly when to distrust it: the convergence needs finite
+variance and weak dependence, and fat-tailed, dependent financial
+returns approach the limit slowly, especially in the tails you care
+about. <em>Formally:</em> <strong>Donsker’s theorem</strong> (the
+functional CLT) says that for iid <span class="math inline">\(\varepsilon_i\)</span> with mean 0 and variance
+<span class="math inline">\(\sigma^2\)</span>,</p>
+<p><span class="math display">\[\frac{1}{\sigma\sqrt
+n}\sum_{i=1}^{\lfloor nt\rfloor}\varepsilon_i \;\Longrightarrow\;
+W_t\]</span></p>
+<p>a standard Wiener process: <span class="math inline">\(W_0=0\)</span>, independent increments, <span class="math inline">\(W_t - W_s \sim N(0, t-s)\)</span>, continuous
+paths that are nowhere differentiable. The non-differentiability is not
+a technicality — it is the formal statement that a price has no
+“velocity”, which is where §1.1’s rejection of the physics metaphor
+comes from.</p>
+<p><strong>Geometric Brownian motion, and why we work in logs.</strong>
+<em>Idea:</em> a plain random walk in price levels allows negative
+prices and makes a $1 move equally significant for a $10 stock and a
+$1,000 one. Making the <em>log</em> price the random walk fixes both:
+prices stay positive, and returns become additive across time. The
+subtlety this exposes is the <strong>variance drag</strong> — an asset
+with a positive expected return still has a lower expected <em>growth
+rate</em>, by exactly half its variance. <em>Formally:</em> <span class="math inline">\(dP_t/P_t = \mu\,dt + \sigma\,dW_t\)</span> makes
+<span class="math inline">\(P_t\)</span> lognormal, and Itô’s lemma
+gives the log dynamics</p>
+<p><span class="math display">\[d\ln P_t = \left(\mu -
+\tfrac{\sigma^2}{2}\right)dt + \sigma\,dW_t\]</span></p>
+<p>so the median outcome grows at <span class="math inline">\(\mu -
+\sigma^2/2\)</span> while the mean grows at <span class="math inline">\(\mu\)</span>. This is the continuous-time form of
+the Jensen gap in A.1, and it is the mechanism behind cross-sectional
+momentum’s mechanical tilt toward volatile names (§4.1.2). <em>Used
+in:</em> §4.1.2.</p>
+<p><strong>A random walk looks like it trends — the entries that cost
+people the most money.</strong> <em>Idea:</em> the deepest practical
+point in this section. Human pattern recognition badly overestimates how
+much structure a random walk <em>should</em> show, so chart-based trend
+identification produces confident findings on data with no
+predictability whatsoever. Three specific results are worth knowing by
+heart because each contradicts the naive intuition:</p>
+<ul>
+<li><strong>The arcsine law.</strong> The fraction of time a driftless
+random walk spends above its starting point does <em>not</em>
+concentrate near one-half. Its limiting density is <span class="math inline">\(f(x) = \frac{1}{\pi\sqrt{x(1-x)}}\)</span> on
+<span class="math inline">\((0,1)\)</span> — <strong>U-shaped</strong>,
+so the single most likely outcomes are spending almost <em>all</em> the
+time above, or almost all below. A random walk typically looks like it
+has a persistent bias. The same arcsine distribution governs the timing
+of the maximum and the time of the last visit to the origin.</li>
+<li><strong>Sign changes are rare.</strong> The expected number of sign
+changes in <span class="math inline">\(n\)</span> steps is
+asymptotically <span class="math inline">\(\sqrt{2n/\pi}\)</span> —
+about <strong>13 times in 250 steps, not 125</strong>. Long one-sided
+excursions are the norm, not the exception, so “this market has been in
+an uptrend for months” is the <em>expected</em> appearance of no trend
+at all.</li>
+<li><strong>Drawdowns are large.</strong> For driftless Brownian motion
+the expected maximum drawdown over <span class="math inline">\([0,T]\)</span> is <span class="math inline">\(\mathbb{E}[\mathrm{MDD}] =
+\sqrt{\pi/2}\;\sigma\sqrt{T} \approx 1.25\,\sigma\sqrt T\)</span> — and
+it grows with the observation window forever. Any drawdown you observe
+must be compared against this benchmark before being called evidence of
+anything (§7.4.3).</li>
+</ul>
+<p>The operational conclusion: <strong>before concluding a market
+trends, compute what a random walk would have looked like.</strong> That
+is what §7.7.3’s synthetic-data check does, and it is why the
+variance-ratio profile with confidence bands beats eyeballing a
+chart.</p>
+<p><strong>Barriers, first passage and the reflection
+principle.</strong> <em>Idea:</em> the mathematics of stops and targets.
+If you exit a position at either a profit target or a stop loss, then
+even with <em>zero</em> edge your hit rate is determined entirely by
+where you put the two barriers — a tight target and a wide stop wins
+most of the time and makes no money. This is the formal reason §7.3.4
+insists hit rate is nearly irrelevant, and it is what triple-barrier
+labeling (A.10) has to be interpreted against. <em>Formally:</em> the
+<strong>reflection principle</strong> gives the distribution of the
+running maximum,</p>
+<p><span class="math display">\[\Pr\Big[\max_{s\le t}W_s \ge a\Big] =
+2\Pr[W_t\ge a]\]</span></p>
+<p>and for a driftless walk started at 0 with an upper barrier <span class="math inline">\(+a\)</span> and a lower barrier <span class="math inline">\(-b\)</span> (the gambler’s-ruin problem),</p>
+<p><span class="math display">\[\Pr[\text{hit } +a \text{ before } -b] =
+\frac{b}{a+b}, \qquad \mathbb{E}[\text{time to hit either}] =
+\frac{ab}{\sigma^2}\]</span></p>
+<p>Note the expected P&amp;L is <span class="math inline">\(\frac{b}{a+b}\cdot a - \frac{a}{a+b}\cdot b =
+0\)</span> regardless of how you set the barriers — the win rate and the
+win size trade off exactly, as they must. <em>Used in:</em> §7.3.4,
+§4.9.</p>
+<p><strong>Spurious regression between random walks.</strong>
+<em>Idea:</em> regress one random walk on another, completely
+independent one, and you will usually get a “significant” coefficient
+and a high <span class="math inline">\(R^2\)</span> — and the problem
+gets <em>worse</em>, not better, with more data. The cause is that the
+regression residuals are themselves a random walk, so the standard
+errors are computed under an assumption that is catastrophically wrong.
+Any regression run on price <em>levels</em> — pairs relationships,
+“leading indicators”, macro variables against prices — is guilty until
+proven innocent. <em>Formally:</em> Granger &amp; Newbold (1974) found
+<span class="math inline">\(|t|&gt;2\)</span> in roughly three-quarters
+of regressions between independent random walks at <span class="math inline">\(T=100\)</span>; Phillips (1986) showed the <span class="math inline">\(t\)</span>-statistic diverges at rate <span class="math inline">\(\sqrt T\)</span> while <span class="math inline">\(R^2\)</span> converges to a non-degenerate random
+variable rather than to zero. The fixes are to regress differences
+rather than levels, or to establish cointegration first. This is also
+the deep reason §4.2.1’s regression-of-price-on-time needs care: fitting
+a trend line to an I(1) series will report an impressively significant
+slope on data with no trend at all.</p>
+<p><strong>Unit roots and why you cannot settle this with a
+test.</strong> <em>Idea:</em> “is this a random walk or a slowly
+mean-reverting series?” is not answerable in finite samples. A process
+reverting with coefficient 0.99 per day is economically enormous — it
+implies a half-life of about 69 days, i.e. shocks fully wash out within
+a year — yet is statistically almost indistinguishable from 1.00 over
+decades. Low power here is not a defect of any particular test; it is
+intrinsic. <em>Formally:</em> the model <span class="math inline">\(p_t
+= \phi p_{t-1}+\varepsilon_t\)</span> has a <strong>unit root</strong>
+at <span class="math inline">\(\phi=1\)</span> (non-stationary, shocks
+permanent) and is stationary for <span class="math inline">\(|\phi|&lt;1\)</span> (shocks decay with half-life
+<span class="math inline">\(\ln 2/\ln(1/\phi)\)</span>). Augmented
+Dickey–Fuller tests <span class="math inline">\(H_0:\phi=1\)</span>, and
+has notoriously low power against local alternatives <span class="math inline">\(\phi = 1 - c/T\)</span>. The practical implication
+for this document: do not expect a hypothesis test to tell you whether
+momentum exists. Estimate the variance-ratio profile and the IC term
+structure, and look at <em>magnitudes with confidence bands</em>.</p>
+<p><strong>What actually breaks the random walk in real markets — and
+why most of it is not tradable.</strong> <em>Idea:</em> the first
+autocorrelation a naive study finds is almost never momentum. It is
+microstructure. Two mechanisms dominate, they have opposite signs, and
+neither is exploitable after costs — so the working assumption should be
+that any autocorrelation found at short horizons is an artefact until
+shown otherwise. <em>Formally:</em></p>
+<ul>
+<li><strong>Bid-ask bounce</strong> induces <em>negative</em>
+first-order autocorrelation in transaction-price returns. Under Roll’s
+(1984) model, with effective spread <span class="math inline">\(s\)</span> and no information flow, <span class="math inline">\(\operatorname{Cov}(\Delta p_t,\Delta p_{t-1}) =
+-s^2/4\)</span>, so the spread can be backed out as <span class="math inline">\(s = 2\sqrt{-\operatorname{Cov}}\)</span>. Prices
+oscillate between bid and ask with no change in value whatsoever. This
+is the microstructure half of why the classic momentum signal skips the
+most recent month (§1.5).</li>
+<li><strong>Stale and non-synchronous prices</strong> induce
+<em>positive</em> autocorrelation, and spurious
+<em>cross</em>-autocorrelation that looks exactly like a lead-lag
+effect. If a large stock trades at 16:00:00 and a small one last traded
+at 15:47, the index return attributes part of today’s news to the small
+stock tomorrow. Lo &amp; MacKinlay (1990b) show this manufactures both
+index-level autocorrelation and large-cap-leads-small-cap patterns from
+nothing — which is directly relevant to term (B) of the profit
+decomposition in §4.6.2, and is why illiquid or smoothed assets show
+inflated Sharpe ratios (§4.3.2). <em>Used in:</em> §1.5, §4.3.2, §4.6.2,
+§6.5.</li>
+</ul>
+<hr />
+<h2 id="a.3-estimation-inference-and-the-multiple-testing-apparatus">A.3
 Estimation, inference, and the multiple-testing apparatus</h2>
 <p><strong>Ordinary least squares and leverage.</strong> <em>Idea:</em>
 fit a line by minimizing squared vertical distances. The fitted slope is
@@ -6772,7 +7058,7 @@ leaves the window; the front is always the window maximum. Total work
 <span class="math inline">\(O(T)\)</span> over <span class="math inline">\(T\)</span> bars. <em>Used in:</em> §4.4.2,
 §4.4.3.</p>
 <hr />
-<h2 id="a.3-volatility-and-its-estimation">A.3 Volatility and its
+<h2 id="a.4-volatility-and-its-estimation">A.4 Volatility and its
 estimation</h2>
 <p><strong>Conditional variance and volatility clustering.</strong>
 <em>Idea:</em> volatility is not a constant to be estimated once but a
@@ -6850,7 +7136,7 @@ Note it is a <em>feedback rule</em>: many funds running it
 simultaneously produce correlated, volatility-triggered deleveraging.
 <em>Used in:</em> §6.7, §8.2.</p>
 <hr />
-<h2 id="a.4-state-space-models-and-filtering">A.4 State-space models and
+<h2 id="a.5-state-space-models-and-filtering">A.5 State-space models and
 filtering</h2>
 <p><strong>State-space model.</strong> <em>Idea:</em> separate what you
 want to know from what you can see. Posit a hidden state that evolves
@@ -6962,7 +7248,7 @@ change given the run so far), the recursion is</p>
 low-probability run lengths are pruned. Adams &amp; MacKay (2007).
 <em>Used in:</em> §4.7.3.</p>
 <hr />
-<h2 id="a.5-signal-processing">A.5 Signal processing</h2>
+<h2 id="a.6-signal-processing">A.6 Signal processing</h2>
 <p><strong>Linear filter and convolution.</strong> <em>Idea:</em> a
 filter is a recipe for producing an output series as a weighted sum of
 the input’s recent past. Every moving average, crossover, EWMA and
@@ -7065,7 +7351,7 @@ wherever <span class="math inline">\(|H|\)</span> peaks — a spectral
 peak in the <em>output</em> with no corresponding structure in the
 input. <em>Used in:</em> §4.8.</p>
 <hr />
-<h2 id="a.6-portfolio-theory-and-performance-measurement">A.6 Portfolio
+<h2 id="a.7-portfolio-theory-and-performance-measurement">A.7 Portfolio
 theory and performance measurement</h2>
 <p><strong>Mean–variance optimization.</strong> <em>Idea:</em> if you
 care about expected return and dislike variance, and you trade off the
@@ -7203,7 +7489,7 @@ Under proportional costs the optimum is a band: trade only to the
 nearest edge of a no-trade region around the target. <em>Used in:</em>
 §6.4, §6.8.</p>
 <hr />
-<h2 id="a.7-market-microstructure-and-trading-costs">A.7 Market
+<h2 id="a.8-market-microstructure-and-trading-costs">A.8 Market
 microstructure and trading costs</h2>
 <p><strong>Limit order book.</strong> <em>Idea:</em> the market is a
 queue of resting buy and sell orders at each price. A trade happens when
@@ -7305,7 +7591,7 @@ shortfall</strong> measures the whole thing empirically as the gap
 between the price when the decision was made and the average realized
 fill. <em>Used in:</em> §6.8.</p>
 <hr />
-<h2 id="a.8-asset-pricing-and-behavioral-concepts">A.8 Asset pricing and
+<h2 id="a.9-asset-pricing-and-behavioral-concepts">A.9 Asset pricing and
 behavioral concepts</h2>
 <p><strong>The three forms of the Efficient Market Hypothesis.</strong>
 <em>Idea:</em> a graded claim about which information is already in the
@@ -7443,7 +7729,7 @@ not real prices</strong>, so any level-based measure (channel position,
 52-week high, price filters) needs care. <em>Used in:</em> §6.5,
 §6.10.</p>
 <hr />
-<h2 id="a.9-machine-learning-in-a-low-signal-setting">A.9 Machine
+<h2 id="a.10-machine-learning-in-a-low-signal-setting">A.10 Machine
 learning in a low-signal setting</h2>
 <p><strong>Bias–variance trade-off.</strong> <em>Idea:</em> prediction
 error decomposes into error from a model too rigid to capture the truth
@@ -7542,7 +7828,7 @@ with <span class="math inline">\(d\in(0,1)\)</span>, applied to log
 prices and truncated by weight threshold; choose the smallest <span class="math inline">\(d\)</span> passing an ADF test (López de Prado,
 2018). <em>Used in:</em> §3.2.</p>
 <hr />
-<h2 id="a10-glossary-of-symbols">A.10 Glossary of symbols</h2>
+<h2 id="a11-glossary-of-symbols">A.11 Glossary of symbols</h2>
 <table>
 <colgroup>
 <col style="width: 33%" />
@@ -7712,7 +7998,7 @@ autocorrelation</td>
 t}\)</span></td>
 <td>State; transition; observation matrix; Kalman gain; state
 covariance</td>
-<td>§4.7.1, A.4</td>
+<td>§4.7.1, A.5</td>
 </tr>
 <tr>
 <td><span class="math inline">\(S_t,\;\Pi\)</span></td>
@@ -7771,6 +8057,10 @@ Changepoint Detection.” arXiv:0710.3742.</li>
 <li>Alexander, S. (1961). “Price Movements in Speculative Markets:
 Trends or Random Walks.” <em>Industrial Management Review</em> 2(2),
 7–26.</li>
+<li>Bachelier, L. (1900). <em>Théorie de la spéculation.</em>
+<em>Annales Scientifiques de l’École Normale Supérieure</em> 3(17),
+21–86. <em>(The original random-walk model of prices, five years before
+Einstein.)</em></li>
 <li>Baz, J., Granger, N., Harvey, C. R., Le Roux, N. &amp; Rattray, S.
 (2015). “Dissecting Investment Strategies in the Cross Section and Time
 Series.” SSRN 2695101. <em>(Source of the volatility-normalized MACD and
@@ -7800,10 +8090,16 @@ Finance</em> 53(4), 1311–1333.</li>
 <li>Campbell, J. &amp; Thompson, S. (2008). “Predicting Excess Stock
 Returns Out of Sample: Can Anything Beat the Historical Average?”
 <em>RFS</em> 21(4), 1509–1531.</li>
+<li>Campbell, J. Y., Lo, A. W. &amp; MacKinlay, A. C. (1997). <em>The
+Econometrics of Financial Markets.</em> Princeton University Press.
+<em>(Source of the RW1/RW2/RW3 taxonomy.)</em></li>
 <li>Chan, L., Jegadeesh, N. &amp; Lakonishok, J. (1996). “Momentum
 Strategies.” <em>Journal of Finance</em> 51(5), 1681–1713.</li>
 <li>Cooper, M., Gutierrez, R. &amp; Hameed, A. (2004). “Market States
 and Momentum.” <em>Journal of Finance</em> 59(3), 1345–1365.</li>
+<li>Dickey, D. &amp; Fuller, W. (1979). “Distribution of the Estimators
+for Autoregressive Time Series with a Unit Root.” <em>JASA</em> 74(366),
+427–431.</li>
 <li>Erb, C. &amp; Harvey, C. (2006). “The Strategic and Tactical Value
 of Commodity Futures.” <em>Financial Analysts Journal</em> 62(2),
 69–97.</li>
@@ -7827,6 +8123,8 @@ Price Volatilities from Historical Data.” <em>Journal of Business</em>
 <li>Goyal, A. &amp; Welch, I. (2008). “A Comprehensive Look at the
 Empirical Performance of Equity Premium Prediction.” <em>RFS</em> 21(4),
 1455–1508.</li>
+<li>Granger, C. &amp; Newbold, P. (1974). “Spurious Regressions in
+Econometrics.” <em>Journal of Econometrics</em> 2(2), 111–120.</li>
 <li>Grossman, S. &amp; Stiglitz, J. (1980). “On the Impossibility of
 Informationally Efficient Markets.” <em>American Economic Review</em>
 70(3), 393–408.</li>
@@ -7853,11 +8151,23 @@ of Momentum Profits.” <em>JFE</em> 71(2), 349–380.</li>
 <li>Levin, D., Lyons, T. &amp; Ni, H. (2013). “Learning from the Past,
 Predicting the Statistics for the Future, Learning an Evolving System.”
 arXiv:1309.0260. <em>(Path signatures.)</em></li>
+<li>Lo, A. W. &amp; MacKinlay, A. C. (1990b). “An Econometric Analysis
+of Nonsynchronous Trading.” <em>Journal of Econometrics</em> 45(1–2),
+181–211. <em>(Distinct from the 1990 contrarian-profits paper, §3.3 item
+10.)</em></li>
+<li>Magdon-Ismail, M., Atiya, A., Pratap, A. &amp; Abu-Mostafa, Y.
+(2004). “On the Maximum Drawdown of a Brownian Motion.” <em>Journal of
+Applied Probability</em> 41(1), 147–161.</li>
 <li>Merton, R. (1980). “On Estimating the Expected Return on the
 Market.” <em>JFE</em> 8(4), 323–361.</li>
 <li>Parkinson, M. (1980). “The Extreme Value Method for Estimating the
 Variance of the Rate of Return.” <em>Journal of Business</em> 53(1),
 61–65.</li>
+<li>Phillips, P. C. B. (1986). “Understanding Spurious Regressions in
+Econometrics.” <em>Journal of Econometrics</em> 33(3), 311–340.</li>
+<li>Roll, R. (1984). “A Simple Implicit Measure of the Effective Bid-Ask
+Spread in an Efficient Market.” <em>Journal of Finance</em> 39(4),
+1127–1139.</li>
 <li>Samuelson, P. (1965). “Proof That Properly Anticipated Prices
 Fluctuate Randomly.” <em>Industrial Management Review</em> 6(2),
 41–49.</li>

@@ -35,7 +35,7 @@ Examples:
 ```
 
 
-Output lands in `rendered/` (gitignored).
+Output lands in `docs/` (gitignored).
 
 `--figures` regenerates plots under `figures/` before rendering. Those outputs are committed, so this is only needed after editing a generator.
 

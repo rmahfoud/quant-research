@@ -3,7 +3,7 @@
 The HTML build uses an interactive canvas version of the same picture; this
 renders the equivalent still for LaTeX. Run from the repo root:
 
-    uv run --no-project --with matplotlib python docs/figures/random_walk_ensemble.py
+    uv run --no-project --with matplotlib python quant-research/figures/random_walk_ensemble.py
 """
 
 import os

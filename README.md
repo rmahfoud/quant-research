@@ -19,20 +19,21 @@ brew install basictex        # macOS
 # or: apt install texlive-latex-base texlive-fonts-recommended texlive-latex-extra
 ```
 
-On macOS after installing BasicTeX, ensure `/Library/TeX/texbin` is on your `PATH` (or open a new shell — `render_docs.sh` also adds it when needed).
+On macOS after installing BasicTeX, ensure `/Library/TeX/texbin` is on your `PATH` (or open a new shell — `scripts/render_docs.sh` also adds it when needed).
 
 ## Rendering
 
 ```bash
-./render_docs.sh <doc|all> [pdf|html|both] [--figures]
+./scripts/render_docs.sh <doc|all> [pdf|html|both] [--figures]
 ```
 
 Examples:
 
 ```bash
-./render_docs.sh stochastic_processes
-./render_docs.sh all --figures
+./scripts/render_docs.sh stochastic_processes
+./scripts/render_docs.sh all --figures
 ```
+
 
 Output lands in `rendered/` (gitignored).
 

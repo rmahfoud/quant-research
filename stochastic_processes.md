@@ -350,7 +350,7 @@ The picture to hold is an ensemble of sample paths fanning out from a common ori
 
 ```{=latex}
 \begin{center}
-\includegraphics[width=\linewidth]{docs/figures/random_walk_ensemble.pdf}
+\includegraphics[width=\linewidth]{quant-research/figures/random_walk_ensemble.pdf}
 \end{center}
 ```
 

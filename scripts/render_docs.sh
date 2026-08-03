@@ -1,23 +1,24 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-source "$(dirname "$0")/../scripts/shell_support.sh"
+source "$(dirname "$0")/../../scripts/shell_support.sh"
 
 # Usage:
-#   ./docs/render_docs.sh <doc|all> [pdf|html|both] [--figures]
+#   ./quant-research/scripts/render_docs.sh <doc|all> [pdf|html|both] [--figures]
 #
-# Renders docs/<doc>.md to docs/rendered/<doc>.{pdf,html} with pandoc.
+# Renders quant-research/<doc>.md to quant-research/rendered/<doc>.{pdf,html}.
 # Format defaults to "both". The mermaid filter is applied only to documents
 # that actually contain mermaid blocks.
 #
-#   ./docs/render_docs.sh momentum_deep_dive
-#   ./docs/render_docs.sh stochastic_processes pdf
-#   ./docs/render_docs.sh all --figures
+#   ./quant-research/scripts/render_docs.sh momentum_deep_dive
+#   ./quant-research/scripts/render_docs.sh stochastic_processes pdf
+#   ./quant-research/scripts/render_docs.sh all --figures
 #
-# --figures first re-runs every docs/figures/*.py generator. Those outputs are
-# committed and deterministic, so this is only needed after editing a generator.
+# --figures first re-runs every quant-research/figures/*.py generator. Those
+# outputs are committed and deterministic, so this is only needed after editing
+# a generator.
 
-DOCS_DIR="$BASE_DIR/docs"
+DOCS_DIR="$BASE_DIR/quant-research"
 OUT_DIR="$DOCS_DIR/rendered"
 
 PDF_ARGS=(
@@ -76,7 +77,8 @@ resolve_docs() {
         return
     fi
     arg="${arg%.md}"
-    echo "${arg#docs/}"
+    arg="${arg#quant-research/}"
+    echo "$arg"
 }
 
 render() {
@@ -84,7 +86,7 @@ render() {
     local src="$DOCS_DIR/$doc.md"
     [[ -f "$src" ]] || fail "No such document: $src"
 
-    local args=(pandoc "docs/$doc.md" -o "docs/rendered/$doc.$fmt")
+    local args=(pandoc "quant-research/$doc.md" -o "quant-research/rendered/$doc.$fmt")
     local uses_mermaid=0
     grep -q '^```mermaid' "$src" && uses_mermaid=1
 
@@ -106,7 +108,7 @@ render() {
     ( cd "$BASE_DIR" && "${args[@]}" )
     (( uses_mermaid )) && rm -f "$BASE_DIR/mermaid-filter.err"
 
-    print_success "docs/rendered/$doc.$fmt"
+    print_success "quant-research/rendered/$doc.$fmt"
 }
 
 mkdir -p "$OUT_DIR"

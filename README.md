@@ -47,3 +47,5 @@ Output lands in `docs/` (gitignored).
 | `stochastic_processes.md` | LaTeX math; HTML gets an interactive canvas figure, PDF a static plot |
 
 HTML output is a single self-contained file (offline-usable). PDF and HTML may diverge where a document uses format-specific figures.
+
+Published site: [rmahfoud.github.io/quant-research](https://rmahfoud.github.io/quant-research/)

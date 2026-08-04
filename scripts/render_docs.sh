@@ -34,6 +34,8 @@ HTML_ARGS=(
     --embed-resources
     --toc --toc-depth=2
     --mathjax
+    # Reading widget (theme + text size). HTML only; the PDF is unaffected.
+    --include-in-header=quant-research/assets/reading_widget.html
     -V maxwidth=64em
     -V margin-left=32px
     -V margin-right=32px

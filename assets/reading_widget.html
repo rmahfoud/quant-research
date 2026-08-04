@@ -1,0 +1,373 @@
+<!-- Reading widget: theme + text size control for rendered HTML documents.
+
+     Injected into <head> via pandoc --include-in-header (HTML output only).
+     Self-contained: no external fonts, icons, or scripts, so the page stays
+     usable offline under --embed-resources.
+
+     Class/variable prefix is "rdw-" to avoid colliding with the "rw-" prefix
+     used by the random-walk figure in stochastic_processes.md.
+-->
+
+<style>
+  :root {
+    --rdw-size: 17.5px;
+
+    --rdw-bg: #fdfdfd;
+    --rdw-fg: #1a1a1a;
+    --rdw-muted: #5c6570;
+    --rdw-rule: #d8dde3;
+    --rdw-link: #0b6e4f;
+    --rdw-surface: #f4f6f8;
+    --rdw-surface-2: #eceff3;
+    /* Figures are opaque images; they only need a backing plate in dark mode. */
+    --rdw-plate: transparent;
+    --rdw-plate-pad: 0;
+  }
+
+  :root[data-theme="dark"] {
+    --rdw-bg: #14181d;
+    --rdw-fg: #d5dbe2;
+    --rdw-muted: #98a3ae;
+    --rdw-rule: #2b323a;
+    --rdw-link: #5cb995;
+    --rdw-surface: #1b2027;
+    --rdw-surface-2: #232a32;
+    --rdw-plate: #f2f4f7;
+    --rdw-plate-pad: 0.85rem 1rem;
+  }
+
+  /* Without JS, still honour the OS preference. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+      --rdw-bg: #14181d;
+      --rdw-fg: #d5dbe2;
+      --rdw-muted: #98a3ae;
+      --rdw-rule: #2b323a;
+      --rdw-link: #5cb995;
+      --rdw-surface: #1b2027;
+      --rdw-surface-2: #232a32;
+      --rdw-plate: #f2f4f7;
+      --rdw-plate-pad: 0.85rem 1rem;
+    }
+  }
+
+  /* ---- document theming ------------------------------------------------ */
+  /* Pandoc's default stylesheet sets html{color,background-color} and does not
+     set font-size, so owning font-size here is uncontested. */
+
+  html {
+    font-size: var(--rdw-size, 17.5px);
+    color: var(--rdw-fg);
+    background-color: var(--rdw-bg);
+  }
+
+  body { color: var(--rdw-fg); }
+
+  h1, h2, h3, h4, h5, h6 { color: var(--rdw-fg); }
+
+  a, a:visited { color: var(--rdw-link); }
+
+  hr { border-color: var(--rdw-rule); background-color: var(--rdw-rule); }
+
+  blockquote {
+    color: var(--rdw-muted);
+    border-left-color: var(--rdw-rule);
+  }
+
+  th, td { border-color: var(--rdw-rule); }
+  thead tr, tr.header { border-color: var(--rdw-rule); }
+
+  code { color: inherit; }
+
+  pre, pre > code.sourceCode {
+    background-color: var(--rdw-surface);
+    border-radius: 4px;
+  }
+
+  :root[data-theme="dark"] pre { color: var(--rdw-fg); }
+
+  /* Inline code needs a surface to stay legible once the page is dark. */
+  :root[data-theme="dark"] p > code,
+  :root[data-theme="dark"] li > code,
+  :root[data-theme="dark"] td > code {
+    background-color: var(--rdw-surface-2);
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+  }
+
+  /* Figures are baked-in SVG/PNG images (mermaid diagrams, matplotlib plots)
+     with dark ink on transparent backgrounds. CSS cannot recolour their
+     interiors, so in dark mode they sit on a light plate and read as printed
+     figures rather than inverting into mud. */
+  :root[data-theme="dark"] img[src^="data:image/"],
+  :root[data-theme="dark"] .rw-fig {
+    background: var(--rdw-plate);
+    padding: var(--rdw-plate-pad);
+    border-radius: 6px;
+  }
+
+  /* ---- the widget ------------------------------------------------------ */
+
+  .rdw {
+    position: fixed;
+    top: 0.9rem;
+    right: 0.9rem;
+    z-index: 999;
+    font-size: 13px;
+    line-height: 1.2;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    opacity: 0.22;
+    transition: opacity 0.3s ease;
+  }
+
+  .rdw:hover,
+  .rdw:focus-within,
+  .rdw[data-open="true"],
+  .rdw[data-intro="true"] { opacity: 1; }
+
+  .rdw-toggle {
+    display: block;
+    margin-left: auto;
+    width: 2.1rem;
+    height: 2.1rem;
+    border: 1px solid var(--rdw-rule);
+    border-radius: 50%;
+    background: var(--rdw-bg);
+    color: var(--rdw-muted);
+    font: inherit;
+    font-size: 12.5px;
+    cursor: pointer;
+  }
+
+  .rdw-toggle:hover { color: var(--rdw-fg); }
+
+  .rdw-panel {
+    margin-top: 0.4rem;
+    padding: 0.7rem 0.8rem;
+    min-width: 11.5rem;
+    border: 1px solid var(--rdw-rule);
+    border-radius: 7px;
+    background: var(--rdw-bg);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.13);
+  }
+
+  .rdw-panel[hidden] { display: none; }
+
+  .rdw-row + .rdw-row { margin-top: 0.65rem; }
+
+  .rdw-label {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--rdw-muted);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .rdw-seg {
+    display: flex;
+    border: 1px solid var(--rdw-rule);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .rdw-seg button {
+    flex: 1;
+    padding: 0.32rem 0.2rem;
+    border: 0;
+    border-left: 1px solid var(--rdw-rule);
+    background: var(--rdw-bg);
+    color: var(--rdw-muted);
+    font: inherit;
+    font-size: 11.5px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .rdw-seg button:first-child { border-left: 0; }
+  .rdw-seg button:hover { background: var(--rdw-surface); color: var(--rdw-fg); }
+
+  .rdw-seg button[aria-checked="true"] {
+    background: var(--rdw-surface-2);
+    color: var(--rdw-fg);
+    font-weight: 600;
+  }
+
+  .rdw-seg button:focus-visible {
+    outline: 2px solid var(--rdw-link);
+    outline-offset: -2px;
+  }
+
+  .rdw-a { font-family: Georgia, "Times New Roman", serif; }
+  .rdw-a1 { font-size: 9px; }
+  .rdw-a2 { font-size: 11px; }
+  .rdw-a3 { font-size: 13px; }
+  .rdw-a4 { font-size: 15px; }
+
+  @media print { .rdw { display: none !important; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rdw, .rdw * { transition: none !important; }
+  }
+</style>
+
+<script>
+  // Runs in <head>, before first paint, so a dark-mode reader never sees a
+  // white flash. Only <html> is needed, which already exists at this point.
+  (function () {
+    var THEME_KEY = "qr-theme";
+    var SIZE_KEY = "qr-size";
+    var SIZES = ["15.5", "17.5", "19.5", "22"];
+    var DEFAULT_SIZE = "17.5";
+
+    var root = document.documentElement;
+    var store = null;
+    try { store = window.localStorage; } catch (e) { /* private mode */ }
+
+    function read(key, fallback) {
+      try { return (store && store.getItem(key)) || fallback; }
+      catch (e) { return fallback; }
+    }
+    function write(key, value) {
+      try { store && store.setItem(key, value); } catch (e) { /* ignore */ }
+    }
+
+    var mq = window.matchMedia("(prefers-color-scheme: dark)");
+    var pref = read(THEME_KEY, "auto");
+    if (["auto", "light", "dark"].indexOf(pref) === -1) pref = "auto";
+
+    var size = read(SIZE_KEY, DEFAULT_SIZE);
+    if (SIZES.indexOf(size) === -1) size = DEFAULT_SIZE;
+
+    function resolve(p) {
+      return p === "auto" ? (mq.matches ? "dark" : "light") : p;
+    }
+
+    function applyTheme() {
+      root.setAttribute("data-theme", resolve(pref));
+      root.setAttribute("data-theme-pref", pref);
+    }
+
+    function applySize() {
+      root.style.setProperty("--rdw-size", size + "px");
+    }
+
+    applyTheme();
+    applySize();
+
+    // Track OS changes while the preference is "auto".
+    var onChange = function () { if (pref === "auto") applyTheme(); };
+    if (mq.addEventListener) mq.addEventListener("change", onChange);
+    else if (mq.addListener) mq.addListener(onChange);
+
+    function seg(labelText, groupLabel, items, current, onPick) {
+      var row = document.createElement("div");
+      row.className = "rdw-row";
+
+      var label = document.createElement("span");
+      label.className = "rdw-label";
+      label.textContent = labelText;
+      row.appendChild(label);
+
+      var group = document.createElement("div");
+      group.className = "rdw-seg";
+      group.setAttribute("role", "radiogroup");
+      group.setAttribute("aria-label", groupLabel);
+
+      items.forEach(function (item) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.setAttribute("role", "radio");
+        b.setAttribute("aria-label", item.label);
+        b.setAttribute("aria-checked", String(item.value === current));
+        b.innerHTML = item.html;
+        b.addEventListener("click", function () {
+          Array.prototype.forEach.call(group.children, function (c) {
+            c.setAttribute("aria-checked", "false");
+          });
+          b.setAttribute("aria-checked", "true");
+          onPick(item.value);
+        });
+        group.appendChild(b);
+      });
+
+      row.appendChild(group);
+      return row;
+    }
+
+    function build() {
+      var wrap = document.createElement("div");
+      wrap.className = "rdw";
+      wrap.setAttribute("data-open", "false");
+
+      var toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "rdw-toggle";
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Reading settings");
+      toggle.title = "Reading settings";
+      toggle.innerHTML = '<span class="rdw-a">Aa</span>';
+
+      var panel = document.createElement("div");
+      panel.className = "rdw-panel";
+      panel.hidden = true;
+
+      panel.appendChild(seg("Theme", "Colour theme", [
+        { value: "auto", label: "Match system", html: "Auto" },
+        { value: "light", label: "Light", html: "Light" },
+        { value: "dark", label: "Dark", html: "Dark" }
+      ], pref, function (v) {
+        pref = v;
+        write(THEME_KEY, v);
+        applyTheme();
+      }));
+
+      panel.appendChild(seg("Text size", "Text size", [
+        { value: SIZES[0], label: "Small", html: '<span class="rdw-a rdw-a1">A</span>' },
+        { value: SIZES[1], label: "Medium", html: '<span class="rdw-a rdw-a2">A</span>' },
+        { value: SIZES[2], label: "Large", html: '<span class="rdw-a rdw-a3">A</span>' },
+        { value: SIZES[3], label: "Extra large", html: '<span class="rdw-a rdw-a4">A</span>' }
+      ], size, function (v) {
+        size = v;
+        write(SIZE_KEY, v);
+        applySize();
+      }));
+
+      function setOpen(open) {
+        panel.hidden = !open;
+        wrap.setAttribute("data-open", String(open));
+        toggle.setAttribute("aria-expanded", String(open));
+      }
+
+      toggle.addEventListener("click", function () {
+        setOpen(panel.hidden);
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !panel.hidden) {
+          setOpen(false);
+          toggle.focus();
+        }
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!panel.hidden && !wrap.contains(e.target)) setOpen(false);
+      });
+
+      wrap.appendChild(toggle);
+      wrap.appendChild(panel);
+      document.body.appendChild(wrap);
+
+      // Show at full opacity briefly so the control is discoverable, then let
+      // it settle back to the faint resting state.
+      wrap.setAttribute("data-intro", "true");
+      setTimeout(function () { wrap.removeAttribute("data-intro"); }, 2600);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", build);
+    } else {
+      build();
+    }
+  })();
+</script>

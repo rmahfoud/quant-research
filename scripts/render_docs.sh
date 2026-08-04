@@ -71,7 +71,7 @@ resolve_docs() {
         local f base
         for f in "$QR_DIR"/*.md; do
             base="$(basename "$f" .md)"
-            [[ "$base" == "README" ]] && continue
+            [[ "$base" == "README" || "$base" == "AGENTS" ]] && continue
             echo "$base"
         done
         return

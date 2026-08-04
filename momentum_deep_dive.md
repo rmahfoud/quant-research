@@ -3201,3 +3201,7 @@ with a decaying kernel $G$ fine-tuned against the flow autocorrelation to leave 
 - Wood, K., Giegerich, S., Roberts, S. & Zohren, S. (2021). "[Trading with the Momentum Transformer](https://arxiv.org/abs/2112.08534)." arXiv:2112.08534.
 - Yang, D. & Zhang, Q. (2000). "[Drift-Independent Volatility Estimation Based on High, Low, Open, and Close Prices](https://doi.org/10.1086/209650)." *Journal of Business* 73(3), 477–492.
 - Zhang, Z., Zohren, S. & Roberts, S. (2019). "[DeepLOB: Deep Convolutional Neural Networks for Limit Order Books](https://arxiv.org/pdf/1808.03668)." *IEEE Transactions on Signal Processing* 67(11), 3001–3012.
+
+---
+
+[Index](index.html) · [Source](https://github.com/rmahfoud/quant-research)

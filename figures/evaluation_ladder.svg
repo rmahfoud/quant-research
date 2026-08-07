@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 560" width="640" height="560" role="img" aria-labelledby="el-title">
+  <title id="el-title">The five-stage evaluation ladder: prediction, signal quality, strategy, statistical validity, deployability.</title>
+  <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" fill="#10171B">
+
+    <defs>
+      <g id="stage-arrow">
+        <path d="M 32,0 L 32,18 M 27,13 L 32,19 L 37,13" fill="none" stroke="#8A979D" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+      </g>
+    </defs>
+
+    <!-- Stage 1 -->
+    <rect x="0" y="0" width="640" height="88" rx="8" fill="#F4F6F8" stroke="#DCE4E6"/>
+    <rect x="0" y="0" width="5" height="88" rx="2.5" fill="#0B6E75"/>
+    <circle cx="34" cy="44" r="16" fill="#0B6E75"/>
+    <text x="34" y="50" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
+    <text x="64" y="26" font-size="14" font-weight="700" letter-spacing="0.5" fill="#0B6E75">PREDICTION</text>
+    <text x="64" y="50" font-size="15" font-style="italic">Does s_t contain information about r_(t+h)?</text>
+    <text x="64" y="72" font-size="13.2" fill="#58666E">IC, rank IC, IC term structure, predictive R², hit rate</text>
+
+    <use href="#stage-arrow" x="0" y="94"/>
+    <text x="52" y="110" font-size="12.5" font-style="italic" fill="#8A979D">if yes</text>
+
+    <!-- Stage 2 -->
+    <rect x="0" y="118" width="640" height="88" rx="8" fill="#F4F6F8" stroke="#DCE4E6"/>
+    <rect x="0" y="118" width="5" height="88" rx="2.5" fill="#0B6E75"/>
+    <circle cx="34" cy="162" r="16" fill="#0B6E75"/>
+    <text x="34" y="168" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">2</text>
+    <text x="64" y="144" font-size="14" font-weight="700" letter-spacing="0.5" fill="#0B6E75">SIGNAL QUALITY</text>
+    <text x="64" y="168" font-size="15" font-style="italic">Is that information stable, distinct, and usable?</text>
+    <text x="64" y="190" font-size="13.2" fill="#58666E">IC-IR, subsample stability, decay rate, orthogonality to known factors</text>
+
+    <use href="#stage-arrow" x="0" y="212"/>
+    <text x="52" y="228" font-size="12.5" font-style="italic" fill="#8A979D">if yes</text>
+
+    <!-- Stage 3 -->
+    <rect x="0" y="236" width="640" height="88" rx="8" fill="#F4F6F8" stroke="#DCE4E6"/>
+    <rect x="0" y="236" width="5" height="88" rx="2.5" fill="#0B6E75"/>
+    <circle cx="34" cy="280" r="16" fill="#0B6E75"/>
+    <text x="34" y="286" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">3</text>
+    <text x="64" y="262" font-size="14" font-weight="700" letter-spacing="0.5" fill="#0B6E75">STRATEGY</text>
+    <text x="64" y="286" font-size="15" font-style="italic">Does a portfolio built on it make money?</text>
+    <text x="64" y="308" font-size="13.2" fill="#58666E">Sharpe, Sortino, max drawdown, Calmar, skew, alpha/beta</text>
+
+    <use href="#stage-arrow" x="0" y="330"/>
+    <text x="52" y="346" font-size="12.5" font-style="italic" fill="#8A979D">if yes</text>
+
+    <!-- Stage 4 -->
+    <rect x="0" y="354" width="640" height="88" rx="8" fill="#F4F6F8" stroke="#DCE4E6"/>
+    <rect x="0" y="354" width="5" height="88" rx="2.5" fill="#0B6E75"/>
+    <circle cx="34" cy="398" r="16" fill="#0B6E75"/>
+    <text x="34" y="404" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">4</text>
+    <text x="64" y="380" font-size="14" font-weight="700" letter-spacing="0.5" fill="#0B6E75">STATISTICAL VALIDITY</text>
+    <text x="64" y="404" font-size="15" font-style="italic">Would it survive if I&#8217;d never seen this data?</text>
+    <text x="64" y="426" font-size="13.2" fill="#58666E">HAC t-stats, bootstrap, Reality Check, Deflated Sharpe, PBO</text>
+
+    <use href="#stage-arrow" x="0" y="448"/>
+    <text x="52" y="464" font-size="12.5" font-style="italic" fill="#8A979D">if yes</text>
+
+    <!-- Stage 5 -->
+    <rect x="0" y="472" width="640" height="88" rx="8" fill="#F4F6F8" stroke="#DCE4E6"/>
+    <rect x="0" y="472" width="5" height="88" rx="2.5" fill="#0B6E75"/>
+    <circle cx="34" cy="516" r="16" fill="#0B6E75"/>
+    <text x="34" y="522" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">5</text>
+    <text x="64" y="498" font-size="14" font-weight="700" letter-spacing="0.5" fill="#0B6E75">DEPLOYABILITY</text>
+    <text x="64" y="522" font-size="15" font-style="italic">Does it survive costs, capacity, and my existing book?</text>
+    <text x="64" y="544" font-size="13.2" fill="#58666E">net Sharpe, turnover, capacity, marginal contribution, operational risk</text>
+  </g>
+</svg>

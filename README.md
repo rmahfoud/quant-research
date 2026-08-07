@@ -14,6 +14,10 @@ brew install pandoc          # macOS
 # mermaid diagrams (momentum_deep_dive)
 npm install -g mermaid-filter
 
+# rsvg-convert: turns figures/*.svg into the PDFs the LaTeX build needs
+brew install librsvg          # macOS
+# or: apt install librsvg2-bin
+
 # PDF / LaTeX
 brew install basictex        # macOS
 # or: apt install texlive-latex-base texlive-fonts-recommended texlive-latex-extra
@@ -43,7 +47,7 @@ Output lands in `docs/` (gitignored).
 
 | Source | Notes |
 |---|---|
-| `momentum_deep_dive.md` | Mermaid diagrams |
+| `momentum_deep_dive.md` | Mermaid diagrams; hand-authored SVG figures (`figures/*.svg`) |
 | `stochastic_processes.md` | LaTeX math; HTML gets an interactive canvas figure, PDF a static plot |
 
 HTML output is a single self-contained file (offline-usable). PDF and HTML may diverge where a document uses format-specific figures.

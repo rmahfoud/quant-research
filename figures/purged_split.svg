@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 176" width="640" height="176" role="img" aria-labelledby="ps-title">
+  <title id="ps-title">A purged, embargoed train/test split: training observations adjacent to the test block are dropped on both sides.</title>
+  <defs>
+    <pattern id="ps-hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <rect width="7" height="7" fill="#F7EAEF"/>
+      <line x1="0" y1="0" x2="0" y2="7" stroke="#A63D62" stroke-width="1.6" opacity="0.55"/>
+    </pattern>
+  </defs>
+  <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" fill="#10171B">
+
+    <!-- the split -->
+    <g>
+      <rect x="20" y="30" width="180" height="44" fill="#E3E9EB" stroke="#C7D2D6"/>
+      <rect x="200" y="30" width="50" height="44" fill="url(#ps-hatch)" stroke="#A63D62"/>
+      <rect x="250" y="30" width="150" height="44" fill="#0B6E75"/>
+      <rect x="400" y="30" width="68" height="44" fill="url(#ps-hatch)" stroke="#A63D62"/>
+      <rect x="468" y="30" width="152" height="44" fill="#E3E9EB" stroke="#C7D2D6"/>
+    </g>
+
+    <g text-anchor="middle">
+      <text x="110" y="58" font-size="14">train</text>
+      <text x="225" y="58" font-size="12.5" font-weight="600" fill="#A63D62">purge</text>
+      <text x="325" y="58" font-size="15" font-weight="700" letter-spacing="0.8" fill="#FFFFFF">TEST</text>
+      <text x="434" y="58" font-size="12.5" font-weight="600" fill="#A63D62">embargo</text>
+      <text x="544" y="58" font-size="14">train</text>
+    </g>
+
+    <text x="620" y="92" font-size="12.5" font-style="italic" fill="#8A979D" text-anchor="end">time →</text>
+
+    <!-- annotations -->
+    <g fill="none" stroke="#A63D62" stroke-width="1.2">
+      <path d="M 225,76 L 225,102 M 221,97 L 225,103 L 229,97" stroke-linejoin="round"/>
+      <path d="M 434,76 L 434,102 M 430,97 L 434,103 L 438,97" stroke-linejoin="round"/>
+    </g>
+
+    <g font-size="13.5" fill="#58666E" text-anchor="middle">
+      <text x="190" y="122">drop training samples</text>
+      <text x="190" y="138">whose label windows</text>
+      <text x="190" y="154">extend into TEST</text>
+
+      <text x="470" y="122">drop training samples whose</text>
+      <text x="470" y="138">features overlap the test</text>
+      <text x="470" y="154">period&#8217;s serial correlation</text>
+    </g>
+  </g>
+</svg>

@@ -838,18 +838,22 @@ terminal condition <span class="math inline">\(\Psi_\infty = 1\)</span>
 says the price <em>eventually</em> gets there — no permanent mispricing.
 But if <span class="math inline">\(\Psi_0 &lt; 1\)</span>, it gets there
 gradually. An equivalent and more intuitive way to write the same thing
-is</p>
+— writing the value process in the same form, <span class="math inline">\(v_t = c + \sum_{j\ge0}\delta_{t-j}\)</span>, so
+that the same constant sits in both — is</p>
 <p><span class="math display">\[p_t \;=\;
 \underbrace{v_t}_{\text{fundamental value}} \;-\;
 \underbrace{\sum_{j\ge0}\left(1-\Psi_j\right)\delta_{t-j}}_{\text{news
 not yet impounded}}\]</span></p>
-<p>— price is value minus the backlog. The backlog term is stationary
-(since <span class="math inline">\(1-\Psi_j \to 0\)</span>) even though
-<span class="math inline">\(p_t\)</span> and <span class="math inline">\(v_t\)</span> are not, which is what makes the
-model well behaved: the <em>mispricing</em> is bounded, the
-<em>price</em> is a random walk plus a bounded correction. Differencing
-gives the return as a moving average of the same innovations, with
-weights equal to the <strong>per-period</strong> impulse response <span class="math inline">\(\psi_j \equiv \Psi_j - \Psi_{j-1}\)</span>:</p>
+<p>— price is value minus the backlog. The backlog term is stationary —
+this needs <span class="math inline">\(1-\Psi_j \to 0\)</span> fast
+enough to be square-summable, which any finite adjustment window
+trivially satisfies — even though <span class="math inline">\(p_t\)</span> and <span class="math inline">\(v_t\)</span> are not, which is what makes the
+model well behaved: the <em>mispricing</em> is stationary, the
+<em>price</em> is a random walk plus a stationary correction.
+Differencing gives the return as a moving average of the same
+innovations, with weights equal to the <strong>per-period</strong>
+impulse response <span class="math inline">\(\psi_j \equiv \Psi_j -
+\Psi_{j-1}\)</span>:</p>
 <p><span class="math display">\[r_t \;=\; p_t - p_{t-1} \;=\;
 \sum_{j\ge0}\big(\Psi_j - \Psi_{j-1}\big)\,\delta_{t-j} \;=\;
 \sum_{j\ge0}\psi_j\,\delta_{t-j}, \qquad \sum_{j\ge0}\psi_j =
@@ -861,29 +865,50 @@ follow immediately:</p>
 \frac{\sum_{j\ge0}\psi_j\,\psi_{j+k}}{\sum_{j\ge0}\psi_j^2}\]</span></p>
 <p>Everything follows from the <em>sign pattern</em> of <span class="math inline">\(\psi\)</span>. Pure under-reaction means the price
 only ever moves toward value and never past it, i.e. <span class="math inline">\(\psi_j \ge 0\)</span> for all <span class="math inline">\(j\)</span> — and then every term in the numerator
-above is non-negative, so <span class="math inline">\(\rho_k &gt;
-0\)</span> at every lag shorter than the adjustment period (and zero
-beyond it). <strong>A single serially uncorrelated shock to value,
-impounded gradually, manufactures autocorrelated returns.</strong>
-Momentum is the <em>shadow of incomplete adjustment</em>.</p>
+above is non-negative, so <span class="math inline">\(\rho_k \ge
+0\)</span> at every lag, and <span class="math inline">\(\rho_k =
+0\)</span> beyond the adjustment period. (The inequality is strict at
+every lag inside the adjustment window whenever <span class="math inline">\(\psi\)</span> has contiguous support, which is the
+realistic case; a gappy <span class="math inline">\(\psi\)</span> such
+as <span class="math inline">\((\tfrac12, 0, \tfrac12)\)</span> gives
+<span class="math inline">\(\rho_1 = 0\)</span> with <span class="math inline">\(\rho_2 = \tfrac12\)</span>.) <strong>A single
+serially uncorrelated shock to value, impounded gradually, manufactures
+autocorrelated returns.</strong> Momentum is the <em>shadow of
+incomplete adjustment</em>.</p>
 <p>It is worth seeing how sharp this is. If adjustment is instantaneous
 (<span class="math inline">\(\psi_0 = 1\)</span>, all other <span class="math inline">\(\psi_j = 0\)</span>) then <span class="math inline">\(\rho_k = 0\)</span> for all <span class="math inline">\(k\)</span> and there is no momentum. If instead
 half the shock lands immediately and half the next period (<span class="math inline">\(\psi_0 = \psi_1 = \tfrac12\)</span>), then <span class="math inline">\(\sum_j\psi_j^2 = \tfrac12\)</span> and <span class="math inline">\(\sum_j \psi_j\psi_{j+1} = \tfrac14\)</span>,
 giving <span class="math inline">\(\rho_1 = 0.5\)</span> and <span class="math inline">\(\rho_k = 0\)</span> for <span class="math inline">\(k \ge 2\)</span>. <strong>The speed of adjustment
-<em>is</em> the autocorrelation</strong> — they are two descriptions of
-the same number.</p>
+and the return autocorrelation are one fact seen twice.</strong> What is
+general is the mapping, not the number: the two halves coincide here
+only because <span class="math inline">\(\psi_0 = \psi_1\)</span> is
+exactly the configuration that maximizes <span class="math inline">\(\rho_1\)</span> for an MA(1). Land 70% of the
+shock immediately and 30% the next period and you get <span class="math inline">\(\rho_1 = 0.21/0.58 \approx 0.36\)</span>, not
+<span class="math inline">\(0.7\)</span>.</p>
 <p>Two immediate corollaries that most intuitions miss:</p>
 <ol type="1">
-<li><p><strong>Momentum implies eventual reversal.</strong> Because
-<span class="math inline">\(\Psi_\infty = 1\)</span> is a fixed budget,
-an impulse response that undershoots early must catch up later — and if
-it <em>overshoots</em> (the empirically relevant case, <span class="math inline">\(\Psi_K &gt; 1\)</span> for intermediate <span class="math inline">\(K\)</span>), it must come back down. Overshoot
-means some <span class="math inline">\(\psi_j &lt; 0\)</span> at longer
-lags, which is exactly negative autocorrelation at those lags. Momentum
-and long-horizon reversal are two readings of one impulse-response
-function. <strong>[Fact]</strong> Any dataset showing 3–12 month
-momentum in equities also shows 3–5 year reversal (De Bondt &amp;
-Thaler, 1985).</p></li>
+<li><p><strong>Momentum must decay; reversal takes strictly more than
+that.</strong> It is tempting to argue that the fixed budget <span class="math inline">\(\Psi_\infty = 1\)</span> forces reversal, but it
+does not — it only forces momentum to be <em>transient</em>. If <span class="math inline">\(\psi_j \ge 0\)</span> throughout, the price creeps
+up to value and never past it: <span class="math inline">\(\rho_k \ge
+0\)</span> out to the adjustment window, zero beyond, and no reversal at
+any horizon. Reversal requires the separate (and empirically relevant)
+assumption of <strong>overshoot</strong>, <span class="math inline">\(\Psi_K &gt; 1\)</span> for some intermediate <span class="math inline">\(K\)</span>, which the budget then forces back
+down, putting <span class="math inline">\(\psi_j &lt; 0\)</span> at
+longer lags. Two cautions on how much that buys you. It does not make
+<span class="math inline">\(\rho_k\)</span> negative lag by lag: each
+<span class="math inline">\(\rho_k\)</span> is a <em>sum of
+products</em> <span class="math inline">\(\sum_j
+\psi_j\psi_{j+k}\)</span>, so sign-mixed weights can still leave <span class="math inline">\(\rho_k &gt; 0\)</span> at the very lags where the
+negative <span class="math inline">\(\psi\)</span>’s sit. And it is
+necessary but not sufficient for <em>net</em> reversal — as the
+variance-ratio identity in the next subsection makes exact, net reversal
+means <span class="math inline">\(\sum_j\psi_j^2 &gt; 1\)</span>, and
+mild overshoot does not get you there. Momentum and long-horizon
+reversal are two readings of one impulse-response function.
+<strong>[Fact]</strong> Datasets showing 3–12 month momentum in equities
+generally also show 3–5 year reversal (De Bondt &amp; Thaler,
+1985).</p></li>
 <li><p><strong>Momentum is horizon-specific by construction.</strong>
 The sign of the autocorrelation depends on where you sample the impulse
 response. That is why the same asset can be mean-reverting at 1 day,
@@ -899,6 +924,25 @@ Define the <span class="math inline">\(q\)</span>-period
 \frac{\operatorname{Var}(p_t - p_{t-q})}{q \cdot \operatorname{Var}(p_t
 - p_{t-1})} \;=\; 1 + 2\sum_{k=1}^{q-1}\left(1 -
 \frac{k}{q}\right)\rho_k\]</span></p>
+<p>The second equality is the usual Bartlett-weighted expansion. But the
+variance ratio also reads straight off the impulse response, with no
+detour through the autocorrelations: since <span class="math inline">\(p_t - p_{t-q} = \sum_{j\ge0}\left(\Psi_j -
+\Psi_{j-q}\right)\delta_{t-j}\)</span> (adopting <span class="math inline">\(\Psi_j \equiv 0\)</span> for <span class="math inline">\(j &lt; 0\)</span>),</p>
+<p><span class="math display">\[\mathrm{VR}(q) \;=\;
+\frac{\sum_{j\ge0}\left(\Psi_j -
+\Psi_{j-q}\right)^2}{q\,\sum_{j\ge0}\psi_j^2}, \qquad\qquad
+\mathrm{VR}(\infty) \;=\; \frac{1}{\sum_{j\ge0}\psi_j^2}\]</span></p>
+<p>The variance-ratio profile <em>is</em> a picture of <span class="math inline">\(\Psi\)</span>. The limiting case settles corollary
+1 above: under pure under-reaction, <span class="math inline">\(\psi_j
+\ge 0\)</span> and <span class="math inline">\(\sum_j \psi_j =
+1\)</span> together give <span class="math inline">\(\sum_j \psi_j^2 \le
+\left(\max_j \psi_j\right)\sum_j\psi_j \le 1\)</span>, hence <span class="math inline">\(\mathrm{VR}(\infty) \ge 1\)</span>. <strong>No
+amount of merely gradual adjustment can produce net reversal</strong> —
+only overshoot severe enough to push <span class="math inline">\(\sum_j\psi_j^2\)</span> above 1 does. The equality
+case <span class="math inline">\(\sum_j\psi_j^2 = 1\)</span> forces
+<span class="math inline">\(\psi\)</span> to be a single spike — the
+whole shock landing in one period, possibly with a lag — which is the
+random walk.</p>
 <p>Under a random walk, <span class="math inline">\(\mathrm{VR}(q) =
 1\)</span> for all <span class="math inline">\(q\)</span>: variance
 scales linearly with time. Then:</p>
@@ -906,7 +950,7 @@ scales linearly with time. Then:</p>
 <li><span class="math inline">\(\mathrm{VR}(q) &gt; 1\)</span>: the
 <span class="math inline">\(q\)</span>-scale is
 <strong>trending</strong> (prices diffuse faster than a random walk;
-positive net autocorrelation up to lag <span class="math inline">\(q\)</span>).</li>
+positive net autocorrelation out to lag <span class="math inline">\(q-1\)</span>).</li>
 <li><span class="math inline">\(\mathrm{VR}(q) &lt; 1\)</span>: the
 <span class="math inline">\(q\)</span>-scale is
 <strong>mean-reverting</strong>.</li>
@@ -917,18 +961,23 @@ single most informative descriptive statistic about momentum in a
 series. It tells you <em>at what horizon</em> the asset trends, which
 directly sets your lookback. I would rather see a variance-ratio profile
 than a backtest equity curve when evaluating an unfamiliar market.</p>
-<pre><code>   VR(q)
-    1.3 |                    ,--·--·--.
-        |                  ,&#39;          `·.
-    1.1 |               ,·&#39;                `·.
-    1.0 |······················································  random walk
-    0.9 |        ·.  ,&#39;                          `·.
-        |          `·                                 `·-·-·-·
-    0.7 |__________________________________________________________
-         1d    5d    1m    3m    6m    12m   24m   48m      q  (log scale)
-         └ reversal ┘└──── momentum ────┘      └── reversal ──┘
-          (liquidity)   (under-reaction)        (over-reaction /
-                                                 valuation anchor)</code></pre>
+<style>
+
+.mdd-fig {
+display: block; width: 100%; height: auto;
+max-width: 640px; margin: 1.6rem auto;
+
+box-sizing: border-box;
+}
+@media (max-width: 760px) {
+.mdd-fig { width: calc(100% + 64px); max-width: none; margin-left: -32px; margin-right: -32px; }
+}
+@media (max-width: 600px) { 
+.mdd-fig { width: calc(100% + 24px); margin-left: -12px; margin-right: -12px; }
+}
+</style>
+
+<img role="img" aria-label="Schematic variance-ratio profile: short-horizon reversal driven by liquidity, intermediate-horizon momentum from under-reaction, long-horizon reversal from over-reaction." class="mdd-fig" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgMzc2IiB3aWR0aD0iNjQwIiBoZWlnaHQ9IjM3NiIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsbGVkYnk9InZyLXRpdGxlIj4KICA8dGl0bGUgaWQ9InZyLXRpdGxlIj5TY2hlbWF0aWMgdmFyaWFuY2UtcmF0aW8gcHJvZmlsZTogc2hvcnQtaG9yaXpvbiByZXZlcnNhbCwgaW50ZXJtZWRpYXRlLWhvcml6b24gbW9tZW50dW0sIGxvbmctaG9yaXpvbiByZXZlcnNhbC48L3RpdGxlPgogIDxnIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZmlsbD0iIzEwMTcxQiI+CgogICAgPCEtLSBncmlkbGluZXMgLS0+CiAgICA8ZyBzdHJva2U9IiNEQ0U0RTYiIHN0cm9rZS13aWR0aD0iMSI+CiAgICAgIDxsaW5lIHgxPSI3OCIgeTE9IjY0LjYiIHgyPSI2MTYiIHkyPSI2NC42Ii8+CiAgICAgIDxsaW5lIHgxPSI3OCIgeTE9IjEyMy4yIiB4Mj0iNjE2IiB5Mj0iMTIzLjIiLz4KICAgICAgPGxpbmUgeDE9Ijc4IiB5MT0iMTgxLjgiIHgyPSI2MTYiIHkyPSIxODEuOCIvPgogICAgICA8bGluZSB4MT0iNzgiIHkxPSIyNDAuNCIgeDI9IjYxNiIgeTI9IjI0MC40Ii8+CiAgICA8L2c+CgogICAgPCEtLSByYW5kb20td2FsayByZWZlcmVuY2UgLS0+CiAgICA8bGluZSB4MT0iNzgiIHkxPSIxNTIuNSIgeDI9IjYxNiIgeTI9IjE1Mi41IiBzdHJva2U9IiM1ODY2NkUiIHN0cm9rZS13aWR0aD0iMS40IiBzdHJva2UtZGFzaGFycmF5PSI1IDQiLz4KICAgIDx0ZXh0IHg9Ijg4IiB5PSIxNDYiIGZvbnQtc2l6ZT0iMTMuNSIgZm9udC1zdHlsZT0iaXRhbGljIiBmaWxsPSIjNTg2NjZFIj5yYW5kb20gd2FsazwvdGV4dD4KCiAgICA8IS0tIGF4ZXMgLS0+CiAgICA8bGluZSB4MT0iNzgiIHkxPSI0NCIgeDI9Ijc4IiB5Mj0iMjU1IiBzdHJva2U9IiMxMDE3MUIiIHN0cm9rZS13aWR0aD0iMS42Ii8+CiAgICA8bGluZSB4MT0iNzgiIHkxPSIyNTUiIHgyPSI2MTYiIHkyPSIyNTUiIHN0cm9rZT0iIzEwMTcxQiIgc3Ryb2tlLXdpZHRoPSIxLjYiLz4KICAgIDx0ZXh0IHg9IjQ0IiB5PSIzNCIgZm9udC1zaXplPSIxNSIgZm9udC13ZWlnaHQ9IjYwMCI+VlIocSk8L3RleHQ+CgogICAgPCEtLSB5IHRpY2tzIC0tPgogICAgPGcgZm9udC1zaXplPSIxNCIgZmlsbD0iIzU4NjY2RSIgdGV4dC1hbmNob3I9ImVuZCI+CiAgICAgIDx0ZXh0IHg9IjcwIiB5PSI2OS42Ij4xLjM8L3RleHQ+CiAgICAgIDx0ZXh0IHg9IjcwIiB5PSIxMjguMiI+MS4xPC90ZXh0PgogICAgICA8dGV4dCB4PSI3MCIgeT0iMTU3LjUiIGZpbGw9IiMxMDE3MUIiIGZvbnQtd2VpZ2h0PSI2MDAiPjEuMDwvdGV4dD4KICAgICAgPHRleHQgeD0iNzAiIHk9IjE4Ni44Ij4wLjk8L3RleHQ+CiAgICAgIDx0ZXh0IHg9IjcwIiB5PSIyNDUuNCI+MC43PC90ZXh0PgogICAgPC9nPgoKICAgIDwhLS0gcHJvZmlsZSAtLT4KICAgIDxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwMTcxQiIgc3Ryb2tlLXdpZHRoPSIyLjYiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIKICAgICAgICAgIGQ9Ik0gMTAwLDE5NS4wIEwgMTI0LjUsMTkyLjAgTCAxNDksMTg0LjEgTCAxNzMuNSwxNzIuMSBMIDE5OCwxNTcuNSBMIDIyMi41LDE0MS4xIEwgMjQ3LDEyNC40CiAgICAgICAgICAgICBMIDI3MS41LDEwOC4wIEwgMjk2LDkzLjQgTCAzMjAuNSw4MS4zIEwgMzQ1LDczLjQgTCAzNjkuNSw3MC41IEwgMzk0LDc1LjUgTCA0MTguNSw4OC43CiAgICAgICAgICAgICBMIDQ0MywxMDcuNyBMIDQ2Ny41LDEzMC4zIEwgNDkyLDE1NC4zIEwgNTE2LjUsMTc2LjggTCA1NDEsMTk1LjggTCA1NjUuNSwyMDkuMCBMIDU5MCwyMTQuMCIvPgoKICAgIDwhLS0geCB0aWNrcyAtLT4KICAgIDxnIHN0cm9rZT0iIzEwMTcxQiIgc3Ryb2tlLXdpZHRoPSIxLjQiPgogICAgICA8bGluZSB4MT0iMTAwIiB5MT0iMjU1IiB4Mj0iMTAwIiB5Mj0iMjYwIi8+CiAgICAgIDxsaW5lIHgxPSIxNzAiIHkxPSIyNTUiIHgyPSIxNzAiIHkyPSIyNjAiLz4KICAgICAgPGxpbmUgeDE9IjI0MCIgeTE9IjI1NSIgeDI9IjI0MCIgeTI9IjI2MCIvPgogICAgICA8bGluZSB4MT0iMzEwIiB5MT0iMjU1IiB4Mj0iMzEwIiB5Mj0iMjYwIi8+CiAgICAgIDxsaW5lIHgxPSIzODAiIHkxPSIyNTUiIHgyPSIzODAiIHkyPSIyNjAiLz4KICAgICAgPGxpbmUgeDE9IjQ1MCIgeTE9IjI1NSIgeDI9IjQ1MCIgeTI9IjI2MCIvPgogICAgICA8bGluZSB4MT0iNTIwIiB5MT0iMjU1IiB4Mj0iNTIwIiB5Mj0iMjYwIi8+CiAgICAgIDxsaW5lIHgxPSI1OTAiIHkxPSIyNTUiIHgyPSI1OTAiIHkyPSIyNjAiLz4KICAgIDwvZz4KICAgIDxnIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM1ODY2NkUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPgogICAgICA8dGV4dCB4PSIxMDAiIHk9IjI3NiI+MWQ8L3RleHQ+CiAgICAgIDx0ZXh0IHg9IjE3MCIgeT0iMjc2Ij41ZDwvdGV4dD4KICAgICAgPHRleHQgeD0iMjQwIiB5PSIyNzYiPjFtPC90ZXh0PgogICAgICA8dGV4dCB4PSIzMTAiIHk9IjI3NiI+M208L3RleHQ+CiAgICAgIDx0ZXh0IHg9IjM4MCIgeT0iMjc2Ij42bTwvdGV4dD4KICAgICAgPHRleHQgeD0iNDUwIiB5PSIyNzYiPjEybTwvdGV4dD4KICAgICAgPHRleHQgeD0iNTIwIiB5PSIyNzYiPjI0bTwvdGV4dD4KICAgICAgPHRleHQgeD0iNTkwIiB5PSIyNzYiPjQ4bTwvdGV4dD4KICAgIDwvZz4KCiAgICA8IS0tIHJlZ2ltZSBicmFja2V0cyAtLT4KICAgIDxnIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMiI+CiAgICAgIDxwYXRoIHN0cm9rZT0iI0E2M0Q2MiIgZD0iTSAxMDAsMjk2IEwgMTAwLDI5MCBMIDIwNSwyOTAgTCAyMDUsMjk2Ii8+CiAgICAgIDxwYXRoIHN0cm9rZT0iIzBCNkU3NSIgZD0iTSAyMTEsMjk2IEwgMjExLDI5MCBMIDQ4NiwyOTAgTCA0ODYsMjk2Ii8+CiAgICAgIDxwYXRoIHN0cm9rZT0iI0E2M0Q2MiIgZD0iTSA0OTIsMjk2IEwgNDkyLDI5MCBMIDU5MiwyOTAgTCA1OTIsMjk2Ii8+CiAgICA8L2c+CgogICAgPGcgdGV4dC1hbmNob3I9Im1pZGRsZSI+CiAgICAgIDx0ZXh0IHg9IjE1MiIgeT0iMzEyIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSIjQTYzRDYyIj5yZXZlcnNhbDwvdGV4dD4KICAgICAgPHRleHQgeD0iMTUyIiB5PSIzMjgiIGZvbnQtc2l6ZT0iMTMuNSIgZmlsbD0iIzU4NjY2RSI+bGlxdWlkaXR5LDwvdGV4dD4KICAgICAgPHRleHQgeD0iMTUyIiB5PSIzNDIiIGZvbnQtc2l6ZT0iMTMuNSIgZmlsbD0iIzU4NjY2RSI+bWljcm9zdHJ1Y3R1cmU8L3RleHQ+CgogICAgICA8dGV4dCB4PSIzNDgiIHk9IjMxMiIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjYwMCIgZmlsbD0iIzBCNkU3NSI+bW9tZW50dW08L3RleHQ+CiAgICAgIDx0ZXh0IHg9IjM0OCIgeT0iMzI4IiBmb250LXNpemU9IjEzLjUiIGZpbGw9IiM1ODY2NkUiPnVuZGVyLXJlYWN0aW9uPC90ZXh0PgoKICAgICAgPHRleHQgeD0iNTQyIiB5PSIzMTIiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI2MDAiIGZpbGw9IiNBNjNENjIiPnJldmVyc2FsPC90ZXh0PgogICAgICA8dGV4dCB4PSI1NDIiIHk9IjMyOCIgZm9udC1zaXplPSIxMy41IiBmaWxsPSIjNTg2NjZFIj5vdmVyLXJlYWN0aW9uIC88L3RleHQ+CiAgICAgIDx0ZXh0IHg9IjU0MiIgeT0iMzQyIiBmb250LXNpemU9IjEzLjUiIGZpbGw9IiM1ODY2NkUiPnZhbHVhdGlvbiBhbmNob3I8L3RleHQ+CiAgICA8L2c+CgogICAgPHRleHQgeD0iMzQ3IiB5PSIzNjYiIGZvbnQtc2l6ZT0iMTIuNSIgZm9udC1zdHlsZT0iaXRhbGljIiBmaWxsPSIjOEE5NzlEIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5ob3Jpem9uIHEgKGxvZyBzY2FsZSk8L3RleHQ+CiAgPC9nPgo8L3N2Zz4K" alt="Schematic variance-ratio profile: short-horizon reversal driven by liquidity, intermediate-horizon momentum from under-reaction, long-horizon reversal from over-reaction.">
 <p><em>Schematic variance-ratio profile for a typical liquid equity.
 <strong>[Fact]</strong> The three-regime shape — short-horizon reversal,
 intermediate-horizon trend, long-horizon reversal — is robust across US
@@ -954,6 +1003,22 @@ horizon}} - \sigma^2_{\text{short horizon}})/\sigma^2_{\text{short
 horizon}}\)</span>. Comparing raw (un-normalized) variances at two
 horizons would tell you nothing, because the longer one is mechanically
 larger.</p>
+<p>Be careful with the underbrace, though: rearranging that identity
+gives <span class="math inline">\(\sigma^2_{\text{long horizon}} -
+\sigma^2_{\text{short horizon}} = \sigma^2_{\text{short
+horizon}}\left(\mathrm{VR}(q) - 1\right)\)</span>, so the P&amp;L of a
+<em>raw</em> trend rule tracks <span class="math inline">\(\mathrm{VR}(q)-1\)</span> only at fixed <span class="math inline">\(\sigma^2_{\text{short horizon}}\)</span> — the
+proportionality does not survive comparison across assets, or across
+time for one asset whose volatility moves. What removes the leftover
+factor is exactly the normalization every practitioner already applies.
+The raw rule carries two powers of <span class="math inline">\(\sigma_{\text{short horizon}}\)</span> — one in
+the signal, which is a past return, and one in the return it is
+multiplied by. Standardizing the signal by its own volatility
+<em>and</em> sizing the position at <span class="math inline">\(1/\sigma_{\text{short horizon}}\)</span> divides
+out both, leaving <span class="math inline">\(\mathbb{E}[\text{P\&amp;L}] \propto \mathrm{VR}(q)
+- 1\)</span> itself. It is the <strong>fully volatility-scaled</strong>
+trend rule, not the raw one, that is cleanly long the variance ratio —
+which is the version of the statement worth carrying.</p>
 <p><strong>A trend follower is structurally long the variance
 ratio.</strong> That single sentence explains the convexity of CTA
 returns, why trend does well in dispersive crises and badly in choppy
@@ -1344,26 +1409,51 @@ Hypothesis]</strong>. The four-phase description below is a useful
 organizing device with partial empirical support, not an established
 taxonomy. It is worth stating precisely because it clarifies <em>which
 statistical problem you are solving in each phase.</em></p>
-<pre><code>      price
-        │                                       ╭─╮  ╭╮
-        │                                    ╭──╯ ╰──╯╰─╮   ← EXHAUSTION
-        │                              ╭─────╯          ╰╮     vol↑, accel↓,
-        │                        ╭─────╯                 ╰──╮  crowding↑
-        │                 ╭──────╯                          ╰─────╮
-        │           ╭─────╯    ← CONTINUATION                      ╰──── REVERSAL
-        │      ╭────╯            best signal-to-noise                    fast, convex
-        │  ╭───╯   ← INITIATION                                          losses
-        │╭─╯╰╮╭╯     low SNR, high false-positive rate
-        ╰╯   ╰╯
-        └──────────────────────────────────────────────────────────── time
-
-  signal    │  weak, ambiguous │   strong, stable  │ strong but    │ inverts
-  quality   │  many false      │   ρ_k &gt; 0         │ decaying;     │ abruptly
-            │  positives       │                   │ accel &lt; 0     │
-  vol       │  rising          │   moderate,       │ rising        │ spikes
-            │                  │   clustered       │               │
-  what to   │  small size,     │   full size,      │ reduce, tighten│ be flat
-  do        │  wide stops      │   vol-target      │ vol scaling    │ or reversed</code></pre>
+<img role="img" aria-label="The four phases of a trend — initiation, continuation, exhaustion, reversal — drawn on a price path, each posing a different statistical problem." class="mdd-fig" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgMzAwIiB3aWR0aD0iNjQwIiBoZWlnaHQ9IjMwMCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsbGVkYnk9InRsYy10aXRsZSI+CiAgPHRpdGxlIGlkPSJ0bGMtdGl0bGUiPlRoZSBmb3VyIHBoYXNlcyBvZiBhIHRyZW5kOiBpbml0aWF0aW9uLCBjb250aW51YXRpb24sIGV4aGF1c3Rpb24sIHJldmVyc2FsLCBlYWNoIHBvc2luZyBhIGRpZmZlcmVudCBzdGF0aXN0aWNhbCBwcm9ibGVtLjwvdGl0bGU+CiAgPGcgZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmaWxsPSIjMTAxNzFCIj4KCiAgICA8IS0tIHBoYXNlIGJhbmRzIC0tPgogICAgPGc+CiAgICAgIDxyZWN0IHg9IjcwIiB5PSI1MiIgd2lkdGg9IjEyMCIgaGVpZ2h0PSIxOTgiIGZpbGw9IiM4QTk3OUQiIG9wYWNpdHk9IjAuMDciLz4KICAgICAgPHJlY3QgeD0iMTkwIiB5PSI1MiIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxOTgiIGZpbGw9IiMwQjZFNzUiIG9wYWNpdHk9IjAuMDciLz4KICAgICAgPHJlY3QgeD0iMzkwIiB5PSI1MiIgd2lkdGg9IjExMCIgaGVpZ2h0PSIxOTgiIGZpbGw9IiM5QTY0MTAiIG9wYWNpdHk9IjAuMDgiLz4KICAgICAgPHJlY3QgeD0iNTAwIiB5PSI1MiIgd2lkdGg9IjExNSIgaGVpZ2h0PSIxOTgiIGZpbGw9IiNBNjNENjIiIG9wYWNpdHk9IjAuMDciLz4KICAgIDwvZz4KCiAgICA8IS0tIHBoYXNlIGhlYWRpbmdzIC0tPgogICAgPGcgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxNSIgZm9udC13ZWlnaHQ9IjcwMCIgbGV0dGVyLXNwYWNpbmc9IjAuNiI+CiAgICAgIDx0ZXh0IHg9IjEzMCIgeT0iMzMiIGZpbGw9IiM2QzdBODEiPklOSVRJQVRJT048L3RleHQ+CiAgICAgIDx0ZXh0IHg9IjI5MCIgeT0iMzMiIGZpbGw9IiMwQjZFNzUiPkNPTlRJTlVBVElPTjwvdGV4dD4KICAgICAgPHRleHQgeD0iNDQ1IiB5PSIzMyIgZmlsbD0iIzlBNjQxMCI+RVhIQVVTVElPTjwvdGV4dD4KICAgICAgPHRleHQgeD0iNTU3IiB5PSIzMyIgZmlsbD0iI0E2M0Q2MiI+UkVWRVJTQUw8L3RleHQ+CiAgICA8L2c+CiAgICA8ZyBzdHJva2Utd2lkdGg9IjIuNSI+CiAgICAgIDxsaW5lIHgxPSI3MCIgeTE9IjQxIiB4Mj0iMTg4IiB5Mj0iNDEiIHN0cm9rZT0iIzhBOTc5RCIvPgogICAgICA8bGluZSB4MT0iMTkyIiB5MT0iNDEiIHgyPSIzODgiIHkyPSI0MSIgc3Ryb2tlPSIjMEI2RTc1Ii8+CiAgICAgIDxsaW5lIHgxPSIzOTIiIHkxPSI0MSIgeDI9IjQ5OCIgeTI9IjQxIiBzdHJva2U9IiM5QTY0MTAiLz4KICAgICAgPGxpbmUgeDE9IjUwMiIgeTE9IjQxIiB4Mj0iNjE1IiB5Mj0iNDEiIHN0cm9rZT0iI0E2M0Q2MiIvPgogICAgPC9nPgoKICAgIDwhLS0gYXhlcyAtLT4KICAgIDxsaW5lIHgxPSI1MiIgeTE9IjUyIiB4Mj0iNTIiIHkyPSIyNTAiIHN0cm9rZT0iIzEwMTcxQiIgc3Ryb2tlLXdpZHRoPSIxLjYiLz4KICAgIDxwYXRoIGQ9Ik0gNTIsMjUwIEwgNjIyLDI1MCBNIDYxNSwyNDYgTCA2MjIsMjUwIEwgNjE1LDI1NCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTAxNzFCIiBzdHJva2Utd2lkdGg9IjEuNiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogICAgPHRleHQgeD0iMjQiIHk9IjQ2IiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNjAwIj5wcmljZTwvdGV4dD4KICAgIDx0ZXh0IHg9IjYxMiIgeT0iMjQzIiBmb250LXNpemU9IjEyLjUiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZmlsbD0iIzhBOTc5RCIgdGV4dC1hbmNob3I9ImVuZCI+dGltZTwvdGV4dD4KCiAgICA8IS0tIHByaWNlIHBhdGggLS0+CiAgICA8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiMxMDE3MUIiIHN0cm9rZS13aWR0aD0iMi40IiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbGluZWNhcD0icm91bmQiCiAgICAgICAgICBkPSJNIDcwLDIzMiBMIDg1LDIyNiBMIDk4LDIzNiBMIDExMiwyMjggTCAxMjYsMjM4IEwgMTQwLDIyNSBMIDE1NCwyMzIgTCAxNjgsMjE4IEwgMTgyLDIyMiBMIDE5MCwyMTIKICAgICAgICAgICAgIEwgMjA0LDIwNiBMIDIxOCwyMDAgTCAyMzIsMTkwIEwgMjQ2LDE4NiBMIDI2MCwxNzYgTCAyNzQsMTY4IEwgMjg4LDE2MiBMIDMwMiwxNTAgTCAzMTYsMTQ2CiAgICAgICAgICAgICBMIDMzMCwxMzQgTCAzNDQsMTI4IEwgMzU4LDExOCBMIDM3MiwxMTAgTCAzODYsMTAyIEwgMzkwLDEwMAogICAgICAgICAgICAgTCA0MDAsOTIgTCA0MTAsODYgTCA0MjAsOTQgTCA0MzIsODQgTCA0NDQsOTAgTCA0NTYsODAgTCA0NjgsODggTCA0ODAsODIgTCA0OTIsOTIgTCA1MDAsODgKICAgICAgICAgICAgIEwgNTEwLDEwMCBMIDUyMiwxMTggTCA1MzQsMTQwIEwgNTQ2LDE1OCBMIDU1OCwxNzIgTCA1NzAsMTgyIEwgNTgyLDE5MCBMIDU5NCwxOTQgTCA2MDYsMTk2IEwgNjE1LDE5OCIvPgoKICAgIDwhLS0gcGhhc2UgZGl2aWRlcnMgLS0+CiAgICA8ZyBzdHJva2U9IiNCOUM0QzgiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWRhc2hhcnJheT0iNCA0Ij4KICAgICAgPGxpbmUgeDE9IjE5MCIgeTE9IjUyIiB4Mj0iMTkwIiB5Mj0iMjUwIi8+CiAgICAgIDxsaW5lIHgxPSIzOTAiIHkxPSI1MiIgeDI9IjM5MCIgeTI9IjI1MCIvPgogICAgICA8bGluZSB4MT0iNTAwIiB5MT0iNTIiIHgyPSI1MDAiIHkyPSIyNTAiLz4KICAgIDwvZz4KCiAgICA8IS0tIHN0YXRpc3RpY2FsIHByb2JsZW0gcGVyIHBoYXNlIC0tPgogICAgPGcgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMy41IiBmaWxsPSIjNTg2NjZFIj4KICAgICAgPHRleHQgeD0iMTMwIiB5PSIyNzEiPmRldGVjdGlvbjwvdGV4dD4KICAgICAgPHRleHQgeD0iMTMwIiB5PSIyODYiPmxvdyBTTlI8L3RleHQ+CiAgICAgIDx0ZXh0IHg9IjI5MCIgeT0iMjcxIj5lc3RpbWF0aW9uPC90ZXh0PgogICAgICA8dGV4dCB4PSIyOTAiIHk9IjI4NiI+YW5kIHNpemluZzwvdGV4dD4KICAgICAgPHRleHQgeD0iNDQ1IiB5PSIyNzEiPmNoYW5nZS1wb2ludDwvdGV4dD4KICAgICAgPHRleHQgeD0iNDQ1IiB5PSIyODYiPmRldGVjdGlvbjwvdGV4dD4KICAgICAgPHRleHQgeD0iNTU3IiB5PSIyNzEiPmZhc3QsIGNvbnZleDwvdGV4dD4KICAgICAgPHRleHQgeD0iNTU3IiB5PSIyODYiPmxvc3NlczwvdGV4dD4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo=" alt="The four phases of a trend — initiation, continuation, exhaustion, reversal — drawn on a price path, each posing a different statistical problem.">
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Signal quality</th>
+<th>Volatility</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Initiation</strong></td>
+<td>weak, ambiguous; many false positives</td>
+<td>rising</td>
+<td>small size, wide stops</td>
+</tr>
+<tr>
+<td><strong>Continuation</strong></td>
+<td>strong, stable; <span class="math inline">\(\rho_k &gt;
+0\)</span></td>
+<td>moderate, clustered</td>
+<td>full size, vol-target</td>
+</tr>
+<tr>
+<td><strong>Exhaustion</strong></td>
+<td>strong but decaying; acceleration <span class="math inline">\(&lt;
+0\)</span></td>
+<td>rising</td>
+<td>reduce, tighten vol scaling</td>
+</tr>
+<tr>
+<td><strong>Reversal</strong></td>
+<td>inverts abruptly</td>
+<td>spikes</td>
+<td>be flat or reversed</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Initiation.</strong> The statistical problem is
 <em>detection</em>: distinguishing the onset of a persistent drift from
 noise. Signal-to-noise is at its worst here, because by construction you
@@ -2782,23 +2872,10 @@ descending ramp, a crossover a hump, and the regression slope of §4.2.1
 a centred parabola. <em>All of them are the same estimator with
 different weights.</em> This is the single most clarifying fact in
 Section 4, and it explains why they correlate so highly.</p>
-<pre><code>Kernel weights w_k applied to past returns r_{t-k}, by measure
-(all normalized to unit sum; k = lags into the past →)
-
-Lookback return    ████████████████████                     rectangular
-(L-period sum)     └──────── L ────────┘                    w_k = 1/L, k &lt; L
-
-EWMA               █████▓▓▓▓▒▒▒▒░░░░·······················  exponential
-                   ← most weight on recent                  w_k ∝ λ^k
-
-MA displacement    ████████▇▇▆▆▅▅▄▄▃▃▂▂▁▁                   descending ramp
-(P vs MA_n)        ← peak at lag 0, zero at k = n−1          w_k ∝ n−1−k
-
-MA crossover       ▁▃▅▇███▇▅▃▂▁▁                            hump / band-pass
-(fast − slow)      ← peak at k = n_f − 1                    zero beyond n_s−1
-
-Regression slope   ▁▂▄▆▇███████▇▆▄▂▁                        centred parabola
-(over L bars)      └──────── L ────────┘                    w_k ∝ (k+1)(L−1−k)</code></pre>
+<img role="img" aria-label="Kernel weights on past returns implied by five momentum measures: rectangular for a lookback return, exponential for an EWMA, a descending ramp for MA displacement, a hump for a crossover, and a centred parabola for a regression slope." class="mdd-fig" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNDI4IiB3aWR0aD0iNjQwIiBoZWlnaHQ9IjQyOCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsbGVkYnk9Imt3LXRpdGxlIj4KICA8dGl0bGUgaWQ9Imt3LXRpdGxlIj5UaGUga2VybmVsIG9mIHBhc3QtcmV0dXJuIHdlaWdodHMgaW1wbGllZCBieSBmaXZlIG1vbWVudHVtIG1lYXN1cmVzOiByZWN0YW5ndWxhciwgZXhwb25lbnRpYWwsIGRlc2NlbmRpbmcgcmFtcCwgaHVtcCwgY2VudHJlZCBwYXJhYm9sYS48L3RpdGxlPgogIDxnIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZmlsbD0iIzEwMTcxQiI+CgogICAgPHRleHQgeD0iMCIgeT0iMTgiIGZvbnQtc2l6ZT0iMTMuNSIgZm9udC1zdHlsZT0iaXRhbGljIiBmaWxsPSIjNTg2NjZFIj5FdmVyeSBtZWFzdXJlIGlzIGEgd2VpZ2h0ZWQgc3VtIG9mIHBhc3QgcmV0dXJucy4gT25seSB0aGUga2VybmVsIGRpZmZlcnMuPC90ZXh0PgoKICAgIDxnIHN0cm9rZT0iI0RDRTRFNiIgc3Ryb2tlLXdpZHRoPSIxIj4KICAgICAgPGxpbmUgeDE9IjIyNCIgeTE9Ijk2IiB4Mj0iNjE2IiB5Mj0iOTYiLz4KICAgICAgPGxpbmUgeDE9IjIyNCIgeTE9IjE3MCIgeDI9IjYxNiIgeTI9IjE3MCIvPgogICAgICA8bGluZSB4MT0iMjI0IiB5MT0iMjQ0IiB4Mj0iNjE2IiB5Mj0iMjQ0Ii8+CiAgICAgIDxsaW5lIHgxPSIyMjQiIHkxPSIzMTgiIHgyPSI2MTYiIHkyPSIzMTgiLz4KICAgICAgPGxpbmUgeDE9IjIyNCIgeTE9IjM5MiIgeDI9IjYxNiIgeTI9IjM5MiIvPgogICAgPC9nPgoKICAgIDxnIGZpbGw9IiMwQjZFNzUiIGZpbGwtb3BhY2l0eT0iMC4xOCIgc3Ryb2tlPSIjMEI2RTc1IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgogICAgICA8IS0tIHJlY3Rhbmd1bGFyOiBsb29rYmFjayByZXR1cm4gLS0+CiAgICAgIDxwYXRoIGQ9Ik0gMjI0LDk2IEwgMjI0LDYyIEwgNDQwLDYyIEwgNDQwLDk2IFoiLz4KICAgICAgPCEtLSBleHBvbmVudGlhbDogRVdNQSAtLT4KICAgICAgPHBhdGggZD0iTSAyMjQsMTcwIEwgMjI0LDEyNiBMIDI1NCwxMzcuOSBMIDI4NCwxNDYuNiBMIDMxNCwxNTIuOSBMIDM0NCwxNTcuNiBMIDM3NCwxNjAuOSBMIDQwNCwxNjMuNAogICAgICAgICAgICAgICBMIDQzNCwxNjUuMiBMIDQ2NCwxNjYuNSBMIDQ5NCwxNjcuNCBMIDUyNCwxNjguMSBMIDU1NCwxNjguNiBMIDU4NCwxNjkuMCBMIDYxNiwxNjkuMyBMIDYxNiwxNzAgWiIvPgogICAgICA8IS0tIGRlc2NlbmRpbmcgcmFtcDogcHJpY2UgdnMgbW92aW5nIGF2ZXJhZ2UgLS0+CiAgICAgIDxwYXRoIGQ9Ik0gMjI0LDI0NCBMIDIyNCwyMDAgTCA0OTYsMjQ0IFoiLz4KICAgICAgPCEtLSBodW1wIC8gYmFuZC1wYXNzOiBtb3ZpbmctYXZlcmFnZSBjcm9zc292ZXIgLS0+CiAgICAgIDxwYXRoIGQ9Ik0gMjI0LDMxOCBMIDIyNCwzMTUuMyBMIDM0MywyNzQgTCA1ODAsMzE4IFoiLz4KICAgICAgPCEtLSBjZW50cmVkIHBhcmFib2xhOiByZWdyZXNzaW9uIHNsb3BlIC0tPgogICAgICA8cGF0aCBkPSJNIDIyNCwzOTIgTCAyNDgsMzgwLjYgTCAyNzIsMzcwLjkgTCAyOTYsMzYyLjkgTCAzMjAsMzU2LjYgTCAzNDQsMzUyLjAgTCAzNjgsMzQ5LjIgTCAzOTIsMzQ4LjAKICAgICAgICAgICAgICAgTCAzOTYsMzQ4LjAgTCA0MjAsMzQ4LjkgTCA0NDQsMzUxLjQgTCA0NjgsMzU1LjcgTCA0OTIsMzYxLjcgTCA1MTYsMzY5LjQgTCA1NDAsMzc4LjggTCA1NjQsMzkwLjAgTCA1NjgsMzkyIFoiLz4KICAgIDwvZz4KCiAgICA8IS0tIGN1dG9mZiBtYXJrZXJzIC0tPgogICAgPGcgZm9udC1zaXplPSIxMiIgZmlsbD0iIzhBOTc5RCIgZm9udC1zdHlsZT0iaXRhbGljIj4KICAgICAgPHRleHQgeD0iNDQ2IiB5PSI3NiI+TDwvdGV4dD4KICAgICAgPHRleHQgeD0iNTAyIiB5PSIyMzgiPm4g4oiSIDE8L3RleHQ+CiAgICAgIDx0ZXh0IHg9IjU4NiIgeT0iMzEyIj5uX3Mg4oiSIDE8L3RleHQ+CiAgICAgIDx0ZXh0IHg9IjU3NCIgeT0iMzg2Ij5MPC90ZXh0PgogICAgPC9nPgogICAgPGcgc3Ryb2tlPSIjQjlDNEM4IiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1kYXNoYXJyYXk9IjMgMyI+CiAgICAgIDxsaW5lIHgxPSIzNDMiIHkxPSIyNzQiIHgyPSIzNDMiIHkyPSIzMTgiLz4KICAgIDwvZz4KICAgIDx0ZXh0IHg9IjM0MyIgeT0iMjY4IiBmb250LXNpemU9IjEyIiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiM4QTk3OUQiIHRleHQtYW5jaG9yPSJtaWRkbGUiPnBlYWsgYXQgbl9mIOKIkiAxPC90ZXh0PgoKICAgIDwhLS0gcm93IGxhYmVscyAtLT4KICAgIDxnPgogICAgICA8dGV4dCB4PSIwIiB5PSI2MCIgZm9udC1zaXplPSIxNi41IiBmb250LXdlaWdodD0iNjAwIj5Mb29rYmFjayByZXR1cm48L3RleHQ+CiAgICAgIDx0ZXh0IHg9IjAiIHk9Ijc4IiBmb250LXNpemU9IjEzLjUiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZmlsbD0iIzU4NjY2RSI+cmVjdGFuZ3VsYXI8L3RleHQ+CiAgICAgIDx0ZXh0IHg9IjAiIHk9Ijk0IiBmb250LXNpemU9IjEzIiBmb250LWZhbWlseT0iTWVubG8sIENvbnNvbGFzLCBtb25vc3BhY2UiIGZpbGw9IiMwQjZFNzUiPndfayA9IDEvTCwgIGsgJmx0OyBMPC90ZXh0PgoKICAgICAgPHRleHQgeD0iMCIgeT0iMTM0IiBmb250LXNpemU9IjE2LjUiIGZvbnQtd2VpZ2h0PSI2MDAiPkVXTUE8L3RleHQ+CiAgICAgIDx0ZXh0IHg9IjAiIHk9IjE1MiIgZm9udC1zaXplPSIxMy41IiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiM1ODY2NkUiPmV4cG9uZW50aWFsPC90ZXh0PgogICAgICA8dGV4dCB4PSIwIiB5PSIxNjgiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtZmFtaWx5PSJNZW5sbywgQ29uc29sYXMsIG1vbm9zcGFjZSIgZmlsbD0iIzBCNkU3NSI+d19rIOKInSDOu15rPC90ZXh0PgoKICAgICAgPHRleHQgeD0iMCIgeT0iMjA4IiBmb250LXNpemU9IjE2LjUiIGZvbnQtd2VpZ2h0PSI2MDAiPk1BIGRpc3BsYWNlbWVudDwvdGV4dD4KICAgICAgPHRleHQgeD0iMCIgeT0iMjI2IiBmb250LXNpemU9IjEzLjUiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZmlsbD0iIzU4NjY2RSI+ZGVzY2VuZGluZyByYW1wPC90ZXh0PgogICAgICA8dGV4dCB4PSIwIiB5PSIyNDIiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtZmFtaWx5PSJNZW5sbywgQ29uc29sYXMsIG1vbm9zcGFjZSIgZmlsbD0iIzBCNkU3NSI+d19rIOKInSBu4oiSMeKIkms8L3RleHQ+CgogICAgICA8dGV4dCB4PSIwIiB5PSIyODIiIGZvbnQtc2l6ZT0iMTYuNSIgZm9udC13ZWlnaHQ9IjYwMCI+TUEgY3Jvc3NvdmVyPC90ZXh0PgogICAgICA8dGV4dCB4PSIwIiB5PSIzMDAiIGZvbnQtc2l6ZT0iMTMuNSIgZm9udC1zdHlsZT0iaXRhbGljIiBmaWxsPSIjNTg2NjZFIj5odW1wIC8gYmFuZC1wYXNzPC90ZXh0PgogICAgICA8dGV4dCB4PSIwIiB5PSIzMTYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtZmFtaWx5PSJNZW5sbywgQ29uc29sYXMsIG1vbm9zcGFjZSIgZmlsbD0iIzBCNkU3NSI+ZmFzdCDiiJIgc2xvdzwvdGV4dD4KCiAgICAgIDx0ZXh0IHg9IjAiIHk9IjM1NiIgZm9udC1zaXplPSIxNi41IiBmb250LXdlaWdodD0iNjAwIj5SZWdyZXNzaW9uIHNsb3BlPC90ZXh0PgogICAgICA8dGV4dCB4PSIwIiB5PSIzNzQiIGZvbnQtc2l6ZT0iMTMuNSIgZm9udC1zdHlsZT0iaXRhbGljIiBmaWxsPSIjNTg2NjZFIj5jZW50cmVkIHBhcmFib2xhPC90ZXh0PgogICAgICA8dGV4dCB4PSIwIiB5PSIzOTAiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtZmFtaWx5PSJNZW5sbywgQ29uc29sYXMsIG1vbm9zcGFjZSIgZmlsbD0iIzBCNkU3NSI+d19rIOKInSAoaysxKShM4oiSMeKIkmspPC90ZXh0PgogICAgPC9nPgoKICAgIDwhLS0gbGFnIGF4aXMgLS0+CiAgICA8cGF0aCBkPSJNIDIyNCw0MTAgTCA2MTYsNDEwIE0gNjA5LDQwNiBMIDYxNiw0MTAgTCA2MDksNDE0IiBmaWxsPSJub25lIiBzdHJva2U9IiM4QTk3OUQiIHN0cm9rZS13aWR0aD0iMS4yIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgICA8dGV4dCB4PSIyMjQiIHk9IjQyNiIgZm9udC1zaXplPSIxMi41IiBmaWxsPSIjOEE5NzlEIj5rID0gMCwgbW9zdCByZWNlbnQgcmV0dXJuPC90ZXh0PgogICAgPHRleHQgeD0iNjE2IiB5PSI0MjYiIGZvbnQtc2l6ZT0iMTIuNSIgZmlsbD0iIzhBOTc5RCIgdGV4dC1hbmNob3I9ImVuZCI+b2xkZXIgbGFnczwvdGV4dD4KICA8L2c+Cjwvc3ZnPgo=" alt="Kernel weights on past returns implied by five momentum measures: rectangular for a lookback return, exponential for an EWMA, a descending ramp for MA displacement, a hump for a crossover, and a centred parabola for a regression slope.">
+<p><em>Kernel weights <span class="math inline">\(w_k\)</span> applied
+to the return <span class="math inline">\(r_{t-k}\)</span>, all
+normalized to unit sum.</em></p>
 <p><strong>Assumptions.</strong> That a low-pass-filtered price is a
 usable estimate of an unobserved trend level, and that the deviation of
 price from it is informative about direction rather than about
@@ -5576,20 +5653,7 @@ momentum-based trading signals</h1>
 to a signal, or signal-level metrics to a deployment decision.
 Evaluation proceeds in stages, and each stage has its own question, its
 own metrics, and its own failure modes:</p>
-<pre><code>   Stage 1: PREDICTION          &quot;Does s_t contain information about r_{t+h}?&quot;
-     └─ IC, rank IC, IC term structure, predictive R², hit rate
-        ↓ if yes
-   Stage 2: SIGNAL QUALITY      &quot;Is that information stable, distinct, and usable?&quot;
-     └─ IC-IR, subsample stability, decay rate, orthogonality to known factors
-        ↓ if yes
-   Stage 3: STRATEGY            &quot;Does a portfolio built on it make money?&quot;
-     └─ Sharpe, Sortino, max drawdown, Calmar, skew, alpha/beta
-        ↓ if yes
-   Stage 4: STATISTICAL VALIDITY &quot;Would it survive if I&#39;d never seen this data?&quot;
-     └─ HAC t-stats, bootstrap, Reality Check, Deflated Sharpe, PBO
-        ↓ if yes
-   Stage 5: DEPLOYABILITY       &quot;Does it survive costs, capacity, and my existing book?&quot;
-     └─ net Sharpe, turnover, capacity, marginal contribution, operational risk</code></pre>
+<img role="img" aria-label="The five-stage evaluation ladder: prediction, signal quality, strategy, statistical validity, deployability — each with its own question and metrics, advanced only if the previous stage passes." class="mdd-fig" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNTYwIiB3aWR0aD0iNjQwIiBoZWlnaHQ9IjU2MCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsbGVkYnk9ImVsLXRpdGxlIj4KICA8dGl0bGUgaWQ9ImVsLXRpdGxlIj5UaGUgZml2ZS1zdGFnZSBldmFsdWF0aW9uIGxhZGRlcjogcHJlZGljdGlvbiwgc2lnbmFsIHF1YWxpdHksIHN0cmF0ZWd5LCBzdGF0aXN0aWNhbCB2YWxpZGl0eSwgZGVwbG95YWJpbGl0eS48L3RpdGxlPgogIDxnIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZmlsbD0iIzEwMTcxQiI+CgogICAgPGRlZnM+CiAgICAgIDxnIGlkPSJzdGFnZS1hcnJvdyI+CiAgICAgICAgPHBhdGggZD0iTSAzMiwwIEwgMzIsMTggTSAyNywxMyBMIDMyLDE5IEwgMzcsMTMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzhBOTc5RCIgc3Ryb2tlLXdpZHRoPSIxLjYiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgICA8L2c+CiAgICA8L2RlZnM+CgogICAgPCEtLSBTdGFnZSAxIC0tPgogICAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjY0MCIgaGVpZ2h0PSI4OCIgcng9IjgiIGZpbGw9IiNGNEY2RjgiIHN0cm9rZT0iI0RDRTRFNiIvPgogICAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjUiIGhlaWdodD0iODgiIHJ4PSIyLjUiIGZpbGw9IiMwQjZFNzUiLz4KICAgIDxjaXJjbGUgY3g9IjM0IiBjeT0iNDQiIHI9IjE2IiBmaWxsPSIjMEI2RTc1Ii8+CiAgICA8dGV4dCB4PSIzNCIgeT0iNTAiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNGRkZGRkYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjE8L3RleHQ+CiAgICA8dGV4dCB4PSI2NCIgeT0iMjYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI3MDAiIGxldHRlci1zcGFjaW5nPSIwLjUiIGZpbGw9IiMwQjZFNzUiPlBSRURJQ1RJT048L3RleHQ+CiAgICA8dGV4dCB4PSI2NCIgeT0iNTAiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtc3R5bGU9Iml0YWxpYyI+RG9lcyBzX3QgY29udGFpbiBpbmZvcm1hdGlvbiBhYm91dCByXyh0K2gpPzwvdGV4dD4KICAgIDx0ZXh0IHg9IjY0IiB5PSI3MiIgZm9udC1zaXplPSIxMy4yIiBmaWxsPSIjNTg2NjZFIj5JQywgcmFuayBJQywgSUMgdGVybSBzdHJ1Y3R1cmUsIHByZWRpY3RpdmUgUsKyLCBoaXQgcmF0ZTwvdGV4dD4KCiAgICA8dXNlIGhyZWY9IiNzdGFnZS1hcnJvdyIgeD0iMCIgeT0iOTQiLz4KICAgIDx0ZXh0IHg9IjUyIiB5PSIxMTAiIGZvbnQtc2l6ZT0iMTIuNSIgZm9udC1zdHlsZT0iaXRhbGljIiBmaWxsPSIjOEE5NzlEIj5pZiB5ZXM8L3RleHQ+CgogICAgPCEtLSBTdGFnZSAyIC0tPgogICAgPHJlY3QgeD0iMCIgeT0iMTE4IiB3aWR0aD0iNjQwIiBoZWlnaHQ9Ijg4IiByeD0iOCIgZmlsbD0iI0Y0RjZGOCIgc3Ryb2tlPSIjRENFNEU2Ii8+CiAgICA8cmVjdCB4PSIwIiB5PSIxMTgiIHdpZHRoPSI1IiBoZWlnaHQ9Ijg4IiByeD0iMi41IiBmaWxsPSIjMEI2RTc1Ii8+CiAgICA8Y2lyY2xlIGN4PSIzNCIgY3k9IjE2MiIgcj0iMTYiIGZpbGw9IiMwQjZFNzUiLz4KICAgIDx0ZXh0IHg9IjM0IiB5PSIxNjgiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNGRkZGRkYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjI8L3RleHQ+CiAgICA8dGV4dCB4PSI2NCIgeT0iMTQ0IiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNzAwIiBsZXR0ZXItc3BhY2luZz0iMC41IiBmaWxsPSIjMEI2RTc1Ij5TSUdOQUwgUVVBTElUWTwvdGV4dD4KICAgIDx0ZXh0IHg9IjY0IiB5PSIxNjgiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtc3R5bGU9Iml0YWxpYyI+SXMgdGhhdCBpbmZvcm1hdGlvbiBzdGFibGUsIGRpc3RpbmN0LCBhbmQgdXNhYmxlPzwvdGV4dD4KICAgIDx0ZXh0IHg9IjY0IiB5PSIxOTAiIGZvbnQtc2l6ZT0iMTMuMiIgZmlsbD0iIzU4NjY2RSI+SUMtSVIsIHN1YnNhbXBsZSBzdGFiaWxpdHksIGRlY2F5IHJhdGUsIG9ydGhvZ29uYWxpdHkgdG8ga25vd24gZmFjdG9yczwvdGV4dD4KCiAgICA8dXNlIGhyZWY9IiNzdGFnZS1hcnJvdyIgeD0iMCIgeT0iMjEyIi8+CiAgICA8dGV4dCB4PSI1MiIgeT0iMjI4IiBmb250LXNpemU9IjEyLjUiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZmlsbD0iIzhBOTc5RCI+aWYgeWVzPC90ZXh0PgoKICAgIDwhLS0gU3RhZ2UgMyAtLT4KICAgIDxyZWN0IHg9IjAiIHk9IjIzNiIgd2lkdGg9IjY0MCIgaGVpZ2h0PSI4OCIgcng9IjgiIGZpbGw9IiNGNEY2RjgiIHN0cm9rZT0iI0RDRTRFNiIvPgogICAgPHJlY3QgeD0iMCIgeT0iMjM2IiB3aWR0aD0iNSIgaGVpZ2h0PSI4OCIgcng9IjIuNSIgZmlsbD0iIzBCNkU3NSIvPgogICAgPGNpcmNsZSBjeD0iMzQiIGN5PSIyODAiIHI9IjE2IiBmaWxsPSIjMEI2RTc1Ii8+CiAgICA8dGV4dCB4PSIzNCIgeT0iMjg2IiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjRkZGRkZGIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zPC90ZXh0PgogICAgPHRleHQgeD0iNjQiIHk9IjI2MiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjcwMCIgbGV0dGVyLXNwYWNpbmc9IjAuNSIgZmlsbD0iIzBCNkU3NSI+U1RSQVRFR1k8L3RleHQ+CiAgICA8dGV4dCB4PSI2NCIgeT0iMjg2IiBmb250LXNpemU9IjE1IiBmb250LXN0eWxlPSJpdGFsaWMiPkRvZXMgYSBwb3J0Zm9saW8gYnVpbHQgb24gaXQgbWFrZSBtb25leT88L3RleHQ+CiAgICA8dGV4dCB4PSI2NCIgeT0iMzA4IiBmb250LXNpemU9IjEzLjIiIGZpbGw9IiM1ODY2NkUiPlNoYXJwZSwgU29ydGlubywgbWF4IGRyYXdkb3duLCBDYWxtYXIsIHNrZXcsIGFscGhhL2JldGE8L3RleHQ+CgogICAgPHVzZSBocmVmPSIjc3RhZ2UtYXJyb3ciIHg9IjAiIHk9IjMzMCIvPgogICAgPHRleHQgeD0iNTIiIHk9IjM0NiIgZm9udC1zaXplPSIxMi41IiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiM4QTk3OUQiPmlmIHllczwvdGV4dD4KCiAgICA8IS0tIFN0YWdlIDQgLS0+CiAgICA8cmVjdCB4PSIwIiB5PSIzNTQiIHdpZHRoPSI2NDAiIGhlaWdodD0iODgiIHJ4PSI4IiBmaWxsPSIjRjRGNkY4IiBzdHJva2U9IiNEQ0U0RTYiLz4KICAgIDxyZWN0IHg9IjAiIHk9IjM1NCIgd2lkdGg9IjUiIGhlaWdodD0iODgiIHJ4PSIyLjUiIGZpbGw9IiMwQjZFNzUiLz4KICAgIDxjaXJjbGUgY3g9IjM0IiBjeT0iMzk4IiByPSIxNiIgZmlsbD0iIzBCNkU3NSIvPgogICAgPHRleHQgeD0iMzQiIHk9IjQwNCIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iI0ZGRkZGRiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+NDwvdGV4dD4KICAgIDx0ZXh0IHg9IjY0IiB5PSIzODAiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI3MDAiIGxldHRlci1zcGFjaW5nPSIwLjUiIGZpbGw9IiMwQjZFNzUiPlNUQVRJU1RJQ0FMIFZBTElESVRZPC90ZXh0PgogICAgPHRleHQgeD0iNjQiIHk9IjQwNCIgZm9udC1zaXplPSIxNSIgZm9udC1zdHlsZT0iaXRhbGljIj5Xb3VsZCBpdCBzdXJ2aXZlIGlmIEkmIzgyMTc7ZCBuZXZlciBzZWVuIHRoaXMgZGF0YT88L3RleHQ+CiAgICA8dGV4dCB4PSI2NCIgeT0iNDI2IiBmb250LXNpemU9IjEzLjIiIGZpbGw9IiM1ODY2NkUiPkhBQyB0LXN0YXRzLCBib290c3RyYXAsIFJlYWxpdHkgQ2hlY2ssIERlZmxhdGVkIFNoYXJwZSwgUEJPPC90ZXh0PgoKICAgIDx1c2UgaHJlZj0iI3N0YWdlLWFycm93IiB4PSIwIiB5PSI0NDgiLz4KICAgIDx0ZXh0IHg9IjUyIiB5PSI0NjQiIGZvbnQtc2l6ZT0iMTIuNSIgZm9udC1zdHlsZT0iaXRhbGljIiBmaWxsPSIjOEE5NzlEIj5pZiB5ZXM8L3RleHQ+CgogICAgPCEtLSBTdGFnZSA1IC0tPgogICAgPHJlY3QgeD0iMCIgeT0iNDcyIiB3aWR0aD0iNjQwIiBoZWlnaHQ9Ijg4IiByeD0iOCIgZmlsbD0iI0Y0RjZGOCIgc3Ryb2tlPSIjRENFNEU2Ii8+CiAgICA8cmVjdCB4PSIwIiB5PSI0NzIiIHdpZHRoPSI1IiBoZWlnaHQ9Ijg4IiByeD0iMi41IiBmaWxsPSIjMEI2RTc1Ii8+CiAgICA8Y2lyY2xlIGN4PSIzNCIgY3k9IjUxNiIgcj0iMTYiIGZpbGw9IiMwQjZFNzUiLz4KICAgIDx0ZXh0IHg9IjM0IiB5PSI1MjIiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNGRkZGRkYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjU8L3RleHQ+CiAgICA8dGV4dCB4PSI2NCIgeT0iNDk4IiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNzAwIiBsZXR0ZXItc3BhY2luZz0iMC41IiBmaWxsPSIjMEI2RTc1Ij5ERVBMT1lBQklMSVRZPC90ZXh0PgogICAgPHRleHQgeD0iNjQiIHk9IjUyMiIgZm9udC1zaXplPSIxNSIgZm9udC1zdHlsZT0iaXRhbGljIj5Eb2VzIGl0IHN1cnZpdmUgY29zdHMsIGNhcGFjaXR5LCBhbmQgbXkgZXhpc3RpbmcgYm9vaz88L3RleHQ+CiAgICA8dGV4dCB4PSI2NCIgeT0iNTQ0IiBmb250LXNpemU9IjEzLjIiIGZpbGw9IiM1ODY2NkUiPm5ldCBTaGFycGUsIHR1cm5vdmVyLCBjYXBhY2l0eSwgbWFyZ2luYWwgY29udHJpYnV0aW9uLCBvcGVyYXRpb25hbCByaXNrPC90ZXh0PgogIDwvZz4KPC9zdmc+Cg==" alt="The five-stage evaluation ladder: prediction, signal quality, strategy, statistical validity, deployability — each with its own question and metrics, advanced only if the previous stage passes.">
 <p><strong>Fail fast at the top.</strong> Stage 1 is cheap and kills
 most ideas; Stage 5 is expensive. Running a full portfolio backtest on a
 signal whose IC you have not measured is the wrong order, and it is the
@@ -5663,14 +5727,7 @@ measured performance improves over time for purely statistical reasons.
 Do not read that as the strategy getting better.</p>
 <h3 id="walk-forward-validation">7.2.3 Walk-forward validation</h3>
 <p>The core protocol for time-series strategy development:</p>
-<pre><code>   |—— train ——|— test —|
-        |—— train ——|— test —|
-             |—— train ——|— test —|
-                  |—— train ——|— test —|
-   ────────────────────────────────────────────→ time
-
-   Anchored (expanding train) or rolling (fixed-width train).
-   Concatenate the test segments → one OOS performance series.</code></pre>
+<img role="img" aria-label="Walk-forward validation: four successive train/test splits stepping forward through time, whose test segments tile the timeline and concatenate into a single out-of-sample series." class="mdd-fig" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgMzA2IiB3aWR0aD0iNjQwIiBoZWlnaHQ9IjMwNiIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsbGVkYnk9IndmLXRpdGxlIj4KICA8dGl0bGUgaWQ9IndmLXRpdGxlIj5XYWxrLWZvcndhcmQgdmFsaWRhdGlvbjogZm91ciBzdWNjZXNzaXZlIHRyYWluL3Rlc3Qgc3BsaXRzIHdob3NlIHRlc3Qgc2VnbWVudHMgdGlsZSB0aGUgdGltZWxpbmUgYW5kIGNvbmNhdGVuYXRlIGludG8gb25lIG91dC1vZi1zYW1wbGUgc2VyaWVzLjwvdGl0bGU+CiAgPGcgZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmIiBmaWxsPSIjMTAxNzFCIj4KCiAgICA8dGV4dCB4PSI1MiIgeT0iMjAiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZmlsbD0iIzU4NjY2RSI+Rml0IG9uIHRyYWluLCBhcHBseSB1bmNoYW5nZWQgdG8gdGVzdCwgcmVjb3JkLCBhZHZhbmNlLjwvdGV4dD4KCiAgICA8ZyBmb250LXNpemU9IjEzLjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPgogICAgICA8IS0tIHN0ZXAgMSAtLT4KICAgICAgPHRleHQgeD0iMzQiIHk9IjYwIiBmaWxsPSIjOEE5NzlEIj4xPC90ZXh0PgogICAgICA8cmVjdCB4PSI1MiIgeT0iNDAiIHdpZHRoPSIyMjAiIGhlaWdodD0iMzAiIHJ4PSIzIiBmaWxsPSIjRTNFOUVCIiBzdHJva2U9IiNDN0QyRDYiLz4KICAgICAgPHRleHQgeD0iMTYyIiB5PSI2MCI+dHJhaW48L3RleHQ+CiAgICAgIDxyZWN0IHg9IjI3MiIgeT0iNDAiIHdpZHRoPSI4MCIgaGVpZ2h0PSIzMCIgcng9IjMiIGZpbGw9IiMwQjZFNzUiLz4KICAgICAgPHRleHQgeD0iMzEyIiB5PSI2MCIgZmlsbD0iI0ZGRkZGRiIgZm9udC13ZWlnaHQ9IjYwMCI+dGVzdDwvdGV4dD4KCiAgICAgIDwhLS0gc3RlcCAyIC0tPgogICAgICA8dGV4dCB4PSIzNCIgeT0iMTA0IiBmaWxsPSIjOEE5NzlEIj4yPC90ZXh0PgogICAgICA8cmVjdCB4PSIxMzIiIHk9Ijg0IiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjMwIiByeD0iMyIgZmlsbD0iI0UzRTlFQiIgc3Ryb2tlPSIjQzdEMkQ2Ii8+CiAgICAgIDx0ZXh0IHg9IjI0MiIgeT0iMTA0Ij50cmFpbjwvdGV4dD4KICAgICAgPHJlY3QgeD0iMzUyIiB5PSI4NCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjMwIiByeD0iMyIgZmlsbD0iIzBCNkU3NSIvPgogICAgICA8dGV4dCB4PSIzOTIiIHk9IjEwNCIgZmlsbD0iI0ZGRkZGRiIgZm9udC13ZWlnaHQ9IjYwMCI+dGVzdDwvdGV4dD4KCiAgICAgIDwhLS0gc3RlcCAzIC0tPgogICAgICA8dGV4dCB4PSIzNCIgeT0iMTQ4IiBmaWxsPSIjOEE5NzlEIj4zPC90ZXh0PgogICAgICA8cmVjdCB4PSIyMTIiIHk9IjEyOCIgd2lkdGg9IjIyMCIgaGVpZ2h0PSIzMCIgcng9IjMiIGZpbGw9IiNFM0U5RUIiIHN0cm9rZT0iI0M3RDJENiIvPgogICAgICA8dGV4dCB4PSIzMjIiIHk9IjE0OCI+dHJhaW48L3RleHQ+CiAgICAgIDxyZWN0IHg9IjQzMiIgeT0iMTI4IiB3aWR0aD0iODAiIGhlaWdodD0iMzAiIHJ4PSIzIiBmaWxsPSIjMEI2RTc1Ii8+CiAgICAgIDx0ZXh0IHg9IjQ3MiIgeT0iMTQ4IiBmaWxsPSIjRkZGRkZGIiBmb250LXdlaWdodD0iNjAwIj50ZXN0PC90ZXh0PgoKICAgICAgPCEtLSBzdGVwIDQgLS0+CiAgICAgIDx0ZXh0IHg9IjM0IiB5PSIxOTIiIGZpbGw9IiM4QTk3OUQiPjQ8L3RleHQ+CiAgICAgIDxyZWN0IHg9IjI5MiIgeT0iMTcyIiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjMwIiByeD0iMyIgZmlsbD0iI0UzRTlFQiIgc3Ryb2tlPSIjQzdEMkQ2Ii8+CiAgICAgIDx0ZXh0IHg9IjQwMiIgeT0iMTkyIj50cmFpbjwvdGV4dD4KICAgICAgPHJlY3QgeD0iNTEyIiB5PSIxNzIiIHdpZHRoPSI4MCIgaGVpZ2h0PSIzMCIgcng9IjMiIGZpbGw9IiMwQjZFNzUiLz4KICAgICAgPHRleHQgeD0iNTUyIiB5PSIxOTIiIGZpbGw9IiNGRkZGRkYiIGZvbnQtd2VpZ2h0PSI2MDAiPnRlc3Q8L3RleHQ+CiAgICA8L2c+CgogICAgPCEtLSB0aW1lIGF4aXMgLS0+CiAgICA8cGF0aCBkPSJNIDUyLDIyMiBMIDYyMCwyMjIgTSA2MTMsMjE4IEwgNjIwLDIyMiBMIDYxMywyMjYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzhBOTc5RCIgc3Ryb2tlLXdpZHRoPSIxLjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICAgIDx0ZXh0IHg9IjYyMCIgeT0iMjE0IiBmb250LXNpemU9IjEyLjUiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZmlsbD0iIzhBOTc5RCIgdGV4dC1hbmNob3I9ImVuZCI+dGltZTwvdGV4dD4KCiAgICA8IS0tIGNvbmNhdGVuYXRlZCBPT1Mgc2VyaWVzIC0tPgogICAgPHJlY3QgeD0iMjcyIiB5PSIyNDQiIHdpZHRoPSIzMjAiIGhlaWdodD0iMzAiIHJ4PSIzIiBmaWxsPSIjMEI2RTc1Ii8+CiAgICA8ZyBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMS40IiBzdHJva2UtZGFzaGFycmF5PSIzIDMiPgogICAgICA8bGluZSB4MT0iMzUyIiB5MT0iMjQ2IiB4Mj0iMzUyIiB5Mj0iMjcyIi8+CiAgICAgIDxsaW5lIHgxPSI0MzIiIHkxPSIyNDYiIHgyPSI0MzIiIHkyPSIyNzIiLz4KICAgICAgPGxpbmUgeDE9IjUxMiIgeTE9IjI0NiIgeDI9IjUxMiIgeTI9IjI3MiIvPgogICAgPC9nPgogICAgPHRleHQgeD0iMjY0IiB5PSIyNTgiIGZvbnQtc2l6ZT0iMTMiIGZpbGw9IiMxMDE3MUIiIHRleHQtYW5jaG9yPSJlbmQiPmNvbmNhdGVuYXRlIHRoZSB0ZXN0IHNlZ21lbnRzPC90ZXh0PgogICAgPHRleHQgeD0iMjY0IiB5PSIyNzQiIGZvbnQtc2l6ZT0iMTMiIGZpbGw9IiMxMDE3MUIiIHRleHQtYW5jaG9yPSJlbmQiPmludG8gb25lIE9PUyBzZXJpZXMgIOKGkjwvdGV4dD4KCiAgICA8dGV4dCB4PSI1MiIgeT0iMjk4IiBmb250LXNpemU9IjEzIiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiM1ODY2NkUiPkFuY2hvcmVkIChleHBhbmRpbmcgdHJhaW4pIG9yIHJvbGxpbmcgKGZpeGVkLXdpZHRoIHRyYWluKS48L3RleHQ+CiAgPC9nPgo8L3N2Zz4K" alt="Walk-forward validation: four successive train/test splits stepping forward through time, whose test segments tile the timeline and concatenate into a single out-of-sample series.">
 <p>At each step: fit/select parameters on the training window, apply
 them unchanged to the test window, record results, advance.
 Concatenating the test segments gives a single OOS track record where
@@ -5708,13 +5765,7 @@ paths. This yields a <em>distribution</em> of OOS performance rather
 than a single number — which is the right output, because a single OOS
 Sharpe carries almost no information about its own uncertainty.</li>
 </ul>
-<pre><code>    Purged, embargoed split:
-
-    ├──── train ────┤ ✂purge✂ ├── TEST ──┤ ✂embargo✂ ├──── train ────┤
-                     ↑                                 ↑
-              drop training samples          drop training samples whose
-              whose label windows            features overlap the test
-              extend into TEST               period&#39;s serial correlation</code></pre>
+<img role="img" aria-label="A purged, embargoed train/test split: training observations whose label windows extend into the test block are purged before it, and those whose features overlap the test period&#39;s serial correlation are embargoed after it." class="mdd-fig" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgMTc2IiB3aWR0aD0iNjQwIiBoZWlnaHQ9IjE3NiIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsbGVkYnk9InBzLXRpdGxlIj4KICA8dGl0bGUgaWQ9InBzLXRpdGxlIj5BIHB1cmdlZCwgZW1iYXJnb2VkIHRyYWluL3Rlc3Qgc3BsaXQ6IHRyYWluaW5nIG9ic2VydmF0aW9ucyBhZGphY2VudCB0byB0aGUgdGVzdCBibG9jayBhcmUgZHJvcHBlZCBvbiBib3RoIHNpZGVzLjwvdGl0bGU+CiAgPGRlZnM+CiAgICA8cGF0dGVybiBpZD0icHMtaGF0Y2giIHdpZHRoPSI3IiBoZWlnaHQ9IjciIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSI3IiBmaWxsPSIjRjdFQUVGIi8+CiAgICAgIDxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSI3IiBzdHJva2U9IiNBNjNENjIiIHN0cm9rZS13aWR0aD0iMS42IiBvcGFjaXR5PSIwLjU1Ii8+CiAgICA8L3BhdHRlcm4+CiAgPC9kZWZzPgogIDxnIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZmlsbD0iIzEwMTcxQiI+CgogICAgPCEtLSB0aGUgc3BsaXQgLS0+CiAgICA8Zz4KICAgICAgPHJlY3QgeD0iMjAiIHk9IjMwIiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjQ0IiBmaWxsPSIjRTNFOUVCIiBzdHJva2U9IiNDN0QyRDYiLz4KICAgICAgPHJlY3QgeD0iMjAwIiB5PSIzMCIgd2lkdGg9IjUwIiBoZWlnaHQ9IjQ0IiBmaWxsPSJ1cmwoI3BzLWhhdGNoKSIgc3Ryb2tlPSIjQTYzRDYyIi8+CiAgICAgIDxyZWN0IHg9IjI1MCIgeT0iMzAiIHdpZHRoPSIxNTAiIGhlaWdodD0iNDQiIGZpbGw9IiMwQjZFNzUiLz4KICAgICAgPHJlY3QgeD0iNDAwIiB5PSIzMCIgd2lkdGg9IjY4IiBoZWlnaHQ9IjQ0IiBmaWxsPSJ1cmwoI3BzLWhhdGNoKSIgc3Ryb2tlPSIjQTYzRDYyIi8+CiAgICAgIDxyZWN0IHg9IjQ2OCIgeT0iMzAiIHdpZHRoPSIxNTIiIGhlaWdodD0iNDQiIGZpbGw9IiNFM0U5RUIiIHN0cm9rZT0iI0M3RDJENiIvPgogICAgPC9nPgoKICAgIDxnIHRleHQtYW5jaG9yPSJtaWRkbGUiPgogICAgICA8dGV4dCB4PSIxMTAiIHk9IjU4IiBmb250LXNpemU9IjE0Ij50cmFpbjwvdGV4dD4KICAgICAgPHRleHQgeD0iMjI1IiB5PSI1OCIgZm9udC1zaXplPSIxMi41IiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSIjQTYzRDYyIj5wdXJnZTwvdGV4dD4KICAgICAgPHRleHQgeD0iMzI1IiB5PSI1OCIgZm9udC1zaXplPSIxNSIgZm9udC13ZWlnaHQ9IjcwMCIgbGV0dGVyLXNwYWNpbmc9IjAuOCIgZmlsbD0iI0ZGRkZGRiI+VEVTVDwvdGV4dD4KICAgICAgPHRleHQgeD0iNDM0IiB5PSI1OCIgZm9udC1zaXplPSIxMi41IiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSIjQTYzRDYyIj5lbWJhcmdvPC90ZXh0PgogICAgICA8dGV4dCB4PSI1NDQiIHk9IjU4IiBmb250LXNpemU9IjE0Ij50cmFpbjwvdGV4dD4KICAgIDwvZz4KCiAgICA8dGV4dCB4PSI2MjAiIHk9IjkyIiBmb250LXNpemU9IjEyLjUiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZmlsbD0iIzhBOTc5RCIgdGV4dC1hbmNob3I9ImVuZCI+dGltZSDihpI8L3RleHQ+CgogICAgPCEtLSBhbm5vdGF0aW9ucyAtLT4KICAgIDxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0E2M0Q2MiIgc3Ryb2tlLXdpZHRoPSIxLjIiPgogICAgICA8cGF0aCBkPSJNIDIyNSw3NiBMIDIyNSwxMDIgTSAyMjEsOTcgTCAyMjUsMTAzIEwgMjI5LDk3IiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgICAgIDxwYXRoIGQ9Ik0gNDM0LDc2IEwgNDM0LDEwMiBNIDQzMCw5NyBMIDQzNCwxMDMgTCA0MzgsOTciIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICAgIDwvZz4KCiAgICA8ZyBmb250LXNpemU9IjEzLjUiIGZpbGw9IiM1ODY2NkUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPgogICAgICA8dGV4dCB4PSIxOTAiIHk9IjEyMiI+ZHJvcCB0cmFpbmluZyBzYW1wbGVzPC90ZXh0PgogICAgICA8dGV4dCB4PSIxOTAiIHk9IjEzOCI+d2hvc2UgbGFiZWwgd2luZG93czwvdGV4dD4KICAgICAgPHRleHQgeD0iMTkwIiB5PSIxNTQiPmV4dGVuZCBpbnRvIFRFU1Q8L3RleHQ+CgogICAgICA8dGV4dCB4PSI0NzAiIHk9IjEyMiI+ZHJvcCB0cmFpbmluZyBzYW1wbGVzIHdob3NlPC90ZXh0PgogICAgICA8dGV4dCB4PSI0NzAiIHk9IjEzOCI+ZmVhdHVyZXMgb3ZlcmxhcCB0aGUgdGVzdDwvdGV4dD4KICAgICAgPHRleHQgeD0iNDcwIiB5PSIxNTQiPnBlcmlvZCYjODIxNztzIHNlcmlhbCBjb3JyZWxhdGlvbjwvdGV4dD4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo=" alt="A purged, embargoed train/test split: training observations whose label windows extend into the test block are purged before it, and those whose features overlap the test period&#39;s serial correlation are embargoed after it.">
 <p><strong>[Practice]</strong> For cross-sectional equity work, also
 <strong>group by date</strong>: all assets on the same day must go to
 the same fold, because they are not independent observations.</p>

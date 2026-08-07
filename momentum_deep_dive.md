@@ -68,11 +68,11 @@ Under the strict Efficient Market Hypothesis, $p_t = v_t$ and returns are unpred
 
 $$p_t \;=\; c \;+\; \sum_{j \ge 0} \Psi_j \, \delta_{t-j}, \qquad \lim_{j\to\infty}\Psi_j = 1$$
 
-where $c$ is a constant of integration (the level from which the innovations accumulate). The terminal condition $\Psi_\infty = 1$ says the price *eventually* gets there — no permanent mispricing. But if $\Psi_0 < 1$, it gets there gradually. An equivalent and more intuitive way to write the same thing is
+where $c$ is a constant of integration (the level from which the innovations accumulate). The terminal condition $\Psi_\infty = 1$ says the price *eventually* gets there — no permanent mispricing. But if $\Psi_0 < 1$, it gets there gradually. An equivalent and more intuitive way to write the same thing — writing the value process in the same form, $v_t = c + \sum_{j\ge0}\delta_{t-j}$, so that the same constant sits in both — is
 
 $$p_t \;=\; \underbrace{v_t}_{\text{fundamental value}} \;-\; \underbrace{\sum_{j\ge0}\left(1-\Psi_j\right)\delta_{t-j}}_{\text{news not yet impounded}}$$
 
-— price is value minus the backlog. The backlog term is stationary (since $1-\Psi_j \to 0$) even though $p_t$ and $v_t$ are not, which is what makes the model well behaved: the *mispricing* is bounded, the *price* is a random walk plus a bounded correction. Differencing gives the return as a moving average of the same innovations, with weights equal to the **per-period** impulse response $\psi_j \equiv \Psi_j - \Psi_{j-1}$:
+— price is value minus the backlog. The backlog term is stationary — this needs $1-\Psi_j \to 0$ fast enough to be square-summable, which any finite adjustment window trivially satisfies — even though $p_t$ and $v_t$ are not, which is what makes the model well behaved: the *mispricing* is stationary, the *price* is a random walk plus a stationary correction. Differencing gives the return as a moving average of the same innovations, with weights equal to the **per-period** impulse response $\psi_j \equiv \Psi_j - \Psi_{j-1}$:
 
 $$r_t \;=\; p_t - p_{t-1} \;=\; \sum_{j\ge0}\big(\Psi_j - \Psi_{j-1}\big)\,\delta_{t-j} \;=\; \sum_{j\ge0}\psi_j\,\delta_{t-j}, \qquad \sum_{j\ge0}\psi_j = 1$$
 
@@ -80,13 +80,13 @@ This is an MA($\infty$) process in $\delta$, so its autocorrelations follow imme
 
 $$\rho_k \;=\; \frac{\sum_{j\ge0}\psi_j\,\psi_{j+k}}{\sum_{j\ge0}\psi_j^2}$$
 
-Everything follows from the *sign pattern* of $\psi$. Pure under-reaction means the price only ever moves toward value and never past it, i.e. $\psi_j \ge 0$ for all $j$ — and then every term in the numerator above is non-negative, so $\rho_k > 0$ at every lag shorter than the adjustment period (and zero beyond it). **A single serially uncorrelated shock to value, impounded gradually, manufactures autocorrelated returns.** Momentum is the *shadow of incomplete adjustment*.
+Everything follows from the *sign pattern* of $\psi$. Pure under-reaction means the price only ever moves toward value and never past it, i.e. $\psi_j \ge 0$ for all $j$ — and then every term in the numerator above is non-negative, so $\rho_k \ge 0$ at every lag, and $\rho_k = 0$ beyond the adjustment period. (The inequality is strict at every lag inside the adjustment window whenever $\psi$ has contiguous support, which is the realistic case; a gappy $\psi$ such as $(\tfrac12, 0, \tfrac12)$ gives $\rho_1 = 0$ with $\rho_2 = \tfrac12$.) **A single serially uncorrelated shock to value, impounded gradually, manufactures autocorrelated returns.** Momentum is the *shadow of incomplete adjustment*.
 
-It is worth seeing how sharp this is. If adjustment is instantaneous ($\psi_0 = 1$, all other $\psi_j = 0$) then $\rho_k = 0$ for all $k$ and there is no momentum. If instead half the shock lands immediately and half the next period ($\psi_0 = \psi_1 = \tfrac12$), then $\sum_j\psi_j^2 = \tfrac12$ and $\sum_j \psi_j\psi_{j+1} = \tfrac14$, giving $\rho_1 = 0.5$ and $\rho_k = 0$ for $k \ge 2$. **The speed of adjustment *is* the autocorrelation** — they are two descriptions of the same number.
+It is worth seeing how sharp this is. If adjustment is instantaneous ($\psi_0 = 1$, all other $\psi_j = 0$) then $\rho_k = 0$ for all $k$ and there is no momentum. If instead half the shock lands immediately and half the next period ($\psi_0 = \psi_1 = \tfrac12$), then $\sum_j\psi_j^2 = \tfrac12$ and $\sum_j \psi_j\psi_{j+1} = \tfrac14$, giving $\rho_1 = 0.5$ and $\rho_k = 0$ for $k \ge 2$. **The speed of adjustment and the return autocorrelation are one fact seen twice.** What is general is the mapping, not the number: the two halves coincide here only because $\psi_0 = \psi_1$ is exactly the configuration that maximizes $\rho_1$ for an MA(1). Land 70% of the shock immediately and 30% the next period and you get $\rho_1 = 0.21/0.58 \approx 0.36$, not $0.7$.
 
 Two immediate corollaries that most intuitions miss:
 
-1. **Momentum implies eventual reversal.** Because $\Psi_\infty = 1$ is a fixed budget, an impulse response that undershoots early must catch up later — and if it *overshoots* (the empirically relevant case, $\Psi_K > 1$ for intermediate $K$), it must come back down. Overshoot means some $\psi_j < 0$ at longer lags, which is exactly negative autocorrelation at those lags. Momentum and long-horizon reversal are two readings of one impulse-response function. **[Fact]** Any dataset showing 3–12 month momentum in equities also shows 3–5 year reversal (De Bondt & Thaler, 1985).
+1. **Momentum must decay; reversal takes strictly more than that.** It is tempting to argue that the fixed budget $\Psi_\infty = 1$ forces reversal, but it does not — it only forces momentum to be *transient*. If $\psi_j \ge 0$ throughout, the price creeps up to value and never past it: $\rho_k \ge 0$ out to the adjustment window, zero beyond, and no reversal at any horizon. Reversal requires the separate (and empirically relevant) assumption of **overshoot**, $\Psi_K > 1$ for some intermediate $K$, which the budget then forces back down, putting $\psi_j < 0$ at longer lags. Two cautions on how much that buys you. It does not make $\rho_k$ negative lag by lag: each $\rho_k$ is a *sum of products* $\sum_j \psi_j\psi_{j+k}$, so sign-mixed weights can still leave $\rho_k > 0$ at the very lags where the negative $\psi$'s sit. And it is necessary but not sufficient for *net* reversal — as the variance-ratio identity in the next subsection makes exact, net reversal means $\sum_j\psi_j^2 > 1$, and mild overshoot does not get you there. Momentum and long-horizon reversal are two readings of one impulse-response function. **[Fact]** Datasets showing 3–12 month momentum in equities generally also show 3–5 year reversal (De Bondt & Thaler, 1985).
 
 2. **Momentum is horizon-specific by construction.** The sign of the autocorrelation depends on where you sample the impulse response. That is why the same asset can be mean-reverting at 1 day, trending at 6 months, and mean-reverting at 4 years, with no contradiction.
 
@@ -96,9 +96,15 @@ Everything in Section 4 is, at bottom, an estimator of this object. Define the $
 
 $$\mathrm{VR}(q) \;=\; \frac{\operatorname{Var}(p_t - p_{t-q})}{q \cdot \operatorname{Var}(p_t - p_{t-1})} \;=\; 1 + 2\sum_{k=1}^{q-1}\left(1 - \frac{k}{q}\right)\rho_k$$
 
+The second equality is the usual Bartlett-weighted expansion. But the variance ratio also reads straight off the impulse response, with no detour through the autocorrelations: since $p_t - p_{t-q} = \sum_{j\ge0}\left(\Psi_j - \Psi_{j-q}\right)\delta_{t-j}$ (adopting $\Psi_j \equiv 0$ for $j < 0$),
+
+$$\mathrm{VR}(q) \;=\; \frac{\sum_{j\ge0}\left(\Psi_j - \Psi_{j-q}\right)^2}{q\,\sum_{j\ge0}\psi_j^2}, \qquad\qquad \mathrm{VR}(\infty) \;=\; \frac{1}{\sum_{j\ge0}\psi_j^2}$$
+
+The variance-ratio profile *is* a picture of $\Psi$. The limiting case settles corollary 1 above: under pure under-reaction, $\psi_j \ge 0$ and $\sum_j \psi_j = 1$ together give $\sum_j \psi_j^2 \le \left(\max_j \psi_j\right)\sum_j\psi_j \le 1$, hence $\mathrm{VR}(\infty) \ge 1$. **No amount of merely gradual adjustment can produce net reversal** — only overshoot severe enough to push $\sum_j\psi_j^2$ above 1 does. The equality case $\sum_j\psi_j^2 = 1$ forces $\psi$ to be a single spike — the whole shock landing in one period, possibly with a lag — which is the random walk.
+
 Under a random walk, $\mathrm{VR}(q) = 1$ for all $q$: variance scales linearly with time. Then:
 
-- $\mathrm{VR}(q) > 1$: the $q$-scale is **trending** (prices diffuse faster than a random walk; positive net autocorrelation up to lag $q$).
+- $\mathrm{VR}(q) > 1$: the $q$-scale is **trending** (prices diffuse faster than a random walk; positive net autocorrelation out to lag $q-1$).
 - $\mathrm{VR}(q) < 1$: the $q$-scale is **mean-reverting**.
 
 The function $q \mapsto \mathrm{VR}(q)$ — the *variance ratio profile* — is the single most informative descriptive statistic about momentum in a series. It tells you *at what horizon* the asset trends, which directly sets your lookback. I would rather see a variance-ratio profile than a backtest equity curve when evaluating an unfamiliar market.
@@ -107,19 +113,33 @@ The function $q \mapsto \mathrm{VR}(q)$ — the *variance ratio profile* — is 
 \newpage
 ```
 
+```{=html}
+<style>
+/* Figures for this document. Prefix "mdd-", distinct from the reading
+   widget's "rdw-" and the random-walk figure's "rw-". Narrow viewports
+   reclaim the body's side padding so the figure gets the full width. */
+.mdd-fig {
+  display: block; width: 100%; height: auto;
+  max-width: 640px; margin: 1.6rem auto;
+  /* the reading widget adds a light plate (padding) in dark mode */
+  box-sizing: border-box;
+}
+@media (max-width: 760px) {
+  .mdd-fig { width: calc(100% + 64px); max-width: none; margin-left: -32px; margin-right: -32px; }
+}
+@media (max-width: 600px) { /* pandoc's own stylesheet drops body padding to 12px here */
+  .mdd-fig { width: calc(100% + 24px); margin-left: -12px; margin-right: -12px; }
+}
+</style>
+
+<img class="mdd-fig" src="quant-research/figures/vr_profile.svg"
+     alt="Schematic variance-ratio profile: short-horizon reversal driven by liquidity, intermediate-horizon momentum from under-reaction, long-horizon reversal from over-reaction.">
 ```
-   VR(q)
-    1.3 |                    ,--·--·--.
-        |                  ,'          `·.
-    1.1 |               ,·'                `·.
-    1.0 |······················································  random walk
-    0.9 |        ·.  ,'                          `·.
-        |          `·                                 `·-·-·-·
-    0.7 |__________________________________________________________
-         1d    5d    1m    3m    6m    12m   24m   48m      q  (log scale)
-         └ reversal ┘└──── momentum ────┘      └── reversal ──┘
-          (liquidity)   (under-reaction)        (over-reaction /
-                                                 valuation anchor)
+
+```{=latex}
+\begin{center}
+\includegraphics[width=\linewidth]{quant-research/figures/vr_profile.pdf}
+\end{center}
 ```
 
 *Schematic variance-ratio profile for a typical liquid equity. **[Fact]** The three-regime shape — short-horizon reversal, intermediate-horizon trend, long-horizon reversal — is robust across US equities, international equities, and many futures markets, though the crossover points differ by asset class and era.*
@@ -129,6 +149,8 @@ This picture also gives the cleanest available statement of what a trend-followi
 $$\mathbb{E}[\text{trend P\&L}] \;\propto\; \underbrace{\sigma^2_{\text{long horizon}} - \sigma^2_{\text{short horizon}}}_{\;\propto\; \mathrm{VR}(q) - 1}$$
 
 Both variances here are **per unit of time** — that is, $\sigma^2_{\text{long horizon}} = \operatorname{Var}(p_t - p_{t-q})/q$ and $\sigma^2_{\text{short horizon}} = \operatorname{Var}(p_t - p_{t-1})$. Written that way the identification with the variance ratio is immediate, since $\mathrm{VR}(q) - 1 = (\sigma^2_{\text{long horizon}} - \sigma^2_{\text{short horizon}})/\sigma^2_{\text{short horizon}}$. Comparing raw (un-normalized) variances at two horizons would tell you nothing, because the longer one is mechanically larger.
+
+Be careful with the underbrace, though: rearranging that identity gives $\sigma^2_{\text{long horizon}} - \sigma^2_{\text{short horizon}} = \sigma^2_{\text{short horizon}}\left(\mathrm{VR}(q) - 1\right)$, so the P&L of a *raw* trend rule tracks $\mathrm{VR}(q)-1$ only at fixed $\sigma^2_{\text{short horizon}}$ — the proportionality does not survive comparison across assets, or across time for one asset whose volatility moves. What removes the leftover factor is exactly the normalization every practitioner already applies. The raw rule carries two powers of $\sigma_{\text{short horizon}}$ — one in the signal, which is a past return, and one in the return it is multiplied by. Standardizing the signal by its own volatility *and* sizing the position at $1/\sigma_{\text{short horizon}}$ divides out both, leaving $\mathbb{E}[\text{P\&L}] \propto \mathrm{VR}(q) - 1$ itself. It is the **fully volatility-scaled** trend rule, not the raw one, that is cleanly long the variance ratio — which is the version of the statement worth carrying.
 
 **A trend follower is structurally long the variance ratio.** That single sentence explains the convexity of CTA returns, why trend does well in dispersive crises and badly in choppy ranges, and why "trend following is a long straddle" (Fung & Hsieh, 2001) is more than an analogy.
 
@@ -259,28 +281,23 @@ This section is deliberately labeled **[Practice / Hypothesis]**. The four-phase
 \newpage
 ```
 
+```{=html}
+<img class="mdd-fig" src="quant-research/figures/trend_life_cycle.svg"
+     alt="The four phases of a trend — initiation, continuation, exhaustion, reversal — drawn on a price path, each posing a different statistical problem.">
 ```
-      price
-        │                                       ╭─╮  ╭╮
-        │                                    ╭──╯ ╰──╯╰─╮   ← EXHAUSTION
-        │                              ╭─────╯          ╰╮     vol↑, accel↓,
-        │                        ╭─────╯                 ╰──╮  crowding↑
-        │                 ╭──────╯                          ╰─────╮
-        │           ╭─────╯    ← CONTINUATION                      ╰──── REVERSAL
-        │      ╭────╯            best signal-to-noise                    fast, convex
-        │  ╭───╯   ← INITIATION                                          losses
-        │╭─╯╰╮╭╯     low SNR, high false-positive rate
-        ╰╯   ╰╯
-        └──────────────────────────────────────────────────────────── time
 
-  signal    │  weak, ambiguous │   strong, stable  │ strong but    │ inverts
-  quality   │  many false      │   ρ_k > 0         │ decaying;     │ abruptly
-            │  positives       │                   │ accel < 0     │
-  vol       │  rising          │   moderate,       │ rising        │ spikes
-            │                  │   clustered       │               │
-  what to   │  small size,     │   full size,      │ reduce, tighten│ be flat
-  do        │  wide stops      │   vol-target      │ vol scaling    │ or reversed
+```{=latex}
+\begin{center}
+\includegraphics[width=\linewidth]{quant-research/figures/trend_life_cycle.pdf}
+\end{center}
 ```
+
+| Phase | Signal quality | Volatility | What to do |
+|---|---|---|---|
+| **Initiation** | weak, ambiguous; many false positives | rising | small size, wide stops |
+| **Continuation** | strong, stable; $\rho_k > 0$ | moderate, clustered | full size, vol-target |
+| **Exhaustion** | strong but decaying; acceleration $< 0$ | rising | reduce, tighten vol scaling |
+| **Reversal** | inverts abruptly | spikes | be flat or reversed |
 
 **Initiation.** The statistical problem is *detection*: distinguishing the onset of a persistent drift from noise. Signal-to-noise is at its worst here, because by construction you have few observations of the new state. Any detector is trading off Type I against Type II error, and lookback length *is* that trade-off dial: short lookbacks detect early with many false positives, long lookbacks detect late with few. There is no free lunch and no parameter that resolves it — only your cost structure can tell you where to sit on the curve. **[Fact]** The distribution of trend-following trade P&L is heavily right-skewed with a low hit rate (typically 30–45%); most detections are false and are stopped out cheaply, and a minority pay for everything.
 
@@ -906,25 +923,18 @@ where $(x)^+ = \max(x,0)$. Both are written for *simple* moving averages; the ex
 
 **Every price-difference measure is a weighted sum of past returns; they differ only in the kernel.** Lookback return uses a rectangular kernel, EWMA an exponential one, MA displacement a descending ramp, a crossover a hump, and the regression slope of §4.2.1 a centred parabola. *All of them are the same estimator with different weights.* This is the single most clarifying fact in Section 4, and it explains why they correlate so highly.
 
+```{=html}
+<img class="mdd-fig" src="quant-research/figures/kernel_weights.svg"
+     alt="Kernel weights on past returns implied by five momentum measures: rectangular for a lookback return, exponential for an EWMA, a descending ramp for MA displacement, a hump for a crossover, and a centred parabola for a regression slope.">
 ```
-Kernel weights w_k applied to past returns r_{t-k}, by measure
-(all normalized to unit sum; k = lags into the past →)
 
-Lookback return    ████████████████████                     rectangular
-(L-period sum)     └──────── L ────────┘                    w_k = 1/L, k < L
-
-EWMA               █████▓▓▓▓▒▒▒▒░░░░·······················  exponential
-                   ← most weight on recent                  w_k ∝ λ^k
-
-MA displacement    ████████▇▇▆▆▅▅▄▄▃▃▂▂▁▁                   descending ramp
-(P vs MA_n)        ← peak at lag 0, zero at k = n−1          w_k ∝ n−1−k
-
-MA crossover       ▁▃▅▇███▇▅▃▂▁▁                            hump / band-pass
-(fast − slow)      ← peak at k = n_f − 1                    zero beyond n_s−1
-
-Regression slope   ▁▂▄▆▇███████▇▆▄▂▁                        centred parabola
-(over L bars)      └──────── L ────────┘                    w_k ∝ (k+1)(L−1−k)
+```{=latex}
+\begin{center}
+\includegraphics[width=\linewidth]{quant-research/figures/kernel_weights.pdf}
+\end{center}
 ```
+
+*Kernel weights $w_k$ applied to the return $r_{t-k}$, all normalized to unit sum.*
 
 **Assumptions.** That a low-pass-filtered price is a usable estimate of an unobserved trend level, and that the deviation of price from it is informative about direction rather than about mean-reverting noise. Note that the *opposite* assumption — deviation from the mean is mean-reverting — gives you Bollinger-band contrarian trading from the identical statistic. **The same number is a momentum signal or a reversion signal depending on the horizon.** Horizon determines which.
 
@@ -2035,27 +2045,25 @@ This is where backtests die. Look-ahead bias is not one bug; it is a family, and
 
 ---
 
+```{=latex}
+\newpage
+```
+
 # 7. Testing momentum-based trading signals {#7-testing-momentum-based-trading-signals}
 
 ## 7.1 The evaluation ladder
 
 The most common evaluation mistake is applying strategy-level metrics to a signal, or signal-level metrics to a deployment decision. Evaluation proceeds in stages, and each stage has its own question, its own metrics, and its own failure modes:
 
+```{=html}
+<img class="mdd-fig" src="quant-research/figures/evaluation_ladder.svg"
+     alt="The five-stage evaluation ladder: prediction, signal quality, strategy, statistical validity, deployability — each with its own question and metrics, advanced only if the previous stage passes.">
 ```
-   Stage 1: PREDICTION          "Does s_t contain information about r_{t+h}?"
-     └─ IC, rank IC, IC term structure, predictive R², hit rate
-        ↓ if yes
-   Stage 2: SIGNAL QUALITY      "Is that information stable, distinct, and usable?"
-     └─ IC-IR, subsample stability, decay rate, orthogonality to known factors
-        ↓ if yes
-   Stage 3: STRATEGY            "Does a portfolio built on it make money?"
-     └─ Sharpe, Sortino, max drawdown, Calmar, skew, alpha/beta
-        ↓ if yes
-   Stage 4: STATISTICAL VALIDITY "Would it survive if I'd never seen this data?"
-     └─ HAC t-stats, bootstrap, Reality Check, Deflated Sharpe, PBO
-        ↓ if yes
-   Stage 5: DEPLOYABILITY       "Does it survive costs, capacity, and my existing book?"
-     └─ net Sharpe, turnover, capacity, marginal contribution, operational risk
+
+```{=latex}
+\begin{center}
+\includegraphics[width=0.9\linewidth]{quant-research/figures/evaluation_ladder.pdf}
+\end{center}
 ```
 
 **Fail fast at the top.** Stage 1 is cheap and kills most ideas; Stage 5 is expensive. Running a full portfolio backtest on a signal whose IC you have not measured is the wrong order, and it is the order most people use because backtests are more fun than correlations.
@@ -2087,15 +2095,15 @@ Note that both introduce a subtle issue: with an expanding window, later periods
 
 The core protocol for time-series strategy development:
 
+```{=html}
+<img class="mdd-fig" src="quant-research/figures/walk_forward.svg"
+     alt="Walk-forward validation: four successive train/test splits stepping forward through time, whose test segments tile the timeline and concatenate into a single out-of-sample series.">
 ```
-   |—— train ——|— test —|
-        |—— train ——|— test —|
-             |—— train ——|— test —|
-                  |—— train ——|— test —|
-   ────────────────────────────────────────────→ time
 
-   Anchored (expanding train) or rolling (fixed-width train).
-   Concatenate the test segments → one OOS performance series.
+```{=latex}
+\begin{center}
+\includegraphics[width=\linewidth]{quant-research/figures/walk_forward.pdf}
+\end{center}
 ```
 
 At each step: fit/select parameters on the training window, apply them unchanged to the test window, record results, advance. Concatenating the test segments gives a single OOS track record where every observation was genuinely predicted with only prior information.
@@ -2114,14 +2122,15 @@ The fixes (López de Prado, 2018):
 - **Embargo.** Additionally remove training observations for a buffer period *after* the test set, to handle serial correlation in features that would otherwise leak backward.
 - **Combinatorial Purged Cross-Validation (CPCV).** Instead of one train/test split per fold, form all $\binom{K}{k}$ combinations of $k$ test groups out of $K$, generating many distinct backtest paths. This yields a *distribution* of OOS performance rather than a single number — which is the right output, because a single OOS Sharpe carries almost no information about its own uncertainty.
 
+```{=html}
+<img class="mdd-fig" src="quant-research/figures/purged_split.svg"
+     alt="A purged, embargoed train/test split: training observations whose label windows extend into the test block are purged before it, and those whose features overlap the test period's serial correlation are embargoed after it.">
 ```
-    Purged, embargoed split:
 
-    ├──── train ────┤ ✂purge✂ ├── TEST ──┤ ✂embargo✂ ├──── train ────┤
-                     ↑                                 ↑
-              drop training samples          drop training samples whose
-              whose label windows            features overlap the test
-              extend into TEST               period's serial correlation
+```{=latex}
+\begin{center}
+\includegraphics[width=\linewidth]{quant-research/figures/purged_split.pdf}
+\end{center}
 ```
 
 **[Practice]** For cross-sectional equity work, also **group by date**: all assets on the same day must go to the same fold, because they are not independent observations.

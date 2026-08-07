@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 428" width="640" height="428" role="img" aria-labelledby="kw-title">
+  <title id="kw-title">The kernel of past-return weights implied by five momentum measures: rectangular, exponential, descending ramp, hump, centred parabola.</title>
+  <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" fill="#10171B">
+
+    <text x="0" y="18" font-size="13.5" font-style="italic" fill="#58666E">Every measure is a weighted sum of past returns. Only the kernel differs.</text>
+
+    <g stroke="#DCE4E6" stroke-width="1">
+      <line x1="224" y1="96" x2="616" y2="96"/>
+      <line x1="224" y1="170" x2="616" y2="170"/>
+      <line x1="224" y1="244" x2="616" y2="244"/>
+      <line x1="224" y1="318" x2="616" y2="318"/>
+      <line x1="224" y1="392" x2="616" y2="392"/>
+    </g>
+
+    <g fill="#0B6E75" fill-opacity="0.18" stroke="#0B6E75" stroke-width="2" stroke-linejoin="round">
+      <!-- rectangular: lookback return -->
+      <path d="M 224,96 L 224,62 L 440,62 L 440,96 Z"/>
+      <!-- exponential: EWMA -->
+      <path d="M 224,170 L 224,126 L 254,137.9 L 284,146.6 L 314,152.9 L 344,157.6 L 374,160.9 L 404,163.4
+               L 434,165.2 L 464,166.5 L 494,167.4 L 524,168.1 L 554,168.6 L 584,169.0 L 616,169.3 L 616,170 Z"/>
+      <!-- descending ramp: price vs moving average -->
+      <path d="M 224,244 L 224,200 L 496,244 Z"/>
+      <!-- hump / band-pass: moving-average crossover -->
+      <path d="M 224,318 L 224,315.3 L 343,274 L 580,318 Z"/>
+      <!-- centred parabola: regression slope -->
+      <path d="M 224,392 L 248,380.6 L 272,370.9 L 296,362.9 L 320,356.6 L 344,352.0 L 368,349.2 L 392,348.0
+               L 396,348.0 L 420,348.9 L 444,351.4 L 468,355.7 L 492,361.7 L 516,369.4 L 540,378.8 L 564,390.0 L 568,392 Z"/>
+    </g>
+
+    <!-- cutoff markers -->
+    <g font-size="12" fill="#8A979D" font-style="italic">
+      <text x="446" y="76">L</text>
+      <text x="502" y="238">n − 1</text>
+      <text x="586" y="312">n_s − 1</text>
+      <text x="574" y="386">L</text>
+    </g>
+    <g stroke="#B9C4C8" stroke-width="1" stroke-dasharray="3 3">
+      <line x1="343" y1="274" x2="343" y2="318"/>
+    </g>
+    <text x="343" y="268" font-size="12" font-style="italic" fill="#8A979D" text-anchor="middle">peak at n_f − 1</text>
+
+    <!-- row labels -->
+    <g>
+      <text x="0" y="60" font-size="16.5" font-weight="600">Lookback return</text>
+      <text x="0" y="78" font-size="13.5" font-style="italic" fill="#58666E">rectangular</text>
+      <text x="0" y="94" font-size="13" font-family="Menlo, Consolas, monospace" fill="#0B6E75">w_k = 1/L,  k &lt; L</text>
+
+      <text x="0" y="134" font-size="16.5" font-weight="600">EWMA</text>
+      <text x="0" y="152" font-size="13.5" font-style="italic" fill="#58666E">exponential</text>
+      <text x="0" y="168" font-size="13" font-family="Menlo, Consolas, monospace" fill="#0B6E75">w_k ∝ λ^k</text>
+
+      <text x="0" y="208" font-size="16.5" font-weight="600">MA displacement</text>
+      <text x="0" y="226" font-size="13.5" font-style="italic" fill="#58666E">descending ramp</text>
+      <text x="0" y="242" font-size="13" font-family="Menlo, Consolas, monospace" fill="#0B6E75">w_k ∝ n−1−k</text>
+
+      <text x="0" y="282" font-size="16.5" font-weight="600">MA crossover</text>
+      <text x="0" y="300" font-size="13.5" font-style="italic" fill="#58666E">hump / band-pass</text>
+      <text x="0" y="316" font-size="13" font-family="Menlo, Consolas, monospace" fill="#0B6E75">fast − slow</text>
+
+      <text x="0" y="356" font-size="16.5" font-weight="600">Regression slope</text>
+      <text x="0" y="374" font-size="13.5" font-style="italic" fill="#58666E">centred parabola</text>
+      <text x="0" y="390" font-size="13" font-family="Menlo, Consolas, monospace" fill="#0B6E75">w_k ∝ (k+1)(L−1−k)</text>
+    </g>
+
+    <!-- lag axis -->
+    <path d="M 224,410 L 616,410 M 609,406 L 616,410 L 609,414" fill="none" stroke="#8A979D" stroke-width="1.2" stroke-linejoin="round"/>
+    <text x="224" y="426" font-size="12.5" fill="#8A979D">k = 0, most recent return</text>
+    <text x="616" y="426" font-size="12.5" fill="#8A979D" text-anchor="end">older lags</text>
+  </g>
+</svg>

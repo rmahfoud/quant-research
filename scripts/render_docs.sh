@@ -103,7 +103,15 @@ render() {
         command -v mermaid-filter >/dev/null \
             || fail "$doc.md uses mermaid but mermaid-filter is not installed (npm i -g mermaid-filter)"
         args+=(-F mermaid-filter)
-        [[ "$fmt" == "html" ]] && export MERMAID_FILTER_FORMAT=svg
+        # SVG for HTML, PNG for PDF — xelatex cannot include SVG, and a diagram
+        # emitted as SVG into the PDF loses every node label. Set this on every
+        # pass: exporting it only for HTML leaks into a following PDF pass when
+        # both formats are rendered in one invocation.
+        if [[ "$fmt" == "html" ]]; then
+            export MERMAID_FILTER_FORMAT=svg
+        else
+            export MERMAID_FILTER_FORMAT=png
+        fi
     fi
 
     # Run from the repo root: raw-LaTeX \includegraphics paths are relative to it.

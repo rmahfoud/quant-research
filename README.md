@@ -47,6 +47,7 @@ Output lands in `docs/` (gitignored).
 
 | Source | Notes |
 |---|---|
+| `log_returns.md` | Mermaid diagrams; LaTeX math; ASCII figures |
 | `momentum_deep_dive.md` | Mermaid diagrams; hand-authored SVG figures (`figures/*.svg`) |
 | `stochastic_processes.md` | LaTeX math; HTML gets an interactive canvas figure, PDF a static plot |
 

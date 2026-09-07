@@ -93,8 +93,20 @@ def ladder(mu_ann=None, sig_ann=None):
     mu = MU if mu_ann is None else np.array(mu_ann) / A
     sig = SIG if sig_ann is None else np.array(sig_ann) / np.sqrt(A)
     rng = np.random.default_rng(SEED + 1)
-    keys = ["bh", "oracle", "smooth", "filt", "pred", "acc", "size", "both", "lag",
-            "turn_gate", "turn_size", "vol_gate"]
+    keys = [
+        "bh",
+        "oracle",
+        "smooth",
+        "filt",
+        "pred",
+        "acc",
+        "size",
+        "both",
+        "lag",
+        "turn_gate",
+        "turn_size",
+        "vol_gate",
+    ]
     acc = {k: [] for k in keys}
     sig_star = float(np.sqrt(PI0 @ (sig**2)))
     for _ in range(REPS):
@@ -114,8 +126,7 @@ def ladder(mu_ann=None, sig_ann=None):
         acc["turn_size"].append(float(np.mean(np.abs(np.diff(w_size)))))
         acc["vol_gate"].append(float((w_gate * r).std() * np.sqrt(A)))
         sw = np.flatnonzero((s[1:] == 1) & (s[:-1] == 0)) + 1
-        lags = [np.flatnonzero(alpha[t0 : t0 + 60, 1] > 0.5)[0]
-                for t0 in sw if np.any(alpha[t0 : t0 + 60, 1] > 0.5)]
+        lags = [np.flatnonzero(alpha[t0 : t0 + 60, 1] > 0.5)[0] for t0 in sw if np.any(alpha[t0 : t0 + 60, 1] > 0.5)]
         if lags:
             acc["lag"].append(float(np.median(lags)))
     return {k: float(np.mean(v)) for k, v in acc.items()}
@@ -171,7 +182,7 @@ def leakage(mu_ann=None, sig_ann=None, reps=LEAK_REPS, years=LEAK_YEARS, burn=5,
     for _ in range(reps):
         r, _ = simulate(T, rng, mu, sig)
         out["bh"].append(sharpe(r[b:]))
-        mh, sh, Ph = em_fit(r, rng)                       # fitted on ALL the data
+        mh, sh, Ph = em_fit(r, rng)  # fitted on ALL the data
         z = (r[:, None] - mh[None, :]) / sh[None, :]
         B = np.maximum(np.exp(-0.5 * z * z) / (sh[None, :] * np.sqrt(2 * np.pi)), 1e-300)
         al = np.zeros((T, 2))
@@ -194,7 +205,7 @@ def leakage(mu_ann=None, sig_ann=None, reps=LEAK_REPS, years=LEAK_YEARS, burn=5,
         out["smooth"].append(sharpe(((gm[:, 0] > 0.5).astype(float) * r)[b:]))
         pos = np.zeros(T)
         state = PI0.copy()
-        for y in range(burn, years, refit):              # refit on data through t only
+        for y in range(burn, years, refit):  # refit on data through t only
             t0, t1 = y * A, min((y + refit) * A, T)
             m2, s2, P2 = em_fit(r[:t0], rng)
             seg = r[t0:t1]
@@ -217,39 +228,58 @@ def main():
     pred, alpha, gamma = beliefs(r)
     x = np.arange(T) / A
 
-    fig, axes = plt.subplots(
-        3, 1, figsize=(7.0, 6.6), gridspec_kw={"height_ratios": [1.5, 1.5, 1.25], "hspace": 0.42}
-    )
+    fig, axes = plt.subplots(3, 1, figsize=(7.0, 6.6), gridspec_kw={"height_ratios": [1.5, 1.5, 1.25], "hspace": 0.42})
 
     # --- Panel 1: the path, with true turbulent spells shaded -----------------
     ax = axes[0]
-    ax.fill_between(x, 0, 1, where=(s == 1), transform=ax.get_xaxis_transform(),
-                    color=SHADE, linewidth=0, zorder=0)
+    ax.fill_between(x, 0, 1, where=(s == 1), transform=ax.get_xaxis_transform(), color=SHADE, linewidth=0, zorder=0)
     ax.plot(x, 100 * np.cumsum(r), color=INK, linewidth=1.2, zorder=2)
     ax.set_ylabel("cumulative\nlog return (%)", fontsize=9.5, color=MUTED)
     ax.set_title(
         "A simulated path. Shading marks the TRUE turbulent state — which you never see.",
-        fontsize=10.0, color=INK, pad=7, loc="left",
+        fontsize=10.0,
+        color=INK,
+        pad=7,
+        loc="left",
     )
 
     # --- Panel 2: the three beliefs ------------------------------------------
     ax = axes[1]
-    ax.fill_between(x, 0, 1, where=(s == 1), transform=ax.get_xaxis_transform(),
-                    color=SHADE, linewidth=0, zorder=0)
-    ax.fill_between(x, 0, gamma[:, 1], color=GREY, alpha=0.35, linewidth=0, zorder=1,
-                    label="smoothed  $\\xi_{t|T}$   (uses the whole sample)")
-    ax.plot(x, alpha[:, 1], color=TEAL, linewidth=1.15, zorder=3,
-            label="filtered  $\\xi_{t|t}$   (uses data through $t$)")
-    ax.plot(x, pred[:, 1], color=RUST, linewidth=1.0, linestyle=(0, (3, 1.6)), zorder=2,
-            label="predicted  $\\xi_{t|t-1}$   (the only tradable one)")
+    ax.fill_between(x, 0, 1, where=(s == 1), transform=ax.get_xaxis_transform(), color=SHADE, linewidth=0, zorder=0)
+    ax.fill_between(
+        x,
+        0,
+        gamma[:, 1],
+        color=GREY,
+        alpha=0.35,
+        linewidth=0,
+        zorder=1,
+        label="smoothed  $\\xi_{t|T}$   (uses the whole sample)",
+    )
+    ax.plot(
+        x, alpha[:, 1], color=TEAL, linewidth=1.15, zorder=3, label="filtered  $\\xi_{t|t}$   (uses data through $t$)"
+    )
+    ax.plot(
+        x,
+        pred[:, 1],
+        color=RUST,
+        linewidth=1.0,
+        linestyle=(0, (3, 1.6)),
+        zorder=2,
+        label="predicted  $\\xi_{t|t-1}$   (the only tradable one)",
+    )
     ax.set_ylim(-0.03, 1.06)
     ax.set_ylabel("P(turbulent)", fontsize=9.5, color=MUTED)
     ax.set_xlabel("years", fontsize=9.5, color=MUTED)
-    ax.legend(fontsize=9.0, loc="upper left", frameon=False, ncol=1, labelcolor=MUTED,
-              handlelength=1.8, borderaxespad=0.2)
+    ax.legend(
+        fontsize=9.0, loc="upper left", frameon=False, ncol=1, labelcolor=MUTED, handlelength=1.8, borderaxespad=0.2
+    )
     ax.set_title(
         "Three beliefs about the same state. Even with the true parameters, they differ.",
-        fontsize=10.0, color=INK, pad=7, loc="left",
+        fontsize=10.0,
+        color=INK,
+        pad=7,
+        loc="left",
     )
 
     for a_ in axes[:2]:
@@ -263,8 +293,13 @@ def main():
     # --- Panel 3: what each rung is worth ------------------------------------
     res = ladder()
     ax = axes[2]
-    names = ["Buy and hold", "Predicted  $\\xi_{t|t-1}$", "Filtered  $\\xi_{t|t}$",
-             "Smoothed  $\\xi_{t|T}$", "Oracle (true state)"]
+    names = [
+        "Buy and hold",
+        "Predicted  $\\xi_{t|t-1}$",
+        "Filtered  $\\xi_{t|t}$",
+        "Smoothed  $\\xi_{t|T}$",
+        "Oracle (true state)",
+    ]
     vals = [res["bh"], res["pred"], res["filt"], res["smooth"], res["oracle"]]
     cols = [GREY, RUST, TEAL, GREY, INK]
     ypos = np.arange(len(vals))
@@ -274,39 +309,50 @@ def main():
     ax.set_yticks(ypos)
     ax.set_yticklabels(names, fontsize=9.3, color=INK)
     ax.set_xlim(0, max(vals) * 1.18)
-    ax.set_xlabel("annualised Sharpe ratio, long in calm and flat in turbulent", fontsize=9.5,
-                  color=MUTED)
+    ax.set_xlabel("annualised Sharpe ratio, long in calm and flat in turbulent", fontsize=9.5, color=MUTED)
     ax.tick_params(labelsize=9.0, colors=MUTED, length=3)
     for side in ("top", "right", "left"):
         ax.spines[side].set_visible(False)
     ax.spines["bottom"].set_color(GREY)
     ax.set_title(
         f"Cost of honesty: {REPS} runs of {YEARS_MC} years, true parameters known throughout.",
-        fontsize=10.0, color=INK, pad=7, loc="left",
+        fontsize=10.0,
+        color=INK,
+        pad=7,
+        loc="left",
     )
 
     out = Path(__file__).with_suffix(".svg")
     fig.savefig(out, transparent=True, bbox_inches="tight")
     print(f"  wrote {out.name}")
     print(f"\n  {REPS} reps x {YEARS_MC}y daily, true parameters known. Sharpe ratios.")
-    head = (f"  {'separated by':<14}{'B&H':>7}{'oracle':>8}{'smooth':>8}{'filt':>7}"
-            f"{'pred':>7}{'size':>7}{'both':>7}{'accur':>8}{'lag':>6}")
+    head = (
+        f"  {'separated by':<14}{'B&H':>7}{'oracle':>8}{'smooth':>8}{'filt':>7}"
+        f"{'pred':>7}{'size':>7}{'both':>7}{'accur':>8}{'lag':>6}"
+    )
     print(head)
     print("  " + "-" * (len(head) - 2))
     for label, mu_ann, sig_ann in CALIBRATIONS:
         m = res if label == "vol and mean" else ladder(mu_ann, sig_ann)
-        print(f"  {label:<14}{m['bh']:>7.2f}{m['oracle']:>8.2f}{m['smooth']:>8.2f}"
-              f"{m['filt']:>7.2f}{m['pred']:>7.2f}{m['size']:>7.2f}{m['both']:>7.2f}"
-              f"{m['acc']:>8.3f}{m['lag']:>6.1f}")
+        print(
+            f"  {label:<14}{m['bh']:>7.2f}{m['oracle']:>8.2f}{m['smooth']:>8.2f}"
+            f"{m['filt']:>7.2f}{m['pred']:>7.2f}{m['size']:>7.2f}{m['both']:>7.2f}"
+            f"{m['acc']:>8.3f}{m['lag']:>6.1f}"
+        )
     print(f"\n  Turnover and strategy volatility (mild vol calibration, the realistic one):")
     mv = ladder(*CALIBRATIONS[2][1:])
-    print(f"    gate: mean |change in position| per day  {mv['turn_gate']:.4f}"
-          f"  -> {mv['turn_gate'] * A:.1f} units per year")
-    print(f"    size: mean |change in position| per day  {mv['turn_size']:.4f}"
-          f"  -> {mv['turn_size'] * A:.1f} units per year")
+    print(
+        f"    gate: mean |change in position| per day  {mv['turn_gate']:.4f}"
+        f"  -> {mv['turn_gate'] * A:.1f} units per year"
+    )
+    print(
+        f"    size: mean |change in position| per day  {mv['turn_size']:.4f}"
+        f"  -> {mv['turn_size'] * A:.1f} units per year"
+    )
     print(f"    gated strategy annualised volatility     {mv['vol_gate']:.4f}")
-    print(f"    gross benefit over buy and hold          "
-          f"{(mv['pred'] - mv['bh']) * mv['vol_gate'] * 1e4:.0f} bp per year")
+    print(
+        f"    gross benefit over buy and hold          {(mv['pred'] - mv['bh']) * mv['vol_gate'] * 1e4:.0f} bp per year"
+    )
     print(f"\n  Parameters ESTIMATED by EM, {LEAK_REPS} reps x {LEAK_YEARS}y. States sorted by")
     print("  fitted volatility inside each fit. Sharpe of the resulting strategy.")
     hd = f"  {'calibration':<14}{'B&H':>8}{'full/smooth':>13}{'full/pred':>11}{'walk/pred':>11}"
@@ -314,9 +360,11 @@ def main():
     print("  " + "-" * (len(hd) - 2))
     for label, mu_ann, sig_ann in [CALIBRATIONS[0], CALIBRATIONS[3]]:
         lk = leakage(mu_ann, sig_ann)
-        print(f"  {label:<14}{lk['bh'][0]:>8.2f}{lk['smooth'][0]:>13.2f}"
-              f"{lk['full'][0]:>11.2f}{lk['walk'][0]:>11.2f}"
-              f"   (se ~{max(lk['walk'][1], lk['full'][1]):.2f})")
+        print(
+            f"  {label:<14}{lk['bh'][0]:>8.2f}{lk['smooth'][0]:>13.2f}"
+            f"{lk['full'][0]:>11.2f}{lk['walk'][0]:>11.2f}"
+            f"   (se ~{max(lk['walk'][1], lk['full'][1]):.2f})"
+        )
 
 
 if __name__ == "__main__":

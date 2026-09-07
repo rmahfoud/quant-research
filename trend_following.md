@@ -300,8 +300,8 @@ random-walk years with a 65-bar-span EWMA rule:
 
 Point 3 is the one people get wrong. **A low hit rate is not evidence of a bad
 strategy, and a high hit rate is not evidence of a good one** — with zero edge
-you can manufacture either, purely by choosing the response function. Potters and
-Bouchaud (2006) derived this analytically: for a trend rule on a driftless
+you can manufacture either, purely by choosing the response function. [Potters and
+Bouchaud (2006)](https://arxiv.org/abs/physics/0508104){target="_blank"} derived this analytically: for a trend rule on a driftless
 random walk the average gain per trade is exactly zero while the fraction of
 winning trades falls below one half. (With no drift the win rate is scale-free —
 volatility cancels out of the problem entirely — but at a fixed drift it falls as
@@ -363,14 +363,14 @@ costs. Trend-following's actual measured edge, of order a per-market Sharpe of
 $0.2$–$0.4$ before costs (§5.9), is roughly what "barely worth doing" looks like.
 
 **The empirical reply.** The effect has been documented over very long samples in
-markets that did not exist when the rules were designed. Hurst, Ooi and Pedersen
-(2017) report positive trend-following returns across 67 markets back to 1880;
-Lempérière and co-authors (2014) find a $t$-statistic of about 5 since 1960 and
+markets that did not exist when the rules were designed. [Hurst, Ooi and Pedersen
+(2017)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2993026){target="_blank"} report positive trend-following returns across 67 markets back to 1880;
+[Lempérière and co-authors (2014)](https://arxiv.org/abs/1404.3274){target="_blank"} find a $t$-statistic of about 5 since 1960 and
 about 10 since 1800 on spot commodity and index series, after removing the
 markets' own drift. **[Contested]** Both are practitioner studies by firms that
 sell the strategy, which is a real discount factor — but they are also the only
 groups with the data, and their long-horizon results have not been overturned.
-Set against them, Huang, Li, Wang and Zhou (2020) argue the canonical
+Set against them, [Huang, Li, Wang and Zhou (2020)](https://ink.library.smu.edu.sg/context/lkcsb_research/article/7520/viewcontent/Time_series_momentum_JFE_sv.pdf){target="_blank"} argue the canonical
 time-series momentum test is confounded by exactly the drift issue those papers
 try to remove, and find little evidence of the effect after correcting for it
 (§5.3). This disagreement is live and it is about specification, not data.
@@ -492,23 +492,23 @@ Most assets have positive expected returns. A trend rule applied to an asset wit
 positive drift will be long most of the time and will therefore earn the drift,
 and §5.3 shows the standard time-series momentum test is *positively biased* by
 exactly this: $\mathbb{E}[r_{t+1}\cdot\operatorname{sign}(r_{t-L:t})] > 0$
-whenever $\mu > 0$, even under complete independence. Huang and co-authors (2020)
+whenever $\mu > 0$, even under complete independence. [Huang and co-authors (2020)](https://ink.library.smu.edu.sg/context/lkcsb_research/article/7520/viewcontent/Time_series_momentum_JFE_sv.pdf){target="_blank"}
 make this argument formally and find the time-series momentum effect largely
 disappears in their sample once the unconditional mean is controlled for.
 
 Layer on top: the strategy's parameters were selected by decades of practitioner
 search over the same price histories now used to validate it — the definition of
-data snooping. Sullivan, Timmermann and White (1999) applied White's Reality
+data snooping. [Sullivan, Timmermann and White (1999)](https://www.kevinsheppard.com/files/teaching/mfe/advanced-econometrics/Sullivan_Timmermann_White.pdf){target="_blank"} applied White's Reality
 Check to a universe of nearly 8,000 technical trading rules and found that rules
 which looked strongly significant in isolation were not, once the search was
 accounted for. Brock, Lakonishok and LeBaron (1992) had earlier found technical
 rules profitable on the Dow 1897–1986; the snooping critique is aimed squarely at
-results of that kind. Park and Irwin's (2007) survey of the whole technical-
+results of that kind. [Park and Irwin's (2007)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=603481){target="_blank"} survey of the whole technical-
 analysis literature concludes that early positive results were substantially
 compromised by data snooping and by ignoring transaction costs.
 
 And CTA returns as actually delivered to investors are far worse than the
-strategy's paper returns. Bhardwaj, Gorton and Rouwenhorst (2014) find that after
+strategy's paper returns. [Bhardwaj, Gorton and Rouwenhorst (2014)](https://www.nber.org/papers/w14424){target="_blank"} find that after
 fees, investors in commodity trading advisors earned close to nothing, while the
 funds' gross performance and their persistence were both weak once survivorship
 and backfill biases were removed.
@@ -630,7 +630,7 @@ timeline
   on how weak "weakly" is (§5.9); no single market's rule needed to be good.
 - **Limitations.** Almost none of it was published, so the evidence base was
   track records — which carry survivorship, selection, and fee opacity.
-  Bhardwaj, Gorton and Rouwenhorst (2014) later showed how much those biases were
+  [Bhardwaj, Gorton and Rouwenhorst (2014)](https://www.nber.org/papers/w14424){target="_blank"} later showed how much those biases were
   hiding.
 - **Lasting influence.** This is where the modern implementation was invented.
   Volatility targeting, correlation-aware sizing, multi-timescale ensembles, and
@@ -640,12 +640,12 @@ timeline
 ## 3.4 Era IV — Formalisation (2008–present)
 
 - **Contribution.** Academic and quantitative-practitioner work that made the
-  object measurable. Moskowitz, Ooi and Pedersen (2012) introduced "time-series
-  momentum" as a factor across 58 futures markets. Fung and Hsieh (2001) had
+  object measurable. [Moskowitz, Ooi and Pedersen (2012)](https://w4.stern.nyu.edu/facdir/lpederse/papers/TimeSeriesMomentum.pdf){target="_blank"} introduced "time-series
+  momentum" as a factor across 58 futures markets. [Fung and Hsieh (2001)](http://neumann.hec.ca/pages/nicolas.papageorgiou/qfm/papers/FungHsieh2001.pdf){target="_blank"} had
   already shown that trend-follower returns load on lookback straddles rather
-  than on linear asset exposures. Potters and Bouchaud (2006), Bruder and Gaussel
-  (2011) and Dao and co-authors (2016) derived the P&L decomposition that §5
-  reconstructs. Levine and Pedersen (2016) and Beekhuizen and Hallerbach (2017)
+  than on linear asset exposures. [Potters and Bouchaud (2006)](https://arxiv.org/abs/physics/0508104){target="_blank"}, [Bruder and Gaussel
+  (2011)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2465623){target="_blank"} and [Dao and co-authors (2016)](https://arxiv.org/abs/1607.02410){target="_blank"} derived the P&L decomposition that §5
+  reconstructs. [Levine and Pedersen (2016)](https://www.tandfonline.com/doi/pdf/10.2469/faj.v72.n3.3){target="_blank"} and [Beekhuizen and Hallerbach (2017)](https://www.ssrn.com/abstract=2604942){target="_blank"}
   showed that the various trend rules are one filter with different weights.
 - **What changed.** Trend-following stopped being a strategy with a track record
   and became a factor with a functional form, a risk decomposition, a set of
@@ -808,13 +808,13 @@ readable copy where one exists.
 
 ## 4.6 If you only read six things
 
-1. **Moskowitz, Ooi & Pedersen (2012)** — the empirical object, stated cleanly.
-2. **Huang, Li, Wang & Zhou (2020)** — immediately after, so you never run an
+1. **[Moskowitz, Ooi & Pedersen (2012)](https://w4.stern.nyu.edu/facdir/lpederse/papers/TimeSeriesMomentum.pdf){target="_blank"}** — the empirical object, stated cleanly.
+2. **[Huang, Li, Wang & Zhou (2020)](https://ink.library.smu.edu.sg/context/lkcsb_research/article/7520/viewcontent/Time_series_momentum_JFE_sv.pdf){target="_blank"}** — immediately after, so you never run an
    unadjusted test.
-3. **Dao et al. (2016)** — what the P&L actually is.
-4. **Potters & Bouchaud (2006)** — six pages that fix your intuition about the
+3. **[Dao et al. (2016)](https://arxiv.org/abs/1607.02410){target="_blank"}** — what the P&L actually is.
+4. **[Potters & Bouchaud (2006)](https://arxiv.org/abs/physics/0508104){target="_blank"}** — six pages that fix your intuition about the
    payoff distribution permanently.
-5. **Beekhuizen & Hallerbach (2017)** — after which you will stop believing that
+5. **[Beekhuizen & Hallerbach (2017)](https://www.ssrn.com/abstract=2604942){target="_blank"}** — after which you will stop believing that
    different moving-average rules are different strategies.
 6. **Carver (2015)** — because everything above still leaves you a long way from
    a working system, and this closes most of the gap.
@@ -917,7 +917,7 @@ and $L = 252$, $\mathbb{P}(R>0) = \Phi(0.03\sqrt{252}) = \Phi(0.476) \approx 0.6
 so the bias is $0.37\mu$ — a substantial fraction of the drift itself, appearing
 as if it were predictability.
 
-This is the Huang, Li, Wang and Zhou (2020) critique. **[Contested]** Their
+This is the [Huang, Li, Wang and Zhou (2020)](https://ink.library.smu.edu.sg/context/lkcsb_research/article/7520/viewcontent/Time_series_momentum_JFE_sv.pdf){target="_blank"} critique. **[Contested]** Their
 conclusion — that little time-series momentum survives the correction — is
 disputed by Moskowitz, Ooi and Pedersen and by subsequent replications, and the
 disagreement is about how to demean (in-sample full-period mean? expanding
@@ -1086,14 +1086,14 @@ between them. **Trend-following is a small difference between two large numbers,
 which is precisely why it is so sensitive to costs, to the volatility estimate,
 and to the filter speed** — all three move one of the two large terms.
 
-Dao and co-authors (2016) reach the equivalent conclusion in continuous time and
+[Dao and co-authors (2016)](https://arxiv.org/abs/1607.02410){target="_blank"} reach the equivalent conclusion in continuous time and
 state it memorably: trend P&L is the difference between long-horizon and
 short-horizon realised variance. The discrete identity above is the same
 statement with $\alpha$ setting which horizons.
 
 ## 5.6 The option analogy, made precise
 
-Fung and Hsieh (2001) modelled trend-follower returns as a portfolio of
+[Fung and Hsieh (2001)](http://neumann.hec.ca/pages/nicolas.papageorgiou/qfm/papers/FungHsieh2001.pdf){target="_blank"} modelled trend-follower returns as a portfolio of
 **lookback straddles** — options that pay the high-minus-low range of the
 underlying over a period, so the holder is retrospectively given the best
 entry and the best exit — and found this explained CTA returns far better than
@@ -1193,7 +1193,7 @@ $\phi = 1$. The scale is irrelevant: the response function and the risk scaling
 of §1.3 renormalise the signal anyway, so what the Kalman filter fixes is the
 *shape* of the kernel, and the shape is exponential with decay $\alpha^\star$.
 When $\phi = 1$ (a random-walk trend) the two coefficients do sum to one, this
-reduces to $\alpha^\star = K$, and we recover Muth's (1960) result:
+reduces to $\alpha^\star = K$, and we recover [Muth's (1960)](https://www.tandfonline.com/doi/abs/10.1080/01621459.1960.10482064){target="_blank"} result:
 the exponentially weighted moving average is the minimum-mean-squared-error
 forecast for a random walk observed in noise. *That* is why the exponential
 kernel is ubiquitous — not convention, but optimality under the simplest model in
@@ -1497,7 +1497,7 @@ recent returns costs you at turning points.
 
 **Failure modes.** (i) Certain $(m, n)$ combinations produce kernels with a
 *negative* lobe — an implicit mean-reversion component the designer did not
-intend. Beekhuizen and Hallerbach (2017) document this for common
+intend. [Beekhuizen and Hallerbach (2017)](https://www.ssrn.com/abstract=2604942){target="_blank"} document this for common
 multi-average rules; it is invisible in price space and obvious in return space.
 (ii) The signal crosses zero frequently in choppy markets, which with a sign
 response generates a burst of loss-making trades — the classic whipsaw.
@@ -1656,7 +1656,7 @@ $$\sum_{t=1}^{T} (p_t - \ell_t)^2 \;+\; \lambda_{\mathrm{HP}}\sum_{t=2}^{T-1}
 where the first sum rewards fidelity to the observed path and the second
 penalises curvature, so $\lambda_{\mathrm{HP}}$ is the price of smoothness in
 units of fit; $\ell_t$ is the same kind of object as the level in §6.6.
-$\ell_1$ trend filtering (Kim, Koh, Boyd and Gorinevsky, 2009) replaces the
+$\ell_1$ trend filtering ([Kim, Koh, Boyd and Gorinevsky, 2009](https://web.stanford.edu/~gorin/papers/l1_trend_filter.pdf){target="_blank"}) replaces the
 squared second differences with absolute ones, giving a *piecewise linear* trend
 with a small number of kinks — a principled formalisation of "the trend changed
 here". Wavelet methods decompose the path
@@ -1958,7 +1958,7 @@ completely.
 **Some popular rules contain hidden mean reversion.** If you build a signal from
 several moving averages with badly chosen windows, the resulting kernel can go
 negative at some lags — meaning the rule bets *against* returns from that part of
-the past. Beekhuizen and Hallerbach (2017) document this for common
+the past. [Beekhuizen and Hallerbach (2017)](https://www.ssrn.com/abstract=2604942){target="_blank"} document this for common
 multi-average constructions. It is invisible in price space. The remedy is
 one line of code: expand your rule into return weights and plot them. If any
 $w_j < 0$ and you did not intend it, fix the rule.
@@ -1985,11 +1985,11 @@ observe in simulation and by what the literature supports:
 
 | Rank | Slot | Effect size | Evidence |
 |---|---|---|---|
-| 1 | **Risk scaling** $\hat\sigma_{i,t}$ | Sharpe 0.04 $\to$ 0.36 in my simulation with volatility clustering | Kim, Tse & Wald (2016) attribute much of the reported premium to it; Harvey et al. (2018) document its effect on drawdowns |
-| 2 | **Portfolio aggregation** $c_t$ | Sharpe $\times 2.45$ for 50 markets at $\bar\rho=0.15$ (§5.9) | Arithmetic; Baltas & Kosowski (2013) on correlation adjustment |
+| 1 | **Risk scaling** $\hat\sigma_{i,t}$ | Sharpe 0.04 $\to$ 0.36 in my simulation with volatility clustering | [Kim, Tse & Wald (2016)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2786955){target="_blank"} attribute much of the reported premium to it; [Harvey et al. (2018)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3175538){target="_blank"} document its effect on drawdowns |
+| 2 | **Portfolio aggregation** $c_t$ | Sharpe $\times 2.45$ for 50 markets at $\bar\rho=0.15$ (§5.9) | Arithmetic; [Baltas & Kosowski (2013)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2140091){target="_blank"} on correlation adjustment |
 | 3 | **Kernel timescale** | $\pm$5% for a factor-of-two error, $-$50% for a factor of sixteen (§5.8) | My simulation; consistent with the flatness reported across the literature |
-| 4 | **Response function** $g$ | Changes skew and hit rate substantially; changes Sharpe modestly | §1.5; Lempérière et al. (2014) find saturation for large signals |
-| 5 | **Kernel shape** at fixed timescale | Small | Levine & Pedersen (2016); Beekhuizen & Hallerbach (2017) |
+| 4 | **Response function** $g$ | Changes skew and hit rate substantially; changes Sharpe modestly | §1.5; [Lempérière et al. (2014)](https://arxiv.org/abs/1404.3274){target="_blank"} find saturation for large signals |
+| 5 | **Kernel shape** at fixed timescale | Small | [Levine & Pedersen (2016)](https://www.tandfonline.com/doi/pdf/10.2469/faj.v72.n3.3){target="_blank"}; [Beekhuizen & Hallerbach (2017)](https://www.ssrn.com/abstract=2604942){target="_blank"} |
 
 **The ordering is close to the inverse of the attention these get in the
 practitioner literature**, which is dominated by discussion of indicators
@@ -2001,7 +2001,7 @@ much is not that it improves the *signal* — it does not. It is that (i) it mak
 risk comparable across markets so the portfolio is not dominated by whichever
 instrument is currently most volatile, and (ii) volatility is far more
 predictable than returns, so dividing by a forecastable quantity sharpens the
-ratio. **[Contested]** Kim, Tse and Wald (2016) push this further and argue that
+ratio. **[Contested]** [Kim, Tse and Wald (2016)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2786955){target="_blank"} push this further and argue that
 much of the reported time-series momentum premium *is* the volatility scaling
 rather than the trend signal. If they are right, a chunk of what the industry
 calls trend-following is really a volatility-managed long position, which would
@@ -2182,7 +2182,7 @@ complementary constant.) Choices worth making deliberately:
   because the slow component anchors the estimate during transient spikes.
 - **Range estimators.** Parkinson and Garman–Klass estimators use the bar's high
   and low, and are several times more efficient than close-to-close for the same
-  window. Baltas and Kosowski (2013) find that more efficient volatility
+  window. [Baltas and Kosowski (2013)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2140091){target="_blank"} find that more efficient volatility
   estimation cuts portfolio turnover by more than a third without significant
   performance loss — which, given §8.8, is a large effect. Their weakness is
   sensitivity to bad prints in the high and low, so winsorise.
@@ -2240,7 +2240,7 @@ capped-linear response with roughly 30% lower turnover, which — after costs �
 is a real improvement.
 
 Whether *fading* extreme signals is right is an empirical question with a
-surprising answer. Lempérière and co-authors (2014) find a clear **saturation**
+surprising answer. [Lempérière and co-authors (2014)](https://arxiv.org/abs/1404.3274){target="_blank"} find a clear **saturation**
 effect in the data: the return to a trend signal grows less than linearly and
 flattens for large signals, which they interpret as fundamentalist traders
 stepping in only once the mispricing is large enough to be worth fighting. That
@@ -2308,7 +2308,7 @@ Three defences, in increasing order of intrusiveness:
 
 1. **Estimate $\bar\rho$ on a long window and cap the IDM** — commonly at 2.5.
    Crude and effective.
-2. **Use signed correlations.** Baltas and Kosowski's (2013) refinement: what
+2. **Use signed correlations.** [Baltas and Kosowski's (2013)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2140091){target="_blank"} refinement: what
    matters is not whether two markets are correlated but whether your *positions*
    in them are aligned. Two negatively correlated markets in which you hold
    opposite signs are a concentrated bet, not a diversified one. Compute the
@@ -2338,7 +2338,7 @@ A naive implementation trades to its exact target every bar, which generates
 enormous and mostly pointless turnover — most of the change in the target is the
 volatility estimate's own noise.
 
-The principled answer is Gârleanu and Pedersen (2013). With quadratic transaction
+The principled answer is [Gârleanu and Pedersen (2013)](https://nbgarleanu.github.io/DynTrad.pdf){target="_blank"}. With quadratic transaction
 costs and mean-reverting predictors, the optimal policy is:
 
 > **Trade partially toward an "aim" portfolio, where the aim over-weights the
@@ -2604,7 +2604,7 @@ This is the live question, and I will lay out both sides properly.
 - Assets in the strategy grew by an order of magnitude between 2000 and 2015. If
   the premium is compensation for providing liquidity to slow flows, more capital
   chasing it should compress it.
-- The mechanism was published. Moskowitz, Ooi and Pedersen (2012) and its
+- The mechanism was published. [Moskowitz, Ooi and Pedersen (2012)](https://w4.stern.nyu.edu/facdir/lpederse/papers/TimeSeriesMomentum.pdf){target="_blank"} and its
   successors made the signal explicit, cheap products followed, and fees
   collapsed — a pattern documented for other anomalies after publication.
 - Central-bank intervention from 2009 suppressed the volatility and rate
@@ -2921,7 +2921,7 @@ it is worth being precise about what it does and does not achieve.
   simulation, the dispersion of realised P&L volatility across sub-periods fell
   by roughly three quarters when volatility scaling was applied.
 - **Improves the Sharpe ratio when volatility is persistent and negatively
-  related to future returns.** Harvey and co-authors (2018) document this across
+  related to future returns.** [Harvey and co-authors (2018)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3175538){target="_blank"} document this across
   asset classes, with the effect strongest in equities — where the
   volatility–return relationship is strongest — and much weaker in commodities
   and currencies.
@@ -2941,7 +2941,7 @@ it is worth being precise about what it does and does not achieve.
   mechanically does, and Harvey and co-authors find that while it improves
   Sharpe, its effect on skewness is unfavourable for some asset classes.
 
-**[Contested]** And per §7.3, Kim, Tse and Wald (2016) argue much of the reported
+**[Contested]** And per §7.3, [Kim, Tse and Wald (2016)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2786955){target="_blank"} argue much of the reported
 time-series momentum premium is attributable to the volatility scaling rather
 than the trend signal. If so, volatility targeting is not risk management bolted
 onto a strategy — it is a substantial part of the strategy, and should be
@@ -2952,7 +2952,7 @@ evaluated as such.
 The folk wisdom is that stop losses are essential to trend-following. The theory
 says something more specific and more interesting.
 
-Kaminski and Lo (2014) analyse when a stop-loss overlay improves the expected
+[Kaminski and Lo (2014)](https://dspace.mit.edu/bitstream/handle/1721.1/114876/Lo_When%20Do%20Stop-Loss.pdf){target="_blank"} analyse when a stop-loss overlay improves the expected
 return of an underlying strategy. Their result:
 
 > A stop-loss rule **adds** expected return when returns are **positively
@@ -3198,7 +3198,7 @@ speed. The convexity is real, it is paid for continuously, and it fails at gaps
 because it is synthetic.
 
 Those three, plus the calibration of §5.9 — a diversified Sharpe near 1.0 sits on
-a daily autocorrelation of about 0.005 — are sufficient to reason about almost
+a daily autocorrelation of about 0.0025 — are sufficient to reason about almost
 any question in the field.
 
 ## 12.2 Decision tree

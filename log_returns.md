@@ -134,7 +134,7 @@ Two further distinctions that cause more real-world damage than the log-versus-s
 
 ### 1.4 The one-parameter family that contains both
 
-It is worth seeing that simple and log returns are the two endpoints of a continuum, because it clarifies why there is nothing in between worth having. The Box–Cox family (Box & Cox, 1964) applied to the gross return $G = 1+R$ is
+It is worth seeing that simple and log returns are the two endpoints of a continuum, because it clarifies why there is nothing in between worth having. The Box–Cox family ([Box & Cox, 1964](https://www.jstor.org/stable/2984418){target="_blank"}) applied to the gross return $G = 1+R$ is
 
 $$
 f_\lambda(R) \;=\;
@@ -263,7 +263,7 @@ $$r_p - \sum_i w_i r_i \;\approx\; \tfrac12\Big(\underbrace{\textstyle\sum_i w_i
 
 The error is half the *cross-sectional dispersion of returns across your holdings*. On a diversified equity book with 2% daily cross-sectional return dispersion, that is $\tfrac12 (0.02)^2 = 2\times10^{-4}$, or 2 basis points per day — about 5% per year. Not a rounding error.
 
-That quantity has a name in the portfolio literature: it is the **diversification return** or **rebalancing return** (Booth & Fama, 1992; Willenbrock, 2011). In continuous time, for a portfolio rebalanced back to fixed weights $w$,
+That quantity has a name in the portfolio literature: it is the **diversification return** or **rebalancing return** ([Booth & Fama, 1992](https://doi.org/10.2469/faj.v48.n3.26){target="_blank"}; [Willenbrock, 2011](https://arxiv.org/abs/1109.1256){target="_blank"}). In continuous time, for a portfolio rebalanced back to fixed weights $w$,
 
 $$g_p - \sum_i w_i g_i \;=\; \tfrac12\Big(\sum_i w_i \sigma_i^2 - \sigma_p^2\Big) \;\ge\; 0$$
 
@@ -543,7 +543,7 @@ That is the theorem behind the practitioner rule of thumb. It is not that log re
 
 ### 4.3 What the data actually looks like
 
-The empirical regularities — Cont's (2001) "stylized facts", the standard reference list — are the following, and they are what any candidate model has to reproduce. [Fact] for all of them, in the sense of being replicated across markets, asset classes and decades.
+The empirical regularities — [Cont's (2001)](http://www-stat.wharton.upenn.edu/~steele/Resources/FTSResources/StylizedFacts/Cont2001.pdf){target="_blank"} "stylized facts", the standard reference list — are the following, and they are what any candidate model has to reproduce. [Fact] for all of them, in the sense of being replicated across markets, asset classes and decades.
 
 | Stylized fact | Statement | Convention-sensitive? |
 |---|---|---|
@@ -776,7 +776,7 @@ $$p_t = \ln P_t \;\sim\; I(1), \qquad\qquad r_t = \Delta p_t \;\sim\; I(0)$$
 
 and every unit-root and cointegration procedure — ADF, Phillips–Perron, KPSS, Johansen — is run on $p_t$, never on $P_t$. Running an ADF test on raw prices is not merely stylistically wrong; the test statistic's asymptotic distribution is derived under homoskedastic innovations, and level-proportional heteroskedasticity invalidates the critical values. [Fact]
 
-**The cost of differencing, and fractional differencing as the compromise.** Taking a full first difference achieves stationarity by erasing the series' memory of its own level: $r_t$ tells you nothing about where $p_t$ sits, and recovering that would take an unbounded window of past returns. In a forecasting context this is expensive, because level-dependent quantities — the log price relative to a moving average, the distance from a 52-week high, the level of a valuation ratio — carry signal that the differenced series no longer holds. The principled middle ground is fractional differencing (Granger & Joyeux, 1980; Hosking, 1981), applied to finance by López de Prado (2018):
+**The cost of differencing, and fractional differencing as the compromise.** Taking a full first difference achieves stationarity by erasing the series' memory of its own level: $r_t$ tells you nothing about where $p_t$ sits, and recovering that would take an unbounded window of past returns. In a forecasting context this is expensive, because level-dependent quantities — the log price relative to a moving average, the distance from a 52-week high, the level of a valuation ratio — carry signal that the differenced series no longer holds. The principled middle ground is fractional differencing ([Granger & Joyeux, 1980](https://doi.org/10.1111/j.1467-9892.1980.tb00297.x){target="_blank"}; [Hosking, 1981](https://doi.org/10.1093/biomet/68.1.165){target="_blank"}), applied to finance by López [de Prado (2018)](https://www.wiley.com/en-us/Advances+in+Financial+Machine+Learning-p-9781119482086){target="_blank"}:
 
 $$\Delta^{d}p_t \;=\; \sum_{k=0}^{\infty} \binom{d}{k}(-1)^{k}\,p_{t-k}, \qquad 0 < d < 1$$
 
@@ -784,7 +784,7 @@ where $\binom{d}{k} = \frac{d(d-1)\cdots(d-k+1)}{k!}$ is the generalised binomia
 
 ### 6.2 Volatility models
 
-**GARCH.** The standard specification (Engle, 1982; Bollerslev, 1986) is written on log returns:
+**GARCH.** The standard specification ([Engle, 1982](https://www.jstor.org/stable/1912773){target="_blank"}; [Bollerslev, 1986](<https://doi.org/10.1016/0304-4076(86)90063-1>){target="_blank"}) is written on log returns:
 
 $$r_t = m + \varepsilon_t, \qquad \varepsilon_t = \sigma_t z_t, \quad z_t \sim \text{iid}(0,1), \qquad \sigma_t^2 = \omega + \alpha\varepsilon_{t-1}^2 + \beta\sigma_{t-1}^2$$
 
@@ -800,13 +800,13 @@ $$\mathbb{E}_t\big[\sigma_{t+j}^2\big] \;=\; \bar\sigma^2 + \lambda^{\,j-1}\big(
 
 So the per-period forecast decays geometrically to $\bar\sigma^2$, while the $h$-period forecast is $h$ periods of long-run variance plus a shock term that *saturates* at $(\sigma_{t+1}^2 - \bar\sigma^2)/(1-\lambda)$. Today's conditions shift the long-horizon variance forecast by a bounded amount; they do not change its slope in $h$. For daily equity data $\lambda$ is typically 0.94–0.99, giving a shock half-life $\ln 2 / \ln(1/\lambda)$ of about 11 trading days at the low end and 69 at the high end — two weeks to three months.
 
-**EGARCH and the second logarithm.** Nelson (1991) models $\ln\sigma_t^2$ rather than $\sigma_t^2$. The motivation is the same one as for prices: the object is positive and multiplicative, so the log makes the parameter space unconstrained and the innovations closer to symmetric. When you see a log in a financial model, the question to ask is "what positive, multiplicatively-evolving quantity is this?" — the answer is nearly always the reason.
+**EGARCH and the second logarithm.** [Nelson (1991)](https://www.jstor.org/stable/2938260){target="_blank"} models $\ln\sigma_t^2$ rather than $\sigma_t^2$. The motivation is the same one as for prices: the object is positive and multiplicative, so the log makes the parameter space unconstrained and the innovations closer to symmetric. When you see a log in a financial model, the question to ask is "what positive, multiplicatively-evolving quantity is this?" — the answer is nearly always the reason.
 
 **Realized variance, where log returns are not optional.** Sum squared intraday log returns over a day, with $M$ intervals:
 
 $$\mathrm{RV}_t \;=\; \sum_{j=1}^{M} r_{t,j}^2 \quad\xrightarrow[\;M\to\infty\;]{}\quad [\,p\,]_t \;=\; \int_{t-1}^{t}\sigma_u^2\,du$$
 
-This is the **quadratic variation of the log-price semimartingale**, and the convergence result (Andersen, Bollerslev, Diebold & Labys, 2001, 2003; Barndorff-Nielsen & Shephard, 2002) is stated for the log price. Take the quadratic variation of the *price* instead — sum squared dollar changes — and the limit is $[\,P\,]_t = \int_{t-1}^{t}\sigma_u^2 P_u^2\,du$: a quantity in squared dollars that scales with the price level, which is not a volatility and cannot be compared across assets or across time. [Fact]
+This is the **quadratic variation of the log-price semimartingale**, and the convergence result (Andersen, Bollerslev, Diebold & Labys, 2001, 2003; [Barndorff-Nielsen & Shephard, 2002](https://ideas.repec.org/p/oxf/wpaper/71.html){target="_blank"}) is stated for the log price. Take the quadratic variation of the *price* instead — sum squared dollar changes — and the limit is $[\,P\,]_t = \int_{t-1}^{t}\sigma_u^2 P_u^2\,du$: a quantity in squared dollars that scales with the price level, which is not a volatility and cannot be compared across assets or across time. [Fact]
 
 Squaring *simple* returns is the intermediate case, and it is worth being exact about rather than lumping it in with dollar changes. Since $R_{t,j} = r_{t,j} + O(r_{t,j}^2)$, the discrepancy $\sum_j (R_{t,j}^2 - r_{t,j}^2) = \sum_j r_{t,j}^3 + \cdots$ is third order and vanishes as $M\to\infty$, so summed squared simple returns converge to the same integrated variance. The two estimators agree — at five-minute sampling on liquid equities they agree to about five decimal places — and the case for logs here is definitional rather than numerical.
 
@@ -837,7 +837,7 @@ Two further consequences:
 
 ### 6.4 Cointegration: a ratio hypothesis versus a spread hypothesis
 
-Two integrated series are **cointegrated** if some linear combination of them is stationary (Engle & Granger, 1987). Applied to two assets, the choice of coordinate changes the economic hypothesis being tested, and this is not widely enough appreciated.
+Two integrated series are **cointegrated** if some linear combination of them is stationary ([Engle & Granger, 1987](https://www.jstor.org/stable/1913236){target="_blank"}). Applied to two assets, the choice of coordinate changes the economic hypothesis being tested, and this is not widely enough appreciated.
 
 | Coordinate | Stationary object | Economic claim | Corresponding position |
 |---|---|---|---|
@@ -854,7 +854,7 @@ The return identity
 
 $$1 + R_{t+1} \;=\; \frac{P_{t+1} + D_{t+1}}{P_t}$$
 
-is exact and useless for analysis, because it is non-linear and cannot be iterated forward into a statement about long-run expectations. Campbell & Shiller (1988) resolved this by log-linearising around the mean log dividend–price ratio. Writing lowercase for logs, a first-order expansion gives
+is exact and useless for analysis, because it is non-linear and cannot be iterated forward into a statement about long-run expectations. [Campbell & Shiller (1988)](https://pages.stern.nyu.edu/~dbackus/GE_asset_pricing/CampbellShiller%20RFS%2088.PDF){target="_blank"} resolved this by log-linearising around the mean log dividend–price ratio. Writing lowercase for logs, a first-order expansion gives
 
 $$r_{t+1} \;\approx\; \kappa + \rho\,p_{t+1} + (1-\rho)\,d_{t+1} - p_t, \qquad \rho \;=\; \frac{1}{1 + \exp\big(\overline{d - p}\big)}$$
 
@@ -862,7 +862,7 @@ Here $\overline{d-p}$ is the sample mean of the log dividend–price ratio, so $
 
 $$d_t - p_t \;\approx\; \text{const} \;+\; \mathbb{E}_t\sum_{j=0}^{\infty}\rho^{\,j}\Big(r_{t+1+j} \;-\; \Delta d_{t+1+j}\Big)$$
 
-**A high dividend yield must forecast either high future returns or low future dividend growth — there is no third possibility.** That statement is not a model: it is an accounting identity, log-linearised, plus a transversality condition ruling out a bubble term $\lim_{j\to\infty}\rho^{\,j}(d_{t+j}-p_{t+j})$. Nothing in it is estimated, which is why the question "is the dividend yield a valid predictor?" has a different character from other predictor questions. Campbell (1991) extends the same machinery to decompose realised return variance into cash-flow news and discount-rate news.
+**A high dividend yield must forecast either high future returns or low future dividend growth — there is no third possibility.** That statement is not a model: it is an accounting identity, log-linearised, plus a transversality condition ruling out a bubble term $\lim_{j\to\infty}\rho^{\,j}(d_{t+j}-p_{t+j})$. Nothing in it is estimated, which is why the question "is the dividend yield a valid predictor?" has a different character from other predictor questions. [Campbell (1991)](https://www.jstor.org/stable/2233809){target="_blank"} extends the same machinery to decompose realised return variance into cash-flow news and discount-rate news.
 
 None of this exists in simple returns. The log-linearisation is what makes the present-value relation iterable, and there is no simple-return counterpart. This is the second genuinely non-negotiable case.
 
@@ -874,7 +874,7 @@ $$r_{t+1:t+h} \;=\; a \;+\; b\,x_t \;+\; \varepsilon_{t+1:t+h}$$
 
 with $r_{t+1:t+h} = \sum_{j=1}^{h}r_{t+j}$, and $x_t$ a predictor such as the dividend yield or a valuation ratio. The left-hand side is a *sum*, which is the only reason the standard inference machinery — Hansen–Hodrick and Newey–West corrections for the overlapping-observation MA($h-1$) error structure — applies. Replace the sum with a compounded simple return and the error term's autocovariance structure is no longer the tractable moving average the corrections assume.
 
-The same additivity requirement underlies the variance ratio (Lo & MacKinlay, 1988),
+The same additivity requirement underlies the variance ratio ([Lo & MacKinlay, 1988](https://doi.org/10.1093/rfs/1.1.41){target="_blank"}),
 
 $$\mathrm{VR}(q) \;=\; \frac{\operatorname{Var}\big(r_{t+1:t+q}\big)}{q\,\operatorname{Var}(r_{t+1})} \;=\; 1 + 2\sum_{k=1}^{q-1}\Big(1 - \frac{k}{q}\Big)\rho_k$$
 
@@ -933,7 +933,7 @@ where $\mu$ and $\sigma$ are the moments of the *excess* return, so that $\mathr
 
 The second formula deserves to be better known. **A strategy with an annual Sharpe ratio of 1.0, run at full Kelly, compounds at 50% per year in excess of the risk-free rate.** That is a log growth rate, so it is a wealth multiple of $e^{0.5} = 1.65\times$ a year. That number surprises people, and it should immediately be paired with the leverage it requires: for $\mu = 10\%$ and $\sigma = 10\%$ — the same Sharpe-1.0 strategy — $f^\ast = 0.10/0.01 = 10\times$. Full Kelly is not a practical prescription; it is the *upper* end of a growth-versus-drawdown trade-off, and its drawdown properties are brutal (the probability of at some point halving your wealth under full Kelly is 50%). Practitioners run fractional Kelly — typically a quarter to a half — which sacrifices little growth (growth is quadratic near the peak, so half-Kelly retains 75% of $g^\ast$) for a large reduction in variance. [Practice]
 
-**And the contested part.** Kelly (1956) and Latané (1959) proposed maximising expected log wealth as a general criterion, on the argument that a log-optimal strategy almost surely outgrows any other in the long run. Samuelson attacked this repeatedly and forcefully — most memorably in a 1979 note written in words of one syllable, save the last — on the ground that "almost surely ends up richer" does not imply "preferred", since expected utility is not determined by the limiting probability of dominance. Merton & Samuelson (1974) formalised the objection. Markowitz (1976) defended the criterion's practical relevance, and Thorp has made the applied case for decades. **[Contested]**
+**And the contested part.** [Kelly (1956)](https://www.princeton.edu/~wbialek/rome/refs/kelly_56.pdf){target="_blank"} and [Latané (1959)](https://www.jstor.org/stable/1826282){target="_blank"} proposed maximising expected log wealth as a general criterion, on the argument that a log-optimal strategy almost surely outgrows any other in the long run. Samuelson attacked this repeatedly and forcefully — most memorably in a 1979 note written in words of one syllable, save the last — on the ground that "almost surely ends up richer" does not imply "preferred", since expected utility is not determined by the limiting probability of dominance. [Merton & Samuelson (1974)](<https://doi.org/10.1016/0304-405X(74)90009-9>){target="_blank"} formalised the objection. [Markowitz (1976)](https://doi.org/10.1111/j.1540-6261.1976.tb03213.x){target="_blank"} defended the criterion's practical relevance, and Thorp has made the applied case for decades. **[Contested]**
 
 My read: Samuelson is right on the mathematics and the Kelly camp is right about what to actually do. Maximising $\mathbb{E}[\ln W]$ is optimal if and only if your utility is logarithmic, and there is no theorem making log utility mandatory. But as an *engineering* heuristic for sizing a repeated bet where ruin is unacceptable and the horizon is long, fractional Kelly is hard to beat and its failure modes are well understood. Use it as a ceiling on leverage rather than as a target.
 
@@ -955,7 +955,7 @@ The unifying principle is short: **anything that adds up across positions, and a
 
 ### 7.3 The two-space discipline
 
-The resolution used by every well-built quantitative system is not to pick one convention but to be explicit about which space you are in at each stage. Meucci (2010) frames this as a three-step pipeline — find the invariants, project them to the horizon, then map back to simple returns for pricing and aggregation — and it is the single most useful organising idea for production code.
+The resolution used by every well-built quantitative system is not to pick one convention but to be explicit about which space you are in at each stage. [Meucci (2010)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656){target="_blank"} frames this as a three-step pipeline — find the invariants, project them to the horizon, then map back to simple returns for pricing and aggregation — and it is the single most useful organising idea for production code.
 
 ```mermaid
 flowchart LR
@@ -1167,7 +1167,7 @@ More generally, the concavity of the log means **bad data on the downside is amp
 
 **Symptom.** Forecast returns that are systematically below realised returns, with the gap largest for the most volatile names — which means the *ranking* is distorted, not just the level.
 
-**Fix.** §11.5 in full. Briefly: either add $\hat s^2(x)/2$ from a companion volatility model, or use Duan's (1983) smearing estimator, or — usually best — never leave log space at all and evaluate the model on the quantity you fit.
+**Fix.** §11.5 in full. Briefly: either add $\hat s^2(x)/2$ from a companion volatility model, or use [Duan's (1983)](https://people.stat.sc.edu/hoyen/PastTeaching/STAT704-2022/Notes/Smearing.pdf){target="_blank"} smearing estimator, or — usually best — never leave log space at all and evaluate the model on the quantity you fit.
 
 ### 9.8 Mixing conventions across a system boundary
 
@@ -1389,7 +1389,7 @@ Under conditional lognormality the correct expression is
 
 $$\mathbb{E}[R \mid x] \;=\; \exp\!\Big(\hat m(x) + \tfrac12 \hat s^2(x)\Big) - 1$$
 
-where $\hat s^2(x)$ is the *conditional* variance of the log return at $x$ — the model's residual variance there, not the unconditional variance of the series. So $e^{\hat m(x)} - 1$ gives you the conditional **median**, not the mean. This is Goldberger's (1968) and Duan's (1983) retransformation problem, and Manning (1998) is the standard treatment of what happens when the residual variance is not constant.
+where $\hat s^2(x)$ is the *conditional* variance of the log return at $x$ — the model's residual variance there, not the unconditional variance of the series. So $e^{\hat m(x)} - 1$ gives you the conditional **median**, not the mean. This is Goldberger's (1968) and [Duan's (1983)](https://people.stat.sc.edu/hoyen/PastTeaching/STAT704-2022/Notes/Smearing.pdf){target="_blank"} retransformation problem, and [Manning (1998)](https://ideas.repec.org/a/eee/jhecon/v17y1998i3p283-295.html){target="_blank"} is the standard treatment of what happens when the residual variance is not constant.
 
 **Why it is worse in finance than elsewhere.** In most applications the correction $\tfrac12 s^2$ is roughly constant, so the bias is a level shift that does not change any decision. In finance $s^2(x)$ varies by an order of magnitude across the cross-section, so **the bias varies across observations and therefore changes the ranking.**
 
@@ -1407,7 +1407,7 @@ Ranked by predicted log return the two are tied. Ranked by expected *simple* ret
 1. **Do not leave log space.** If the model is fit on log returns, evaluate it on log returns, and let the position-sizing layer handle the conversion once, explicitly, with a volatility model in hand. This is the cleanest and it is what the three-stage discipline of §7.3 prescribes.
 2. **Predict the volatility-normalised return** $r_t/\hat\sigma_t$ instead. This is the fix that dominates, because it addresses the retransformation bias and the heteroskedasticity that causes it at the same time, and it is what you should be doing anyway for the reasons in §5.4. When the target is already scaled by $\hat\sigma$, the normalisation has made the residual variance roughly constant across the cross-section, so the correction collapses to that one constant times $\hat\sigma^2$ and needs no second model.
 3. **Apply the correction explicitly** using a companion conditional-variance model: $\hat{\mathbb{E}}[R\mid x] = \exp(\hat m(x) + \tfrac12\hat s^2(x)) - 1$. This is correct if the conditional distribution is close to lognormal, which for daily returns it is not in the tails.
-4. **Use Duan's (1983) smearing estimator**, which replaces the parametric correction with the empirical residual distribution: $\hat{\mathbb{E}}[R\mid x] = \tfrac1n\sum_{j}\exp\big(\hat m(x) + \hat\varepsilon_j\big) - 1$. Non-parametric in the residual shape, but it assumes homoskedastic residuals — precisely the assumption finance violates. Manning (1998) shows that heteroskedasticity breaks smearing too, and recommends modelling the variance directly.
+4. **Use [Duan's (1983)](https://people.stat.sc.edu/hoyen/PastTeaching/STAT704-2022/Notes/Smearing.pdf){target="_blank"} smearing estimator**, which replaces the parametric correction with the empirical residual distribution: $\hat{\mathbb{E}}[R\mid x] = \tfrac1n\sum_{j}\exp\big(\hat m(x) + \hat\varepsilon_j\big) - 1$. Non-parametric in the residual shape, but it assumes homoskedastic residuals — precisely the assumption finance violates. [Manning (1998)](https://ideas.repec.org/a/eee/jhecon/v17y1998i3p283-295.html){target="_blank"} shows that heteroskedasticity breaks smearing too, and recommends modelling the variance directly.
 5. **Fit the simple return directly** if the economic objective is a one-period dollar return, accepting worse-conditioned targets in exchange for an unbiased estimate of the thing you actually want.
 
 **And the deeper point.** Which target is "right" is not a statistical question, it is a question about the objective:
@@ -1608,18 +1608,18 @@ This literature is in health economics, not finance, and is the reason §11.5 ex
 
 In order:
 
-1. **Meucci (2010)**, three pages, for the dichotomy.
-2. **Campbell, Lo & MacKinlay (1997), Chapter 1**, for the definitions done carefully.
-3. **Cont (2001)**, for what the data actually looks like.
-4. **Hudson & Gregoriou (2015)**, for the empirical consequences of the choice.
-5. **Manning (1998)**, for the retransformation problem that finance keeps rediscovering.
+1. **[Meucci (2010)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656){target="_blank"}**, three pages, for the dichotomy.
+2. **[Campbell, Lo & MacKinlay (1997)](https://press.princeton.edu/books/hardcover/9780691043012/the-econometrics-of-financial-markets){target="_blank"}, Chapter 1**, for the definitions done carefully.
+3. **[Cont (2001)](http://www-stat.wharton.upenn.edu/~steele/Resources/FTSResources/StylizedFacts/Cont2001.pdf){target="_blank"}**, for what the data actually looks like.
+4. **[Hudson & Gregoriou (2015)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1549328){target="_blank"}**, for the empirical consequences of the choice.
+5. **[Manning (1998)](https://ideas.repec.org/a/eee/jhecon/v17y1998i3p283-295.html){target="_blank"}**, for the retransformation problem that finance keeps rediscovering.
 
-If you are building machine-learning features specifically, substitute Grinsztajn et al. (2022) for item 3.
+If you are building machine-learning features specifically, substitute [Grinsztajn et al. (2022)](https://proceedings.neurips.cc/paper_files/paper/2022/file/0378c7692da36807bdec87ab043cdadc-Paper-Datasets_and_Benchmarks.pdf){target="_blank"} for item 3.
 
 > ### §13 Key takeaways
 >
-> 1. The literature written directly on this question is small: Meucci (2010), Hudson & Gregoriou (2015), Dorfleitner (2003), and Blume & Stambaugh (1983) are most of it.
-> 2. The retransformation problem was solved in health economics in the 1980s and finance has largely not imported the solution. Duan (1983) and Manning (1998) are worth the hour.
+> 1. The literature written directly on this question is small: [Meucci (2010)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656){target="_blank"}, [Hudson & Gregoriou (2015)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1549328){target="_blank"}, [Dorfleitner (2003)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=302811){target="_blank"}, and [Blume & Stambaugh (1983)](<https://doi.org/10.1016/0304-405X(83)90056-9>){target="_blank"} are most of it.
+> 2. The retransformation problem was solved in health economics in the 1980s and finance has largely not imported the solution. [Duan (1983)](https://people.stat.sc.edu/hoyen/PastTeaching/STAT704-2022/Notes/Smearing.pdf){target="_blank"} and [Manning (1998)](https://ideas.repec.org/a/eee/jhecon/v17y1998i3p283-295.html){target="_blank"} are worth the hour.
 > 3. The growth-optimality debate — Kelly and Latané versus Samuelson and Merton, with Markowitz defending — is a live disagreement, and reading both sides is more useful than reading either.
 > 4. Practitioner sources on the diversification return come from firms that sell diversification. The arithmetic is not in dispute; the framing as a "return" is.
 
@@ -1877,7 +1877,7 @@ Both are dimensionless. Both require the corresponding moment to exist, which is
 
 **Why it appears here.** §3.3 shows the log transform manufactures skewness in simple returns even when log returns are perfectly symmetric, and quantifies it by horizon. §4.3 and §4.5 use both to describe what return data actually looks like and what the transform does to the tails.
 
-**Deeper.** Cont (2001) for the empirical values; Kim & White, "On more robust estimation of skewness and kurtosis," *Finance Research Letters* 1(1), 2004, for why the classical estimators mislead here.
+**Deeper.** [Cont (2001)](http://www-stat.wharton.upenn.edu/~steele/Resources/FTSResources/StylizedFacts/Cont2001.pdf){target="_blank"} for the empirical values; Kim & White, "On more robust estimation of skewness and kurtosis," *Finance Research Letters* 1(1), 2004, for why the classical estimators mislead here.
 
 ### A.9 The lognormal distribution {#a9}
 
@@ -1945,7 +1945,7 @@ Familiar cases: $V \propto \theta$ (Poisson) gives $\sqrt{\cdot}$; $V \propto \t
 
 **Why it appears here.** §2.5 derives the logarithm as the unique stabiliser for a level-proportional process, which is the econometric — as opposed to the additivity — case for logs, and the reason §6.1 differences the log price rather than the price. §11.5's retransformation bias is what happens when heteroskedasticity survives the transform anyway.
 
-**Deeper.** Bartlett, "The use of transformations," *Biometrics* 3(1), 1947, 39–52; Box & Cox (1964).
+**Deeper.** Bartlett, "The use of transformations," *Biometrics* 3(1), 1947, 39–52; [Box & Cox (1964)](https://www.jstor.org/stable/2984418){target="_blank"}.
 
 ### A.14 Brownian motion, arithmetic and geometric {#a14}
 
@@ -1987,7 +1987,7 @@ For $dX = a\,dt + b\,dW$, $[X]_T = \int_0^T b_u^2\,du$. So with $p = \ln P$ and 
 
 **Why it appears here.** §6.2 and §7.1. Note the correction the reviewers forced on an earlier draft of this document: summing squared *simple* returns converges to the same $\int\sigma_u^2\,du$ as log returns, because $R_j = r_j + O(r_j^2)$ and the discrepancy is third order. It is squared *price changes* that give the level-dependent limit. The case for logs here is definitional and theoretical, not a matter of the limits differing.
 
-**Deeper.** Andersen, Bollerslev, Diebold & Labys (2003); Barndorff-Nielsen & Shephard (2002); Protter, *Stochastic Integration and Differential Equations*, ch. 2 for the general theory.
+**Deeper.** [Andersen, Bollerslev, Diebold & Labys (2003)](https://www.nber.org/papers/w8160){target="_blank"}; [Barndorff-Nielsen & Shephard (2002)](https://ideas.repec.org/p/oxf/wpaper/71.html){target="_blank"}; Protter, *Stochastic Integration and Differential Equations*, ch. 2 for the general theory.
 
 ### A.17 Risk-neutral pricing and the forward {#a17}
 
@@ -2021,7 +2021,7 @@ The weights decay like $k^{-(1+d)}$ — hyperbolically, not geometrically, which
 
 **Why it appears here.** §6.1 offers it as the principled answer to "should my feature be the price or the return?", and §11.4 ranks feature stationarity fourth in the hierarchy of things that matter.
 
-**Deeper.** Granger & Joyeux (1980); Hosking (1981); López de Prado (2018), ch. 5.
+**Deeper.** [Granger & Joyeux (1980)](https://doi.org/10.1111/j.1467-9892.1980.tb00297.x){target="_blank"}; [Hosking (1981)](https://doi.org/10.1093/biomet/68.1.165){target="_blank"}; López [de Prado (2018)](https://www.wiley.com/en-us/Advances+in+Financial+Machine+Learning-p-9781119482086){target="_blank"}, ch. 5.
 
 ### A.20 ARCH and GARCH {#a20}
 
@@ -2035,7 +2035,7 @@ with $\omega > 0$, $\alpha,\beta \ge 0$. Persistence is $\lambda = \alpha + \bet
 
 **Why it appears here.** §6.2, and §8.4 lists "a distributional assumption is being made" as one of the six triggers that make the convention matter.
 
-**Deeper.** Engle (1982); Bollerslev (1986); Nelson (1991); Hansen & Lunde (2005) for how hard GARCH(1,1) is to beat.
+**Deeper.** [Engle (1982)](https://www.jstor.org/stable/1912773){target="_blank"}; [Bollerslev (1986)](<https://doi.org/10.1016/0304-4076(86)90063-1>){target="_blank"}; [Nelson (1991)](https://www.jstor.org/stable/2938260){target="_blank"}; Hansen & Lunde (2005) for how hard GARCH(1,1) is to beat.
 
 ### A.21 Cointegration and error correction {#a21}
 
@@ -2049,7 +2049,7 @@ in which deviations from the equilibrium relation are pulled back. Engle–Grang
 
 **Why it appears here.** §6.4 shows that testing cointegration in logs versus in levels asks *different economic questions* — a ratio hypothesis versus a dollar-spread hypothesis — corresponding to a rebalanced versus a fixed-share position.
 
-**Deeper.** Engle & Granger (1987); Johansen (1991); Hamilton, *Time Series Analysis*, ch. 19.
+**Deeper.** [Engle & Granger (1987)](https://www.jstor.org/stable/1913236){target="_blank"}; [Johansen (1991)](https://www.jstor.org/stable/2938278){target="_blank"}; Hamilton, *Time Series Analysis*, ch. 19.
 
 ### A.22 Overlapping observations and long-horizon regressions {#a22}
 
@@ -2059,7 +2059,7 @@ in which deviations from the equilibrium relation are pulled back. Engle–Grang
 
 **Why it appears here.** §6.6 — and it is why the left-hand side must be an additive sum, which is a log-return property.
 
-**Deeper.** Hansen & Hodrick (1980); Newey & West (1987); Stambaugh (1999); Boudoukh, Richardson & Whitelaw, "The myth of long-horizon predictability," *Review of Financial Studies* 21(4), 2008.
+**Deeper.** [Hansen & Hodrick (1980)](https://www.jstor.org/stable/1837056){target="_blank"}; [Newey & West (1987)](https://www.jstor.org/stable/1913610){target="_blank"}; [Stambaugh (1999)](<https://doi.org/10.1016/S0304-405X(99)00041-0>){target="_blank"}; Boudoukh, Richardson & Whitelaw, "The myth of long-horizon predictability," *Review of Financial Studies* 21(4), 2008.
 
 ### A.23 The variance ratio {#a23}
 
@@ -2073,7 +2073,7 @@ where $\rho_k$ is the lag-$k$ autocorrelation of $r$. The second equality follow
 
 **Why it appears here.** §3.5 and §6.6, as the clearest example of a statistic that exists only because log returns add: there is no expansion of $\operatorname{Var}(R_{t+1:t+q})$ in the $\rho_k$ alone.
 
-**Deeper.** Lo & MacKinlay (1988).
+**Deeper.** [Lo & MacKinlay (1988)](https://doi.org/10.1093/rfs/1.1.41){target="_blank"}.
 
 ### A.24 Price, total, and delisting returns {#a24}
 
@@ -2083,7 +2083,7 @@ where $\rho_k$ is the lag-$k$ autocorrelation of $r$. The second equality follow
 
 **Why it appears here.** §1.3 flags the total-versus-price distinction as more consequential than the whole log question; §9.1 and §12.3 treat the $R=-1$ case, where dropping the row is survivorship bias rather than a policy.
 
-**Deeper.** Shumway, "The delisting bias in CRSP data," *Journal of Finance* 52(1), 1997, 327–340; Bessembinder (2018) for what the full lifetime distribution looks like.
+**Deeper.** Shumway, "The delisting bias in CRSP data," *Journal of Finance* 52(1), 1997, 327–340; [Bessembinder (2018)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2900447){target="_blank"} for what the full lifetime distribution looks like.
 
 ### A.25 Volatility drag {#a25}
 
@@ -2097,7 +2097,7 @@ exactly $\ln(1+\mu) - \ln(1+g) = s^2/2$ under lognormality, and unconditionally 
 
 **Why it appears here.** §3.4 tabulates it across leverage; §10.4 turns it into mental arithmetic; §6.3 identifies it with the Itô correction.
 
-**Deeper.** Any treatment of the geometric mean criterion; Willenbrock (2011) for the portfolio version.
+**Deeper.** Any treatment of the geometric mean criterion; [Willenbrock (2011)](https://arxiv.org/abs/1109.1256){target="_blank"} for the portfolio version.
 
 ### A.26 The diversification return {#a26}
 
@@ -2111,7 +2111,7 @@ Non-negativity is exactly the statement that a weighted average of variances is 
 
 **Why it appears here.** §2.3 identifies it as precisely the error you commit by averaging log returns across a portfolio, which makes the mistake and the phenomenon the same object; §9.5 gives its magnitude on a real book.
 
-**Deeper.** Booth & Fama (1992); Willenbrock (2011), who is explicit that it is a rebalancing artefact rather than free money.
+**Deeper.** [Booth & Fama (1992)](https://doi.org/10.2469/faj.v48.n3.26){target="_blank"}; [Willenbrock (2011)](https://arxiv.org/abs/1109.1256){target="_blank"}, who is explicit that it is a rebalancing artefact rather than free money.
 
 ### A.27 The Sharpe ratio and annualisation {#a27}
 
@@ -2139,7 +2139,7 @@ so that $\sigma_i^2 = \beta_i^2\sigma_M^2 + \sigma_{\varepsilon,i}^2$, decomposi
 
 **Why it appears here.** §7.2 lists these as simple-return domains because the left-hand side must aggregate linearly; §9.3 shows what running them in logs does — a mechanical $-\tfrac12\sigma_{\varepsilon,i}^2$ in the intercept, manufacturing about 11 percentage points a year of spurious alpha spread between a 50%- and a 15%-idiosyncratic-volatility stock.
 
-**Deeper.** Cochrane, *Asset Pricing*, revised ed., ch. 12; Fama & MacBeth (1973).
+**Deeper.** Cochrane, *Asset Pricing*, revised ed., ch. 12; [Fama & MacBeth (1973)](https://www.jstor.org/stable/1831028){target="_blank"}.
 
 ### A.29 Mean-variance optimisation {#a29}
 
@@ -2167,7 +2167,7 @@ for excess-return moments $\mu, \sigma$. Because $\ln W_T = \ln W_0 + \sum_t \ln
 
 **Why it appears here.** §7.1, including the contested question of whether maximising expected log wealth is a *normative* criterion (it is optimal if and only if your utility is logarithmic) or merely a good engineering heuristic.
 
-**Deeper.** Kelly (1956); Samuelson (1979) for the objection; MacLean, Thorp & Ziemba, eds., *The Kelly Capital Growth Investment Criterion* (2011), which collects both sides.
+**Deeper.** [Kelly (1956)](https://www.princeton.edu/~wbialek/rome/refs/kelly_56.pdf){target="_blank"}; [Samuelson (1979)](http://www-stat.wharton.upenn.edu/~steele/Courses/434F2005/Context/Kelly%20Resources/Samuelson1979.pdf){target="_blank"} for the objection; MacLean, Thorp & Ziemba, eds., *The Kelly Capital Growth Investment Criterion* (2011), which collects both sides.
 
 ### A.31 Value at Risk and expected shortfall {#a31}
 
@@ -2205,7 +2205,7 @@ which for $L = 3$ and $\sigma = 20\%$ is 12 percentage points a year.
 
 **Why it appears here.** §7.3 makes this the organising discipline of the whole document, and §12.1 notes that risk management has run it since RiskMetrics in 1996.
 
-**Deeper.** Meucci, *Risk and Asset Allocation*, ch. 3; Meucci (2010).
+**Deeper.** Meucci, *Risk and Asset Allocation*, ch. 3; [Meucci (2010)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656){target="_blank"}.
 
 ### A.34 Conditional means, medians, and retransformation bias {#a34}
 
@@ -2219,7 +2219,7 @@ $$\mathbb{E}[R \mid x] \;=\; \exp\!\Big(\hat m(x) + \tfrac12 s^2(x)\Big) - 1, \q
 
 **Why it appears here.** §9.7 and §11.5. Two stocks with identical predicted log returns and 1% versus 5% daily volatility differ by 12 bp per day in expected simple return, which is enough to look like a systematic short bias in high-volatility names.
 
-**Deeper.** Duan (1983); Manning (1998); Goldberger (1968).
+**Deeper.** [Duan (1983)](https://people.stat.sc.edu/hoyen/PastTeaching/STAT704-2022/Notes/Smearing.pdf){target="_blank"}; [Manning (1998)](https://ideas.repec.org/a/eee/jhecon/v17y1998i3p283-295.html){target="_blank"}; Goldberger (1968).
 
 ### A.35 Gradient-boosted trees {#a35}
 
@@ -2229,7 +2229,7 @@ $$\mathbb{E}[R \mid x] \;=\; \exp\!\Big(\hat m(x) + \tfrac12 s^2(x)\Big) - 1, \q
 
 **Why it appears here.** §11.2, which states and proves that invariance, maps its boundary — it survives cumulative returns, it fails for averages, differences, ratios and cross-sectional aggregates — and lists the practical caveats, including that $R = -1$ leaves the domain of $\ln(1+\cdot)$ and so genuinely changes which rows are missing.
 
-**Deeper.** Friedman, "Greedy function approximation: a gradient boosting machine," *Annals of Statistics* 29(5), 2001, 1189–1232; Chen & Guestrin (2016); Ke et al. (2017).
+**Deeper.** Friedman, "Greedy function approximation: a gradient boosting machine," *Annals of Statistics* 29(5), 2001, 1189–1232; [Chen & Guestrin (2016)](https://arxiv.org/abs/1603.02754){target="_blank"}; [Ke et al. (2017)](https://papers.nips.cc/paper_files/paper/2017/hash/6449f44a102fde848669bdd9eb6b76fa-Abstract.html){target="_blank"}.
 
 ### A.36 Feature scaling: robust, rank-Gauss, and volatility normalisation {#a36}
 
@@ -2253,7 +2253,7 @@ where $\Phi^{-1}$ is the inverse standard normal CDF and the $-\tfrac12$ is a pl
 
 **Why it appears here.** §11.4 ranks these first and second in the hierarchy of things that affect out-of-sample performance — above volatility normalisation, and far above the log-versus-simple choice at seventh.
 
-**Deeper.** López de Prado (2018), ch. 7.
+**Deeper.** López [de Prado (2018)](https://www.wiley.com/en-us/Advances+in+Financial+Machine+Learning-p-9781119482086){target="_blank"}, ch. 7.
 
 ### A.38 The information coefficient {#a38}
 

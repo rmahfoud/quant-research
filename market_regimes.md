@@ -142,7 +142,7 @@ It isn't. What you observe is a sequence of returns. Any such sequence can be
 represented as a discrete-state process modulating a family of distributions, in
 infinitely many ways. Fit a two-state Gaussian mixture and you get a calm state
 and a turbulent one. Fit four and you get something like crash, slow growth,
-bull, and recovery — which is exactly what Guidolin and Timmermann (2007) report
+bull, and recovery — which is exactly what [Guidolin and Timmermann (2007)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=940652){target="_blank"} report
 for joint stock and bond returns, because four is what they fitted. Fit twelve
 and the likelihood will find work for all twelve. None of these is more correct
 than the others in any sense the data can adjudicate, because a $K$-component
@@ -417,7 +417,7 @@ Cochrane's (2011) survey makes the case that essentially all of the variation in
 asset prices is discount-rate variation, which is cyclical. Henkel, Martin and
 Nardari (2011) sharpen this into a regime statement: **short-horizon return
 predictability is concentrated in recessions and close to zero in expansions.**
-Farmer, Schmidt and Timmermann (2023) find the same shape without imposing a
+[Farmer, Schmidt and Timmermann (2023)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3152386){target="_blank"} find the same shape without imposing a
 cycle — predictability arrives in short, localised "pockets".
 
 This is the most economically respectable case for regime-conditional *return*
@@ -436,7 +436,7 @@ the hypothesis most consistent with the evidence and the one most rarely tested.
 A single process with persistent stochastic volatility and heavy tails —
 no discrete states anywhere — produces sample paths that a regime model will
 happily describe with two to four states, with convincing-looking state plots and
-a significant-looking likelihood improvement. Diebold and Inoue (2001) prove a
+a significant-looking likelihood improvement. [Diebold and Inoue (2001)](https://www.nber.org/papers/t0264){target="_blank"} prove a
 version of this analytically: **stochastic regime switching and long memory are
 easily confused, even asymptotically**, and a process with occasional breaks
 generates estimated long-memory parameters, while a long-memory process generates
@@ -467,7 +467,7 @@ testable on data you already have.
 † A stochastic-volatility null does generate correlation increases in high-vol
 periods, purely mechanically, because correlations estimated over high-variance
 windows are biased upward when the common factor's variance rises faster than the
-idiosyncratic. Forbes and Rigobon (2002) made this point about "contagion" and it
+idiosyncratic. [Forbes and Rigobon (2002)](https://www.nber.org/papers/w7267){target="_blank"} made this point about "contagion" and it
 applies verbatim here: **an increase in measured correlation during a crisis is
 partly an artefact of the volatility increase, not independent evidence of a
 regime.**
@@ -509,7 +509,7 @@ real than one that only explains the series it was estimated from.
 >    and does a continuous-state model beat the discrete one out of sample? Run
 >    both before building anything.
 > 7. Rising correlations in crises are partly a mechanical artefact of rising
->    volatility (Forbes and Rigobon, 2002), not independent evidence of a regime.
+>    volatility ([Forbes and Rigobon, 2002](https://www.nber.org/papers/w7267){target="_blank"}), not independent evidence of a regime.
 
 ---
 
@@ -585,7 +585,7 @@ computational problem this era posed.
 
 ## 3.4 Era IV — The Hamilton filter (1989)
 
-**Contribution.** Hamilton (1989) gave a recursive algorithm — one forward pass —
+**Contribution.** [Hamilton (1989)](https://www.econometricsociety.org/publications/econometrica/1989/03/01/new-approach-economic-analysis-nonstationary-time-series-and){target="_blank"} gave a recursive algorithm — one forward pass —
 for the state posterior in a Markov-switching autoregression, making maximum
 likelihood estimation tractable and, at the same time, making the distinction
 between filtered and smoothed inference explicit and computable. Kim (1994)
@@ -611,18 +611,18 @@ Hamilton's recursion.
 **Contribution.** Turner, Startz and Nelson (1989) applied switching to stock
 returns; Hamilton and Susmel (1994) combined switching with ARCH (SWARCH); Gray
 (1996) and Haas, Mittnik and Paolella (2004) solved the path-dependence problem
-that makes naive MS-GARCH inestimable; Ang and Bekaert (2002) built the
-international asset-allocation application; Longin and Solnik (2001) and Ang and
-Chen (2002) documented that correlations rise in down markets.
+that makes naive MS-GARCH inestimable; [Ang and Bekaert (2002)](https://business.columbia.edu/sites/default/files-efs/pubfiles/1971/1137.pdf){target="_blank"} built the
+international asset-allocation application; Longin and Solnik (2001) and [Ang and
+Chen (2002)](https://business.columbia.edu/sites/default/files-efs/pubfiles/1971/1137.pdf){target="_blank"} documented that correlations rise in down markets.
 
 **What changed.** Two things, in opposite directions. Positively, the field
 established that **regime models describe second moments well** — volatility
 states are large, persistent, and estimable. Negatively, the critiques arrived
-and were not answered. Hansen (1992) showed that the likelihood-ratio test for
+and were not answered. [Hansen (1992)](https://users.ssc.wisc.edu/~behansen/papers/jae_92.html){target="_blank"} showed that the likelihood-ratio test for
 the number of regimes does not have a standard distribution, because the
 transition probabilities are unidentified under the null; applying his bound to
 Hamilton's own GNP model, **the switching specification could not reject a plain
-AR(4)**. Dacco and Satchell (1999) showed that regime-switching models fit
+AR(4)**. [Dacco and Satchell (1999)](<https://onlinelibrary.wiley.com/doi/abs/10.1002/(SICI)1099-131X(199901)18:1%3C1::AID-FOR685%3E3.0.CO;2-B>){target="_blank"} showed that regime-switching models fit
 exchange rates beautifully in sample and lose to a random walk out of sample,
 and — this is the part usually forgotten — explained *why*: the loss function is
 asymmetric in the state-classification error, so even a model with correctly
@@ -637,12 +637,12 @@ first-moment results from this era have mostly not replicated.
 
 ## 3.6 Era VI — Multivariate models and the allocation application (2002–2012)
 
-**Contribution.** Guidolin and Timmermann (2007) fitted four-state models to
+**Contribution.** [Guidolin and Timmermann (2007)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=940652){target="_blank"} fitted four-state models to
 joint stock and bond returns and solved the resulting dynamic portfolio problem;
 Pelletier (2006) built regime-switching dynamic correlations; Kritzman and Li
-(2010) introduced the Mahalanobis "turbulence" index and Kritzman, Page and
-Turkington (2012) the practitioner framework built on it; Bulla and co-authors
-(2011) ran the honest out-of-sample test of a Markov-switching allocation rule
+(2010) introduced the Mahalanobis "turbulence" index and [Kritzman, Page and
+Turkington (2012)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2066848){target="_blank"} the practitioner framework built on it; [Bulla and co-authors
+(2011)](https://mpra.ub.uni-muenchen.de/21154/){target="_blank"} ran the honest out-of-sample test of a Markov-switching allocation rule
 including transaction costs.
 
 **What changed.** The application shifted from *predicting returns* to *managing
@@ -664,8 +664,8 @@ allocators still use.
 **Contribution.** Several strands at once. Unsupervised methods —
 Gaussian mixtures, $k$-means on engineered features, Wasserstein clustering of
 correlation matrices — replaced likelihood-based HMMs where the emission model
-was the weak link. Statistical jump models (Bemporad et al., 2018; Nystrup, Kolm
-and Lindström, 2020) replaced the probabilistic state process with an explicit
+was the weak link. Statistical jump models ([Bemporad et al., 2018](https://arxiv.org/abs/1711.09220){target="_blank"}; [Nystrup, Kolm
+and Lindström, 2020](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3594875){target="_blank"}) replaced the probabilistic state process with an explicit
 jump *penalty*, giving a convex-ish objective, a tunable persistence knob, and —
 by the authors' simulations — better classification accuracy than a correctly
 specified maximum-likelihood HMM. Deep latent-variable models (recurrent
@@ -674,10 +674,10 @@ neural-network emissions to the same graphical structure.
 
 **What changed.** The most consequential shift is a negative one. **The dominant
 machine-learning approach to asset pricing does not use an explicit regime model
-at all.** Gu, Kelly and Xiu (2020) handle time variation by interacting stock
+at all.** [Gu, Kelly and Xiu (2020)](https://www.nber.org/papers/w25398){target="_blank"} handle time variation by interacting stock
 characteristics with a small set of observable macro predictors and letting the
-function approximator find whatever conditional structure exists; Chen, Pelger
-and Zhu (2024) learn a latent macro state with a recurrent network as part of an
+function approximator find whatever conditional structure exists; [Chen, Pelger
+and Zhu (2024)](https://arxiv.org/abs/1904.00745){target="_blank"} learn a latent macro state with a recurrent network as part of an
 end-to-end asset-pricing objective rather than fitting it separately. The latent
 state did not disappear — it got absorbed into the approximator, where it is
 estimated jointly with the thing you actually care about instead of being handed
@@ -695,15 +695,15 @@ problems plus its own, and the papers rarely report the diagnostics of §7.2.
 
 > ### §3 Key takeaways
 >
-> 1. Hamilton (1989) is the founding technical contribution; every implementation
+> 1. [Hamilton (1989)](https://www.econometricsociety.org/publications/econometrica/1989/03/01/new-approach-economic-analysis-nonstationary-time-series-and){target="_blank"} is the founding technical contribution; every implementation
 >    since runs his recursion, which is the discrete-state Kalman filter and the
 >    same object as the HMM forward algorithm from speech recognition.
 > 2. The first proposed explanation for non-normal returns was one heavy-tailed
 >    distribution, not two alternating ones. That debate was never settled — it
 >    was bypassed — and it is still the live null.
-> 3. The critiques landed early and were not answered. Hansen (1992) showed the
+> 3. The critiques landed early and were not answered. [Hansen (1992)](https://users.ssc.wisc.edu/~behansen/papers/jae_92.html){target="_blank"} showed the
 >    number-of-regimes test is non-standard and that Hamilton's own model could
->    not reject an AR(4); Dacco and Satchell (1999) showed out-of-sample failure
+>    not reject an AR(4); [Dacco and Satchell (1999)](<https://onlinelibrary.wiley.com/doi/abs/10.1002/(SICI)1099-131X(199901)18:1%3C1::AID-FOR685%3E3.0.CO;2-B>){target="_blank"} showed out-of-sample failure
 >    and explained the mechanism.
 > 4. The durable empirical finding across every era is that regimes describe
 >    second moments well and first moments badly.
@@ -1077,15 +1077,15 @@ thing. Interests noted.
 
 In this order:
 
-1. **Ang & Timmermann (2012)** — the survey. Two hours, and you will know the
+1. **[Ang & Timmermann (2012)](https://www.nber.org/papers/w17182){target="_blank"}** — the survey. Two hours, and you will know the
    shape of the field.
-2. **Hamilton (1989), §2–3** — the filter, from the source.
-3. **Hansen (1992)** — why you cannot test what you want to test.
-4. **Dacco & Satchell (1999)** — why in-sample fit does not transfer.
-5. **Diebold & Inoue (2001)** — why you might not have regimes at all.
-6. **Gama et al. (2014)** — the machine-learning vocabulary for the same problem,
+2. **[Hamilton (1989)](https://www.econometricsociety.org/publications/econometrica/1989/03/01/new-approach-economic-analysis-nonstationary-time-series-and){target="_blank"}, §2–3** — the filter, from the source.
+3. **[Hansen (1992)](https://users.ssc.wisc.edu/~behansen/papers/jae_92.html){target="_blank"}** — why you cannot test what you want to test.
+4. **[Dacco & Satchell (1999)](<https://onlinelibrary.wiley.com/doi/abs/10.1002/(SICI)1099-131X(199901)18:1%3C1::AID-FOR685%3E3.0.CO;2-B>){target="_blank"}** — why in-sample fit does not transfer.
+5. **[Diebold & Inoue (2001)](https://www.nber.org/papers/t0264){target="_blank"}** — why you might not have regimes at all.
+6. **[Gama et al. (2014)](https://mpechen.win.tue.nl/publications/pubs/Gama_ACMCS_AdaptationCD_accepted.pdf){target="_blank"}** — the machine-learning vocabulary for the same problem,
    with better evaluation discipline.
-7. **Bulla et al. (2011)** — what an honest out-of-sample regime backtest looks
+7. **[Bulla et al. (2011)](https://mpra.ub.uni-muenchen.de/21154/){target="_blank"}** — what an honest out-of-sample regime backtest looks
    like, and how modest the answer is.
 
 Items 3, 4, and 5 are the ones that will change what you build. Read them before
@@ -1212,7 +1212,7 @@ regime model is therefore optimising one-step-ahead density forecasting, and
 nothing else.** If your decision problem is $h$-step-ahead, or asymmetric in the
 cost of state errors, or cares about a functional of the distribution rather than
 the whole density, maximum likelihood is optimising the wrong objective — which
-is precisely the mechanism Dacco and Satchell (1999) identified for why these
+is precisely the mechanism [Dacco and Satchell (1999)](<https://onlinelibrary.wiley.com/doi/abs/10.1002/(SICI)1099-131X(199901)18:1%3C1::AID-FOR685%3E3.0.CO;2-B>){target="_blank"} identified for why these
 models forecast badly. §10.6 returns to this.
 
 **Smoothing.** The Kim (1994) backward recursion runs from $t = T-1$ down:
@@ -1249,7 +1249,7 @@ y_t = x_t^{\top}\beta_{S_t} + \sigma_{S_t}\varepsilon_t, \qquad
 $$
 
 Special cases: $x_t = 1$ gives switching means; $x_t = (1, y_{t-1}, \dots)$ gives
-the Markov-switching autoregression of Hamilton (1989); a vector $y_t$ gives
+the Markov-switching autoregression of [Hamilton (1989)](https://www.econometricsociety.org/publications/econometrica/1989/03/01/new-approach-economic-analysis-nonstationary-time-series-and){target="_blank"}; a vector $y_t$ gives
 MS-VAR.
 
 **Assumptions.** The chain is first-order and homogeneous (transition
@@ -1318,7 +1318,7 @@ Two questions the literature answers badly.
 **How many.** The likelihood-ratio test for $K$ versus $K+1$ does not have a
 $\chi^2$ distribution, because under the null the extra state's parameters are
 unidentified and the transition probabilities involving it lie on the boundary
-(Hansen, 1992; Garcia, 1998; Cho & White, 2007). Information criteria are
+([Hansen, 1992](https://users.ssc.wisc.edu/~behansen/papers/jae_92.html){target="_blank"}; Garcia, 1998; Cho & White, 2007). Information criteria are
 routinely used instead and are known to over-select in this setting (Psaradakis
 & Spagnolo, 2003). What I would actually do, in order of preference:
 
@@ -1330,7 +1330,7 @@ routinely used instead and are known to over-select in this setting (Psaradakis
 3. **Stability across subsamples.** If $K = 3$ is right, fitting it on halves
    should give recognisably the same three states. If it does not, $K$ is
    absorbing misspecification.
-4. **Nonparametric $K$** via a sticky HDP-HMM (Fox et al., 2011), which puts a
+4. **Nonparametric $K$** via a sticky HDP-HMM ([Fox et al., 2011](https://arxiv.org/abs/0905.2592){target="_blank"}), which puts a
    prior over $K$ and a separate prior on persistence. Principled, expensive, and
    in my experience it returns more states than are useful for trading.
 
@@ -1477,9 +1477,9 @@ in" but "did the process change, and when".
 **Definition.** Offline, the multiple-break model of Bai and Perron (1998)
 partitions $1..T$ into $m+1$ segments with constant parameters within each,
 choosing break dates by dynamic programming to minimise the sum of segment
-residual sums of squares plus a penalty; PELT (Killick et al., 2012) does the
+residual sums of squares plus a penalty; PELT ([Killick et al., 2012](https://arxiv.org/abs/1101.1438){target="_blank"}) does the
 same in $O(T)$ under a penalty-additivity condition. Online, Bayesian online
-changepoint detection (Adams & MacKay, 2007) maintains a posterior over the *run
+changepoint detection ([Adams & MacKay, 2007](https://arxiv.org/abs/0710.3742){target="_blank"}) maintains a posterior over the *run
 length* $\rho_t$ — how long since the last change — via a message-passing
 recursion, and gives $p(y_{t+1} \mid y_{1:t})$ as a run-length-weighted mixture.
 
@@ -1493,8 +1493,8 @@ length posterior is a genuinely useful input to a sizing rule (§11.1).
 
 **Weaknesses.** Non-recurrence is the fundamental limitation. If you break, you
 have no data on the new regime — that is the point of a break — so any model that
-needs $\theta_{\text{new}}$ is starting from scratch. Pesaran and Timmermann
-(2007) show the surprising and important consequence: **it can be optimal to
+needs $\theta_{\text{new}}$ is starting from scratch. [Pesaran and Timmermann
+(2007)](https://rady.ucsd.edu/_files/faculty-research/timmermann/estimation-window.pdf){target="_blank"} show the surprising and important consequence: **it can be optimal to
 include pre-break data in estimation**, because the bias from the old regime is
 sometimes smaller than the variance from a short post-break sample.
 
@@ -1530,8 +1530,8 @@ $$
 The first term is $k$-means; the second is a **jump penalty** with a single
 tunable $\lambda$ controlling persistence. The optimisation alternates between
 assigning states by dynamic programming given centroids (exact, $O(TK^2)$, a
-Viterbi-style recursion) and updating centroids given states (a mean). Bemporad
-et al. (2018) develop the general form; Nystrup, Kolm and Lindström (2020) apply
+Viterbi-style recursion) and updating centroids given states (a mean). [Bemporad
+et al. (2018)](https://arxiv.org/abs/1711.09220){target="_blank"} develop the general form; [Nystrup, Kolm and Lindström (2020)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3594875){target="_blank"} apply
 it online to market states.
 
 **Assumptions.** That the regime is characterised by the *location* of a feature
@@ -1660,7 +1660,7 @@ let neural networks parameterise the pieces.
 - **HMM with neural emissions.** $f(y_t \mid S_t = k)$ becomes a network; the
   filter is unchanged. Rarely worth it, because emission misspecification is not
   usually the binding constraint.
-- **Recurrent switching linear dynamical systems** (Linderman et al., 2017). A
+- **Recurrent switching linear dynamical systems** ([Linderman et al., 2017](https://proceedings.mlr.press/v54/linderman17a.html){target="_blank"}). A
   discrete state indexes a *linear dynamical system* for a continuous latent
   state, and the discrete transitions depend on the continuous state:
   $\Pr(S_t \mid S_{t-1}, h_{t-1})$. This is the natural generalisation of
@@ -1669,7 +1669,7 @@ let neural networks parameterise the pieces.
 - **Deep state-space models** (deep Kalman filters, structured inference
   networks). Continuous latent state, amortised variational inference. Not a
   regime model in the discrete sense, but occupies the same slot.
-- **Learned state inside a task network** (Chen, Pelger & Zhu, 2024). An LSTM
+- **Learned state inside a task network** ([Chen, Pelger & Zhu, 2024](https://arxiv.org/abs/1904.00745){target="_blank"}). An LSTM
   compresses macro time series into a low-dimensional state that feeds an
   asset-pricing objective, trained end to end. **No separate regime model
   exists**; the state is whatever serves the task.
@@ -1862,7 +1862,7 @@ same, marked **exact** where the identity holds without approximation.
 | $K=2$ HMM differing only in variance $\Rightarrow$ unconditional return distribution is a scale mixture of normals | **exact** | Hence symmetric, leptokurtic, and indistinguishable from a fat-tailed i.i.d. law on unconditional moments alone (§2.6) |
 | MS-GARCH $\approx$ single GARCH with lower persistence plus level shifts | approximate | Hamilton & Susmel (1994): apparent IGARCH is partly unmodelled regime switching |
 | Markov-switching volatility with large $K$ $\approx$ discretised stochastic volatility | approximate | The chain converges to a discretisation of the continuous latent scale |
-| Long memory $\approx$ occasional regime switching | approximate | Diebold & Inoue (2001); mutually confusable even asymptotically |
+| Long memory $\approx$ occasional regime switching | approximate | [Diebold & Inoue (2001)](https://www.nber.org/papers/t0264){target="_blank"}; mutually confusable even asymptotically |
 | Exponentially decayed sample weights $\approx$ a break model with an unknown break date integrated out | approximate | Both downweight the past geometrically; the decay rate plays the role of the break hazard |
 | BOCPD predictive density $\approx$ automatic estimation-window selection | approximate | Its forecast is a run-length-weighted mixture of fixed-window estimators |
 
@@ -2107,7 +2107,7 @@ $\chi^2$ null distribution. Two things go wrong simultaneously: under the null
 that state $K+1$ does not exist, its parameters $\theta_{K+1}$ are completely
 unidentified (any value gives the same likelihood), and the transition
 probabilities into it are on the boundary of the parameter space. Standard
-asymptotics require neither condition. Hansen (1992) developed a valid bound
+asymptotics require neither condition. [Hansen (1992)](https://users.ssc.wisc.edu/~behansen/papers/jae_92.html){target="_blank"} developed a valid bound
 using empirical-process theory and applied it to Hamilton's own GNP model; **the
 switching specification did not reject a plain AR(4).** **[Fact]**
 
@@ -2263,7 +2263,7 @@ someone shows you a regime backtest adding 0.5 Sharpe.
 ## 7.5 The out-of-sample forecasting record
 
 **[Fact]** Regime-switching models fit in-sample beautifully and forecast badly.
-This has been the finding since Dacco and Satchell (1999) and has not been
+This has been the finding since [Dacco and Satchell (1999)](<https://onlinelibrary.wiley.com/doi/abs/10.1002/(SICI)1099-131X(199901)18:1%3C1::AID-FOR685%3E3.0.CO;2-B>){target="_blank"} and has not been
 overturned. Their diagnosis is the part worth carrying: the loss from
 misclassifying the state exceeds the gain from having the right parameters
 conditional on classifying correctly, so a model can have every parameter right
@@ -2286,11 +2286,11 @@ What *has* replicated:
 - **Density and tail forecasts improve.** If you need the shape of the
   conditional distribution — for options, for VaR, for a utility-based
   allocation — the mixture genuinely helps. **[Fact]**
-- **Correlation and co-movement structure improves.** Ang and Bekaert (2002),
+- **Correlation and co-movement structure improves.** [Ang and Bekaert (2002)](https://business.columbia.edu/sites/default/files-efs/pubfiles/1971/1137.pdf){target="_blank"},
   Longin and Solnik (2001). The bad state has higher correlations, and modelling
   that changes optimal portfolios materially. **[Fact]**, with the Forbes-Rigobon
   caveat that part of the effect is a volatility artefact.
-- **Drawdown reduction is real; return improvement is not.** Bulla et al. (2011)
+- **Drawdown reduction is real; return improvement is not.** [Bulla et al. (2011)](https://mpra.ub.uni-muenchen.de/21154/){target="_blank"}
   find volatility down 41% on average with modest excess returns, across three
   markets and forty years, after costs. That is the honest summary of the entire
   applied literature. **[Fact]**
@@ -2505,8 +2505,8 @@ signal-to-noise ratio around 0.05, one bit is not much to work with.
 2. **Give it the posterior, not the label**, if you insist on the state
    ($\xi_{t|t-1}^{(k)}$ as a real number in $[0,1]$).
 3. **Build the interaction explicitly** as a feature: $x_j \cdot \xi^{(k)}$,
-   rather than hoping the tree discovers it. This is what Gu, Kelly and Xiu
-   (2020) do with their macro predictors, and it is why their approach works
+   rather than hoping the tree discovers it. This is what [Gu, Kelly and Xiu
+   (2020)](https://www.nber.org/papers/w25398){target="_blank"} do with their macro predictors, and it is why their approach works
    without any latent-state machinery.
 
 ## 8.4 Normalisation is not weighting
@@ -2611,7 +2611,7 @@ strategy, and it is underused.
 
 Treat each regime as an **environment** and look for the predictor whose
 conditional distribution $p(y \mid x_{\mathcal{S}})$ is the *same* in every
-environment. Peters, Bühlmann and Meinshausen's (2016) invariant causal
+environment. [Peters, Bühlmann and Meinshausen's (2016)](https://web.math.ku.dk/~peters/jonas_files/InvariantCausalPrediction.pdf){target="_blank"} invariant causal
 prediction formalises this: under assumptions, the set of features whose
 conditional relationship is invariant across environments is exactly the set of
 direct causes, and a model built on them generalises to environments you have
@@ -2632,8 +2632,8 @@ actually support. It is also the honest response to §7's scorecard: you cannot
 reliably predict which regime you will be in, so prefer a model that does not
 need to know.
 
-Two caveats. Invariant risk minimization, the deep-learning version (Arjovsky et
-al., 2019), has known failure modes outside its assumptions — Rosenfeld,
+Two caveats. Invariant risk minimization, the deep-learning version ([Arjovsky et
+al., 2019](https://arxiv.org/abs/1907.02893){target="_blank"}), has known failure modes outside its assumptions — Rosenfeld,
 Ravikumar and Risteski (2021) show it can select the wrong features when the
 number of environments is small, which is exactly the financial situation.
 **[Contested]** And a feature that is stable across the regimes *in your sample*
@@ -2693,8 +2693,8 @@ leak, and I will stop saying so.
    trailing realised volatility, the turbulence index, the VIX term-structure
    slope. Usually dominates both of the above (§8.3).
 4. **Explicit interactions.** $x_j \cdot \hat\xi_t^{(k)}$ for the signals $x_j$
-   you actually believe are regime-dependent. This is what Gu, Kelly and Xiu
-   (2020) do with macro predictors, and it is why their models capture
+   you actually believe are regime-dependent. This is what [Gu, Kelly and Xiu
+   (2020)](https://www.nber.org/papers/w25398){target="_blank"} do with macro predictors, and it is why their models capture
    conditional structure without any latent-state machinery.
 
 Two features that are more useful than the state itself and are almost never
@@ -2771,7 +2771,7 @@ reflects conditions resembling now.
   This is a *soft* version of subsetting (§9.4) and is strictly better behaved,
   because it degrades continuously instead of discarding 80% of the sample at a
   threshold. **[Practice]**
-- **Window selection.** Pesaran and Timmermann (2007) give the formal treatment:
+- **Window selection.** [Pesaran and Timmermann (2007)](https://rady.ucsd.edu/_files/faculty-research/timmermann/estimation-window.pdf){target="_blank"} give the formal treatment:
   the optimal window trades the bias from including pre-break data against the
   variance from a short post-break sample, and — the useful surprise —
   **including some pre-break data is often optimal.** The instinct to throw away
@@ -2909,11 +2909,11 @@ conditioning series and lets it construct whatever state serves the objective.
 
 **How.** A recurrent or attention encoder over macro and market series produces a
 low-dimensional state $h_t$, concatenated with or modulating the main features.
-Chen, Pelger and Zhu (2024) do this with an LSTM inside a no-arbitrage
+[Chen, Pelger and Zhu (2024)](https://arxiv.org/abs/1904.00745){target="_blank"} do this with an LSTM inside a no-arbitrage
 asset-pricing objective; the temporal fusion transformer's static-covariate
-encoder (Lim et al., 2021) is the same idea in a general forecasting
-architecture; recurrent switching linear dynamical systems (Linderman et al.,
-2017) do it with an explicit discrete state.
+encoder ([Lim et al., 2021](https://arxiv.org/abs/1912.09363){target="_blank"}) is the same idea in a general forecasting
+architecture; recurrent switching linear dynamical systems ([Linderman et al.,
+2017](https://proceedings.mlr.press/v54/linderman17a.html){target="_blank"}) do it with an explicit discrete state.
 
 **Addresses.** All three shifts, in principle.
 
@@ -2948,7 +2948,7 @@ what does not change across them.
    wants regime-aware features, §9.8 wants regime-invariant ones. Which you want
    depends on whether you believe the regime-specific component is signal or
    noise.
-3. **IRM penalty** (Arjovsky et al., 2019). Penalise the variance across
+3. **IRM penalty** ([Arjovsky et al., 2019](https://arxiv.org/abs/1907.02893){target="_blank"}). Penalise the variance across
    environments of the gradient of the per-environment optimal classifier.
 
 **Addresses.** All three shifts, by refusing to depend on them.
@@ -3057,7 +3057,7 @@ $$
 h^{(\ell)} \leftarrow \gamma^{(\ell)}(\hat\xi) \odot h^{(\ell)} + \beta^{(\ell)}(\hat\xi),
 $$
 
-which is feature-wise linear modulation (FiLM; Perez et al., 2018), and is
+which is feature-wise linear modulation (FiLM; [Perez et al., 2018](https://ojs.aaai.org/index.php/AAAI/article/view/11671){target="_blank"}), and is
 architecturally the same idea as conditional normalisation. With this, the regime
 can switch entire pathways on and off rather than nudging a sum, and it does so
 with $2 \times \text{width}$ parameters per conditioned layer. **This is the
@@ -3078,7 +3078,7 @@ shuffled-era holdouts and by ablating the recurrent state.
 **(d) Uncertainty comes cheap and is worth having.** Deep ensembles or MC dropout
 give a predictive variance that rises in unfamiliar conditions, which is a
 regime-aware sizing input (§11.1) obtained without any regime model. Conformal
-prediction with an adaptive update (Gibbs and Candès, 2021) gives coverage
+prediction with an adaptive update ([Gibbs and Candès, 2021](https://arxiv.org/abs/2106.00170){target="_blank"}) gives coverage
 guarantees that hold under distribution shift, which is a stronger property than
 anything else in this document offers.
 
@@ -3550,10 +3550,10 @@ position turnover is $0.0350 \times 252 = 8.8$ units of $|\Delta \pi|$. Each
 such unit is one unit traded in one direction, so the annual cost is
 $8.8 \times c$ for a one-way cost $c$. The strategy runs at 15.0% annualised
 volatility and beats buy-and-hold by 0.50 − 0.42 = 0.08 Sharpe, which is
-$0.08 \times 0.150 \approx$ **118 basis points a year** gross (118, not the 120
-the rounded factors suggest, because the underlying Sharpe gap is 0.0785, not
-exactly 0.08). All four numbers are
-printed by `figures/regime_filtration.py`.
+$0.08 \times 0.150 \approx$ **118 basis points a year** gross — 118 rather than
+the 120 the rounded factors suggest, because the underlying Sharpe gap is 0.0785,
+not exactly 0.08. All four numbers are printed by
+`figures/regime_filtration.py`.
 
 | One-way cost | Annual cost | Net of 118 bp gross |
 |---|---|---|
@@ -3601,8 +3601,8 @@ Practical approaches, in ascending order of ambition:
   correct, considerably more machinery.
 
 **The caveat travels with the recommendation.** Part of the measured correlation
-increase in crises is a mechanical artefact of the volatility increase (Forbes &
-Rigobon, 2002). Apply their correction before you conclude that correlations
+increase in crises is a mechanical artefact of the volatility increase ([Forbes &
+Rigobon, 2002](https://www.nber.org/papers/w7267){target="_blank"}). Apply their correction before you conclude that correlations
 genuinely rose, or you will double-count: your volatility model already captured
 the variance increase, and the "correlation regime" you then add on top is partly
 the same effect a second time.
@@ -3871,7 +3871,7 @@ than the literature's presentation implies.
 
 **Not known.** Whether financial "regimes" are genuinely discrete or a
 discretisation of a continuous latent process. The evidence is compatible with
-both and Diebold and Inoue (2001) showed the two are analytically confusable, so
+both and [Diebold and Inoue (2001)](https://www.nber.org/papers/t0264){target="_blank"} showed the two are analytically confusable, so
 this may not be resolvable with return data at all. Whether regime-conditional
 expected returns exist in a form stable enough to trade — the recession-
 predictability results are real in sample and contested out of it. Whether the
@@ -4195,7 +4195,7 @@ regularity because (i) the parameters $\theta_{K+1}$ of the extra component are
 **unidentified under the null** — any value gives the same likelihood, so the
 information matrix is singular (the *Davies problem*) — and (ii) the transition
 probabilities into the extra state lie **on the boundary** of the parameter
-space, where the asymptotic normality of the MLE fails. Hansen (1992) obtains a
+space, where the asymptotic normality of the MLE fails. [Hansen (1992)](https://users.ssc.wisc.edu/~behansen/papers/jae_92.html){target="_blank"} obtains a
 valid bound by treating the likelihood ratio as an empirical process indexed by
 the nuisance parameters and taking a supremum; Cho and White (2007) derive the
 limiting distribution under weaker conditions.
@@ -4214,7 +4214,7 @@ improvement is not evidence, information criteria over-select, and the parametri
 bootstrap is the only routinely correct route.
 
 **Deeper.** Davies, "Hypothesis Testing When a Nuisance Parameter Is Present Only
-Under the Alternative," *Biometrika* 74(1) (1987), 33–43; then Hansen (1992) in
+Under the Alternative," *Biometrika* 74(1) (1987), 33–43; then [Hansen (1992)](https://users.ssc.wisc.edu/~behansen/papers/jae_92.html){target="_blank"} in
 §4.4.
 
 ## A.12 ARCH, GARCH, stochastic volatility, and realised volatility {#a12}
@@ -4265,13 +4265,13 @@ so that $\sum_k |\rho_k| = \infty$; equivalently its spectral density diverges a
 the origin. The canonical model is **ARFIMA($p,d,q$)**, which applies the
 fractional differencing operator $(1-L)^d$ with non-integer $d$.
 
-**Why it appears here.** §2.6 and §6.2: Diebold and Inoue (2001) prove that
+**Why it appears here.** §2.6 and §6.2: [Diebold and Inoue (2001)](https://www.nber.org/papers/t0264){target="_blank"} prove that
 stochastic regime switching generates estimated long memory and vice versa, even
 asymptotically. The two are near-observationally-equivalent, which is why a
 likelihood improvement from adding regimes is not evidence that regimes exist.
 
 **Deeper.** Beran, Feng, Ghosh & Kulik, *Long-Memory Processes* (Springer, 2013),
-chapter 1; and Diebold & Inoue (2001) in §4.4.
+chapter 1; and [Diebold & Inoue (2001)](https://www.nber.org/papers/t0264){target="_blank"} in §4.4.
 
 ## A.14 Unit roots, non-stationarity, and the break/persistence confusion {#a14}
 **The idea.** A series can wander without returning to any fixed level either
@@ -4317,8 +4317,8 @@ and forecasts by mixing over run lengths.
 changed" question better than regime models do, and §11.6 recommends running one
 on your own strategy returns as the cleanest available death detector.
 
-**Deeper.** Truong, Oudre & Vayatis (2020) for the offline survey; Adams &
-MacKay (2007) for BOCPD. Both in §4.5.
+**Deeper.** Truong, Oudre & Vayatis (2020) for the offline survey; [Adams &
+MacKay (2007)](https://arxiv.org/abs/0710.3742){target="_blank"} for BOCPD. Both in §4.5.
 
 ## A.16 Clustering: k-means, density-based methods, and distances between distributions {#a16}
 **The idea.** Unsupervised grouping of observations, and the question of what
@@ -4391,12 +4391,12 @@ $\kappa$ to the self-transition weight, encoding a prior belief in persistence
 and preventing the rapid state-switching that plain HDP-HMMs are prone to.
 
 **Why it appears here.** §5.5 offers this as the principled answer to "how many
-regimes", and §4.2 recommends Fox et al. (2011). The document's reservation is
+regimes", and §4.2 recommends [Fox et al. (2011)](https://arxiv.org/abs/0905.2592){target="_blank"}. The document's reservation is
 practical rather than theoretical: it returns more states than a trading decision
 can use.
 
 **Deeper.** Teh & Jordan, "Hierarchical Bayesian Nonparametric Models with
-Applications," in *Bayesian Nonparametrics* (CUP, 2010); Fox et al. (2011) in
+Applications," in *Bayesian Nonparametrics* (CUP, 2010); [Fox et al. (2011)](https://arxiv.org/abs/0905.2592){target="_blank"} in
 §4.2.
 
 ## A.19 The Sharpe ratio, the information coefficient, and their standard errors {#a19}
@@ -4529,7 +4529,7 @@ $p_{\text{te}}(x, y)$, and factor $p(x, y) = p(x)\,p(y \mid x)$. Then:
 which integration scheme to reach for, and §8.3 explains that a regime feature
 addresses only concept drift — which is why it so often does nothing.
 
-**Deeper.** Quiñonero-Candela et al. (2009) and Gama et al. (2014), both in §4.7.
+**Deeper.** Quiñonero-Candela et al. (2009) and [Gama et al. (2014)](https://mpechen.win.tue.nl/publications/pubs/Gama_ACMCS_AdaptationCD_accepted.pdf){target="_blank"}, both in §4.7.
 
 ## A.24 Importance weighting and effective sample size {#a24}
 **The idea.** If your training distribution is wrong, you can reweight training
@@ -4593,8 +4593,8 @@ environments you have never seen.
 
 **Formally.** Given data from environments $e \in \mathcal{E}$, **invariant
 causal prediction** seeks the subsets $\mathcal{S}$ of predictors for which
-$Y^e \mid X^e_{\mathcal{S}} = x$ has the same distribution for all $e$. Peters,
-Bühlmann and Meinshausen (2016) test this hypothesis for each candidate subset
+$Y^e \mid X^e_{\mathcal{S}} = x$ has the same distribution for all $e$. [Peters,
+Bühlmann and Meinshausen (2016)](https://web.math.ku.dk/~peters/jonas_files/InvariantCausalPrediction.pdf){target="_blank"} test this hypothesis for each candidate subset
 and take the intersection of the accepted ones, giving conservative confidence
 sets for the causal predictors. **Invariant risk minimization** is the
 gradient-based relaxation: find a representation $\Phi$ such that a single
@@ -4606,7 +4606,7 @@ idea available: it uses regimes as *environments* to filter features for
 robustness rather than as conditions to adapt to, which is a far better match to
 what a forty-episode sample can support.
 
-**Deeper.** Peters, Bühlmann & Meinshausen (2016) and Arjovsky et al. (2019),
+**Deeper.** [Peters, Bühlmann & Meinshausen (2016)](https://web.math.ku.dk/~peters/jonas_files/InvariantCausalPrediction.pdf){target="_blank"} and [Arjovsky et al. (2019)](https://arxiv.org/abs/1907.02893){target="_blank"},
 both in §4.7 — and Rosenfeld, Ravikumar & Risteski (2021) for IRM's failure
 modes.
 
@@ -4635,8 +4635,8 @@ normalisation or ranking as the fix. §9.4's `init_score` recipe uses the fact
 that boosting starts from an arbitrary offset $F_0$.
 
 **Deeper.** Friedman, "Greedy Function Approximation: A Gradient Boosting
-Machine," *Annals of Statistics* 29(5) (2001), 1189–1232; Grinsztajn et al.
-(2022) in §4.7 for why trees keep winning on tabular data.
+Machine," *Annals of Statistics* 29(5) (2001), 1189–1232; [Grinsztajn et al.
+(2022)](https://arxiv.org/abs/2207.08815){target="_blank"} in §4.7 for why trees keep winning on tabular data.
 
 ## A.28 Neural-network components: recurrence, adversarial heads, and ensembles {#a28}
 **The idea.** Five pieces of deep-learning machinery that §9 names in passing.
@@ -4710,7 +4710,7 @@ the input distribution at inference.
 a regime posterior, and batch norm's running statistics are calibrated to the
 training regime, which makes it a hidden source of distribution-shift failure.
 
-**Deeper.** Perez et al. (2018) in §4.7; Dumoulin et al., ["Feature-wise
+**Deeper.** [Perez et al. (2018)](https://ojs.aaai.org/index.php/AAAI/article/view/11671){target="_blank"} in §4.7; Dumoulin et al., ["Feature-wise
 Transformations"](https://distill.pub/2018/feature-wise-transformations/),
 *Distill* (2018), for the unifying view.
 
@@ -4735,7 +4735,7 @@ transition, so turnover is bounded exactly where confidence is lowest. §6.2
 records that a smooth-transition model is exactly a two-expert MoE with a
 logistic gate on one observable.
 
-**Deeper.** Jacobs, Jordan, Nowlan & Hinton (1991) and Shazeer et al. (2017),
+**Deeper.** Jacobs, Jordan, Nowlan & Hinton (1991) and [Shazeer et al. (2017)](https://arxiv.org/abs/1701.06538){target="_blank"},
 both in §4.7.
 
 ## A.31 Variational inference and the evidence lower bound {#a31}
@@ -4830,7 +4830,7 @@ times $M$ specifications times $W$ windows — and §10.5's standard error of 0.
 for a four-year crisis sample means twenty honest trials produce an expected best
 crisis Sharpe near 1.0 from pure noise.
 
-**Deeper.** Bailey & López de Prado (2014) and Harvey, Liu & Zhu (2016), both in
+**Deeper.** Bailey & López [de Prado (2014)](https://www.davidhbailey.com/dhbpapers/deflated-sharpe.pdf){target="_blank"} and Harvey, Liu & Zhu (2016), both in
 §4.8.
 
 ## A.35 The block and stationary bootstrap {#a35}
@@ -4880,7 +4880,7 @@ diagnostic in the document, because a genuinely regime-aware model should have
 its advantage *concentrated in the regime it was designed for* — and the test
 shows you whether it does.
 
-**Deeper.** Giacomini & White (2006) and Giacomini & Rossi (2010), both in §4.8;
+**Deeper.** Giacomini & White (2006) and [Giacomini & Rossi (2010)](https://ideas.repec.org/p/duk/dukeec/08-4.html){target="_blank"}, both in §4.8;
 Rossi, "Forecasting in the Presence of Instabilities," *Journal of Economic
 Literature* 59(4) (2021), 1135–1190, for the survey.
 
@@ -4894,8 +4894,8 @@ non-conformity scores $s_i = |y_i - \hat f(x_i)|$ on it, and forms the interval
 $\hat f(x) \pm \hat q_{1-\alpha}$ where $\hat q_{1-\alpha}$ is the empirical
 $(1-\alpha)$ quantile of the scores. Under exchangeability this has marginal
 coverage at least $1 - \alpha$ regardless of the model. Exchangeability fails
-under distribution shift, so **adaptive conformal inference** (Gibbs & Candès,
-2021) updates the nominal level online,
+under distribution shift, so **adaptive conformal inference** ([Gibbs & Candès,
+2021](https://arxiv.org/abs/2106.00170){target="_blank"}) updates the nominal level online,
 $\alpha_{t+1} = \alpha_t + \eta(\alpha - \mathbb{1}[y_t \notin C_t])$, which
 recovers the long-run coverage rate without any distributional assumption.
 
@@ -4906,7 +4906,7 @@ is directly usable as a sizing input.
 
 **Deeper.** Angelopoulos & Bates, ["A Gentle Introduction to Conformal Prediction
 and Distribution-Free Uncertainty Quantification"](https://arxiv.org/abs/2107.07511),
-arXiv:2107.07511; Gibbs & Candès (2021) in §4.7.
+arXiv:2107.07511; [Gibbs & Candès (2021)](https://arxiv.org/abs/2106.00170){target="_blank"} in §4.7.
 
 ## A.38 Real-time data vintages {#a38}
 **The idea.** Macroeconomic statistics are estimates, published with a lag and

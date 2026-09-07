@@ -115,12 +115,16 @@ def report(est, label):
         print(f"    {n:<22} true {truth[j]:+.3f}   mean {v.mean():+.4f}   sd {v.std():.4f}")
     spread = est[:, 0] - est[:, 1]
     ratio = est[:, 3] / est[:, 2]
-    print(f"    {'mean spread':<22} true {MU_ANN[0] - MU_ANN[1]:+.3f}   "
-          f"mean {spread.mean():+.4f}   sd {spread.std():.4f}   "
-          f"wrong sign {np.mean(spread < 0):.3f}   s/n {spread.mean() / spread.std():.2f}")
-    print(f"    {'volatility ratio':<22} true {SIG_ANN[1] / SIG_ANN[0]:+.3f}   "
-          f"mean {ratio.mean():+.4f}   sd {ratio.std():.4f}   "
-          f"s/n {(ratio.mean() - 1) / ratio.std():.2f}")
+    print(
+        f"    {'mean spread':<22} true {MU_ANN[0] - MU_ANN[1]:+.3f}   "
+        f"mean {spread.mean():+.4f}   sd {spread.std():.4f}   "
+        f"wrong sign {np.mean(spread < 0):.3f}   s/n {spread.mean() / spread.std():.2f}"
+    )
+    print(
+        f"    {'volatility ratio':<22} true {SIG_ANN[1] / SIG_ANN[0]:+.3f}   "
+        f"mean {ratio.mean():+.4f}   sd {ratio.std():.4f}   "
+        f"s/n {(ratio.mean() - 1) / ratio.std():.2f}"
+    )
 
 
 def panel(ax, samples, truths, labels, colors, places, xlabel, xlim):
@@ -174,12 +178,8 @@ def main():
     )
     axes[1].axvline(0.0, color=GREY, linewidth=0.8, zorder=0)
 
-    axes[0].set_title(
-        "Volatility: recovered almost exactly", fontsize=10.5, color=INK, pad=8, loc="left"
-    )
-    axes[1].set_title(
-        "Mean: indistinguishable from noise", fontsize=10.5, color=INK, pad=8, loc="left"
-    )
+    axes[0].set_title("Volatility: recovered almost exactly", fontsize=10.5, color=INK, pad=8, loc="left")
+    axes[1].set_title("Mean: indistinguishable from noise", fontsize=10.5, color=INK, pad=8, loc="left")
 
     spread = est[:, 0] - est[:, 1]
     frac_wrong = float(np.mean(spread < 0))

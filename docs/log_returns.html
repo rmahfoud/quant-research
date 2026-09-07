@@ -881,8 +881,9 @@ visible in either convention, but catastrophic in both. See §9.6.</li>
 one-parameter family that contains both</h3>
 <p>It is worth seeing that simple and log returns are the two endpoints
 of a continuum, because it clarifies why there is nothing in between
-worth having. The Box–Cox family (Box &amp; Cox, 1964) applied to the
-gross return <span class="math inline">\(G = 1+R\)</span> is</p>
+worth having. The Box–Cox family (<a href="https://www.jstor.org/stable/2984418" target="_blank">Box &amp;
+Cox, 1964</a>) applied to the gross return <span class="math inline">\(G
+= 1+R\)</span> is</p>
 <p><span class="math display">\[
 f_\lambda(R) \;=\;
 \begin{cases}
@@ -1097,8 +1098,9 @@ cross-sectional return dispersion, that is <span class="math inline">\(\tfrac12 
 basis points per day — about 5% per year. Not a rounding error.</p>
 <p>That quantity has a name in the portfolio literature: it is the
 <strong>diversification return</strong> or <strong>rebalancing
-return</strong> (Booth &amp; Fama, 1992; Willenbrock, 2011). In
-continuous time, for a portfolio rebalanced back to fixed weights <span class="math inline">\(w\)</span>,</p>
+return</strong> (<a href="https://doi.org/10.2469/faj.v48.n3.26" target="_blank">Booth &amp; Fama, 1992</a>; <a href="https://arxiv.org/abs/1109.1256" target="_blank">Willenbrock,
+2011</a>). In continuous time, for a portfolio rebalanced back to fixed
+weights <span class="math inline">\(w\)</span>,</p>
 <p><span class="math display">\[g_p - \sum_i w_i g_i \;=\;
 \tfrac12\Big(\sum_i w_i \sigma_i^2 - \sigma_p^2\Big) \;\ge\;
 0\]</span></p>
@@ -1908,10 +1910,10 @@ only coordinate in which “the distribution at horizon <span class="math inline
 horizon 1.”</strong></p>
 <h3 id="what-the-data-actually-looks-like">4.3 What the data actually
 looks like</h3>
-<p>The empirical regularities — Cont’s (2001) “stylized facts”, the
-standard reference list — are the following, and they are what any
-candidate model has to reproduce. [Fact] for all of them, in the sense
-of being replicated across markets, asset classes and decades.</p>
+<p>The empirical regularities — <a href="http://www-stat.wharton.upenn.edu/~steele/Resources/FTSResources/StylizedFacts/Cont2001.pdf" target="_blank">Cont’s (2001)</a> “stylized facts”, the standard
+reference list — are the following, and they are what any candidate
+model has to reproduce. [Fact] for all of them, in the sense of being
+replicated across markets, asset classes and decades.</p>
 <table>
 <colgroup>
 <col style="width: 33%" />
@@ -2518,9 +2520,8 @@ an unbounded window of past returns. In a forecasting context this is
 expensive, because level-dependent quantities — the log price relative
 to a moving average, the distance from a 52-week high, the level of a
 valuation ratio — carry signal that the differenced series no longer
-holds. The principled middle ground is fractional differencing (Granger
-&amp; Joyeux, 1980; Hosking, 1981), applied to finance by López de Prado
-(2018):</p>
+holds. The principled middle ground is fractional differencing (<a href="https://doi.org/10.1111/j.1467-9892.1980.tb00297.x" target="_blank">Granger &amp; Joyeux, 1980</a>; <a href="https://doi.org/10.1093/biomet/68.1.165" target="_blank">Hosking,
+1981</a>), applied to finance by López <a href="https://www.wiley.com/en-us/Advances+in+Financial+Machine+Learning-p-9781119482086" target="_blank">de Prado (2018)</a>:</p>
 <p><span class="math display">\[\Delta^{d}p_t \;=\; \sum_{k=0}^{\infty}
 \binom{d}{k}(-1)^{k}\,p_{t-k}, \qquad 0 &lt; d &lt; 1\]</span></p>
 <p>where <span class="math inline">\(\binom{d}{k} =
@@ -2538,8 +2539,8 @@ engineering — “should my feature be the price or the return?” — and the
 answer is “some fractional difference of the log price, and <span class="math inline">\(d = 1\)</span> is rarely optimal.” [Practice],
 with a solid theoretical basis and modest published evidence.</p>
 <h3 id="volatility-models">6.2 Volatility models</h3>
-<p><strong>GARCH.</strong> The standard specification (Engle, 1982;
-Bollerslev, 1986) is written on log returns:</p>
+<p><strong>GARCH.</strong> The standard specification (<a href="https://www.jstor.org/stable/1912773" target="_blank">Engle,
+1982</a>; <a href="https://doi.org/10.1016/0304-4076(86)90063-1" target="_blank">Bollerslev, 1986</a>) is written on log returns:</p>
 <p><span class="math display">\[r_t = m + \varepsilon_t, \qquad
 \varepsilon_t = \sigma_t z_t, \quad z_t \sim \text{iid}(0,1), \qquad
 \sigma_t^2 = \omega + \alpha\varepsilon_{t-1}^2 +
@@ -2576,14 +2577,14 @@ data <span class="math inline">\(\lambda\)</span> is typically
 0.94–0.99, giving a shock half-life <span class="math inline">\(\ln 2 /
 \ln(1/\lambda)\)</span> of about 11 trading days at the low end and 69
 at the high end — two weeks to three months.</p>
-<p><strong>EGARCH and the second logarithm.</strong> Nelson (1991)
-models <span class="math inline">\(\ln\sigma_t^2\)</span> rather than
-<span class="math inline">\(\sigma_t^2\)</span>. The motivation is the
-same one as for prices: the object is positive and multiplicative, so
-the log makes the parameter space unconstrained and the innovations
-closer to symmetric. When you see a log in a financial model, the
-question to ask is “what positive, multiplicatively-evolving quantity is
-this?” — the answer is nearly always the reason.</p>
+<p><strong>EGARCH and the second logarithm.</strong> <a href="https://www.jstor.org/stable/2938260" target="_blank">Nelson
+(1991)</a> models <span class="math inline">\(\ln\sigma_t^2\)</span>
+rather than <span class="math inline">\(\sigma_t^2\)</span>. The
+motivation is the same one as for prices: the object is positive and
+multiplicative, so the log makes the parameter space unconstrained and
+the innovations closer to symmetric. When you see a log in a financial
+model, the question to ask is “what positive, multiplicatively-evolving
+quantity is this?” — the answer is nearly always the reason.</p>
 <p><strong>Realized variance, where log returns are not
 optional.</strong> Sum squared intraday log returns over a day, with
 <span class="math inline">\(M\)</span> intervals:</p>
@@ -2592,13 +2593,12 @@ r_{t,j}^2 \quad\xrightarrow[\;M\to\infty\;]{}\quad [\,p\,]_t \;=\;
 \int_{t-1}^{t}\sigma_u^2\,du\]</span></p>
 <p>This is the <strong>quadratic variation of the log-price
 semimartingale</strong>, and the convergence result (Andersen,
-Bollerslev, Diebold &amp; Labys, 2001, 2003; Barndorff-Nielsen &amp;
-Shephard, 2002) is stated for the log price. Take the quadratic
-variation of the <em>price</em> instead — sum squared dollar changes —
-and the limit is <span class="math inline">\([\,P\,]_t =
-\int_{t-1}^{t}\sigma_u^2 P_u^2\,du\)</span>: a quantity in squared
-dollars that scales with the price level, which is not a volatility and
-cannot be compared across assets or across time. [Fact]</p>
+Bollerslev, Diebold &amp; Labys, 2001, 2003; <a href="https://ideas.repec.org/p/oxf/wpaper/71.html" target="_blank">Barndorff-Nielsen &amp; Shephard, 2002</a>) is stated
+for the log price. Take the quadratic variation of the <em>price</em>
+instead — sum squared dollar changes — and the limit is <span class="math inline">\([\,P\,]_t = \int_{t-1}^{t}\sigma_u^2
+P_u^2\,du\)</span>: a quantity in squared dollars that scales with the
+price level, which is not a volatility and cannot be compared across
+assets or across time. [Fact]</p>
 <p>Squaring <em>simple</em> returns is the intermediate case, and it is
 worth being exact about rather than lumping it in with dollar changes.
 Since <span class="math inline">\(R_{t,j} = r_{t,j} +
@@ -2672,9 +2672,10 @@ off it inherits an upward bias. [Fact]</li>
 <h3 id="cointegration-a-ratio-hypothesis-versus-a-spread-hypothesis">6.4
 Cointegration: a ratio hypothesis versus a spread hypothesis</h3>
 <p>Two integrated series are <strong>cointegrated</strong> if some
-linear combination of them is stationary (Engle &amp; Granger, 1987).
-Applied to two assets, the choice of coordinate changes the economic
-hypothesis being tested, and this is not widely enough appreciated.</p>
+linear combination of them is stationary (<a href="https://www.jstor.org/stable/1913236" target="_blank">Engle &amp;
+Granger, 1987</a>). Applied to two assets, the choice of coordinate
+changes the economic hypothesis being tested, and this is not widely
+enough appreciated.</p>
 <table>
 <colgroup>
 <col style="width: 25%" />
@@ -2741,9 +2742,9 @@ present-value identity</h3>
 D_{t+1}}{P_t}\]</span></p>
 <p>is exact and useless for analysis, because it is non-linear and
 cannot be iterated forward into a statement about long-run expectations.
-Campbell &amp; Shiller (1988) resolved this by log-linearising around
-the mean log dividend–price ratio. Writing lowercase for logs, a
-first-order expansion gives</p>
+<a href="https://pages.stern.nyu.edu/~dbackus/GE_asset_pricing/CampbellShiller%20RFS%2088.PDF" target="_blank">Campbell &amp; Shiller (1988)</a> resolved this by
+log-linearising around the mean log dividend–price ratio. Writing
+lowercase for logs, a first-order expansion gives</p>
 <p><span class="math display">\[r_{t+1} \;\approx\; \kappa +
 \rho\,p_{t+1} + (1-\rho)\,d_{t+1} - p_t, \qquad \rho \;=\; \frac{1}{1 +
 \exp\big(\overline{d - p}\big)}\]</span></p>
@@ -2765,8 +2766,9 @@ identity, log-linearised, plus a transversality condition ruling out a
 bubble term <span class="math inline">\(\lim_{j\to\infty}\rho^{\,j}(d_{t+j}-p_{t+j})\)</span>.
 Nothing in it is estimated, which is why the question “is the dividend
 yield a valid predictor?” has a different character from other predictor
-questions. Campbell (1991) extends the same machinery to decompose
-realised return variance into cash-flow news and discount-rate news.</p>
+questions. <a href="https://www.jstor.org/stable/2233809" target="_blank">Campbell (1991)</a> extends the same machinery to
+decompose realised return variance into cash-flow news and discount-rate
+news.</p>
 <p>None of this exists in simple returns. The log-linearisation is what
 makes the present-value relation iterable, and there is no simple-return
 counterpart. This is the second genuinely non-negotiable case.</p>
@@ -2783,8 +2785,8 @@ Newey–West corrections for the overlapping-observation MA(<span class="math in
 the sum with a compounded simple return and the error term’s
 autocovariance structure is no longer the tractable moving average the
 corrections assume.</p>
-<p>The same additivity requirement underlies the variance ratio (Lo
-&amp; MacKinlay, 1988),</p>
+<p>The same additivity requirement underlies the variance ratio (<a href="https://doi.org/10.1093/rfs/1.1.41" target="_blank">Lo &amp;
+MacKinlay, 1988</a>),</p>
 <p><span class="math display">\[\mathrm{VR}(q) \;=\;
 \frac{\operatorname{Var}\big(r_{t+1:t+q}\big)}{q\,\operatorname{Var}(r_{t+1})}
 \;=\; 1 + 2\sum_{k=1}^{q-1}\Big(1 - \frac{k}{q}\Big)\rho_k\]</span></p>
@@ -2976,16 +2978,16 @@ your wealth under full Kelly is 50%). Practitioners run fractional Kelly
 — typically a quarter to a half — which sacrifices little growth (growth
 is quadratic near the peak, so half-Kelly retains 75% of <span class="math inline">\(g^\ast\)</span>) for a large reduction in
 variance. [Practice]</p>
-<p><strong>And the contested part.</strong> Kelly (1956) and Latané
-(1959) proposed maximising expected log wealth as a general criterion,
-on the argument that a log-optimal strategy almost surely outgrows any
-other in the long run. Samuelson attacked this repeatedly and forcefully
-— most memorably in a 1979 note written in words of one syllable, save
-the last — on the ground that “almost surely ends up richer” does not
-imply “preferred”, since expected utility is not determined by the
-limiting probability of dominance. Merton &amp; Samuelson (1974)
-formalised the objection. Markowitz (1976) defended the criterion’s
-practical relevance, and Thorp has made the applied case for decades.
+<p><strong>And the contested part.</strong> <a href="https://www.princeton.edu/~wbialek/rome/refs/kelly_56.pdf" target="_blank">Kelly (1956)</a> and <a href="https://www.jstor.org/stable/1826282" target="_blank">Latané
+(1959)</a> proposed maximising expected log wealth as a general
+criterion, on the argument that a log-optimal strategy almost surely
+outgrows any other in the long run. Samuelson attacked this repeatedly
+and forcefully — most memorably in a 1979 note written in words of one
+syllable, save the last — on the ground that “almost surely ends up
+richer” does not imply “preferred”, since expected utility is not
+determined by the limiting probability of dominance. <a href="https://doi.org/10.1016/0304-405X(74)90009-9" target="_blank">Merton &amp; Samuelson (1974)</a> formalised the
+objection. <a href="https://doi.org/10.1111/j.1540-6261.1976.tb03213.x" target="_blank">Markowitz (1976)</a> defended the criterion’s practical
+relevance, and Thorp has made the applied case for decades.
 <strong>[Contested]</strong></p>
 <p>My read: Samuelson is right on the mathematics and the Kelly camp is
 right about what to actually do. Maximising <span class="math inline">\(\mathbb{E}[\ln W]\)</span> is optimal if and only
@@ -3074,10 +3076,10 @@ stochastic process, is log.</p>
 <h3 id="the-two-space-discipline">7.3 The two-space discipline</h3>
 <p>The resolution used by every well-built quantitative system is not to
 pick one convention but to be explicit about which space you are in at
-each stage. Meucci (2010) frames this as a three-step pipeline — find
-the invariants, project them to the horizon, then map back to simple
-returns for pricing and aggregation — and it is the single most useful
-organising idea for production code.</p>
+each stage. <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656" target="_blank">Meucci (2010)</a> frames this as a three-step pipeline —
+find the invariants, project them to the horizon, then map back to
+simple returns for pricing and aggregation — and it is the single most
+useful organising idea for production code.</p>
 <p><img role="img" aria-label src="data:image/svg+xml;base64,PHN2ZyBpZD0ibXktc3ZnIiB3aWR0aD0iMTAwJSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgc3R5bGU9Im1heC13aWR0aDogMTE1OC4yNnB4OyBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTsiIHZpZXdCb3g9Ii04IC04IDExNTguMjU3ODEyNSA4Ni41IiByb2xlPSJncmFwaGljcy1kb2N1bWVudCBkb2N1bWVudCIgYXJpYS1yb2xlZGVzY3JpcHRpb249ImZsb3djaGFydC12MiI+PHN0eWxlPiNteS1zdmd7Zm9udC1mYW1pbHk6InRyZWJ1Y2hldCBtcyIsdmVyZGFuYSxhcmlhbCxzYW5zLXNlcmlmO2ZvbnQtc2l6ZToxNnB4O2ZpbGw6IzMzMzt9I215LXN2ZyAuZXJyb3ItaWNvbntmaWxsOiM1NTIyMjI7fSNteS1zdmcgLmVycm9yLXRleHR7ZmlsbDojNTUyMjIyO3N0cm9rZTojNTUyMjIyO30jbXktc3ZnIC5lZGdlLXRoaWNrbmVzcy1ub3JtYWx7c3Ryb2tlLXdpZHRoOjJweDt9I215LXN2ZyAuZWRnZS10aGlja25lc3MtdGhpY2t7c3Ryb2tlLXdpZHRoOjMuNXB4O30jbXktc3ZnIC5lZGdlLXBhdHRlcm4tc29saWR7c3Ryb2tlLWRhc2hhcnJheTowO30jbXktc3ZnIC5lZGdlLXBhdHRlcm4tZGFzaGVke3N0cm9rZS1kYXNoYXJyYXk6Mzt9I215LXN2ZyAuZWRnZS1wYXR0ZXJuLWRvdHRlZHtzdHJva2UtZGFzaGFycmF5OjI7fSNteS1zdmcgLm1hcmtlcntmaWxsOiMzMzMzMzM7c3Ryb2tlOiMzMzMzMzM7fSNteS1zdmcgLm1hcmtlci5jcm9zc3tzdHJva2U6IzMzMzMzMzt9I215LXN2ZyBzdmd7Zm9udC1mYW1pbHk6InRyZWJ1Y2hldCBtcyIsdmVyZGFuYSxhcmlhbCxzYW5zLXNlcmlmO2ZvbnQtc2l6ZToxNnB4O30jbXktc3ZnIC5sYWJlbHtmb250LWZhbWlseToidHJlYnVjaGV0IG1zIix2ZXJkYW5hLGFyaWFsLHNhbnMtc2VyaWY7Y29sb3I6IzMzMzt9I215LXN2ZyAuY2x1c3Rlci1sYWJlbCB0ZXh0e2ZpbGw6IzMzMzt9I215LXN2ZyAuY2x1c3Rlci1sYWJlbCBzcGFuLCNteS1zdmcgcHtjb2xvcjojMzMzO30jbXktc3ZnIC5sYWJlbCB0ZXh0LCNteS1zdmcgc3BhbiwjbXktc3ZnIHB7ZmlsbDojMzMzO2NvbG9yOiMzMzM7fSNteS1zdmcgLm5vZGUgcmVjdCwjbXktc3ZnIC5ub2RlIGNpcmNsZSwjbXktc3ZnIC5ub2RlIGVsbGlwc2UsI215LXN2ZyAubm9kZSBwb2x5Z29uLCNteS1zdmcgLm5vZGUgcGF0aHtmaWxsOiNFQ0VDRkY7c3Ryb2tlOiM5MzcwREI7c3Ryb2tlLXdpZHRoOjFweDt9I215LXN2ZyAuZmxvd2NoYXJ0LWxhYmVsIHRleHR7dGV4dC1hbmNob3I6bWlkZGxlO30jbXktc3ZnIC5ub2RlIC5rYXRleCBwYXRoe2ZpbGw6IzAwMDtzdHJva2U6IzAwMDtzdHJva2Utd2lkdGg6MXB4O30jbXktc3ZnIC5ub2RlIC5sYWJlbHt0ZXh0LWFsaWduOmNlbnRlcjt9I215LXN2ZyAubm9kZS5jbGlja2FibGV7Y3Vyc29yOnBvaW50ZXI7fSNteS1zdmcgLmFycm93aGVhZFBhdGh7ZmlsbDojMzMzMzMzO30jbXktc3ZnIC5lZGdlUGF0aCAucGF0aHtzdHJva2U6IzMzMzMzMztzdHJva2Utd2lkdGg6Mi4wcHg7fSNteS1zdmcgLmZsb3djaGFydC1saW5re3N0cm9rZTojMzMzMzMzO2ZpbGw6bm9uZTt9I215LXN2ZyAuZWRnZUxhYmVse2JhY2tncm91bmQtY29sb3I6I2U4ZThlODt0ZXh0LWFsaWduOmNlbnRlcjt9I215LXN2ZyAuZWRnZUxhYmVsIHJlY3R7b3BhY2l0eTowLjU7YmFja2dyb3VuZC1jb2xvcjojZThlOGU4O2ZpbGw6I2U4ZThlODt9I215LXN2ZyAubGFiZWxCa2d7YmFja2dyb3VuZC1jb2xvcjpyZ2JhKDIzMiwgMjMyLCAyMzIsIDAuNSk7fSNteS1zdmcgLmNsdXN0ZXIgcmVjdHtmaWxsOiNmZmZmZGU7c3Ryb2tlOiNhYWFhMzM7c3Ryb2tlLXdpZHRoOjFweDt9I215LXN2ZyAuY2x1c3RlciB0ZXh0e2ZpbGw6IzMzMzt9I215LXN2ZyAuY2x1c3RlciBzcGFuLCNteS1zdmcgcHtjb2xvcjojMzMzO30jbXktc3ZnIGRpdi5tZXJtYWlkVG9vbHRpcHtwb3NpdGlvbjphYnNvbHV0ZTt0ZXh0LWFsaWduOmNlbnRlcjttYXgtd2lkdGg6MjAwcHg7cGFkZGluZzoycHg7Zm9udC1mYW1pbHk6InRyZWJ1Y2hldCBtcyIsdmVyZGFuYSxhcmlhbCxzYW5zLXNlcmlmO2ZvbnQtc2l6ZToxMnB4O2JhY2tncm91bmQ6aHNsKDgwLCAxMDAlLCA5Ni4yNzQ1MDk4MDM5JSk7Ym9yZGVyOjFweCBzb2xpZCAjYWFhYTMzO2JvcmRlci1yYWRpdXM6MnB4O3BvaW50ZXItZXZlbnRzOm5vbmU7ei1pbmRleDoxMDA7fSNteS1zdmcgLmZsb3djaGFydFRpdGxlVGV4dHt0ZXh0LWFuY2hvcjptaWRkbGU7Zm9udC1zaXplOjE4cHg7ZmlsbDojMzMzO30jbXktc3ZnIDpyb290ey0tbWVybWFpZC1mb250LWZhbWlseToidHJlYnVjaGV0IG1zIix2ZXJkYW5hLGFyaWFsLHNhbnMtc2VyaWY7fTwvc3R5bGU+PGc+PG1hcmtlciBpZD0ibXktc3ZnX2Zsb3djaGFydC1wb2ludEVuZCIgY2xhc3M9Im1hcmtlciBmbG93Y2hhcnQiIHZpZXdCb3g9IjAgMCAxMCAxMCIgcmVmWD0iNiIgcmVmWT0iNSIgbWFya2VyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBtYXJrZXJXaWR0aD0iMTIiIG1hcmtlckhlaWdodD0iMTIiIG9yaWVudD0iYXV0byI+PHBhdGggZD0iTSAwIDAgTCAxMCA1IEwgMCAxMCB6IiBjbGFzcz0iYXJyb3dNYXJrZXJQYXRoIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAxOyBzdHJva2UtZGFzaGFycmF5OiAxLCAwOyIvPjwvbWFya2VyPjxtYXJrZXIgaWQ9Im15LXN2Z19mbG93Y2hhcnQtcG9pbnRTdGFydCIgY2xhc3M9Im1hcmtlciBmbG93Y2hhcnQiIHZpZXdCb3g9IjAgMCAxMCAxMCIgcmVmWD0iNC41IiByZWZZPSI1IiBtYXJrZXJVbml0cz0idXNlclNwYWNlT25Vc2UiIG1hcmtlcldpZHRoPSIxMiIgbWFya2VySGVpZ2h0PSIxMiIgb3JpZW50PSJhdXRvIj48cGF0aCBkPSJNIDAgNSBMIDEwIDEwIEwgMTAgMCB6IiBjbGFzcz0iYXJyb3dNYXJrZXJQYXRoIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAxOyBzdHJva2UtZGFzaGFycmF5OiAxLCAwOyIvPjwvbWFya2VyPjxtYXJrZXIgaWQ9Im15LXN2Z19mbG93Y2hhcnQtY2lyY2xlRW5kIiBjbGFzcz0ibWFya2VyIGZsb3djaGFydCIgdmlld0JveD0iMCAwIDEwIDEwIiByZWZYPSIxMSIgcmVmWT0iNSIgbWFya2VyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBtYXJrZXJXaWR0aD0iMTEiIG1hcmtlckhlaWdodD0iMTEiIG9yaWVudD0iYXV0byI+PGNpcmNsZSBjeD0iNSIgY3k9IjUiIHI9IjUiIGNsYXNzPSJhcnJvd01hcmtlclBhdGgiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDE7IHN0cm9rZS1kYXNoYXJyYXk6IDEsIDA7Ii8+PC9tYXJrZXI+PG1hcmtlciBpZD0ibXktc3ZnX2Zsb3djaGFydC1jaXJjbGVTdGFydCIgY2xhc3M9Im1hcmtlciBmbG93Y2hhcnQiIHZpZXdCb3g9IjAgMCAxMCAxMCIgcmVmWD0iLTEiIHJlZlk9IjUiIG1hcmtlclVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgbWFya2VyV2lkdGg9IjExIiBtYXJrZXJIZWlnaHQ9IjExIiBvcmllbnQ9ImF1dG8iPjxjaXJjbGUgY3g9IjUiIGN5PSI1IiByPSI1IiBjbGFzcz0iYXJyb3dNYXJrZXJQYXRoIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAxOyBzdHJva2UtZGFzaGFycmF5OiAxLCAwOyIvPjwvbWFya2VyPjxtYXJrZXIgaWQ9Im15LXN2Z19mbG93Y2hhcnQtY3Jvc3NFbmQiIGNsYXNzPSJtYXJrZXIgY3Jvc3MgZmxvd2NoYXJ0IiB2aWV3Qm94PSIwIDAgMTEgMTEiIHJlZlg9IjEyIiByZWZZPSI1LjIiIG1hcmtlclVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgbWFya2VyV2lkdGg9IjExIiBtYXJrZXJIZWlnaHQ9IjExIiBvcmllbnQ9ImF1dG8iPjxwYXRoIGQ9Ik0gMSwxIGwgOSw5IE0gMTAsMSBsIC05LDkiIGNsYXNzPSJhcnJvd01hcmtlclBhdGgiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDI7IHN0cm9rZS1kYXNoYXJyYXk6IDEsIDA7Ii8+PC9tYXJrZXI+PG1hcmtlciBpZD0ibXktc3ZnX2Zsb3djaGFydC1jcm9zc1N0YXJ0IiBjbGFzcz0ibWFya2VyIGNyb3NzIGZsb3djaGFydCIgdmlld0JveD0iMCAwIDExIDExIiByZWZYPSItMSIgcmVmWT0iNS4yIiBtYXJrZXJVbml0cz0idXNlclNwYWNlT25Vc2UiIG1hcmtlcldpZHRoPSIxMSIgbWFya2VySGVpZ2h0PSIxMSIgb3JpZW50PSJhdXRvIj48cGF0aCBkPSJNIDEsMSBsIDksOSBNIDEwLDEgbCAtOSw5IiBjbGFzcz0iYXJyb3dNYXJrZXJQYXRoIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAyOyBzdHJva2UtZGFzaGFycmF5OiAxLCAwOyIvPjwvbWFya2VyPjxnIGNsYXNzPSJyb290Ij48ZyBjbGFzcz0iY2x1c3RlcnMiLz48ZyBjbGFzcz0iZWRnZVBhdGhzIj48cGF0aCBkPSJNOTIuMjY2LDM1LjI1TDk2LjQzMiwzNS4yNUMxMDAuNTk5LDM1LjI1LDEwOC45MzIsMzUuMjUsMTE2LjM4MiwzNS4yNUMxMjMuODMyLDM1LjI1LDEzMC4zOTksMzUuMjUsMTMzLjY4MiwzNS4yNUwxMzYuOTY2LDM1LjI1IiBpZD0iTC1BLUItMCIgY2xhc3M9ImVkZ2UtdGhpY2tuZXNzLW5vcm1hbCBlZGdlLXBhdHRlcm4tc29saWQgZmxvd2NoYXJ0LWxpbmsgTFMtQSBMRS1CIiBzdHlsZT0iZmlsbDpub25lOyIgbWFya2VyLWVuZD0idXJsKCNteS1zdmdfZmxvd2NoYXJ0LXBvaW50RW5kKSIvPjxwYXRoIGQ9Ik0zNDguMTQxLDM1LjI1TDM1Mi4zMDcsMzUuMjVDMzU2LjQ3NCwzNS4yNSwzNjQuODA3LDM1LjI1LDM3Mi4yNTcsMzUuMjVDMzc5LjcwNywzNS4yNSwzODYuMjc0LDM1LjI1LDM4OS41NTcsMzUuMjVMMzkyLjg0MSwzNS4yNSIgaWQ9IkwtQi1DLTAiIGNsYXNzPSJlZGdlLXRoaWNrbmVzcy1ub3JtYWwgZWRnZS1wYXR0ZXJuLXNvbGlkIGZsb3djaGFydC1saW5rIExTLUIgTEUtQyIgc3R5bGU9ImZpbGw6bm9uZTsiIG1hcmtlci1lbmQ9InVybCgjbXktc3ZnX2Zsb3djaGFydC1wb2ludEVuZCkiLz48cGF0aCBkPSJNNTcyLjk2OSwzNS4yNUw1NzcuMTM1LDM1LjI1QzU4MS4zMDIsMzUuMjUsNTg5LjYzNSwzNS4yNSw1OTcuMDg1LDM1LjI1QzYwNC41MzUsMzUuMjUsNjExLjEwMiwzNS4yNSw2MTQuMzg1LDM1LjI1TDYxNy42NjksMzUuMjUiIGlkPSJMLUMtRC0wIiBjbGFzcz0iZWRnZS10aGlja25lc3Mtbm9ybWFsIGVkZ2UtcGF0dGVybi1zb2xpZCBmbG93Y2hhcnQtbGluayBMUy1DIExFLUQiIHN0eWxlPSJmaWxsOm5vbmU7IiBtYXJrZXItZW5kPSJ1cmwoI215LXN2Z19mbG93Y2hhcnQtcG9pbnRFbmQpIi8+PHBhdGggZD0iTTc3Ny45NTMsMzUuMjVMNzgyLjEyLDM1LjI1Qzc4Ni4yODYsMzUuMjUsNzk0LjYyLDM1LjI1LDgwMi4wNywzNS4yNUM4MDkuNTIsMzUuMjUsODE2LjA4NiwzNS4yNSw4MTkuMzcsMzUuMjVMODIyLjY1MywzNS4yNSIgaWQ9IkwtRC1FLTAiIGNsYXNzPSJlZGdlLXRoaWNrbmVzcy1ub3JtYWwgZWRnZS1wYXR0ZXJuLXNvbGlkIGZsb3djaGFydC1saW5rIExTLUQgTEUtRSIgc3R5bGU9ImZpbGw6bm9uZTsiIG1hcmtlci1lbmQ9InVybCgjbXktc3ZnX2Zsb3djaGFydC1wb2ludEVuZCkiLz48cGF0aCBkPSJNOTU1LjEwOSwzNS4yNUw5NTkuMjc2LDM1LjI1Qzk2My40NDMsMzUuMjUsOTcxLjc3NiwzNS4yNSw5NzkuMjI2LDM1LjI1Qzk4Ni42NzYsMzUuMjUsOTkzLjI0MywzNS4yNSw5OTYuNTI2LDM1LjI1TDk5OS44MDksMzUuMjUiIGlkPSJMLUUtRi0wIiBjbGFzcz0iZWRnZS10aGlja25lc3Mtbm9ybWFsIGVkZ2UtcGF0dGVybi1zb2xpZCBmbG93Y2hhcnQtbGluayBMUy1FIExFLUYiIHN0eWxlPSJmaWxsOm5vbmU7IiBtYXJrZXItZW5kPSJ1cmwoI215LXN2Z19mbG93Y2hhcnQtcG9pbnRFbmQpIi8+PC9nPjxnIGNsYXNzPSJlZGdlTGFiZWxzIj48ZyBjbGFzcz0iZWRnZUxhYmVsIj48ZyBjbGFzcz0ibGFiZWwiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsIDApIj48Zm9yZWlnbk9iamVjdCB3aWR0aD0iMCIgaGVpZ2h0PSIwIj48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyB3aGl0ZS1zcGFjZTogbm93cmFwOyI+PHNwYW4gY2xhc3M9ImVkZ2VMYWJlbCI+PC9zcGFuPjwvZGl2PjwvZm9yZWlnbk9iamVjdD48L2c+PC9nPjxnIGNsYXNzPSJlZGdlTGFiZWwiPjxnIGNsYXNzPSJsYWJlbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwgMCkiPjxmb3JlaWduT2JqZWN0IHdpZHRoPSIwIiBoZWlnaHQ9IjAiPjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IHdoaXRlLXNwYWNlOiBub3dyYXA7Ij48c3BhbiBjbGFzcz0iZWRnZUxhYmVsIj48L3NwYW4+PC9kaXY+PC9mb3JlaWduT2JqZWN0PjwvZz48L2c+PGcgY2xhc3M9ImVkZ2VMYWJlbCI+PGcgY2xhc3M9ImxhYmVsIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLCAwKSI+PGZvcmVpZ25PYmplY3Qgd2lkdGg9IjAiIGhlaWdodD0iMCI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgd2hpdGUtc3BhY2U6IG5vd3JhcDsiPjxzcGFuIGNsYXNzPSJlZGdlTGFiZWwiPjwvc3Bhbj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PC9nPjwvZz48ZyBjbGFzcz0iZWRnZUxhYmVsIj48ZyBjbGFzcz0ibGFiZWwiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsIDApIj48Zm9yZWlnbk9iamVjdCB3aWR0aD0iMCIgaGVpZ2h0PSIwIj48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyB3aGl0ZS1zcGFjZTogbm93cmFwOyI+PHNwYW4gY2xhc3M9ImVkZ2VMYWJlbCI+PC9zcGFuPjwvZGl2PjwvZm9yZWlnbk9iamVjdD48L2c+PC9nPjxnIGNsYXNzPSJlZGdlTGFiZWwiPjxnIGNsYXNzPSJsYWJlbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwgMCkiPjxmb3JlaWduT2JqZWN0IHdpZHRoPSIwIiBoZWlnaHQ9IjAiPjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IHdoaXRlLXNwYWNlOiBub3dyYXA7Ij48c3BhbiBjbGFzcz0iZWRnZUxhYmVsIj48L3NwYW4+PC9kaXY+PC9mb3JlaWduT2JqZWN0PjwvZz48L2c+PC9nPjxnIGNsYXNzPSJub2RlcyI+PGcgY2xhc3M9Im5vZGUgZGVmYXVsdCBkZWZhdWx0IGZsb3djaGFydC1sYWJlbCIgaWQ9ImZsb3djaGFydC1BLTAiIGRhdGEtbm9kZT0idHJ1ZSIgZGF0YS1pZD0iQSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDYuMTMyODEyNSwgMzUuMjUpIj48cmVjdCBjbGFzcz0iYmFzaWMgbGFiZWwtY29udGFpbmVyIiBzdHlsZT0iIiByeD0iMCIgcnk9IjAiIHg9Ii00Ni4xMzI4MTI1IiB5PSItMjYiIHdpZHRoPSI5Mi4yNjU2MjUiIGhlaWdodD0iNTIiLz48ZyBjbGFzcz0ibGFiZWwiIHN0eWxlPSIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zOC42MzI4MTI1LCAtMTguNSkiPjxyZWN0Lz48Zm9yZWlnbk9iamVjdCB3aWR0aD0iNzcuMjY1NjI1IiBoZWlnaHQ9IjM3Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyB3aGl0ZS1zcGFjZTogbm93cmFwOyI+PHNwYW4gY2xhc3M9Im5vZGVMYWJlbCI+UmF3IHByaWNlczxiciAvPlAodCk8L3NwYW4+PC9kaXY+PC9mb3JlaWduT2JqZWN0PjwvZz48L2c+PGcgY2xhc3M9Im5vZGUgZGVmYXVsdCBkZWZhdWx0IGZsb3djaGFydC1sYWJlbCIgaWQ9ImZsb3djaGFydC1CLTEiIGRhdGEtbm9kZT0idHJ1ZSIgZGF0YS1pZD0iQiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQ1LjIwMzEyNSwgMzUuMjUpIj48cmVjdCBjbGFzcz0iYmFzaWMgbGFiZWwtY29udGFpbmVyIiBzdHlsZT0iZmlsbDojMGI2ZTRmOyIgcng9IjAiIHJ5PSIwIiB4PSItMTAyLjkzNzUiIHk9Ii0zNS4yNSIgd2lkdGg9IjIwNS44NzUiIGhlaWdodD0iNzAuNSIvPjxnIGNsYXNzPSJsYWJlbCIgc3R5bGU9ImNvbG9yOiNmZmY7IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtOTUuNDM3NSwgLTI3Ljc1KSI+PHJlY3QvPjxmb3JlaWduT2JqZWN0IHdpZHRoPSIxOTAuODc1IiBoZWlnaHQ9IjU1LjUiPjxkaXYgc3R5bGU9ImNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7IGRpc3BsYXk6IGlubGluZS1ibG9jazsgd2hpdGUtc3BhY2U6IG5vd3JhcDsiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIj48c3BhbiBjbGFzcz0ibm9kZUxhYmVsIiBzdHlsZT0iY29sb3I6I2ZmZjsiPjxiPkludmFyaWFudHM8L2I+PGJyIC8+bG9nIHJldHVybnMsIHlpZWxkIGNoYW5nZXMsPGJyIC8+aW1wbGllZC12b2wgY2hhbmdlczwvc3Bhbj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PC9nPjwvZz48ZyBjbGFzcz0ibm9kZSBkZWZhdWx0IGRlZmF1bHQgZmxvd2NoYXJ0LWxhYmVsIiBpZD0iZmxvd2NoYXJ0LUMtMyIgZGF0YS1ub2RlPSJ0cnVlIiBkYXRhLWlkPSJDIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0ODUuNTU0Njg3NSwgMzUuMjUpIj48cmVjdCBjbGFzcz0iYmFzaWMgbGFiZWwtY29udGFpbmVyIiBzdHlsZT0iIiByeD0iMCIgcnk9IjAiIHg9Ii04Ny40MTQwNjI1IiB5PSItMzUuMjUiIHdpZHRoPSIxNzQuODI4MTI1IiBoZWlnaHQ9IjcwLjUiLz48ZyBjbGFzcz0ibGFiZWwiIHN0eWxlPSIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC03OS45MTQwNjI1LCAtMjcuNzUpIj48cmVjdC8+PGZvcmVpZ25PYmplY3Qgd2lkdGg9IjE1OS44MjgxMjUiIGhlaWdodD0iNTUuNSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgd2hpdGUtc3BhY2U6IG5vd3JhcDsiPjxzcGFuIGNsYXNzPSJub2RlTGFiZWwiPjxiPlByb2plY3Rpb248L2I+PGJyIC8+ZXN0aW1hdGUgYW5kIHNpbXVsYXRlPGJyIC8+dG8gdGhlIGhvcml6b248L3NwYW4+PC9kaXY+PC9mb3JlaWduT2JqZWN0PjwvZz48L2c+PGcgY2xhc3M9Im5vZGUgZGVmYXVsdCBkZWZhdWx0IGZsb3djaGFydC1sYWJlbCIgaWQ9ImZsb3djaGFydC1ELTUiIGRhdGEtbm9kZT0idHJ1ZSIgZGF0YS1pZD0iRCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzAwLjQ2MDkzNzUsIDM1LjI1KSI+PHJlY3QgY2xhc3M9ImJhc2ljIGxhYmVsLWNvbnRhaW5lciIgc3R5bGU9ImZpbGw6IzhiMmY1ZjsiIHJ4PSIwIiByeT0iMCIgeD0iLTc3LjQ5MjE4NzUiIHk9Ii0zNS4yNSIgd2lkdGg9IjE1NC45ODQzNzUiIGhlaWdodD0iNzAuNSIvPjxnIGNsYXNzPSJsYWJlbCIgc3R5bGU9ImNvbG9yOiNmZmY7IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNjkuOTkyMTg3NSwgLTI3Ljc1KSI+PHJlY3QvPjxmb3JlaWduT2JqZWN0IHdpZHRoPSIxMzkuOTg0Mzc1IiBoZWlnaHQ9IjU1LjUiPjxkaXYgc3R5bGU9ImNvbG9yOiByZ2IoMjU1LCAyNTUsIDI1NSk7IGRpc3BsYXk6IGlubGluZS1ibG9jazsgd2hpdGUtc3BhY2U6IG5vd3JhcDsiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIj48c3BhbiBjbGFzcz0ibm9kZUxhYmVsIiBzdHlsZT0iY29sb3I6I2ZmZjsiPjxiPlByaWNpbmc8L2I+PGJyIC8+bWFwIGJhY2sgdG8gc2ltcGxlPGJyIC8+cmV0dXJucyBhbmQgUCBhbmQgTDwvc3Bhbj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PC9nPjwvZz48ZyBjbGFzcz0ibm9kZSBkZWZhdWx0IGRlZmF1bHQgZmxvd2NoYXJ0LWxhYmVsIiBpZD0iZmxvd2NoYXJ0LUUtNyIgZGF0YS1ub2RlPSJ0cnVlIiBkYXRhLWlkPSJFIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4OTEuNTMxMjUsIDM1LjI1KSI+PHJlY3QgY2xhc3M9ImJhc2ljIGxhYmVsLWNvbnRhaW5lciIgc3R5bGU9IiIgcng9IjAiIHJ5PSIwIiB4PSItNjMuNTc4MTI1IiB5PSItMzUuMjUiIHdpZHRoPSIxMjcuMTU2MjUiIGhlaWdodD0iNzAuNSIvPjxnIGNsYXNzPSJsYWJlbCIgc3R5bGU9IiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU2LjA3ODEyNSwgLTI3Ljc1KSI+PHJlY3QvPjxmb3JlaWduT2JqZWN0IHdpZHRoPSIxMTIuMTU2MjUiIGhlaWdodD0iNTUuNSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgd2hpdGUtc3BhY2U6IG5vd3JhcDsiPjxzcGFuIGNsYXNzPSJub2RlTGFiZWwiPjxiPkFnZ3JlZ2F0aW9uPC9iPjxiciAvPndlaWdodGVkIHN1bTxiciAvPmFjcm9zcyBwb3NpdGlvbnM8L3NwYW4+PC9kaXY+PC9mb3JlaWduT2JqZWN0PjwvZz48L2c+PGcgY2xhc3M9Im5vZGUgZGVmYXVsdCBkZWZhdWx0IGZsb3djaGFydC1sYWJlbCIgaWQ9ImZsb3djaGFydC1GLTkiIGRhdGEtbm9kZT0idHJ1ZSIgZGF0YS1pZD0iRiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTA3My42ODM1OTM3NSwgMzUuMjUpIj48cmVjdCBjbGFzcz0iYmFzaWMgbGFiZWwtY29udGFpbmVyIiBzdHlsZT0iIiByeD0iMCIgcnk9IjAiIHg9Ii02OC41NzQyMTg3NSIgeT0iLTM1LjI1IiB3aWR0aD0iMTM3LjE0ODQzNzUiIGhlaWdodD0iNzAuNSIvPjxnIGNsYXNzPSJsYWJlbCIgc3R5bGU9IiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTYxLjA3NDIxODc1LCAtMjcuNzUpIj48cmVjdC8+PGZvcmVpZ25PYmplY3Qgd2lkdGg9IjEyMi4xNDg0Mzc1IiBoZWlnaHQ9IjU1LjUiPjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IHdoaXRlLXNwYWNlOiBub3dyYXA7Ij48c3BhbiBjbGFzcz0ibm9kZUxhYmVsIj5SaXNrIG51bWJlcnMsPGJyIC8+b3B0aW1pc2VyIGlucHV0cyw8YnIgLz5yZXBvcnRzPC9zcGFuPjwvZGl2PjwvZm9yZWlnbk9iamVjdD48L2c+PC9nPjwvZz48L2c+PC9nPjwvc3ZnPg==" alt /></p>
 <p>The <strong>invariants</strong> box is the important one. The
 quantity you should model is whichever transformation of the raw data is
@@ -3604,9 +3606,9 @@ by <span class="math inline">\(\hat s^2(x)/2\)</span>.</p>
 below realised returns, with the gap largest for the most volatile names
 — which means the <em>ranking</em> is distorted, not just the level.</p>
 <p><strong>Fix.</strong> §11.5 in full. Briefly: either add <span class="math inline">\(\hat s^2(x)/2\)</span> from a companion volatility
-model, or use Duan’s (1983) smearing estimator, or — usually best —
-never leave log space at all and evaluate the model on the quantity you
-fit.</p>
+model, or use <a href="https://people.stat.sc.edu/hoyen/PastTeaching/STAT704-2022/Notes/Smearing.pdf" target="_blank">Duan’s (1983)</a> smearing estimator, or — usually best
+— never leave log space at all and evaluate the model on the quantity
+you fit.</p>
 <h3 id="mixing-conventions-across-a-system-boundary">9.8 Mixing
 conventions across a system boundary</h3>
 <p><strong>Mechanism.</strong> The research code computes log returns;
@@ -4210,9 +4212,8 @@ That is wrong:</p>
 <em>conditional</em> variance of the log return at <span class="math inline">\(x\)</span> — the model’s residual variance there,
 not the unconditional variance of the series. So <span class="math inline">\(e^{\hat m(x)} - 1\)</span> gives you the
 conditional <strong>median</strong>, not the mean. This is Goldberger’s
-(1968) and Duan’s (1983) retransformation problem, and Manning (1998) is
-the standard treatment of what happens when the residual variance is not
-constant.</p>
+(1968) and <a href="https://people.stat.sc.edu/hoyen/PastTeaching/STAT704-2022/Notes/Smearing.pdf" target="_blank">Duan’s (1983)</a> retransformation problem, and <a href="https://ideas.repec.org/a/eee/jhecon/v17y1998i3p283-295.html" target="_blank">Manning (1998)</a> is the standard treatment of what
+happens when the residual variance is not constant.</p>
 <p><strong>Why it is worse in finance than elsewhere.</strong> In most
 applications the correction <span class="math inline">\(\tfrac12
 s^2\)</span> is roughly constant, so the bias is a level shift that does
@@ -4283,14 +4284,13 @@ conditional-variance model: <span class="math inline">\(\hat{\mathbb{E}}[R\mid x
 \tfrac12\hat s^2(x)) - 1\)</span>. This is correct if the conditional
 distribution is close to lognormal, which for daily returns it is not in
 the tails.</li>
-<li><strong>Use Duan’s (1983) smearing estimator</strong>, which
+<li><strong>Use <a href="https://people.stat.sc.edu/hoyen/PastTeaching/STAT704-2022/Notes/Smearing.pdf" target="_blank">Duan’s (1983)</a> smearing estimator</strong>, which
 replaces the parametric correction with the empirical residual
 distribution: <span class="math inline">\(\hat{\mathbb{E}}[R\mid x] =
 \tfrac1n\sum_{j}\exp\big(\hat m(x) + \hat\varepsilon_j\big) -
 1\)</span>. Non-parametric in the residual shape, but it assumes
-homoskedastic residuals — precisely the assumption finance violates.
-Manning (1998) shows that heteroskedasticity breaks smearing too, and
-recommends modelling the variance directly.</li>
+homoskedastic residuals — precisely the assumption finance violates. <a href="https://ideas.repec.org/a/eee/jhecon/v17y1998i3p283-295.html" target="_blank">Manning (1998)</a> shows that heteroskedasticity breaks
+smearing too, and recommends modelling the variance directly.</li>
 <li><strong>Fit the simple return directly</strong> if the economic
 objective is a one-period dollar return, accepting worse-conditioned
 targets in exchange for an unbiased estimate of the thing you actually
@@ -4918,27 +4918,25 @@ benchmarking companion.</li>
 things</h3>
 <p>In order:</p>
 <ol type="1">
-<li><strong>Meucci (2010)</strong>, three pages, for the dichotomy.</li>
-<li><strong>Campbell, Lo &amp; MacKinlay (1997), Chapter 1</strong>, for
-the definitions done carefully.</li>
-<li><strong>Cont (2001)</strong>, for what the data actually looks
-like.</li>
-<li><strong>Hudson &amp; Gregoriou (2015)</strong>, for the empirical
-consequences of the choice.</li>
-<li><strong>Manning (1998)</strong>, for the retransformation problem
-that finance keeps rediscovering.</li>
+<li><strong><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656" target="_blank">Meucci (2010)</a></strong>, three pages, for the
+dichotomy.</li>
+<li><strong><a href="https://press.princeton.edu/books/hardcover/9780691043012/the-econometrics-of-financial-markets" target="_blank">Campbell, Lo &amp; MacKinlay (1997)</a>, Chapter
+1</strong>, for the definitions done carefully.</li>
+<li><strong><a href="http://www-stat.wharton.upenn.edu/~steele/Resources/FTSResources/StylizedFacts/Cont2001.pdf" target="_blank">Cont (2001)</a></strong>, for what the data actually
+looks like.</li>
+<li><strong><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1549328" target="_blank">Hudson &amp; Gregoriou (2015)</a></strong>, for the
+empirical consequences of the choice.</li>
+<li><strong><a href="https://ideas.repec.org/a/eee/jhecon/v17y1998i3p283-295.html" target="_blank">Manning (1998)</a></strong>, for the retransformation
+problem that finance keeps rediscovering.</li>
 </ol>
 <p>If you are building machine-learning features specifically,
-substitute Grinsztajn et al. (2022) for item 3.</p>
+substitute <a href="https://proceedings.neurips.cc/paper_files/paper/2022/file/0378c7692da36807bdec87ab043cdadc-Paper-Datasets_and_Benchmarks.pdf" target="_blank">Grinsztajn et al. (2022)</a> for item 3.</p>
 <blockquote>
 <h3 id="key-takeaways-12">§13 Key takeaways</h3>
 <ol type="1">
-<li>The literature written directly on this question is small: Meucci
-(2010), Hudson &amp; Gregoriou (2015), Dorfleitner (2003), and Blume
-&amp; Stambaugh (1983) are most of it.</li>
+<li>The literature written directly on this question is small: <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656" target="_blank">Meucci (2010)</a>, <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1549328" target="_blank">Hudson &amp; Gregoriou (2015)</a>, <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=302811" target="_blank">Dorfleitner (2003)</a>, and <a href="https://doi.org/10.1016/0304-405X(83)90056-9" target="_blank">Blume &amp; Stambaugh (1983)</a> are most of it.</li>
 <li>The retransformation problem was solved in health economics in the
-1980s and finance has largely not imported the solution. Duan (1983) and
-Manning (1998) are worth the hour.</li>
+1980s and finance has largely not imported the solution. <a href="https://people.stat.sc.edu/hoyen/PastTeaching/STAT704-2022/Notes/Smearing.pdf" target="_blank">Duan (1983)</a> and <a href="https://ideas.repec.org/a/eee/jhecon/v17y1998i3p283-295.html" target="_blank">Manning (1998)</a> are worth the hour.</li>
 <li>The growth-optimality debate — Kelly and Latané versus Samuelson and
 Merton, with Markowitz defending — is a live disagreement, and reading
 both sides is more useful than reading either.</li>
@@ -5527,10 +5525,10 @@ manufactures skewness in simple returns even when log returns are
 perfectly symmetric, and quantifies it by horizon. §4.3 and §4.5 use
 both to describe what return data actually looks like and what the
 transform does to the tails.</p>
-<p><strong>Deeper.</strong> Cont (2001) for the empirical values; Kim
-&amp; White, “On more robust estimation of skewness and kurtosis,”
-<em>Finance Research Letters</em> 1(1), 2004, for why the classical
-estimators mislead here.</p>
+<p><strong>Deeper.</strong> <a href="http://www-stat.wharton.upenn.edu/~steele/Resources/FTSResources/StylizedFacts/Cont2001.pdf" target="_blank">Cont (2001)</a> for the empirical values; Kim &amp;
+White, “On more robust estimation of skewness and kurtosis,” <em>Finance
+Research Letters</em> 1(1), 2004, for why the classical estimators
+mislead here.</p>
 <h3 id="a9">A.9 The lognormal distribution</h3>
 <p><strong>Conceptually.</strong> A positive random variable whose
 logarithm is Gaussian. It arises whenever a quantity is built by
@@ -5667,7 +5665,8 @@ reason §6.1 differences the log price rather than the price. §11.5’s
 retransformation bias is what happens when heteroskedasticity survives
 the transform anyway.</p>
 <p><strong>Deeper.</strong> Bartlett, “The use of transformations,”
-<em>Biometrics</em> 3(1), 1947, 39–52; Box &amp; Cox (1964).</p>
+<em>Biometrics</em> 3(1), 1947, 39–52; <a href="https://www.jstor.org/stable/2984418" target="_blank">Box &amp;
+Cox (1964)</a>.</p>
 <h3 id="a14">A.14 Brownian motion, arithmetic and geometric</h3>
 <p><strong>Conceptually.</strong> Brownian motion is the continuous-time
 limit of a random walk: a path that is continuous everywhere,
@@ -5743,10 +5742,9 @@ because <span class="math inline">\(R_j = r_j + O(r_j^2)\)</span> and
 the discrepancy is third order. It is squared <em>price changes</em>
 that give the level-dependent limit. The case for logs here is
 definitional and theoretical, not a matter of the limits differing.</p>
-<p><strong>Deeper.</strong> Andersen, Bollerslev, Diebold &amp; Labys
-(2003); Barndorff-Nielsen &amp; Shephard (2002); Protter, <em>Stochastic
-Integration and Differential Equations</em>, ch. 2 for the general
-theory.</p>
+<p><strong>Deeper.</strong> <a href="https://www.nber.org/papers/w8160" target="_blank">Andersen, Bollerslev, Diebold &amp; Labys (2003)</a>; <a href="https://ideas.repec.org/p/oxf/wpaper/71.html" target="_blank">Barndorff-Nielsen &amp; Shephard (2002)</a>; Protter,
+<em>Stochastic Integration and Differential Equations</em>, ch. 2 for
+the general theory.</p>
 <h3 id="a17">A.17 Risk-neutral pricing and the forward</h3>
 <p><strong>Conceptually.</strong> In an arbitrage-free market there is a
 change of probability measure under which every discounted traded price
@@ -5812,8 +5810,8 @@ an ADF test.</p>
 principled answer to “should my feature be the price or the return?”,
 and §11.4 ranks feature stationarity fourth in the hierarchy of things
 that matter.</p>
-<p><strong>Deeper.</strong> Granger &amp; Joyeux (1980); Hosking (1981);
-López de Prado (2018), ch. 5.</p>
+<p><strong>Deeper.</strong> <a href="https://doi.org/10.1111/j.1467-9892.1980.tb00297.x" target="_blank">Granger &amp; Joyeux (1980)</a>; <a href="https://doi.org/10.1093/biomet/68.1.165" target="_blank">Hosking
+(1981)</a>; López <a href="https://www.wiley.com/en-us/Advances+in+Financial+Machine+Learning-p-9781119482086" target="_blank">de Prado (2018)</a>, ch. 5.</p>
 <h3 id="a20">A.20 ARCH and GARCH</h3>
 <p><strong>Conceptually.</strong> Return volatility is not constant:
 quiet periods cluster and turbulent periods cluster. ARCH models make
@@ -5837,8 +5835,9 @@ returns.</p>
 <p><strong>Why it appears here.</strong> §6.2, and §8.4 lists “a
 distributional assumption is being made” as one of the six triggers that
 make the convention matter.</p>
-<p><strong>Deeper.</strong> Engle (1982); Bollerslev (1986); Nelson
-(1991); Hansen &amp; Lunde (2005) for how hard GARCH(1,1) is to
+<p><strong>Deeper.</strong> <a href="https://www.jstor.org/stable/1912773" target="_blank">Engle
+(1982)</a>; <a href="https://doi.org/10.1016/0304-4076(86)90063-1" target="_blank">Bollerslev (1986)</a>; <a href="https://www.jstor.org/stable/2938260" target="_blank">Nelson
+(1991)</a>; Hansen &amp; Lunde (2005) for how hard GARCH(1,1) is to
 beat.</p>
 <h3 id="a21">A.21 Cointegration and error correction</h3>
 <p><strong>Conceptually.</strong> Two series can each wander without
@@ -5862,8 +5861,9 @@ several series and several cointegrating vectors at once.</p>
 cointegration in logs versus in levels asks <em>different economic
 questions</em> — a ratio hypothesis versus a dollar-spread hypothesis —
 corresponding to a rebalanced versus a fixed-share position.</p>
-<p><strong>Deeper.</strong> Engle &amp; Granger (1987); Johansen (1991);
-Hamilton, <em>Time Series Analysis</em>, ch. 19.</p>
+<p><strong>Deeper.</strong> <a href="https://www.jstor.org/stable/1913236" target="_blank">Engle &amp;
+Granger (1987)</a>; <a href="https://www.jstor.org/stable/2938278" target="_blank">Johansen (1991)</a>; Hamilton, <em>Time Series
+Analysis</em>, ch. 19.</p>
 <h3 id="a22">A.22 Overlapping observations and long-horizon
 regressions</h3>
 <p><strong>Conceptually.</strong> If you regress the next twelve months’
@@ -5886,10 +5886,10 @@ with the return innovation, biasing the slope in small samples.</p>
 <p><strong>Why it appears here.</strong> §6.6 — and it is why the
 left-hand side must be an additive sum, which is a log-return
 property.</p>
-<p><strong>Deeper.</strong> Hansen &amp; Hodrick (1980); Newey &amp;
-West (1987); Stambaugh (1999); Boudoukh, Richardson &amp; Whitelaw, “The
-myth of long-horizon predictability,” <em>Review of Financial
-Studies</em> 21(4), 2008.</p>
+<p><strong>Deeper.</strong> <a href="https://www.jstor.org/stable/1837056" target="_blank">Hansen &amp;
+Hodrick (1980)</a>; <a href="https://www.jstor.org/stable/1913610" target="_blank">Newey &amp; West (1987)</a>; <a href="https://doi.org/10.1016/S0304-405X(99)00041-0" target="_blank">Stambaugh (1999)</a>; Boudoukh, Richardson &amp;
+Whitelaw, “The myth of long-horizon predictability,” <em>Review of
+Financial Studies</em> 21(4), 2008.</p>
 <h3 id="a23">A.23 The variance ratio</h3>
 <p><strong>Conceptually.</strong> If returns were unpredictable,
 variance would grow linearly with the horizon: two days of variance
@@ -5908,7 +5908,7 @@ triangular weights are the Bartlett weights again. Under a random walk
 example of a statistic that exists only because log returns add: there
 is no expansion of <span class="math inline">\(\operatorname{Var}(R_{t+1:t+q})\)</span> in the
 <span class="math inline">\(\rho_k\)</span> alone.</p>
-<p><strong>Deeper.</strong> Lo &amp; MacKinlay (1988).</p>
+<p><strong>Deeper.</strong> <a href="https://doi.org/10.1093/rfs/1.1.41" target="_blank">Lo &amp; MacKinlay (1988)</a>.</p>
 <h3 id="a24">A.24 Price, total, and delisting returns</h3>
 <p><strong>Conceptually.</strong> A stock pays you two ways: the price
 moves and it distributes cash. A price return counts only the first, a
@@ -5930,8 +5930,8 @@ total-versus-price distinction as more consequential than the whole log
 question; §9.1 and §12.3 treat the <span class="math inline">\(R=-1\)</span> case, where dropping the row is
 survivorship bias rather than a policy.</p>
 <p><strong>Deeper.</strong> Shumway, “The delisting bias in CRSP data,”
-<em>Journal of Finance</em> 52(1), 1997, 327–340; Bessembinder (2018)
-for what the full lifetime distribution looks like.</p>
+<em>Journal of Finance</em> 52(1), 1997, 327–340; <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2900447" target="_blank">Bessembinder (2018)</a> for what the full lifetime
+distribution looks like.</p>
 <h3 id="a25">A.25 Volatility drag</h3>
 <p><strong>Conceptually.</strong> Volatility is not only a measure of
 risk; it is a direct subtraction from the rate at which money compounds.
@@ -5953,7 +5953,7 @@ returning to zero at <span class="math inline">\(2L^\ast\)</span>.</p>
 leverage; §10.4 turns it into mental arithmetic; §6.3 identifies it with
 the Itô correction.</p>
 <p><strong>Deeper.</strong> Any treatment of the geometric mean
-criterion; Willenbrock (2011) for the portfolio version.</p>
+criterion; <a href="https://arxiv.org/abs/1109.1256" target="_blank">Willenbrock (2011)</a> for the portfolio version.</p>
 <h3 id="a26">A.26 The diversification return</h3>
 <p><strong>Conceptually.</strong> A portfolio rebalanced back to fixed
 weights compounds faster than the weighted average of its constituents’
@@ -5974,9 +5974,9 @@ time, the per-period version is <span class="math inline">\(\tfrac12\operatornam
 the error you commit by averaging log returns across a portfolio, which
 makes the mistake and the phenomenon the same object; §9.5 gives its
 magnitude on a real book.</p>
-<p><strong>Deeper.</strong> Booth &amp; Fama (1992); Willenbrock (2011),
-who is explicit that it is a rebalancing artefact rather than free
-money.</p>
+<p><strong>Deeper.</strong> <a href="https://doi.org/10.2469/faj.v48.n3.26" target="_blank">Booth &amp;
+Fama (1992)</a>; <a href="https://arxiv.org/abs/1109.1256" target="_blank">Willenbrock (2011)</a>, who is explicit that it is a
+rebalancing artefact rather than free money.</p>
 <h3 id="a27">A.27 The Sharpe ratio and annualisation</h3>
 <p><strong>Conceptually.</strong> Return per unit of risk: how much
 excess return a strategy earned for each unit of volatility it took. It
@@ -6029,7 +6029,7 @@ intercept, manufacturing about 11 percentage points a year of spurious
 alpha spread between a 50%- and a 15%-idiosyncratic-volatility
 stock.</p>
 <p><strong>Deeper.</strong> Cochrane, <em>Asset Pricing</em>, revised
-ed., ch. 12; Fama &amp; MacBeth (1973).</p>
+ed., ch. 12; <a href="https://www.jstor.org/stable/1831028" target="_blank">Fama &amp; MacBeth (1973)</a>.</p>
 <h3 id="a29">A.29 Mean-variance optimisation</h3>
 <p><strong>Conceptually.</strong> Choose portfolio weights to trade
 expected return off against variance. Because the portfolio’s expected
@@ -6081,9 +6081,9 @@ its peak, <span class="math inline">\(c = \tfrac12\)</span> retains
 question of whether maximising expected log wealth is a
 <em>normative</em> criterion (it is optimal if and only if your utility
 is logarithmic) or merely a good engineering heuristic.</p>
-<p><strong>Deeper.</strong> Kelly (1956); Samuelson (1979) for the
-objection; MacLean, Thorp &amp; Ziemba, eds., <em>The Kelly Capital
-Growth Investment Criterion</em> (2011), which collects both sides.</p>
+<p><strong>Deeper.</strong> <a href="https://www.princeton.edu/~wbialek/rome/refs/kelly_56.pdf" target="_blank">Kelly (1956)</a>; <a href="http://www-stat.wharton.upenn.edu/~steele/Courses/434F2005/Context/Kelly%20Resources/Samuelson1979.pdf" target="_blank">Samuelson (1979)</a> for the objection; MacLean, Thorp
+&amp; Ziemba, eds., <em>The Kelly Capital Growth Investment
+Criterion</em> (2011), which collects both sides.</p>
 <h3 id="a31">A.31 Value at Risk and expected shortfall</h3>
 <p><strong>Conceptually.</strong> Two ways to summarise a loss
 distribution in one number. Value at Risk asks: what loss is exceeded
@@ -6151,7 +6151,7 @@ precede any aggregation across positions.</p>
 discipline of the whole document, and §12.1 notes that risk management
 has run it since RiskMetrics in 1996.</p>
 <p><strong>Deeper.</strong> Meucci, <em>Risk and Asset Allocation</em>,
-ch. 3; Meucci (2010).</p>
+ch. 3; <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656" target="_blank">Meucci (2010)</a>.</p>
 <h3 id="a34">A.34 Conditional means, medians, and retransformation
 bias</h3>
 <p><strong>Conceptually.</strong> If you fit a model in log space and
@@ -6176,8 +6176,7 @@ is not.</p>
 identical predicted log returns and 1% versus 5% daily volatility differ
 by 12 bp per day in expected simple return, which is enough to look like
 a systematic short bias in high-volatility names.</p>
-<p><strong>Deeper.</strong> Duan (1983); Manning (1998); Goldberger
-(1968).</p>
+<p><strong>Deeper.</strong> <a href="https://people.stat.sc.edu/hoyen/PastTeaching/STAT704-2022/Notes/Smearing.pdf" target="_blank">Duan (1983)</a>; <a href="https://ideas.repec.org/a/eee/jhecon/v17y1998i3p283-295.html" target="_blank">Manning (1998)</a>; Goldberger (1968).</p>
 <h3 id="a35">A.35 Gradient-boosted trees</h3>
 <p><strong>Conceptually.</strong> Fit a shallow decision tree, look at
 what it got wrong, fit another tree to those errors, and repeat a
@@ -6203,7 +6202,7 @@ and lists the practical caveats, including that <span class="math inline">\(R = 
 which rows are missing.</p>
 <p><strong>Deeper.</strong> Friedman, “Greedy function approximation: a
 gradient boosting machine,” <em>Annals of Statistics</em> 29(5), 2001,
-1189–1232; Chen &amp; Guestrin (2016); Ke et al. (2017).</p>
+1189–1232; <a href="https://arxiv.org/abs/1603.02754" target="_blank">Chen &amp; Guestrin (2016)</a>; <a href="https://papers.nips.cc/paper_files/paper/2017/hash/6449f44a102fde848669bdd9eb6b76fa-Abstract.html" target="_blank">Ke et al. (2017)</a>.</p>
 <h3 id="a36">A.36 Feature scaling: robust, rank-Gauss, and volatility
 normalisation</h3>
 <p><strong>Conceptually.</strong> Three ways to make a feature
@@ -6253,7 +6252,7 @@ dependence that purging alone leaves.</p>
 second in the hierarchy of things that affect out-of-sample performance
 — above volatility normalisation, and far above the log-versus-simple
 choice at seventh.</p>
-<p><strong>Deeper.</strong> López de Prado (2018), ch. 7.</p>
+<p><strong>Deeper.</strong> López <a href="https://www.wiley.com/en-us/Advances+in+Financial+Machine+Learning-p-9781119482086" target="_blank">de Prado (2018)</a>, ch. 7.</p>
 <h3 id="a38">A.38 The information coefficient</h3>
 <p><strong>Conceptually.</strong> How well does a signal rank what
 happens next? Correlate today’s prediction with tomorrow’s realised

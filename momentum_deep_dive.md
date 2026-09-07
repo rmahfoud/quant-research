@@ -86,13 +86,13 @@ It is worth seeing how sharp this is. If adjustment is instantaneous ($\psi_0 = 
 
 Two immediate corollaries that most intuitions miss:
 
-1. **Momentum must decay; reversal takes strictly more than that.** It is tempting to argue that the fixed budget $\Psi_\infty = 1$ forces reversal, but it does not — it only forces momentum to be *transient*. If $\psi_j \ge 0$ throughout, the price creeps up to value and never past it: $\rho_k \ge 0$ out to the adjustment window, zero beyond, and no reversal at any horizon. Reversal requires the separate (and empirically relevant) assumption of **overshoot**, $\Psi_K > 1$ for some intermediate $K$, which the budget then forces back down, putting $\psi_j < 0$ at longer lags. Two cautions on how much that buys you. It does not make $\rho_k$ negative lag by lag: each $\rho_k$ is a *sum of products* $\sum_j \psi_j\psi_{j+k}$, so sign-mixed weights can still leave $\rho_k > 0$ at the very lags where the negative $\psi$'s sit. And it is necessary but not sufficient for *net* reversal — as the variance-ratio identity in the next subsection makes exact, net reversal means $\sum_j\psi_j^2 > 1$, and mild overshoot does not get you there. Momentum and long-horizon reversal are two readings of one impulse-response function. **[Fact]** Datasets showing 3–12 month momentum in equities generally also show 3–5 year reversal (De Bondt & Thaler, 1985).
+1. **Momentum must decay; reversal takes strictly more than that.** It is tempting to argue that the fixed budget $\Psi_\infty = 1$ forces reversal, but it does not — it only forces momentum to be *transient*. If $\psi_j \ge 0$ throughout, the price creeps up to value and never past it: $\rho_k \ge 0$ out to the adjustment window, zero beyond, and no reversal at any horizon. Reversal requires the separate (and empirically relevant) assumption of **overshoot**, $\Psi_K > 1$ for some intermediate $K$, which the budget then forces back down, putting $\psi_j < 0$ at longer lags. Two cautions on how much that buys you. It does not make $\rho_k$ negative lag by lag: each $\rho_k$ is a *sum of products* $\sum_j \psi_j\psi_{j+k}$, so sign-mixed weights can still leave $\rho_k > 0$ at the very lags where the negative $\psi$'s sit. And it is necessary but not sufficient for *net* reversal — as the variance-ratio identity in the next subsection makes exact, net reversal means $\sum_j\psi_j^2 > 1$, and mild overshoot does not get you there. Momentum and long-horizon reversal are two readings of one impulse-response function. **[Fact]** Datasets showing 3–12 month momentum in equities generally also show 3–5 year reversal ([De Bondt & Thaler, 1985](https://doi.org/10.1111/j.1540-6261.1985.tb05004.x){target="_blank"}).
 
 2. **Momentum is horizon-specific by construction.** The sign of the autocorrelation depends on where you sample the impulse response. That is why the same asset can be mean-reverting at 1 day, trending at 6 months, and mean-reverting at 4 years, with no contradiction.
 
 ### The one diagnostic that ties it all together: the variance ratio
 
-Everything in Section 4 is, at bottom, an estimator of this object. Define the $q$-period **variance ratio** (Lo & MacKinlay, 1988):
+Everything in Section 4 is, at bottom, an estimator of this object. Define the $q$-period **variance ratio** ([Lo & MacKinlay, 1988](https://www.nber.org/papers/w2168){target="_blank"}):
 
 $$\mathrm{VR}(q) \;=\; \frac{\operatorname{Var}(p_t - p_{t-q})}{q \cdot \operatorname{Var}(p_t - p_{t-1})} \;=\; 1 + 2\sum_{k=1}^{q-1}\left(1 - \frac{k}{q}\right)\rho_k$$
 
@@ -144,7 +144,7 @@ The function $q \mapsto \mathrm{VR}(q)$ — the *variance ratio profile* — is 
 
 *Schematic variance-ratio profile for a typical liquid equity. **[Fact]** The three-regime shape — short-horizon reversal, intermediate-horizon trend, long-horizon reversal — is robust across US equities, international equities, and many futures markets, though the crossover points differ by asset class and era.*
 
-This picture also gives the cleanest available statement of what a trend-following P&L *is*. Dao, Nguyen, Deremble, Lempérière, Bouchaud & Potters (2017) show that the expected P&L of a canonical trend rule on a single asset is, to leading order, proportional to the difference between the asset's variance measured at the trend's timescale and its variance measured at the rebalancing timescale:
+This picture also gives the cleanest available statement of what a trend-following P&L *is*. [Dao, Nguyen, Deremble, Lempérière, Bouchaud & Potters (2017)](https://arxiv.org/abs/1607.02410){target="_blank"} show that the expected P&L of a canonical trend rule on a single asset is, to leading order, proportional to the difference between the asset's variance measured at the trend's timescale and its variance measured at the rebalancing timescale:
 
 $$\mathbb{E}[\text{trend P\&L}] \;\propto\; \underbrace{\sigma^2_{\text{long horizon}} - \sigma^2_{\text{short horizon}}}_{\;\propto\; \mathrm{VR}(q) - 1}$$
 
@@ -152,29 +152,29 @@ Both variances here are **per unit of time** — that is, $\sigma^2_{\text{long 
 
 Be careful with the underbrace, though: rearranging that identity gives $\sigma^2_{\text{long horizon}} - \sigma^2_{\text{short horizon}} = \sigma^2_{\text{short horizon}}\left(\mathrm{VR}(q) - 1\right)$, so the P&L of a *raw* trend rule tracks $\mathrm{VR}(q)-1$ only at fixed $\sigma^2_{\text{short horizon}}$ — the proportionality does not survive comparison across assets, or across time for one asset whose volatility moves. What removes the leftover factor is exactly the normalization every practitioner already applies. The raw rule carries two powers of $\sigma_{\text{short horizon}}$ — one in the signal, which is a past return, and one in the return it is multiplied by. Standardizing the signal by its own volatility *and* sizing the position at $1/\sigma_{\text{short horizon}}$ divides out both, leaving $\mathbb{E}[\text{P\&L}] \propto \mathrm{VR}(q) - 1$ itself. It is the **fully volatility-scaled** trend rule, not the raw one, that is cleanly long the variance ratio — which is the version of the statement worth carrying.
 
-**A trend follower is structurally long the variance ratio.** That single sentence explains the convexity of CTA returns, why trend does well in dispersive crises and badly in choppy ranges, and why "trend following is a long straddle" (Fung & Hsieh, 2001) is more than an analogy.
+**A trend follower is structurally long the variance ratio.** That single sentence explains the convexity of CTA returns, why trend does well in dispersive crises and badly in choppy ranges, and why "trend following is a long straddle" ([Fung & Hsieh, 2001](https://doi.org/10.1093/rfs/14.2.313){target="_blank"}) is more than an analogy.
 
 ## 1.3 Why momentum exists despite the Efficient Market Hypothesis
 
-First, a clarification that resolves half the confusion in this debate. The EMH as stated by Fama (1970) is not the claim that returns are unpredictable. It is the claim that prices reflect information *given a model of equilibrium expected returns*. Any test of efficiency is a **joint test** of (a) efficiency and (b) the assumed asset-pricing model. If momentum earns positive average returns, either markets are inefficient or your model of risk is wrong. You cannot tell which from the return data alone. This is the **joint hypothesis problem**, and it is why the momentum debate has run for thirty years without resolution.
+First, a clarification that resolves half the confusion in this debate. The EMH as stated by [Fama (1970)](https://doi.org/10.2307/2325486){target="_blank"} is not the claim that returns are unpredictable. It is the claim that prices reflect information *given a model of equilibrium expected returns*. Any test of efficiency is a **joint test** of (a) efficiency and (b) the assumed asset-pricing model. If momentum earns positive average returns, either markets are inefficient or your model of risk is wrong. You cannot tell which from the return data alone. This is the **joint hypothesis problem**, and it is why the momentum debate has run for thirty years without resolution.
 
-Second, the "no free lunch" version of the EMH — that risk-adjusted excess returns net of costs should be competed away — was never a claim that they vanish *instantly* or *completely*. It is a claim about limits. Grossman & Stiglitz (1980) made this precise: if prices were fully revealing, no one would pay to gather information; so in equilibrium prices must be *slightly* inefficient, by exactly enough to compensate information gathering. Momentum lives in that gap.
+Second, the "no free lunch" version of the EMH — that risk-adjusted excess returns net of costs should be competed away — was never a claim that they vanish *instantly* or *completely*. It is a claim about limits. [Grossman & Stiglitz (1980)](https://www.aeaweb.org/aer/top20/70.3.393-408.pdf){target="_blank"} made this precise: if prices were fully revealing, no one would pay to gather information; so in equilibrium prices must be *slightly* inefficient, by exactly enough to compensate information gathering. Momentum lives in that gap.
 
 With that framing, here are the four families of explanation. They are not mutually exclusive, and the honest position is that all four contribute in proportions nobody has pinned down.
 
 ### (A) Slow information diffusion — **[Hypothesis, well-formalized]**
 
-Hong & Stein (1999) build a model with two agent types: "newswatchers" who trade on private fundamental signals that diffuse gradually across the population, and "momentum traders" who condition only on past prices. Gradual diffusion alone generates under-reaction and hence momentum; adding momentum traders who arbitrage the under-reaction necessarily generates *over*-reaction at longer horizons, hence reversal. The model produces the full momentum-then-reversal impulse response from one friction.
+[Hong & Stein (1999)](https://www.nber.org/papers/w6324){target="_blank"} build a model with two agent types: "newswatchers" who trade on private fundamental signals that diffuse gradually across the population, and "momentum traders" who condition only on past prices. Gradual diffusion alone generates under-reaction and hence momentum; adding momentum traders who arbitrage the under-reaction necessarily generates *over*-reaction at longer horizons, hence reversal. The model produces the full momentum-then-reversal impulse response from one friction.
 
-Supporting evidence **[Fact]**: momentum is stronger in stocks with low analyst coverage and small size (Hong, Lim & Stein, 2000); post-earnings-announcement drift (Bernard & Thomas, 1989, 1990) is a clean case of information impounding over weeks after a *public* announcement; Chan, Jegadeesh & Lakonishok (1996) show momentum and PEAD are related but not identical.
+Supporting evidence **[Fact]**: momentum is stronger in stocks with low analyst coverage and small size ([Hong, Lim & Stein, 2000](https://doi.org/10.3386/w6553){target="_blank"}); post-earnings-announcement drift (Bernard & Thomas, 1989, 1990) is a clean case of information impounding over weeks after a *public* announcement; [Chan, Jegadeesh & Lakonishok (1996)](https://doi.org/10.3386/w5375){target="_blank"} show momentum and PEAD are related but not identical.
 
 ### (B) Behavioral biases — **[Hypothesis, contested]**
 
 Three canonical models, all published 1998–1999, all producing momentum + reversal from different psychology:
 
-- **Barberis, Shleifer & Vishny (1998)**: conservatism (under-reaction to individual signals) plus the representativeness heuristic (over-extrapolation of streaks). Investors are slow to update, then over-extrapolate.
-- **Daniel, Hirshleifer & Subrahmanyam (1998)**: overconfidence in private signals plus biased self-attribution. Confirming public news inflates confidence asymmetrically, driving continued over-reaction — momentum — followed by correction.
-- **Grinblatt & Han (2005)** and **Frazzini (2006)**: the **disposition effect**. Investors sitting on gains sell too early and investors sitting on losses hold too long. This creates a supply overhang above the reference price (the aggregate cost basis) that *retards* upward adjustment to good news. Momentum is then predictable from unrealized capital gains, which is exactly what these papers find. This is my favorite of the three because it makes a sharp auxiliary prediction that is confirmed independently of returns.
+- **[Barberis, Shleifer & Vishny (1998)](https://doi.org/10.3386/w5926){target="_blank"}**: conservatism (under-reaction to individual signals) plus the representativeness heuristic (over-extrapolation of streaks). Investors are slow to update, then over-extrapolate.
+- **[Daniel, Hirshleifer & Subrahmanyam (1998)](http://deepblue.lib.umich.edu/bitstream/2027.42/73431/1/0022-1082.00077.pdf){target="_blank"}**: overconfidence in private signals plus biased self-attribution. Confirming public news inflates confidence asymmetrically, driving continued over-reaction — momentum — followed by correction.
+- **[Grinblatt & Han (2005)](https://utoronto.scholaris.ca/bitstreams/3a09de05-9370-4e68-a03d-ccce917a5cb6/download){target="_blank"}** and **[Frazzini (2006)](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/j.1540-6261.2006.00896.x){target="_blank"}**: the **disposition effect**. Investors sitting on gains sell too early and investors sitting on losses hold too long. This creates a supply overhang above the reference price (the aggregate cost basis) that *retards* upward adjustment to good news. Momentum is then predictable from unrealized capital gains, which is exactly what these papers find. This is my favorite of the three because it makes a sharp auxiliary prediction that is confirmed independently of returns.
 
 The critique of behavioral explanations is fair and should be taken seriously: they are flexible enough to explain almost any pattern ex post, and the profession has not converged on which bias dominates.
 
@@ -184,7 +184,7 @@ This is the explanation that most appeals to engineers because it requires no ps
 
 Institutions cannot execute a large position instantaneously without paying ruinous impact. So they slice a **metaorder** into child orders executed over hours, days, or weeks. Two robust microstructure facts follow:
 
-1. **Order flow has long memory.** The sign sequence of market orders is positively autocorrelated with a slowly decaying (power-law) autocorrelation function, out to thousands of trades (Lillo & Farmer, 2004; Bouchaud, Gefen, Potters & Wyart, 2004). This is a direct fingerprint of order splitting.
+1. **Order flow has long memory.** The sign sequence of market orders is positively autocorrelated with a slowly decaying (power-law) autocorrelation function, out to thousands of trades ([Lillo & Farmer, 2004](https://doi.org/10.2202/1558-3708.1226){target="_blank"}; [Bouchaud, Gefen, Potters & Wyart, 2004](https://doi.org/10.2139/ssrn.507322){target="_blank"}). This is a direct fingerprint of order splitting.
 2. **The square-root law of impact.** The expected price impact of a metaorder of size $Q$ in a market with daily volume $V$ and volatility $\sigma$ is approximately
    $$\Delta p \;\approx\; Y \sigma \sqrt{Q/V}, \qquad Y = O(1)$$
    The units matter and are easy to get wrong: $Q$ and $V$ are in the *same* units (both in shares, or both in currency), so $Q/V$ is the dimensionless participation fraction; $\sigma$ is the *daily* return volatility; and $\Delta p$ is therefore a **relative** price move, not a currency amount. Empirically $Y \approx 0.5$–$1$. This concave, roughly universal relation holds across markets, asset classes and decades (see Bouchaud, Bonart, Donier & Gould, 2018, for the synthesis), and it reappears in §6.8 as the binding constraint on capacity.
@@ -197,9 +197,9 @@ A second-order microstructure channel is *mechanical flow*: index inclusion, reb
 
 If momentum portfolios are simply riskier in a way standard models miss, there is no puzzle. Early versions of this argument were weak — momentum's CAPM beta is near zero and it survives Fama–French three-factor adjustment (which is why Carhart, 1997, added it as a fourth factor rather than explaining it away). But the modern versions are much stronger:
 
-- **Conditional betas.** Kelly, Moskowitz & Pruitt (2021, *JFE* 140) show, using instrumented principal components, that past-return characteristics predict future *realized betas*, and that time-varying conditional risk exposures explain a sizable fraction of momentum and long-term reversal returns. This is currently the most serious rational challenge.
-- **Momentum's dynamic beta.** Daniel & Moskowitz (2016) and Geczy & Samonov (2016) document that the momentum portfolio's market beta swings systematically with the market state — sharply negative after bear markets. The momentum premium partly compensates for a *conditional* crash exposure, not an unconditional one.
-- **Real options / growth-rate risk.** Berk, Green & Naik (1999) and Johnson (2002) show that firms whose expected growth rate has risen mechanically have both higher past returns and higher risk, generating momentum in equilibrium.
+- **Conditional betas.** [Kelly, Moskowitz & Pruitt](https://doi.org/10.1016/j.jfineco.2020.06.024){target="_blank"} (2021, *JFE* 140) show, using instrumented principal components, that past-return characteristics predict future *realized betas*, and that time-varying conditional risk exposures explain a sizable fraction of momentum and long-term reversal returns. This is currently the most serious rational challenge.
+- **Momentum's dynamic beta.** [Daniel & Moskowitz (2016)](https://doi.org/10.3386/w20439){target="_blank"} and [Geczy & Samonov (2016)](https://doi.org/10.2469/faj.v72.n5.1){target="_blank"} document that the momentum portfolio's market beta swings systematically with the market state — sharply negative after bear markets. The momentum premium partly compensates for a *conditional* crash exposure, not an unconditional one.
+- **Real options / growth-rate risk.** [Berk, Green & Naik (1999)](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/0022-1082.00161){target="_blank"} and [Johnson (2002)](https://doi.org/10.2139/ssrn.250760){target="_blank"} show that firms whose expected growth rate has risen mechanically have both higher past returns and higher risk, generating momentum in equilibrium.
 
 ### The honest summary
 
@@ -235,7 +235,7 @@ This series has a **perfect trend** and **negative** return autocorrelation. The
 
 **Trend is about the level; momentum is about the returns.** A trend-following *rule* — say, long when $P_t > \mathrm{MA}_L(P)_t$ — is agnostic: it monetizes drift, trend, *and* return autocorrelation indiscriminately. That's fine for making money and terrible for research, because it means a profitable trend backtest tells you nothing about which of the three is present, and they have completely different stability properties. Drift is stable and low-information; return autocorrelation is fragile and high-information.
 
-This distinction has a precise consequence in Section 7. **[Contested]** Huang, Li, Wang & Zhou (2020, *JFE* 135) argue that the canonical time-series momentum test — regress $r_{t+1}$ on $\operatorname{sign}(r_{t-12:t})$ — is confounded, because $\mathbb{E}[r_{t+1}\cdot\operatorname{sign}(r_{t-12:t})]$ is positive whenever $\mu > 0$ even with *zero* predictability. After controlling for the unconditional mean they find little evidence of an absolute time-series momentum effect in their sample. Moskowitz, Ooi & Pedersen (2012) and subsequent replications dispute the strength of this critique. **This is a live and important disagreement, and it directly determines how you must specify your own tests.**
+This distinction has a precise consequence in Section 7. **[Contested]** [Huang, Li, Wang & Zhou](https://doi.org/10.2139/ssrn.3165284){target="_blank"} (2020, *JFE* 135) argue that the canonical time-series momentum test — regress $r_{t+1}$ on $\operatorname{sign}(r_{t-12:t})$ — is confounded, because $\mathbb{E}[r_{t+1}\cdot\operatorname{sign}(r_{t-12:t})]$ is positive whenever $\mu > 0$ even with *zero* predictability. After controlling for the unconditional mean they find little evidence of an absolute time-series momentum effect in their sample. [Moskowitz, Ooi & Pedersen (2012)](https://doi.org/10.2139/ssrn.2089463){target="_blank"} and subsequent replications dispute the strength of this critique. **This is a live and important disagreement, and it directly determines how you must specify your own tests.**
 
 ### Volatility vs. momentum
 
@@ -246,7 +246,7 @@ Decompose $r_t = \mu_t + \sigma_t \epsilon_t$ with $\epsilon_t$ standardized. Mo
 
 ### Regime as a parameter, not a phenomenon
 
-"Momentum works in trending regimes" is nearly a tautology. The useful version is that the *parameters* — the sign and magnitude of $\rho_k$, the optimal lookback, the vol level — are state-dependent. Cooper, Gutierrez & Hameed (2004) show **[Fact]** that momentum profits in US equities are concentrated following positive market states and are near zero or negative following negative ones. Daniel & Moskowitz (2016) sharpen this: momentum crashes occur in panic states with high volatility and a rebounding market.
+"Momentum works in trending regimes" is nearly a tautology. The useful version is that the *parameters* — the sign and magnitude of $\rho_k$, the optimal lookback, the vol level — are state-dependent. [Cooper, Gutierrez & Hameed (2004)](https://doi.org/10.2139/ssrn.299927){target="_blank"} show **[Fact]** that momentum profits in US equities are concentrated following positive market states and are near zero or negative following negative ones. [Daniel & Moskowitz (2016)](https://doi.org/10.3386/w20439){target="_blank"} sharpen this: momentum crashes occur in panic states with high volatility and a rebounding market.
 
 The practical implication is that regime conditioning is *not* an optional refinement. It is the difference between a strategy with a −70% drawdown and one without.
 
@@ -261,17 +261,17 @@ Momentum is not one phenomenon. Different horizons have different signs, differe
 | Horizon | Dominant effect | Mechanism | Capacity | Notes |
 |---|---|---|---|---|
 | Sub-second to minutes | **Momentum** in order flow; price near-efficient | Order splitting, queue dynamics, latency arbitrage | Very low | Flow is predictable; *price* is much less so because market makers offset it |
-| Minutes to hours | Mixed; intraday momentum at specific times | Metaorder execution, VWAP/close flows | Low | **[Fact]** "Intraday momentum": the first half-hour return predicts the last half-hour return (Gao, Han, Li & Zhou, 2018) |
-| 1 day – 1 month | **Reversal** (cross-sectional) | Compensation for liquidity provision; bid-ask bounce | Medium | Jegadeesh (1990), Lehmann (1990). Crucial: the classic momentum signal *skips* this month for exactly this reason |
-| 2 – 12 months | **Momentum** — the classic effect | Under-reaction, flow, disposition effect | High | Jegadeesh & Titman (1993). The 12-2 or 12-1 signal is the canonical form |
+| Minutes to hours | Mixed; intraday momentum at specific times | Metaorder execution, VWAP/close flows | Low | **[Fact]** "Intraday momentum": the first half-hour return predicts the last half-hour return ([Gao, Han, Li & Zhou, 2018](https://doi.org/10.1016/j.jfineco.2018.05.009){target="_blank"}) |
+| 1 day – 1 month | **Reversal** (cross-sectional) | Compensation for liquidity provision; bid-ask bounce | Medium | [Jegadeesh (1990)](https://doi.org/10.1111/j.1540-6261.1990.tb05110.x){target="_blank"}, Lehmann (1990). Crucial: the classic momentum signal *skips* this month for exactly this reason |
+| 2 – 12 months | **Momentum** — the classic effect | Under-reaction, flow, disposition effect | High | [Jegadeesh & Titman (1993)](https://doi.org/10.1111/j.1540-6261.1993.tb04702.x){target="_blank"}. The 12-2 or 12-1 signal is the canonical form |
 | 1 – 3 years | Weak / transition | — | — | Signal largely absent |
-| 3 – 5 years | **Reversal** | Over-reaction correction, valuation anchoring | High | De Bondt & Thaler (1985); this is where value lives |
+| 3 – 5 years | **Reversal** | Over-reaction correction, valuation anchoring | High | [De Bondt & Thaler (1985)](https://doi.org/10.1111/j.1540-6261.1985.tb05004.x){target="_blank"}; this is where value lives |
 
 Two refinements that matter:
 
-**Echo / intermediate-horizon momentum. [Contested]** Novy-Marx (2012, *JFE* 103) shows that in US equities, returns from $t-12$ to $t-7$ predict future returns *better* than returns from $t-6$ to $t-2$ — momentum is an "echo," not smoothly decaying persistence. This is uncomfortable for any simple under-reaction story and is not uniformly robust across markets and later samples. Take it as a real feature of US equity data whose generality is unsettled.
+**Echo / intermediate-horizon momentum. [Contested]** [Novy-Marx](https://doi.org/10.1016/j.jfineco.2011.05.003){target="_blank"} (2012, *JFE* 103) shows that in US equities, returns from $t-12$ to $t-7$ predict future returns *better* than returns from $t-6$ to $t-2$ — momentum is an "echo," not smoothly decaying persistence. This is uncomfortable for any simple under-reaction story and is not uniformly robust across markets and later samples. Take it as a real feature of US equity data whose generality is unsettled.
 
-**Time-scale is asset-class dependent. [Fact]** Futures trend following works well at 1–12 month lookbacks (Moskowitz, Ooi & Pedersen, 2012; Hurst, Ooi & Pedersen, 2017); currency momentum is weaker and more crash-prone (Menkhoff, Sarno, Schmeling & Schrimpf, 2012); commodity momentum interacts strongly with the term structure/carry (Erb & Harvey, 2006). Do not port an equity lookback to a futures book without re-deriving it.
+**Time-scale is asset-class dependent. [Fact]** Futures trend following works well at 1–12 month lookbacks ([Moskowitz, Ooi & Pedersen, 2012](https://doi.org/10.2139/ssrn.2089463){target="_blank"}; [Hurst, Ooi & Pedersen, 2017](https://doi.org/10.2139/ssrn.2993026){target="_blank"}); currency momentum is weaker and more crash-prone ([Menkhoff, Sarno, Schmeling & Schrimpf, 2012](https://doi.org/10.2139/ssrn.1773543){target="_blank"}); commodity momentum interacts strongly with the term structure/carry ([Erb & Harvey, 2006](https://doi.org/10.3386/w11222){target="_blank"}). Do not port an equity lookback to a futures book without re-deriving it.
 
 ## 1.6 The life cycle of a trend
 
@@ -305,7 +305,7 @@ This section is deliberately labeled **[Practice / Hypothesis]**. The four-phase
 
 **Exhaustion.** The statistical problem is *change-point detection*, and it is the hardest of the four. Candidate observable markers **[Practice, weakly supported]**: rising volatility with flat or declining absolute price progress (i.e. deteriorating "efficiency ratio"); negative acceleration while momentum remains positive; divergence between price extremes and oscillator extremes; and crowding measures (positioning data, factor-return correlation, dealer gamma). I want to be honest: none of these is a robust standalone signal in published evidence. Treat exhaustion detection as risk *reduction*, not as a reversal trade.
 
-**Reversal.** Momentum's losses are not symmetric with its gains. **[Fact]** Daniel & Moskowitz (2016) document "momentum crashes": in panic states — following market declines, with high volatility — the momentum portfolio's conditional beta turns sharply negative, because the "loser" leg is loaded with high-beta distressed names. When the market rebounds, the short leg explodes. The canonical episodes are July–August 1932 (the momentum strategy lost roughly 90% in two months) and March–May 2009 (roughly −70%+ for US equity momentum). The payoff structure resembles being **short a call option on the market conditional on being in a panic state**.
+**Reversal.** Momentum's losses are not symmetric with its gains. **[Fact]** [Daniel & Moskowitz (2016)](https://doi.org/10.3386/w20439){target="_blank"} document "momentum crashes": in panic states — following market declines, with high volatility — the momentum portfolio's conditional beta turns sharply negative, because the "loser" leg is loaded with high-beta distressed names. When the market rebounds, the short leg explodes. The canonical episodes are July–August 1932 (the momentum strategy lost roughly 90% in two months) and March–May 2009 (roughly −70%+ for US equity momentum). The payoff structure resembles being **short a call option on the market conditional on being in a panic state**.
 
 This is why the modern treatment of momentum is inseparable from risk management. It is not a bolt-on; it changes the strategy's fundamental character.
 
@@ -356,7 +356,7 @@ timeline
 
 **Limitations.** Purely qualitative, non-falsifiable as stated, and dependent on the interpreter. Rhea's codification was retrospective.
 
-**Lasting influence.** Substantial, and — unusually for technical analysis — partially vindicated empirically. Brown, Goetzmann & Kumar (1998, *Journal of Finance*) reconstructed Hamilton's actual *Wall Street Journal* market calls from 1902–1929 and found they generated positive risk-adjusted returns relative to a buy-and-hold benchmark. **[Fact, single study]** The multi-timescale decomposition remains standard practice.
+**Lasting influence.** Substantial, and — unusually for technical analysis — partially vindicated empirically. [Brown, Goetzmann & Kumar](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/0022-1082.00054){target="_blank"} (1998, *Journal of Finance*) reconstructed Hamilton's actual *Wall Street Journal* market calls from 1902–1929 and found they generated positive risk-adjusted returns relative to a buy-and-hold benchmark. **[Fact, single study]** The multi-timescale decomposition remains standard practice.
 
 ### Jesse Livermore / Edwin Lefèvre, *Reminiscences of a Stock Operator* (1923); Livermore, *How to Trade in Stocks* (1940)
 
@@ -438,7 +438,7 @@ This strand developed almost entirely outside the academy, in commodity futures.
 
 **Limitations.** All parameters were chosen by inspection with no validation; the smoothing constants (Wilder's 14-period, the 12/26/9 MACD) are arbitrary and have been over-fit by two generations of retail traders. Wilder's own theoretical justifications are ad hoc.
 
-**Lasting influence.** Underrated by academics, overrated by retail. Stripped of their folklore, several of these are respectable statistics: ADX is a normalized measure of directional consistency, ATR is a range-based volatility estimator (and range estimators are genuinely more efficient than close-to-close ones — see Parkinson, 1980; Garman & Klass, 1980; Yang & Zhang, 2000), and MACD is a band-pass filter. See §4.
+**Lasting influence.** Underrated by academics, overrated by retail. Stripped of their folklore, several of these are respectable statistics: ADX is a normalized measure of directional consistency, ATR is a range-based volatility estimator (and range estimators are genuinely more efficient than close-to-close ones — see Parkinson, 1980; [Garman & Klass, 1980](https://doi.org/10.1086/296072){target="_blank"}; [Yang & Zhang, 2000](https://doi.org/10.1086/209650){target="_blank"}), and MACD is a band-pass filter. See §4.
 
 ### Fung & Hsieh (2001), "The Risk in Hedge Fund Strategies: Theory and Evidence from Trend Followers"
 
@@ -446,7 +446,7 @@ This strand developed almost entirely outside the academy, in commodity futures.
 
 **What changed.** This is the moment trend following was correctly re-classified as an *option-like payoff* rather than a return-predicting strategy. It explains the positive skew, the convexity vs. equities, and the "crisis alpha" property.
 
-**Lasting influence.** Foundational. It underlies the modern framing of trend as a portfolio hedge, and it prefigures the Dao et al. (2017) variance-difference decomposition.
+**Lasting influence.** Foundational. It underlies the modern framing of trend as a portfolio hedge, and it prefigures the [Dao et al. (2017)](https://arxiv.org/abs/1607.02410){target="_blank"} variance-difference decomposition.
 
 ## 2.4 Era IV — The academic momentum revolution (1985–2000)
 
@@ -470,7 +470,7 @@ This strand developed almost entirely outside the academy, in commodity futures.
 
 **Limitations.** Single market, single sample, no transaction costs, and — as they carefully noted — the strategy's short leg concentrates in small illiquid names where costs are largest.
 
-**Lasting influence.** It defines the standard construction still in use: rank on cumulative return over $t{-}12$ to $t{-}2$ (skipping the most recent month to avoid short-term reversal and bid-ask bounce), hold 1–6 months, decile or tercile sorts, rebalanced monthly. Jegadeesh & Titman (2001) confirmed persistence out-of-sample in the 1990s. If you read one paper, read this one.
+**Lasting influence.** It defines the standard construction still in use: rank on cumulative return over $t{-}12$ to $t{-}2$ (skipping the most recent month to avoid short-term reversal and bid-ask bounce), hold 1–6 months, decile or tercile sorts, rebalanced monthly. [Jegadeesh & Titman (2001)](https://doi.org/10.3386/w7159){target="_blank"} confirmed persistence out-of-sample in the 1990s. If you read one paper, read this one.
 
 ### Carhart (1997), "On Persistence in Mutual Fund Performance"
 
@@ -478,7 +478,7 @@ This strand developed almost entirely outside the academy, in commodity futures.
 
 **What changed.** Momentum was institutionalized as a *factor*. Every subsequent performance attribution had to control for it. It also delivered a deflationary message about active management that is still being absorbed.
 
-**Limitations.** Carhart added momentum atheoretically — as an empirical control, not as a risk factor with an economic story. Fama & French (1996) had already conceded they could not explain momentum with their three-factor model, and their five-factor model (2015) still does not include it. Fama & French (2016) acknowledge the model's continued failure on momentum.
+**Limitations.** Carhart added momentum atheoretically — as an empirical control, not as a risk factor with an economic story. [Fama & French (1996)](https://doi.org/10.1111/j.1540-6261.1996.tb05202.x){target="_blank"} had already conceded they could not explain momentum with their three-factor model, and their five-factor model (2015) still does not include it. [Fama & French (2016)](https://doi.org/10.1093/rfs/hhv043){target="_blank"} acknowledge the model's continued failure on momentum.
 
 **Lasting influence.** UMD is a standard data series (Kenneth French's library) and the default control in empirical finance.
 
@@ -494,7 +494,7 @@ This strand developed almost entirely outside the academy, in commodity futures.
 
 **Contribution.** Three internally consistent models generating momentum-then-reversal from psychological primitives. See §1.3(B).
 
-**What changed.** Momentum acquired *theories*, which made it respectable. Hong & Stein in particular gave a mechanism (gradual information diffusion) with testable cross-sectional implications, confirmed by Hong, Lim & Stein (2000).
+**What changed.** Momentum acquired *theories*, which made it respectable. Hong & Stein in particular gave a mechanism (gradual information diffusion) with testable cross-sectional implications, confirmed by [Hong, Lim & Stein (2000)](https://doi.org/10.3386/w6553){target="_blank"}.
 
 **Limitations.** All three are flexible; none has been decisively confirmed or rejected against the others. This remains true today.
 
@@ -502,7 +502,7 @@ This strand developed almost entirely outside the academy, in commodity futures.
 
 ### The data-snooping counter-attack: Brock, Lakonishok & LeBaron (1992) → Sullivan, Timmermann & White (1999)
 
-**Contribution.** Brock, Lakonishok & LeBaron tested 26 classic moving-average and trading-range-breakout rules on the Dow from 1897–1986 and found significant predictive power. Sullivan, Timmermann & White re-examined the *same* rules using White's (2000) Reality Check to correct for the fact that those 26 rules were the survivors of decades of collective search, evaluating a universe of ~8,000 rules. Their finding: the best rules were still significant in the original sample, but the effect had largely disappeared in post-1986 data.
+**Contribution.** Brock, Lakonishok & LeBaron tested 26 classic moving-average and trading-range-breakout rules on the Dow from 1897–1986 and found significant predictive power. Sullivan, Timmermann & White re-examined the *same* rules using [White's (2000)](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/1468-0262.00152){target="_blank"} Reality Check to correct for the fact that those 26 rules were the survivors of decades of collective search, evaluating a universe of ~8,000 rules. Their finding: the best rules were still significant in the original sample, but the effect had largely disappeared in post-1986 data.
 
 **What changed.** This exchange is the single most important methodological lesson in the field. **The universe of rules you searched, not the rule you report, determines significance.** It is the origin of everything in §7.6.
 
@@ -532,7 +532,7 @@ This strand developed almost entirely outside the academy, in commodity futures.
 
 **What changed.** This paper is the bridge between the academy and the CTA industry. It gave the trend-following business a peer-reviewed identity and a canonical construction: sign of the trailing 12-month return, positions scaled to a constant per-asset volatility target, aggregated across a diversified futures universe.
 
-**Limitations. [Contested]** Huang, Li, Wang & Zhou (2020, *JFE* 135, 774–794) argue the core test conflates predictability with a positive unconditional mean, and after appropriate controls find little evidence of an absolute TSMOM effect. Goyal & Jegadeesh (2018, *RFS*) also show that the difference between time-series and cross-sectional momentum is largely a *net long position* in the market, not different predictability. The AQR-affiliated response maintains the effect is real. This debate is unresolved and you should read both sides.
+**Limitations. [Contested]** [Huang, Li, Wang & Zhou](https://doi.org/10.2139/ssrn.3165284){target="_blank"} (2020, *JFE* 135, 774–794) argue the core test conflates predictability with a positive unconditional mean, and after appropriate controls find little evidence of an absolute TSMOM effect. [Goyal & Jegadeesh](https://doi.org/10.1093/rfs/hhx131){target="_blank"} (2018, *RFS*) also show that the difference between time-series and cross-sectional momentum is largely a *net long position* in the market, not different predictability. The AQR-affiliated response maintains the effect is real. This debate is unresolved and you should read both sides.
 
 **Lasting influence.** Very large. Volatility-scaled TSMOM on a diversified futures universe is the standard academic benchmark for trend following.
 
@@ -548,9 +548,9 @@ This strand developed almost entirely outside the academy, in commodity futures.
 
 **Contribution.** Both papers address momentum's catastrophic tail. Daniel & Moskowitz characterize the option-like conditional beta (see §1.6) and propose a dynamically hedged/scaled momentum. Barroso & Santa-Clara show that scaling momentum exposure by the *inverse of its own recent realized volatility* — "risk-managed momentum" — nearly doubles the Sharpe ratio and dramatically reduces the crash.
 
-**What changed.** Volatility scaling of the *strategy* (not just the assets) became standard. This is arguably the most valuable practical result of the last 15 years, and it generalizes: Moreira & Muir (2017, *JF*) show volatility management improves Sharpe for many factors.
+**What changed.** Volatility scaling of the *strategy* (not just the assets) became standard. This is arguably the most valuable practical result of the last 15 years, and it generalizes: [Moreira & Muir](https://doi.org/10.3386/w22208){target="_blank"} (2017, *JF*) show volatility management improves Sharpe for many factors.
 
-**Limitations. [Contested]** Cederburg, O'Doherty, Wang & Yan (2020) and others question how much of the volatility-managed improvement survives out-of-sample and realistic costs, given the high turnover. The improvement is largest exactly where turnover is largest.
+**Limitations. [Contested]** [Cederburg, O'Doherty, Wang & Yan (2020)](https://doi.org/10.2139/ssrn.3165284){target="_blank"} and others question how much of the volatility-managed improvement survives out-of-sample and realistic costs, given the high turnover. The improvement is largest exactly where turnover is largest.
 
 **Lasting influence.** Very large and immediate; essentially every practitioner momentum book now vol-scales.
 
@@ -566,13 +566,13 @@ This strand developed almost entirely outside the academy, in commodity futures.
 
 This strand runs in parallel and only recently merged with the momentum literature.
 
-**Kyle (1985); Glosten & Milgrom (1985).** Contribution: formal models in which prices move because *order flow reveals information*, with a linear (Kyle's $\lambda$) or Bayesian updating structure. What changed: price impact stopped being a friction and became the *mechanism of price formation*. Lasting influence: total — every impact model descends from these.
+**[Kyle (1985)](https://doi.org/10.2307/1913210){target="_blank"}; [Glosten & Milgrom (1985)](<https://doi.org/10.1016/0304-405x(85)90044-3>){target="_blank"}.** Contribution: formal models in which prices move because *order flow reveals information*, with a linear (Kyle's $\lambda$) or Bayesian updating structure. What changed: price impact stopped being a friction and became the *mechanism of price formation*. Lasting influence: total — every impact model descends from these.
 
-**Lillo & Farmer (2004); Bouchaud, Gefen, Potters & Wyart (2004).** Contribution: the empirical discovery that order-flow signs have **long memory** (power-law autocorrelation, Hurst exponent typically ≈0.6–0.8) while prices remain close to a martingale. Bouchaud et al.'s **propagator model** resolves the apparent paradox: impact of each trade decays over time in exactly the way needed to offset the predictable flow, so the market is "statistically efficient" despite predictable order flow. What changed: it showed that predictability of *flow* is not the same as predictability of *price*, and that liquidity providers' response is what enforces efficiency. Limitations: the model is descriptive and calibration-heavy. Lasting influence: this is the theoretical backbone of modern execution and of high-frequency momentum.
+**[Lillo & Farmer (2004)](https://doi.org/10.2202/1558-3708.1226){target="_blank"}; [Bouchaud, Gefen, Potters & Wyart (2004)](https://doi.org/10.2139/ssrn.507322){target="_blank"}.** Contribution: the empirical discovery that order-flow signs have **long memory** (power-law autocorrelation, Hurst exponent typically ≈0.6–0.8) while prices remain close to a martingale. Bouchaud et al.'s **propagator model** resolves the apparent paradox: impact of each trade decays over time in exactly the way needed to offset the predictable flow, so the market is "statistically efficient" despite predictable order flow. What changed: it showed that predictability of *flow* is not the same as predictability of *price*, and that liquidity providers' response is what enforces efficiency. Limitations: the model is descriptive and calibration-heavy. Lasting influence: this is the theoretical backbone of modern execution and of high-frequency momentum.
 
 **The square-root law of market impact.** Contribution: the empirical regularity $\Delta p \approx Y\sigma\sqrt{Q/V}$, documented across markets and decades, with $Y \approx 0.5{-}1$. What changed: it makes momentum's *capacity* computable rather than a matter of opinion, and it makes the causal link between institutional metaorders and multi-day price drift quantitative. Limitations: the exponent is not exactly 1/2 in all datasets, the theoretical justification (latent liquidity / locally linear order book) remains debated. Lasting influence: it is the single most important formula for anyone sizing a momentum strategy.
 
-**Order-flow imbalance at high frequency (Cont, Kukanov & Stoikov, 2014; Sirignano & Cont, 2019).** Contribution: showed that short-horizon price changes are explained overwhelmingly by *order flow imbalance* — a linear relation with high $R^2$ at the sub-minute scale — and that a deep network trained on limit-order-book data learns a nearly universal price-formation mapping that transfers across stocks. What changed: intraday "momentum" was correctly re-identified as *flow prediction*. Lasting influence: this is what high-frequency momentum actually is; it has little to do with the 12-month effect.
+**Order-flow imbalance at high frequency ([Cont, Kukanov & Stoikov, 2014](https://doi.org/10.2139/ssrn.1712822){target="_blank"}; [Sirignano & Cont, 2019](https://doi.org/10.2139/ssrn.3141294){target="_blank"}).** Contribution: showed that short-horizon price changes are explained overwhelmingly by *order flow imbalance* — a linear relation with high $R^2$ at the sub-minute scale — and that a deep network trained on limit-order-book data learns a nearly universal price-formation mapping that transfers across stocks. What changed: intraday "momentum" was correctly re-identified as *flow prediction*. Lasting influence: this is what high-frequency momentum actually is; it has little to do with the 12-month effect.
 
 **The synthesis reference** here is Bouchaud, Bonart, Donier & Gould, *Trades, Quotes and Prices* (2018).
 
@@ -580,7 +580,7 @@ This strand runs in parallel and only recently merged with the momentum literatu
 
 ### The replication crisis arrives
 
-**Harvey, Liu & Zhu (2016), "…and the Cross-Section of Expected Returns" (*RFS*)** catalogued 300+ published factors and argued that, given the search intensity, a $t$-statistic threshold of about **3.0** (not 2.0) is the minimum for a newly claimed factor. Harvey & Liu (2015, 2020) developed backtest-haircut and multiple-testing procedures. Hou, Xue & Zhang (2020, *RFS*) replicated ~450 anomalies and found the majority insignificant under equal-weighting with microcap controls.
+**[Harvey, Liu & Zhu (2016)](https://doi.org/10.3386/w20592){target="_blank"}, "…and the Cross-Section of Expected Returns" (*RFS*)** catalogued 300+ published factors and argued that, given the search intensity, a $t$-statistic threshold of about **3.0** (not 2.0) is the minimum for a newly claimed factor. [Harvey & Liu](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2695101){target="_blank"} (2015, 2020) developed backtest-haircut and multiple-testing procedures. [Hou, Xue & Zhang](https://doi.org/10.1093/rfs/hhy131){target="_blank"} (2020, *RFS*) replicated ~450 anomalies and found the majority insignificant under equal-weighting with microcap controls.
 
 **Momentum's status in this crisis is unusually good. [Fact]** It is among the small set of anomalies that survives essentially every replication protocol, across countries, asset classes, and centuries. That is the strongest argument for building on it.
 
@@ -592,9 +592,9 @@ This strand runs in parallel and only recently merged with the momentum literatu
 
 ### Machine learning
 
-**Gu, Kelly & Xiu (2020, *RFS*)** benchmarked ML methods for return prediction and found tree ensembles and neural networks materially outperform linear models, with **momentum-family predictors consistently among the most important features**. **Lim, Zohren & Roberts (2019)** introduced "Deep Momentum Networks" — directly optimizing Sharpe with LSTMs over trend features; **Wood, Giegerich, Roberts & Zohren (2021)** extended this with attention/Transformers. **López de Prado (2018)** contributed the essential methodological apparatus: triple-barrier labeling, meta-labeling, purged and embargoed cross-validation, and the Deflated Sharpe Ratio.
+**[Gu, Kelly & Xiu](https://doi.org/10.3386/w25398){target="_blank"} (2020, *RFS*)** benchmarked ML methods for return prediction and found tree ensembles and neural networks materially outperform linear models, with **momentum-family predictors consistently among the most important features**. **[Lim, Zohren & Roberts (2019)](https://doi.org/10.2139/ssrn.3369195){target="_blank"}** introduced "Deep Momentum Networks" — directly optimizing Sharpe with LSTMs over trend features; **[Wood, Giegerich, Roberts & Zohren (2021)](https://arxiv.org/abs/2112.08534){target="_blank"}** extended this with attention/Transformers. **López de Prado (2018)** contributed the essential methodological apparatus: triple-barrier labeling, meta-labeling, purged and embargoed cross-validation, and the Deflated Sharpe Ratio.
 
-**Kelly, Malamud & Zhou (2024, *JF*), "The Virtue of Complexity in Return Prediction"** argues — against decades of parsimony orthodoxy — that heavily over-parameterized models with appropriate ridge regularization can outperform, exhibiting "double descent." **[Contested]** and important if true.
+**[Kelly, Malamud & Zhou](https://doi.org/10.3386/w30217){target="_blank"} (2024, *JF*), "The Virtue of Complexity in Return Prediction"** argues — against decades of parsimony orthodoxy — that heavily over-parameterized models with appropriate ridge regularization can outperform, exhibiting "double descent." **[Contested]** and important if true.
 
 **Limitations, stated plainly.** ML has improved momentum's *combination and conditioning* — how to blend horizons, when to turn it off, how to size — far more than its *core prediction*. **[Practice]** The consensus among people who have actually deployed these is that raw ML alpha over a well-constructed volatility-scaled multi-horizon trend baseline is real but modest, and the risk of overfitting is severe.
 
@@ -603,10 +603,10 @@ This strand runs in parallel and only recently merged with the momentum literatu
 > ### §2 Key takeaways
 >
 > 1. The same effect was found three times: by chartists (as trend), by CTAs (as a mechanical rule), and by academics (as a factor). Each community contributed something: **multi-scale structure and confirmation** (Dow), **loss-cutting and volatility-based sizing** (Livermore, Donchian, Turtles), and **statistical validation with risk adjustment** (Jegadeesh & Titman onward).
-> 2. **Jegadeesh & Titman (1993)** is the hinge. The 12-2 construction it established is still the default.
-> 3. **Sullivan, Timmermann & White (1999)** is the methodological hinge: the size of the search space determines significance, not the reported rule.
-> 4. **Moskowitz, Ooi & Pedersen (2012)** legitimized time-series momentum and connected the academy to the CTA industry; **Huang et al. (2020)** issued the most serious challenge to it. Read both.
-> 5. **Daniel & Moskowitz (2016)** and **Barroso & Santa-Clara (2015)** established that momentum's tail is a conditional-beta phenomenon and that volatility scaling largely fixes it. This is the highest-value practical result of the modern era.
+> 2. **[Jegadeesh & Titman (1993)](https://doi.org/10.1111/j.1540-6261.1993.tb04702.x){target="_blank"}** is the hinge. The 12-2 construction it established is still the default.
+> 3. **[Sullivan, Timmermann & White (1999)](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/0022-1082.00163){target="_blank"}** is the methodological hinge: the size of the search space determines significance, not the reported rule.
+> 4. **[Moskowitz, Ooi & Pedersen (2012)](https://doi.org/10.2139/ssrn.2089463){target="_blank"}** legitimized time-series momentum and connected the academy to the CTA industry; **[Huang et al. (2020)](https://doi.org/10.2139/ssrn.3165284){target="_blank"}** issued the most serious challenge to it. Read both.
+> 5. **[Daniel & Moskowitz (2016)](https://doi.org/10.3386/w20439){target="_blank"}** and **[Barroso & Santa-Clara (2015)](https://doi.org/10.1016/j.jfineco.2014.11.010){target="_blank"}** established that momentum's tail is a conditional-beta phenomenon and that volatility scaling largely fixes it. This is the highest-value practical result of the modern era.
 > 6. Microstructure has supplied the most *mechanistic* explanation: metaorder splitting + square-root impact ⇒ multi-day persistent drift. It also supplies the capacity formula.
 > 7. Momentum is one of the few anomalies that **survived the replication crisis** cleanly.
 > 8. The current frontier is: momentum as a property of *factors* rather than securities; conditional-risk explanations; and ML for conditioning and combination rather than for raw prediction.
@@ -743,12 +743,12 @@ These are white papers and practitioner-journal articles. They are less rigorous
 
 ## 3.6 If you only read six things
 
-1. Jegadeesh & Titman (1993) — the effect.
-2. Lo & MacKinlay (1988, 1990) — what you are actually measuring.
-3. Moskowitz, Ooi & Pedersen (2012) **with** Huang, Li, Wang & Zhou (2020) — the effect and its most serious critique, together.
-4. Daniel & Moskowitz (2016) — the tail, and why risk management is intrinsic.
+1. [Jegadeesh & Titman (1993)](https://doi.org/10.1111/j.1540-6261.1993.tb04702.x){target="_blank"} — the effect.
+2. [Lo & MacKinlay](https://www.nber.org/papers/w2168){target="_blank"} (1988, 1990) — what you are actually measuring.
+3. [Moskowitz, Ooi & Pedersen (2012)](https://doi.org/10.2139/ssrn.2089463){target="_blank"} **with** [Huang, Li, Wang & Zhou (2020)](https://doi.org/10.2139/ssrn.3165284){target="_blank"} — the effect and its most serious critique, together.
+4. [Daniel & Moskowitz (2016)](https://doi.org/10.3386/w20439){target="_blank"} — the tail, and why risk management is intrinsic.
 5. Grinold & Kahn (1999) — how to turn a signal into a portfolio.
-6. Sullivan, Timmermann & White (1999) — why your backtest is probably wrong.
+6. [Sullivan, Timmermann & White (1999)](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/0022-1082.00163){target="_blank"} — why your backtest is probably wrong.
 
 ---
 
@@ -898,7 +898,7 @@ Use this to horizon-match an EWMA against a simple window: a simple window of le
 
 **Cost.** Streaming $O(1)$ time and $O(1)$ memory. Naive backtest: $O(T)$ single pass. Cheapest of all filters.
 
-**Robustness.** High. Smoothly degrades under parameter misspecification. **[Fact]** Levine & Pedersen (2016) show that once horizon-matched, EWMA-based, MA-crossover-based and regression-based trend signals produce very similar portfolios — the functional form is second-order to the horizon.
+**Robustness.** High. Smoothly degrades under parameter misspecification. **[Fact]** [Levine & Pedersen (2016)](https://doi.org/10.2139/ssrn.2603731){target="_blank"} show that once horizon-matched, EWMA-based, MA-crossover-based and regression-based trend signals produce very similar portfolios — the functional form is second-order to the horizon.
 
 **Failure modes.** Initialization bias (burn in for $\ge 5$ half-lives before trusting output); on data with gaps, calendar-decay vs. bar-decay mismatch quietly changes the horizon; a single outlier is *never* fully forgotten.
 
@@ -1034,7 +1034,7 @@ $$\frac{\sqrt{L}\,\hat b_t}{\hat\sigma_\varepsilon} = t_t\cdot\frac{\sqrt{12}}{L
 
 The first is a per-bar Sharpe; the second is the regression analogue of the volatility-normalized momentum of §4.3.1, $r_{t-L:t}/(\hat\sigma\sqrt L)$, and is usually what you want when blending horizons in an ensemble. A rescaling by $t/\sqrt L$ is sometimes suggested and is neither of these — it equals $\sqrt{12}\,L\,\hat b_t/\hat\sigma_\varepsilon$, which still grows linearly in $L$.
 
-**Assumptions.** All the OLS assumptions, *plus* correct standard errors — which requires iid homoskedastic residuals. **This assumption fails badly on financial data.** For inference you must use HAC (Newey–West, 1987) standard errors. For *signal construction*, the naive $t$ is still a usable monotone transform, but do not interpret its magnitude as a p-value.
+**Assumptions.** All the OLS assumptions, *plus* correct standard errors — which requires iid homoskedastic residuals. **This assumption fails badly on financial data.** For inference you must use HAC ([Newey–West, 1987](https://doi.org/10.2307/1913610){target="_blank"}) standard errors. For *signal construction*, the naive $t$ is still a usable monotone transform, but do not interpret its magnitude as a p-value.
 
 **Strengths.** Automatically volatility-normalized (the $\hat\sigma_\varepsilon$ in the denominator), so it is directly comparable across assets — this is its main advantage over the raw slope. Combines strength and consistency in one number. Dimensionless.
 
@@ -1060,7 +1060,7 @@ Note the relation $t^2 = \frac{R^2}{1-R^2}(L-2)$, so slope, $t$, and $R^2$ are t
 
 ### 4.2.4 The equivalence result you should internalize
 
-Levine & Pedersen (2016) show that time-series regression signals, moving-average crossovers, and "past return" signals produce highly similar trend portfolios once **horizon-matched**. The practical corollary is important and freeing:
+[Levine & Pedersen (2016)](https://doi.org/10.2139/ssrn.2603731){target="_blank"} show that time-series regression signals, moving-average crossovers, and "past return" signals produce highly similar trend portfolios once **horizon-matched**. The practical corollary is important and freeing:
 
 > **Choosing the functional form of your trend measure is a low-value decision. Choosing the horizon (and the normalization) is a high-value decision.**
 
@@ -1092,12 +1092,12 @@ The reason is the $\sqrt L$. Under a random walk the $L$-period return has stand
 | Rolling close-to-close SD | $\sqrt{\frac{1}{n-1}\sum (r_i - \bar r)^2}$ | Simplest; noisy; equal weights are a poor model of vol dynamics |
 | EWMA (RiskMetrics) | $\hat\sigma^2_t = \lambda\hat\sigma^2_{t-1} + (1-\lambda)r_t^2$ | $O(1)$; $\lambda\approx0.94$ daily is the classic; responsive |
 | GARCH(1,1) | $\sigma_t^2 = \omega + \alpha r_{t-1}^2 + \beta\sigma_{t-1}^2$ | Best pure-return model; needs fitting; mean-reverting to $\omega/(1-\alpha-\beta)$ |
-| Parkinson (1980) | $\frac{1}{4\ln 2}\left(\ln \mathrm{Hi}_t/\mathrm{Lo}_t\right)^2$ | Uses the bar range; ~5× more efficient than close-to-close |
-| Garman–Klass (1980) | uses open, high, low, close | More efficient still; assumes no drift and no jumps |
-| Yang–Zhang (2000) | combines overnight + open-to-close | Handles opening gaps and drift; **[Practice]** often the best single choice for daily bars |
+| [Parkinson (1980)](https://doi.org/10.1086/296071){target="_blank"} | $\frac{1}{4\ln 2}\left(\ln \mathrm{Hi}_t/\mathrm{Lo}_t\right)^2$ | Uses the bar range; ~5× more efficient than close-to-close |
+| [Garman–Klass (1980)](https://doi.org/10.1086/296072){target="_blank"} | uses open, high, low, close | More efficient still; assumes no drift and no jumps |
+| [Yang–Zhang (2000)](https://doi.org/10.1086/209650){target="_blank"} | combines overnight + open-to-close | Handles opening gaps and drift; **[Practice]** often the best single choice for daily bars |
 | Realized volatility | $\sum_{\text{intraday}} r_i^2$ | Most efficient if you have intraday data; needs microstructure-noise handling |
 
-**[Fact]** Baltas & Kosowski (2020) show that using a more efficient volatility estimator in a TSMOM strategy materially reduces turnover (they report >⅓ reduction) with no statistically significant performance loss. Volatility estimation is not a detail.
+**[Fact]** [Baltas & Kosowski (2020)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2140091){target="_blank"} show that using a more efficient volatility estimator in a TSMOM strategy materially reduces turnover (they report >⅓ reduction) with no statistically significant performance loss. Volatility estimation is not a detail.
 
 **Assumptions.** That volatility is (a) persistent enough to be forecastable from its recent history, and (b) the right scale for the signal. Both are well supported. Also implicitly: that expected return scales with volatility, so that dividing gives a stationary quantity.
 
@@ -1133,7 +1133,7 @@ where $\bar r$ is the mean per-bar log return over the window, $\hat\sigma$ its 
 
 **Strengths.** Dimensionless and directly comparable across everything; ranks assets by exactly the quantity a mean–variance optimizer wants; penalizes erratic paths automatically.
 
-**Weaknesses.** Using the *same window* for numerator and denominator induces a subtle negative dependence: a large return in the window raises both. This attenuates extreme signals — sometimes desirable, but it is an unintended shrinkage you should be aware of. Very noisy for short $L$: the standard error of a Sharpe estimate on $n$ observations is roughly $\sqrt{(1 + \text{SR}^2/2)/n}$ (Lo, 2002). A 6-month window of daily data is $n \approx 126$, giving a standard error of about $1/\sqrt{126} \approx 0.09$ *in per-day units*; annualizing multiplies by $\sqrt{252} \approx 15.9$, so the annualized Sharpe estimated over 6 months has a standard error above **1.4** — wider than the entire plausible range of true Sharpes. **Short-window Sharpe estimates are almost pure noise and this is not widely enough appreciated.**
+**Weaknesses.** Using the *same window* for numerator and denominator induces a subtle negative dependence: a large return in the window raises both. This attenuates extreme signals — sometimes desirable, but it is an unintended shrinkage you should be aware of. Very noisy for short $L$: the standard error of a Sharpe estimate on $n$ observations is roughly $\sqrt{(1 + \text{SR}^2/2)/n}$ ([Lo, 2002](https://doi.org/10.2469/faj.v58.n4.2453){target="_blank"}). A 6-month window of daily data is $n \approx 126$, giving a standard error of about $1/\sqrt{126} \approx 0.09$ *in per-day units*; annualizing multiplies by $\sqrt{252} \approx 15.9$, so the annualized Sharpe estimated over 6 months has a standard error above **1.4** — wider than the entire plausible range of true Sharpes. **Short-window Sharpe estimates are almost pure noise and this is not widely enough appreciated.**
 
 **Cost.** $O(1)$ streaming (running mean and variance via Welford).
 
@@ -1185,7 +1185,7 @@ The final step from a normalized signal to a position deserves explicit thought.
 | **$\tanh$ / squash** | $\tanh(k s_t)$ | Smooth saturation; differentiable (matters for ML) |
 | **Response function** | $s\,e^{-s^2/4}$ | Saturation *and decay* — extreme trends are attenuated toward zero |
 
-**[Fact]** Moskowitz, Ooi & Pedersen (2012) found that the *sign* of the past 12-month return performs comparably to magnitude-scaled versions in futures TSMOM, which is strong evidence that most of the information is in the direction. **[Contested]** Other studies find modest benefit to magnitude scaling. My reading: sign is a remarkably strong baseline and the burden of proof is on magnitude.
+**[Fact]** [Moskowitz, Ooi & Pedersen (2012)](https://doi.org/10.2139/ssrn.2089463){target="_blank"} found that the *sign* of the past 12-month return performs comparably to magnitude-scaled versions in futures TSMOM, which is strong evidence that most of the information is in the direction. **[Contested]** Other studies find modest benefit to magnitude scaling. My reading: sign is a remarkably strong baseline and the burden of proof is on magnitude.
 
 ---
 
@@ -1265,7 +1265,7 @@ $$\text{52-week high proximity:}\quad \Phi_t = \frac{P_t}{\max_{i \in [t-252,\,t
 
 Note the breakout rule excludes the current bar from its window (it compares today's price against the previous $n$ bars' extremes) while channel position includes it; using the same window for both would make a breakout impossible by construction, since $P_t$ can never exceed a maximum it is part of.
 
-**Why this deserves separate treatment.** George & Hwang (2004) found **[Fact, replicated]** that proximity to the 52-week high predicts returns *and largely subsumes* conventional cross-sectional momentum in their sample — a striking result, because $\Phi_t$ uses only two prices and no return path at all. The interpretation is behavioral: the 52-week high is a psychologically salient **anchor**, and investors under-react to news that would push price through it. This is one of the cleanest cases where a behavioral mechanism makes a sharp, confirmed prediction.
+**Why this deserves separate treatment.** [George & Hwang (2004)](https://doi.org/10.1111/j.1540-6261.2004.00695.x){target="_blank"} found **[Fact, replicated]** that proximity to the 52-week high predicts returns *and largely subsumes* conventional cross-sectional momentum in their sample — a striking result, because $\Phi_t$ uses only two prices and no return path at all. The interpretation is behavioral: the 52-week high is a psychologically salient **anchor**, and investors under-react to news that would push price through it. This is one of the cleanest cases where a behavioral mechanism makes a sharp, confirmed prediction.
 
 **Assumptions.** That extremes are salient reference points; that breaking one signals information not yet impounded. For the Donchian version: that the distribution of future returns conditional on a new $n$-bar extreme is favorably shifted.
 
@@ -1318,7 +1318,7 @@ These do not tell you *which way*. They tell you *whether the momentum hypothesi
 
 ### 4.5.1 Variance ratio (as a live statistic)
 
-**Definition.** With $T$ observations of $r$ and aggregation $q$ (Lo & MacKinlay, 1988):
+**Definition.** With $T$ observations of $r$ and aggregation $q$ ([Lo & MacKinlay, 1988](https://www.nber.org/papers/w2168){target="_blank"}):
 
 $$\widehat{\mathrm{VR}}(q) = \frac{\hat\sigma^2_q}{q\,\hat\sigma^2_1},\qquad \hat\sigma^2_q = \frac{1}{m}\sum_{t=q}^{T}\left(\sum_{j=0}^{q-1} r_{t-j} - q\bar r\right)^2$$
 
@@ -1412,7 +1412,7 @@ with the portfolio return $\;R^{\text{TSMOM}}_{t+1} = \frac{1}{N}\sum_i w_{i,t}\
 
 $$\mathbb{E}\!\left[r_{i,t-L:t}\cdot r_{i,t+1}\right] \;=\; \underbrace{\sum_{k=1}^{L}\operatorname{Cov}(r_{i,t+1-k},\,r_{i,t+1})}_{\text{genuine predictability}} \;+\; \underbrace{L\,\mu_i^2}_{\text{just a positive mean}}$$
 
-**The second term is positive whenever the asset has any nonzero unconditional drift, with zero predictability.** This is the core of the Huang, Li, Wang & Zhou (2020) critique. A TSMOM test that does not remove the unconditional mean is partly a test of "do these assets go up," which is not news.
+**The second term is positive whenever the asset has any nonzero unconditional drift, with zero predictability.** This is the core of the [Huang, Li, Wang & Zhou (2020)](https://doi.org/10.2139/ssrn.3165284){target="_blank"} critique. A TSMOM test that does not remove the unconditional mean is partly a test of "do these assets go up," which is not news.
 
 For a sign-based rule the algebra is different but the intuition survives: $\mathbb{E}[\operatorname{sign}(r_{t-L:t})r_{t+1}] > 0$ arises partly because $\Pr[\operatorname{sign}(r_{t-L:t}) = +1] > 1/2$ when $\mu > 0$. **[Practice]** The fix is to demean: test on returns in excess of the asset's own long-run mean, or include a constant-long benchmark in the comparison, or (best) evaluate the strategy against a passive long-only benchmark with matched volatility. If your TSMOM does not beat a vol-matched buy-and-hold, you have measured drift.
 
@@ -1424,7 +1424,7 @@ For a sign-based rule the algebra is different but the intuition survives: $\mat
 
 **Cost.** $O(N)$ per rebalance; trivial.
 
-**Robustness.** **[Fact]** High across futures, validated over a century-plus (Hurst, Ooi & Pedersen, 2017; Lempérière et al., 2014). **[Contested]** In equities individually, weaker; the diversified futures portfolio is where the evidence is strongest.
+**Robustness.** **[Fact]** High across futures, validated over a century-plus ([Hurst, Ooi & Pedersen, 2017](https://doi.org/10.2139/ssrn.2993026){target="_blank"}; [Lempérière et al., 2014](https://arxiv.org/abs/1404.3274){target="_blank"}). **[Contested]** In equities individually, weaker; the diversified futures portfolio is where the evidence is strongest.
 
 **Failure modes.** Sharp V-shaped reversals (positions are maximally wrong at the turn). Sustained low-volatility ranges. Correlated positioning across a diversified book during a macro shock — the "diversification" is often much lower than the historical correlation matrix suggests, because trend books converge onto the same trades. Baltas & Kosowski's dynamic-leverage adjustment for pairwise signed correlations addresses exactly this.
 
@@ -1440,7 +1440,7 @@ $$w_{i,t} = \frac{c}{N}\left(s_{i,t} - \bar s_t\right) \qquad\text{or, in the so
 
 By construction $\sum_i w_{i,t} = 0$: the portfolio is dollar-neutral (not, note, beta-neutral).
 
-**The decomposition you must know.** Following Lo & MacKinlay (1990) and Jegadeesh & Titman (1995), for the weighting scheme $w_{i,t} = \frac{1}{N}(R_{i,t-1}-\bar R_{t-1})$, with $\Gamma$ the lag-1 cross-autocovariance matrix ($\Gamma_{ij} = \operatorname{Cov}(R_{i,t-1}, R_{j,t})$) and $\iota$ a vector of ones:
+**The decomposition you must know.** Following [Lo & MacKinlay (1990)](https://doi.org/10.3386/w2977){target="_blank"} and [Jegadeesh & Titman (1995)](https://doi.org/10.1093/rfs/8.4.973){target="_blank"}, for the weighting scheme $w_{i,t} = \frac{1}{N}(R_{i,t-1}-\bar R_{t-1})$, with $\Gamma$ the lag-1 cross-autocovariance matrix ($\Gamma_{ij} = \operatorname{Cov}(R_{i,t-1}, R_{j,t})$) and $\iota$ a vector of ones:
 
 $$\mathbb{E}[\pi_t] \;=\; \underbrace{\frac{N-1}{N^2}\operatorname{tr}(\Gamma)}_{\text{(A) own-autocovariance}} \;-\; \underbrace{\frac{1}{N^2}\sum_{i\ne j}\Gamma_{ij}}_{\text{(B) cross-serial (lead-lag)}} \;+\; \underbrace{\sigma^2_\mu}_{\text{(C) dispersion in means}}$$
 
@@ -1449,7 +1449,7 @@ where $\sigma^2_\mu = \frac{1}{N}\sum_i(\mu_i-\bar\mu)^2$.
 This is worth staring at, because it says cross-sectional momentum profits have **three completely different sources**:
 
 - **(A)** Genuine individual return persistence. This is what everyone assumes momentum is.
-- **(B)** Negative *lead-lag* structure. If stock $i$'s move today predicts stock $j$'s move tomorrow *positively* (a lead-lag effect, e.g. large caps leading small caps), term (B) *reduces* momentum profits. Contrarian profits come from positive lead-lag. Lewellen (2002) argues that momentum in size and book-to-market portfolios comes largely from this channel rather than from (A) — a genuinely surprising result.
+- **(B)** Negative *lead-lag* structure. If stock $i$'s move today predicts stock $j$'s move tomorrow *positively* (a lead-lag effect, e.g. large caps leading small caps), term (B) *reduces* momentum profits. Contrarian profits come from positive lead-lag. [Lewellen (2002)](https://doi.org/10.1093/rfs/15.2.533){target="_blank"} argues that momentum in size and book-to-market portfolios comes largely from this channel rather than from (A) — a genuinely surprising result.
 - **(C)** Pure cross-sectional dispersion in *unconditional* expected returns. **This requires no predictability whatsoever.** If some stocks simply have permanently higher expected returns, a strategy that buys past winners will overweight them and earn $\sigma^2_\mu > 0$. This is a risk-premium exposure masquerading as a timing signal.
 
 The practical implication: **a profitable cross-sectional momentum backtest is not evidence of return persistence.** To claim persistence, you must show the profit survives removal of (C) — e.g. by demeaning each asset's returns by its own full-sample mean (an in-sample adjustment usable for attribution, not for trading) or by testing within groups of ex-ante similar expected return.
@@ -1465,9 +1465,9 @@ The practical implication: **a profitable cross-sectional momentum backtest is n
 **Robustness.** **[Fact]** Very high in equities across countries and centuries; weaker but present in other asset classes.
 
 **Failure modes.**
-- **Momentum crashes** after bear markets (Daniel & Moskowitz, 2016).
+- **Momentum crashes** after bear markets ([Daniel & Moskowitz, 2016](https://doi.org/10.3386/w20439){target="_blank"}).
 - **Unintended factor bets:** winners and losers differ systematically in beta, industry, size, and volatility. Without neutralization you are running an uncontrolled factor portfolio.
-- **Short-leg infeasibility:** the profits historically concentrate in the short leg, which is where borrow is hardest and costs highest (Novy-Marx & Velikov, 2016).
+- **Short-leg infeasibility:** the profits historically concentrate in the short leg, which is where borrow is hardest and costs highest ([Novy-Marx & Velikov, 2016](https://doi.org/10.3386/w20721){target="_blank"}).
 - **Universe contamination:** including microcaps inflates paper returns dramatically and unrealizably.
 
 **When preferred.** Equity long/short; any large homogeneous cross-section; whenever market-neutrality is required.
@@ -1492,7 +1492,7 @@ This is momentum of the *ratio series* $P_i/P_B$, i.e. momentum of the relative 
 
 **Intuition.** Strip out the part of an asset's past return that is explained by common factors, and rank on what's left. If Nvidia rose 40% because semiconductors rose 40%, that is a sector bet, not a stock signal.
 
-**Definition** (Blitz, Huij & Martens, 2011). For each asset, estimate a factor model over a rolling window (typically 36 months):
+**Definition** ([Blitz, Huij & Martens, 2011](https://doi.org/10.2139/ssrn.2319861){target="_blank"}). For each asset, estimate a factor model over a rolling window (typically 36 months):
 
 $$r_{i,\tau} = \alpha_i + \beta_i^{\mathrm{MKT}}\mathrm{MKT}_\tau + \beta_i^{\mathrm{SMB}}\mathrm{SMB}_\tau + \beta_i^{\mathrm{HML}}\mathrm{HML}_\tau + \varepsilon_{i,\tau}$$
 
@@ -1506,7 +1506,7 @@ $$s^{\text{resid}}_{i,t} = \frac{\sum_{\tau=t-12}^{t-2}\hat\varepsilon_{i,\tau}}
 
 Additional strengths: much lower factor/industry concentration; the residual standardization is a natural volatility adjustment; it makes the strategy's alpha claim honest by construction.
 
-**Weaknesses.** Adds a factor-model estimation step with its own specification risk (which factors? which window?); beta estimation error propagates into the signal; higher turnover; and it *removes* the industry-momentum component, which Moskowitz & Grinblatt (1999) showed is a real source of returns. You are deliberately discarding a profitable component in exchange for lower crash risk. Whether that trade is worth it depends on your risk budget.
+**Weaknesses.** Adds a factor-model estimation step with its own specification risk (which factors? which window?); beta estimation error propagates into the signal; higher turnover; and it *removes* the industry-momentum component, which [Moskowitz & Grinblatt (1999)](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/0022-1082.00146){target="_blank"} showed is a real source of returns. You are deliberately discarding a profitable component in exchange for lower crash risk. Whether that trade is worth it depends on your risk budget.
 
 **Cost.** $O(N \cdot K^2 \cdot W)$ for rolling regressions with $K$ factors over window $W$ — the most expensive signal in §4.6, though still trivial at $N\sim$ thousands with vectorized normal equations and incremental updates.
 
@@ -1542,7 +1542,7 @@ In matrix form $x_t = Fx_{t-1} + w_t$, $p_t = Hx_t + \varepsilon_t$ with $F = \b
 
 $$K = \frac{\sqrt{q^2 + 4q} - q}{2}, \qquad q = \frac{\sigma^2_\eta}{\sigma^2_\varepsilon} \quad(\text{the signal-to-noise ratio})$$
 
-**So the EWMA is not an ad-hoc smoother — it is the optimal filter for a random-walk signal in white noise, and its decay parameter is a statement about the signal-to-noise ratio.** This retroactively justifies a century of practitioner smoothing, and it tells you how to set $\lambda$: estimate $q$, don't guess. Similarly, the local linear trend filter is a second-order generalization corresponding to a double-EMA. Bruder, Dao, Richard & Roncalli (2013) work through these correspondences explicitly.
+**So the EWMA is not an ad-hoc smoother — it is the optimal filter for a random-walk signal in white noise, and its decay parameter is a statement about the signal-to-noise ratio.** This retroactively justifies a century of practitioner smoothing, and it tells you how to set $\lambda$: estimate $q$, don't guess. Similarly, the local linear trend filter is a second-order generalization corresponding to a double-EMA. [Bruder, Dao, Richard & Roncalli (2013)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2289097){target="_blank"} work through these correspondences explicitly.
 
 **Assumptions.** Linear Gaussian dynamics; known (or estimated) variances; correct state dimension. Gaussianity is false for financial data, but the Kalman filter remains the *minimum mean-squared-error linear* estimator regardless of distribution — a useful robustness property.
 
@@ -1562,7 +1562,7 @@ $$K = \frac{\sqrt{q^2 + 4q} - q}{2}, \qquad q = \frac{\sigma^2_\eta}{\sigma^2_\v
 
 **Intuition.** Rather than one trend, posit $K$ latent states with different means and volatilities, and infer the state probability.
 
-**Definition.** A Hamilton (1989) Markov-switching model: latent $S_t \in \{1..K\}$ with transition matrix $\Pi$, and
+**Definition.** A [Hamilton (1989)](https://doi.org/10.2307/1912559){target="_blank"} Markov-switching model: latent $S_t \in \{1..K\}$ with transition matrix $\Pi$, and
 
 $$r_t \mid S_t = k \;\sim\; N(\mu_k, \sigma_k^2)$$
 
@@ -1582,7 +1582,7 @@ The forward filter gives $\Pr[S_t = k\mid \mathcal{F}_t]$, and a natural signal 
 
 **Intuition.** Maintain a posterior over "how long has the current regime lasted," updating with each observation. A change point resets the run length.
 
-**Reference.** Adams & MacKay (2007), "Bayesian Online Changepoint Detection" (arXiv:0710.3742).
+**Reference.** [Adams & MacKay (2007)](https://arxiv.org/abs/0710.3742){target="_blank"}, "Bayesian Online Changepoint Detection" (arXiv:0710.3742).
 
 **Assessment.** Conceptually the right tool for trend initiation and exhaustion (§1.6), because it explicitly represents the *detection* problem. It gives a run-length posterior from which you can compute expected trend age, which is directly interpretable. The cost is $O(t)$ per step naively (mitigated by pruning low-probability run lengths), and performance depends heavily on the hazard rate prior and the observation model.
 
@@ -1614,8 +1614,8 @@ $$\lim_{q\to\infty}\mathrm{VR}(q) = \frac{2\pi f_r(0)}{\sigma_r^2}$$
 |---|---|---|
 | Fourier / periodogram | Decompose into fixed sinusoids | Assumes stationarity, which is false. Useful for filter design and diagnosis, poor for prediction. Genuine periodicity in returns is rare outside known seasonals |
 | Wavelet MRA | Time-*and*-frequency localized decomposition | The right tool for non-stationary series; gives multi-horizon momentum components that are orthogonal by construction. Boundary effects at the right edge (i.e. now) are the practical killer — use only causal/undecimated variants with proper boundary handling |
-| Hodrick–Prescott filter | Penalized-smoothness trend extraction | **Do not use for signals.** It is two-sided (uses future data) — an immediate look-ahead bug — and even its one-sided variant has documented artifacts. Hamilton (2018), "Why You Should Never Use the Hodrick-Prescott Filter," is the definitive critique |
-| $L^1$ trend filtering | Piecewise-linear trend via $\ell_1$ penalty on second differences | Kim, Koh, Boyd & Gorinevsky (2009). Produces exactly the "trend with kinks" structure practitioners draw by hand. Same two-sided caveat unless run causally |
+| Hodrick–Prescott filter | Penalized-smoothness trend extraction | **Do not use for signals.** It is two-sided (uses future data) — an immediate look-ahead bug — and even its one-sided variant has documented artifacts. [Hamilton (2018)](https://doi.org/10.3386/w23429){target="_blank"}, "Why You Should Never Use the Hodrick-Prescott Filter," is the definitive critique |
+| $L^1$ trend filtering | Piecewise-linear trend via $\ell_1$ penalty on second differences | [Kim, Koh, Boyd & Gorinevsky (2009)](https://doi.org/10.1137/070690274){target="_blank"}. Produces exactly the "trend with kinks" structure practitioners draw by hand. Same two-sided caveat unless run causally |
 | Empirical mode decomposition | Adaptive data-driven decomposition | Attractive in principle; no theory, mode-mixing problems, and not causal. **[Practice]** Treat with skepticism |
 
 **Assumptions.** Linearity and (for Fourier) stationarity. Financial series are neither.
@@ -1641,12 +1641,12 @@ $$\lim_{q\to\infty}\mathrm{VR}(q) = \frac{2\pi f_r(0)}{\sigma_r^2}$$
 | Representation | Form | Notes |
 |---|---|---|
 | **Multi-horizon normalized returns** | $\{r_{t-L:t}/(\hat\sigma_t\sqrt L)\}$ for $L \in \{5,21,63,126,252\}$ | The workhorse. Compact, interpretable, spans the horizon space. **[Practice]** Start here; it is hard to beat |
-| **Normalized MACD panel** | $u_t(n_f,n_s)$ for several span pairs | Baz et al. (2015) construction; a smoothed, saturating basis over horizons |
+| **Normalized MACD panel** | $u_t(n_f,n_s)$ for several span pairs | [Baz et al. (2015)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2695101){target="_blank"} construction; a smoothed, saturating basis over horizons |
 | **Indicator zoo** | RSI, ADX, stochastic, ER, channel position, … | Highly collinear. Adds multiple-testing risk more than information. Use only with strong regularization |
 | **Raw return sequence** | $(r_{t-k})_{k=0}^{K}$ into a CNN/LSTM/Transformer | Lets the model learn the kernel. Needs a lot of data; prone to overfitting |
-| **Path signatures** | Iterated integrals of the price path (rough-path theory) | Lyons; Levin, Lyons & Ni (2013). A principled, order-truncated basis for *path-dependent* functionals — genuinely captures order-of-events information that all §4.1 measures discard. Underused; dimension grows fast with truncation order |
+| **Path signatures** | Iterated integrals of the price path (rough-path theory) | Lyons; [Levin, Lyons & Ni (2013)](https://arxiv.org/abs/1309.0260){target="_blank"}. A principled, order-truncated basis for *path-dependent* functionals — genuinely captures order-of-events information that all §4.1 measures discard. Underused; dimension grows fast with truncation order |
 | **Wavelet coefficients** | Causal MRA detail coefficients | Orthogonal multi-horizon basis; boundary effects |
-| **Order-book tensors** | LOB levels and flows | For intraday only (Zhang, Zohren & Roberts, 2019; Sirignano & Cont, 2019) |
+| **Order-book tensors** | LOB levels and flows | For intraday only ([Zhang, Zohren & Roberts, 2019](https://arxiv.org/pdf/1808.03668){target="_blank"}; [Sirignano & Cont, 2019](https://doi.org/10.2139/ssrn.3141294){target="_blank"}) |
 | **Learned latents** | Autoencoder / self-supervised embeddings | Attractive but hard to validate; opacity is a real operational cost |
 
 ### Labels and objectives
@@ -1656,19 +1656,19 @@ The choice of *target* matters at least as much as the features:
 - **Fixed-horizon return** $r_{t+1:t+h}$ — simple; ignores path and risk.
 - **Volatility-scaled return** $r_{t+1:t+h}/\hat\sigma_t$ — targets Sharpe rather than return; usually better behaved.
 - **Triple-barrier labeling** (López de Prado, 2018) — label by which of {profit target, stop loss, time limit} is hit first. Encodes the actual trading decision including path dependence. **[Practice]** Valuable, and the associated *meta-labeling* idea (a primary model gives direction; a secondary model predicts whether to act) is genuinely useful for separating signal from sizing.
-- **Direct Sharpe optimization** (Lim, Zohren & Roberts, 2019) — make the loss function the negative Sharpe of the resulting position series. Elegant because it optimizes the actual objective and skips the prediction-to-position mapping entirely.
+- **Direct Sharpe optimization** ([Lim, Zohren & Roberts, 2019](https://doi.org/10.2139/ssrn.3369195){target="_blank"}) — make the loss function the negative Sharpe of the resulting position series. Elegant because it optimizes the actual objective and skips the prediction-to-position mapping entirely.
 
 ### Assumptions, strengths, weaknesses
 
 **Assumptions.** That the mapping from past to future is stable enough to learn; that you have enough effectively-independent observations. The second is the binding constraint and it is routinely violated. With 30 years of daily data you have ~7,500 observations, and with overlapping labels and cross-sectional correlation, your *effective* sample size is one to two orders of magnitude smaller. **This is the central difficulty of ML in finance and no amount of model sophistication fixes it.**
 
-**Strengths.** Captures interactions (e.g. momentum conditional on volatility conditional on dispersion) that hand-built signals miss; handles many horizons coherently; can learn the nonlinear saturation practitioners impose by hand; **[Fact]** Gu, Kelly & Xiu (2020) show real out-of-sample gains from nonlinear methods, with momentum features consistently among the most important.
+**Strengths.** Captures interactions (e.g. momentum conditional on volatility conditional on dispersion) that hand-built signals miss; handles many horizons coherently; can learn the nonlinear saturation practitioners impose by hand; **[Fact]** [Gu, Kelly & Xiu (2020)](https://doi.org/10.3386/w25398){target="_blank"} show real out-of-sample gains from nonlinear methods, with momentum features consistently among the most important.
 
 **Weaknesses.** Overfitting risk is severe and the usual defenses (i.i.d. cross-validation) are invalid. Low signal-to-noise means high-capacity models mostly fit noise. Non-stationarity means the learned mapping decays. Opacity impedes risk management and post-mortems — when a black box loses money you cannot tell whether the edge decayed or the pipeline broke.
 
 **Cost.** Feature construction $O(NT\cdot F)$; training from minutes (GBM) to hours/days (deep nets); inference trivial. The real cost is *research iteration* time and the compute needed for honest nested cross-validation.
 
-**Robustness.** **[Contested]** Tree ensembles with heavy regularization and few features are reasonably robust; deep sequence models on raw returns are not, in my reading of the public evidence. Kelly, Malamud & Zhou (2024) argue that heavily over-parameterized ridge-regularized models can be robust ("the virtue of complexity"), which cuts against the conventional parsimony view. This is unresolved.
+**Robustness.** **[Contested]** Tree ensembles with heavy regularization and few features are reasonably robust; deep sequence models on raw returns are not, in my reading of the public evidence. [Kelly, Malamud & Zhou (2024)](https://doi.org/10.3386/w30217){target="_blank"} argue that heavily over-parameterized ridge-regularized models can be robust ("the virtue of complexity"), which cuts against the conventional parsimony view. This is unresolved.
 
 **Failure modes — the ones that actually bite:**
 
@@ -1846,7 +1846,7 @@ $$\tilde r_{i,t} = r_{i,t} - b_{i,t}$$
 
 Reading down this table is reading a sequence of increasingly aggressive projections. Each step removes a component of return — and removes both its risk and its expected return. **The choice of benchmark is a choice about which risks you are willing to be paid for.** Cross-sectional momentum is paid for taking industry and factor bets; residual momentum refuses that payment in exchange for a much better crash profile. Neither is right; they are different products.
 
-Note also the identity that ties the first and fourth rows: **cross-sectional momentum is time-series momentum applied to market-relative returns.** They are not different phenomena; they are the same operator with different benchmarks. Goyal & Jegadeesh (2018) make essentially this point formally, showing that the difference between them is largely a time-varying net long position in the market.
+Note also the identity that ties the first and fourth rows: **cross-sectional momentum is time-series momentum applied to market-relative returns.** They are not different phenomena; they are the same operator with different benchmarks. [Goyal & Jegadeesh (2018)](https://doi.org/10.1093/rfs/hhx131){target="_blank"} make essentially this point formally, showing that the difference between them is largely a time-varying net long position in the market.
 
 ## 5.5 Relationships and equivalences
 
@@ -1869,8 +1869,8 @@ Exact and approximate identities worth knowing, because they prevent you from "d
 | ADX $\approx$ a smoothed, range-based directional-consistency ratio | Heuristic; same purpose as ER |
 | XSMOM $\equiv$ TSMOM on market-relative returns | Exact given equal weights |
 | Residual momentum $\equiv$ XSMOM with a multi-factor rather than single-mean benchmark | Structural |
-| Trend-following P&L $\propto \sigma^2_{\text{long}} - \sigma^2_{\text{short}} \propto \mathrm{VR}(q)-1$ | Leading order (Dao et al., 2017) |
-| Trend-following payoff $\approx$ long lookback straddle | Empirical (Fung & Hsieh, 2001) |
+| Trend-following P&L $\propto \sigma^2_{\text{long}} - \sigma^2_{\text{short}} \propto \mathrm{VR}(q)-1$ | Leading order ([Dao et al., 2017](https://arxiv.org/abs/1607.02410){target="_blank"}) |
+| Trend-following payoff $\approx$ long lookback straddle | Empirical ([Fung & Hsieh, 2001](https://doi.org/10.1093/rfs/14.2.313){target="_blank"}) |
 
 The last three deserve emphasis. They say that a trend follower's P&L, the variance ratio, and an option payoff are three descriptions of one thing. If you internalize only one connection from this document, make it that one.
 
@@ -1906,7 +1906,7 @@ This section is about the decisions that determine whether a correct signal beco
 
 ## 6.2 Sampling frequency
 
-There is a precise and underappreciated result here (Merton, 1980):
+There is a precise and underappreciated result here ([Merton, 1980](<https://doi.org/10.1016/0304-405x(80)90007-0>){target="_blank"}):
 
 > **Increasing sampling frequency does not improve the estimate of a drift; it does improve the estimate of a volatility.**
 
@@ -1922,7 +1922,7 @@ Other frequency considerations: match the bar frequency to the horizon (daily ba
 If you form monthly signals from 12-month lookbacks, consecutive observations share 11 months of data. This has three consequences:
 
 1. **Test statistics are inflated.** The effective sample size is roughly $T/h$, not $T$, for $h$-period overlapping observations. A naive $t$-statistic can be overstated by a factor of $\sqrt h$ in the worst case.
-2. **The fix for inference** is HAC standard errors — Newey & West (1987) with lag truncation of at least $h-1$ (Hansen & Hodrick, 1980, for the overlapping-forecast case). Even these are known to be undersized in small samples; the honest approach is to report both HAC-corrected statistics and a block-bootstrap distribution (§7.7.1).
+2. **The fix for inference** is HAC standard errors — [Newey & West (1987)](https://doi.org/10.2307/1913610){target="_blank"} with lag truncation of at least $h-1$ (Hansen & Hodrick, 1980, for the overlapping-forecast case). Even these are known to be undersized in small samples; the honest approach is to report both HAC-corrected statistics and a block-bootstrap distribution (§7.7.1).
 3. **A cleaner alternative for strategy evaluation**: form overlapping portfolios properly. Jegadeesh & Titman's original approach holds $H$ sub-portfolios simultaneously, each formed a month apart and each held $H$ months, so the aggregate is rebalanced monthly with $1/H$ turnover. This uses all the data without pretending the observations are independent, and it produces a return series you can evaluate with standard tools.
 
 **[Practice]** Report the non-overlapping-equivalent sample size prominently. "20 years of monthly data with a 12-month lookback" sounds like 240 observations and behaves closer to 20.
@@ -1932,7 +1932,7 @@ If you form monthly signals from 12-month lookbacks, consecutive observations sh
 Covered statistically in §4.3; the implementation notes:
 
 - **Normalize before combining, always.** Signals on different scales combined by simple averaging are combined by their variances, not by your intent.
-- **Separate signal smoothing from position smoothing.** Smoothing the signal changes what you predict (and adds lag); smoothing the position changes only turnover. If your goal is cost reduction, smooth the *position*: $w_t = \theta w_t^{\text{target}} + (1-\theta)w_{t-1}$. This is not just a heuristic — it approximates the optimal policy under quadratic transaction costs (Gârleanu & Pedersen, 2013), where the optimal trade is a partial step toward an "aim" portfolio.
+- **Separate signal smoothing from position smoothing.** Smoothing the signal changes what you predict (and adds lag); smoothing the position changes only turnover. If your goal is cost reduction, smooth the *position*: $w_t = \theta w_t^{\text{target}} + (1-\theta)w_{t-1}$. This is not just a heuristic — it approximates the optimal policy under quadratic transaction costs ([Gârleanu & Pedersen, 2013](https://research.cbs.dk/en/publications/a781b731-1e3f-4875-b746-db13b3a88b9e){target="_blank"}), where the optimal trade is a partial step toward an "aim" portfolio.
 - **No-trade bands** are the other standard cost control: only rebalance when $|w^{\text{target}} - w^{\text{current}}|$ exceeds a threshold. Under proportional costs the optimal policy genuinely has this form. Bands introduce path dependence into the backtest, so implement them in the simulator, not as a post-hoc filter.
 - **Avoid double smoothing.** An EWMA of a moving average of a smoothed price is a filter whose effective lag you almost certainly have not computed. Compute the transfer function or at least the centre of mass of the composition.
 
@@ -1968,7 +1968,7 @@ $$\underbrace{s_{i,t} = \frac{r_{i,t-L:t}}{\hat\sigma_{i,t}\sqrt L}}_{\text{(1) 
 
 Applying (1) and (2) together divides by $\hat\sigma$ twice. Per the accounting rule in §4.0, that is exactly right when the raw signal is a *return*-scale predictor, because the mean–variance weight is $\mathbb{E}[r]/\sigma^2$ — the two divisions are the two powers of $\sigma$, one contributed by each step. It is one too many if the signal has already been reduced to a direction or a bounded score, as in TSMOM, where $w \propto \operatorname{sign}(\cdot)\,\sigma^\ast/\hat\sigma$ has a single power. Step (3) is different in kind: it divides by an estimate of *portfolio* volatility, not asset volatility, and does not enter the per-asset count at all. **[Practice]** Write down the intended total power of $\hat\sigma$ before you write the code; the failure mode is arriving at a power nobody chose.
 
-For (3), portfolio vol targeting: **[Fact]** Harvey et al. (2018) find that vol targeting improves risk-adjusted returns for risk assets and for trend strategies, largely because volatility is persistent and negatively related to subsequent returns for equities. **[Contested]** The benefit is smaller once realistic costs and the increased turnover are charged, and it is weakest for assets without a strong vol-return relation (bonds, commodities).
+For (3), portfolio vol targeting: **[Fact]** [Harvey et al. (2018)](https://doi.org/10.2139/ssrn.3175538){target="_blank"} find that vol targeting improves risk-adjusted returns for risk assets and for trend strategies, largely because volatility is persistent and negatively related to subsequent returns for equities. **[Contested]** The benefit is smaller once realistic costs and the increased turnover are charged, and it is weakest for assets without a strong vol-return relation (bonds, commodities).
 
 Practical cautions: use a *forecast* of volatility, not a trailing realization (they differ most exactly when it matters); the vol estimate is stale entering a shock, so consider blending a fast and a slow estimator and taking the max for risk purposes; cap leverage independently of the vol target, because a vol-collapse regime will otherwise demand extreme gross exposure; and remember that a vol target is a *feedback loop* — many funds doing it simultaneously creates correlated deleveraging.
 
@@ -1988,7 +1988,7 @@ $$Q^\ast \;\approx\; V\left(\frac{\alpha}{Y\sigma}\right)^{\!2}$$
 
 Run this before building anything. It answers "how much money can this hold" in one line, and the quadratic dependence on $\alpha/\sigma$ means small differences in edge produce large differences in capacity.
 
-**The evidence is genuinely contested.** **[Contested]** Academic estimates using quoted spreads and effective-spread proxies (Lesmond, Schill & Zhou, 2004; Novy-Marx & Velikov, 2016) find momentum's profits substantially or entirely consumed by costs, especially in the short leg and in small caps. Frazzini, Israel & Moskowitz (2018), using ~$1.7 trillion of AQR's own live executions, find real-world costs roughly an order of magnitude lower than those proxies and conclude momentum remains implementable at very large scale. Both sides have a point: quoted-spread proxies genuinely overstate the costs paid by a patient, opportunistic trader; and AQR's estimates come from a firm with best-in-class execution and an interest in the answer. **[Practice]** My reading: costs are much lower than naive proxies suggest *if* you trade patiently and can shape your participation, and much higher than AQR's numbers if you cannot.
+**The evidence is genuinely contested.** **[Contested]** Academic estimates using quoted spreads and effective-spread proxies ([Lesmond, Schill & Zhou, 2004](https://doi.org/10.2139/ssrn.256926){target="_blank"}; [Novy-Marx & Velikov, 2016](https://doi.org/10.3386/w20721){target="_blank"}) find momentum's profits substantially or entirely consumed by costs, especially in the short leg and in small caps. [Frazzini, Israel & Moskowitz (2018)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3229719){target="_blank"}, using ~$1.7 trillion of AQR's own live executions, find real-world costs roughly an order of magnitude lower than those proxies and conclude momentum remains implementable at very large scale. Both sides have a point: quoted-spread proxies genuinely overstate the costs paid by a patient, opportunistic trader; and AQR's estimates come from a firm with best-in-class execution and an interest in the answer. **[Practice]** My reading: costs are much lower than naive proxies suggest *if* you trade patiently and can shape your participation, and much higher than AQR's numbers if you cannot.
 
 **Turnover control.** The main levers, in order of effectiveness: (i) longer holding periods, guided by the IC term structure — hold until marginal IC no longer covers marginal cost; (ii) position smoothing / partial adjustment toward the aim portfolio; (iii) no-trade bands; (iv) cost-aware portfolio optimization with an explicit transaction-cost penalty; (v) trading the *change* in signal rather than rebalancing to target; (vi) crossing internally against other strategies.
 
@@ -1999,7 +1999,7 @@ Run this before building anything. It answers "how much money can this hold" in 
 **Regime conditioning** — established as first-order in §1.4. The main practical approaches, in increasing order of complexity and decreasing order of my confidence in them:
 
 1. **Volatility scaling** (§6.7). This is regime conditioning, implicitly and robustly: it reduces exposure in exactly the high-volatility states where momentum crashes occur. **[Fact]** It captures most of the available benefit, which is why Barroso & Santa-Clara's result is so valuable.
-2. **Market-state conditioning.** Reduce momentum exposure after market declines (Cooper, Gutierrez & Hameed, 2004; Daniel & Moskowitz, 2016). Simple, well documented, few parameters.
+2. **Market-state conditioning.** Reduce momentum exposure after market declines ([Cooper, Gutierrez & Hameed, 2004](https://doi.org/10.2139/ssrn.299927){target="_blank"}; [Daniel & Moskowitz, 2016](https://doi.org/10.3386/w20439){target="_blank"}). Simple, well documented, few parameters.
 3. **Trend-quality conditioning.** Scale by efficiency ratio, ADX, or an estimated variance ratio.
 4. **Explicit regime models** (§4.7.2). Powerful and dangerous; the look-ahead risk is severe.
 
@@ -2034,7 +2034,7 @@ This is where backtests die. Look-ahead bias is not one bug; it is a family, and
 >
 > 1. Impact ordering: **look-ahead bias > costs and capacity > normalization and vol scaling > horizon > indicator choice.** Spend time in that order.
 > 2. **Don't optimize a lookback — ensemble geometrically spaced ones**, and demand a plateau in the parameter surface, not a peak.
-> 3. **Sampling frequency helps volatility estimation, not drift estimation** (Merton, 1980). Momentum research is calendar-span-constrained; use high-frequency data for the denominator only.
+> 3. **Sampling frequency helps volatility estimation, not drift estimation** ([Merton, 1980](<https://doi.org/10.1016/0304-405x(80)90007-0>){target="_blank"}). Momentum research is calendar-span-constrained; use high-frequency data for the denominator only.
 > 4. Overlapping windows inflate $t$-statistics by up to $\sqrt h$. Use HAC errors and report the effective sample size.
 > 5. **Futures roll adjustment and corporate-action adjustment are the two silent killers** of price-based research. Ratio-adjust futures; use point-in-time adjustment factors for equities.
 > 6. Vol scaling appears in three places — signal, position, portfolio. Applying it more than once is fine but must be deliberate.
@@ -2164,11 +2164,11 @@ $$\mathrm{IC\text{-}IR} = \frac{\overline{\mathrm{IC}}}{\operatorname{sd}(\mathr
 
 This is more informative than the mean IC alone, because a signal with mean IC of 0.03 and IC standard deviation of 0.05 is far better than one with mean 0.05 and standard deviation 0.20.
 
-**The Fundamental Law** (Grinold, 1989) connects IC to the achievable information ratio:
+**The Fundamental Law** ([Grinold, 1989](https://doi.org/10.3905/jpm.1989.409211){target="_blank"}) connects IC to the achievable information ratio:
 
 $$\mathrm{IR} \;\approx\; \mathrm{IC}\cdot\sqrt{\mathrm{breadth}}$$
 
-and Clarke, de Silva & Thorley (2002) add the **transfer coefficient** $\mathrm{TC}$ — the correlation between your ideal and actual (constrained, cost-limited) portfolios:
+and [Clarke, de Silva & Thorley (2002)](https://doi.org/10.2469/faj.v58.n5.2468){target="_blank"} add the **transfer coefficient** $\mathrm{TC}$ — the correlation between your ideal and actual (constrained, cost-limited) portfolios:
 
 $$\mathrm{IR} \;\approx\; \mathrm{TC}\cdot\mathrm{IC}\cdot\sqrt{\mathrm{breadth}}$$
 
@@ -2186,13 +2186,13 @@ $$\mathrm{IC}^{\text{rank}}_t = \operatorname{Corr}\!\left(\operatorname{rank}(s
 
 For a univariate predictor, $R^2 \approx \mathrm{IC}^2$. An IC of 0.05 gives $R^2 = 0.25\%$.
 
-**Do not be discouraged by this, and do not let anyone use it against you.** Campbell & Thompson (2008) make the point precisely: a monthly out-of-sample $R^2$ of 0.5% is economically large for a mean-variance investor. The reason is that returns are almost all noise, so explaining a small fraction of a large variance is worth a great deal when you can lever and diversify.
+**Do not be discouraged by this, and do not let anyone use it against you.** [Campbell & Thompson (2008)](http://nrs.harvard.edu/urn-3:HUL.InstRepos:2622619){target="_blank"} make the point precisely: a monthly out-of-sample $R^2$ of 0.5% is economically large for a mean-variance investor. The reason is that returns are almost all noise, so explaining a small fraction of a large variance is worth a great deal when you can lever and diversify.
 
 Use the **out-of-sample** $R^2$ against a benchmark forecast (usually the historical mean):
 
 $$R^2_{\mathrm{OOS}} = 1 - \frac{\sum_t (r_t - \hat r_t)^2}{\sum_t (r_t - \bar r_{t-1})^2}$$
 
-which can be negative — and frequently is, for published predictors, which is exactly what Goyal & Welch (2008) found for most equity-premium predictors. Negative $R^2_{\mathrm{OOS}}$ is a strong disqualifier.
+which can be negative — and frequently is, for published predictors, which is exactly what [Goyal & Welch (2008)](https://doi.org/10.1093/rfs/hhm014){target="_blank"} found for most equity-premium predictors. Negative $R^2_{\mathrm{OOS}}$ is a strong disqualifier.
 
 ### 7.3.4 Hit rate, confusion matrices, precision and recall
 
@@ -2229,13 +2229,13 @@ Plot $\mathrm{IC}(h)$ against forecast horizon $h$. This single chart answers:
 
 $$\mathrm{SR} = \frac{\mathbb{E}[R_p] - R_f}{\operatorname{sd}(R_p)}, \qquad \mathrm{SR}_{\text{ann}} = \mathrm{SR}_{\text{period}}\cdot\sqrt{A}$$
 
-**The $\sqrt A$ annualization assumes iid returns and is wrong when they are autocorrelated.** Lo (2002) gives the correction: for returns with autocorrelations $\rho_k$, the $q$-period Sharpe is
+**The $\sqrt A$ annualization assumes iid returns and is wrong when they are autocorrelated.** [Lo (2002)](https://doi.org/10.2469/faj.v58.n4.2453){target="_blank"} gives the correction: for returns with autocorrelations $\rho_k$, the $q$-period Sharpe is
 
 $$\mathrm{SR}(q) = \frac{q}{\sqrt{q + 2\sum_{k=1}^{q-1}(q-k)\rho_k}}\cdot\mathrm{SR}$$
 
 Positive autocorrelation in *strategy* returns (common in illiquid or smoothed-price strategies) means naive annualization **overstates** the Sharpe — sometimes by 50% or more. Check your strategy's own return autocorrelation before annualizing.
 
-**Standard error.** For iid returns (Lo, 2002):
+**Standard error.** For iid returns ([Lo, 2002](https://doi.org/10.2469/faj.v58.n4.2453){target="_blank"}):
 
 $$\operatorname{SE}(\widehat{\mathrm{SR}}) \approx \sqrt{\frac{1 + \mathrm{SR}^2/2}{T}}$$
 
@@ -2290,7 +2290,7 @@ For a momentum strategy, **including UMD is the essential test**: if your novel 
 
 1. **Autocorrelation and overlapping data** inflate naive $t$-stats. Use Newey–West with lag $\ge h-1$.
 2. **Fat tails** mean the normal approximation is poor in small samples. Bootstrap.
-3. **The threshold should not be 2.** Harvey, Liu & Zhu (2016) argue for $t > 3.0$ for a *newly proposed* factor, given the intensity of collective search. For a strategy you found after trying 50 configurations, even 3.0 is generous.
+3. **The threshold should not be 2.** [Harvey, Liu & Zhu (2016)](https://doi.org/10.3386/w20592){target="_blank"} argue for $t > 3.0$ for a *newly proposed* factor, given the intensity of collective search. For a strategy you found after trying 50 configurations, even 3.0 is generous.
 4. **Cross-sectional dependence.** $N$ stocks on the same day are one observation's worth of macro information, not $N$. Cluster standard errors by date, or use Fama–MacBeth with appropriate corrections.
 
 ## 7.6 Multiple testing and data snooping
@@ -2309,7 +2309,7 @@ Tests the null that the best of $M$ candidate strategies has no superior predict
 
 **Key property.** It resamples all models *jointly*, so it correctly handles the correlation among them — which matters enormously, since 1,000 momentum rules are not 1,000 independent tests.
 
-**Limitation.** It can be conservative when many poor models are included (the "worst-case" null is unrealistically pessimistic). **Hansen's (2005) SPA test** fixes this by studentizing and down-weighting clearly inferior models; **prefer SPA in practice.** For identifying *which* models are significant rather than just whether any is, use **Romano & Wolf (2005)** stepwise multiple testing.
+**Limitation.** It can be conservative when many poor models are included (the "worst-case" null is unrealistically pessimistic). **[Hansen's (2005)](https://doi.org/10.2139/ssrn.264569){target="_blank"} SPA test** fixes this by studentizing and down-weighting clearly inferior models; **prefer SPA in practice.** For identifying *which* models are significant rather than just whether any is, use **[Romano & Wolf (2005)](https://doi.org/10.2139/ssrn.563209){target="_blank"}** stepwise multiple testing.
 
 ### 7.6.2 Deflated Sharpe Ratio (Bailey & López de Prado, 2014)
 
@@ -2333,7 +2333,7 @@ where $\hat\gamma_3$ is the skewness and $\hat\gamma_4$ the kurtosis of the stra
 
 ### 7.6.3 False discovery rate
 
-When testing many signals and wanting to control the *proportion* of false positives among discoveries rather than the probability of any false positive, use Benjamini–Hochberg (1995): sort $p$-values ascending, find the largest $k$ with $p_{(k)} \le \frac{k}{M}q$, reject all up to $k$. This is far less conservative than Bonferroni and generally the right choice when screening a signal library.
+When testing many signals and wanting to control the *proportion* of false positives among discoveries rather than the probability of any false positive, use [Benjamini–Hochberg (1995)](https://doi.org/10.1111/j.2517-6161.1995.tb02031.x){target="_blank"}: sort $p$-values ascending, find the largest $k$ with $p_{(k)} \le \frac{k}{M}q$, reject all up to $k$. This is far less conservative than Bonferroni and generally the right choice when screening a signal library.
 
 **[Practice]** The honest, simple version of all this: **write down every configuration you test in a log, including the ones you abandoned after five minutes.** The number in that log is your $M$. Most researchers underestimate it by an order of magnitude.
 
@@ -2344,7 +2344,7 @@ When testing many signals and wanting to control the *proportion* of false posit
 Plain iid bootstrap is **invalid** on financial time series — it destroys serial dependence, including volatility clustering and the autocorrelation that momentum depends on. Use:
 
 - **Block bootstrap** — resample contiguous blocks of length $b$. Preserves dependence within blocks; the choice of $b$ matters and should exceed your signal's memory.
-- **Stationary bootstrap** (Politis & Romano, 1994) — geometric random block lengths with mean $1/p$. Produces a stationary resampled series and is less sensitive to the block-length choice. **[Practice]** The default, and what White's Reality Check assumes.
+- **Stationary bootstrap** ([Politis & Romano, 1994](https://doi.org/10.1080/01621459.1994.10476870){target="_blank"}) — geometric random block lengths with mean $1/p$. Produces a stationary resampled series and is less sensitive to the block-length choice. **[Practice]** The default, and what White's Reality Check assumes.
 - **Circular block bootstrap** — wraps around, giving all observations equal resampling probability.
 
 **Uses.** Confidence intervals for Sharpe, IC, and drawdown; the null distribution for Reality Check / SPA; and — most valuably — the *distribution of maximum drawdown*, which is the only honest way to interpret that statistic.
@@ -2420,7 +2420,7 @@ This reframing has consequences that cascade through every design decision. If m
 
 **[Fact] 5. Skipping the most recent period** in cross-sectional equity momentum, to avoid short-horizon reversal.
 
-**[Fact] 6. Combining momentum with value.** Their negative correlation (Asness, Moskowitz & Pedersen, 2013) makes the combination materially better than either alone. The value/momentum pair is the foundation of modern multi-factor investing.
+**[Fact] 6. Combining momentum with value.** Their negative correlation ([Asness, Moskowitz & Pedersen, 2013](https://doi.org/10.2139/ssrn.2174501){target="_blank"}) makes the combination materially better than either alone. The value/momentum pair is the foundation of modern multi-factor investing.
 
 **[Fact] 7. Costs and turnover as first-class design constraints**, not post-hoc adjustments. Cost-aware portfolio optimization, no-trade bands, and partial adjustment toward an aim portfolio.
 
@@ -2428,7 +2428,7 @@ This reframing has consequences that cascade through every design decision. If m
 
 ## 8.3 What has been superseded or demoted
 
-**Single-indicator systems.** The evidence that indicator *form* matters much at a fixed horizon is weak (Levine & Pedersen, 2016). Systems described in terms of a specific indicator ("a MACD strategy") are a retail framing.
+**Single-indicator systems.** The evidence that indicator *form* matters much at a fixed horizon is weak ([Levine & Pedersen, 2016](https://doi.org/10.2139/ssrn.2603731){target="_blank"}). Systems described in terms of a specific indicator ("a MACD strategy") are a retail framing.
 
 **Fixed oscillator thresholds.** RSI 30/70, ADX 25, and their relatives have no derivation and are heavily data-snooped. Where oscillators are used professionally, they are used as continuous conditioners or ML features.
 
@@ -2436,7 +2436,7 @@ This reframing has consequences that cascade through every design decision. If m
 
 **Single-market trend following.** Dominated by diversified implementations, for the reason in §8.2.
 
-**"Momentum is purely behavioral."** The conditional-risk literature (Daniel & Moskowitz, 2016; Kelly, Moskowitz & Pruitt, 2021) is serious enough that treating all momentum returns as free alpha is naïve. Some fraction is compensation for a conditional beta that appears exactly when you least want it.
+**"Momentum is purely behavioral."** The conditional-risk literature ([Daniel & Moskowitz, 2016](https://doi.org/10.3386/w20439){target="_blank"}; [Kelly, Moskowitz & Pruitt, 2021](https://doi.org/10.1016/j.jfineco.2020.06.024){target="_blank"}) is serious enough that treating all momentum returns as free alpha is naïve. Some fraction is compensation for a conditional beta that appears exactly when you least want it.
 
 **Grid-search parameter optimization.** Replaced by ensembling, regularization, and — where optimization is used at all — walk-forward selection with explicit multiple-testing accounting.
 
@@ -2488,19 +2488,19 @@ Three observations about this picture:
 
 ## 8.6 Where active research is focused
 
-1. **Is stock momentum derivative?** The factor-momentum literature (Gupta & Kelly, 2019; Ehsani & Linnainmaa, 2022; Arnott et al., 2023) argues that momentum in individual stocks may be a *consequence* of autocorrelation in factor returns. If true, it changes both the mechanism story and the optimal implementation. **[Contested]**, actively worked.
+1. **Is stock momentum derivative?** The factor-momentum literature (Gupta & Kelly, 2019; [Ehsani & Linnainmaa, 2022](https://doi.org/10.1111/jofi.13131){target="_blank"}; [Arnott et al., 2023](https://doi.org/10.1093/rfs/hhad006){target="_blank"}) argues that momentum in individual stocks may be a *consequence* of autocorrelation in factor returns. If true, it changes both the mechanism story and the optimal implementation. **[Contested]**, actively worked.
 
-2. **How much is conditional risk?** Kelly, Moskowitz & Pruitt (2021) and the IPCA program. If a large fraction of momentum returns is compensation for time-varying beta, the "alpha" framing is wrong and the hedging implications are direct.
+2. **How much is conditional risk?** [Kelly, Moskowitz & Pruitt (2021)](https://doi.org/10.1016/j.jfineco.2020.06.024){target="_blank"} and the IPCA program. If a large fraction of momentum returns is compensation for time-varying beta, the "alpha" framing is wrong and the hedging implications are direct.
 
 3. **Crash prediction and dynamic hedging.** Beyond volatility scaling: predicting the conditional beta, hedging the option-like exposure explicitly, and using options rather than dynamic replication.
 
-4. **Machine learning — where and how much.** The "virtue of complexity" claim (Kelly, Malamud & Zhou, 2024) cuts against decades of parsimony orthodoxy. Whether heavily over-parameterized models genuinely help in low-signal financial settings is one of the most consequential open questions in the field.
+4. **Machine learning — where and how much.** The "virtue of complexity" claim ([Kelly, Malamud & Zhou, 2024](https://doi.org/10.3386/w30217){target="_blank"}) cuts against decades of parsimony orthodoxy. Whether heavily over-parameterized models genuinely help in low-signal financial settings is one of the most consequential open questions in the field.
 
 5. **Crowding measurement.** Positioning data, factor-return correlation, dealer gamma, and short-interest metrics as inputs to a *capacity- and crowding-aware* momentum. Momentum is unusual in that its own popularity plausibly changes its behavior — the feedback loop is real (Vayanos & Woolley, 2013, formalizes one version).
 
 6. **Alternative data and momentum in information space.** News sentiment, revision momentum, flow and positioning data, options-implied signals. The question is whether these are new momentum sources or faster versions of the same one.
 
-7. **Intraday and microstructure momentum.** Order-flow-based prediction with deep learning (Sirignano & Cont, 2019; Zhang, Zohren & Roberts, 2019). High-capacity constraints, but genuine and growing.
+7. **Intraday and microstructure momentum.** Order-flow-based prediction with deep learning ([Sirignano & Cont, 2019](https://doi.org/10.2139/ssrn.3141294){target="_blank"}; [Zhang, Zohren & Roberts, 2019](https://arxiv.org/pdf/1808.03668){target="_blank"}). High-capacity constraints, but genuine and growing.
 
 8. **Cross-asset and macro momentum.** Trend in macro variables (inflation, growth, policy) as a conditioner for asset momentum; interaction with carry.
 
@@ -2537,12 +2537,12 @@ The impulse response is unobservable, but its integral is not. The variance-rati
 
 $$\mathrm{VR}(q) = \frac{\operatorname{Var}(p_t - p_{t-q})}{q\operatorname{Var}(p_t-p_{t-1})} = 1 + 2\sum_{k<q}\left(1-\tfrac{k}{q}\right)\rho_k \;\xrightarrow[q\to\infty]{}\; \frac{2\pi f_r(0)}{\sigma_r^2}$$
 
-tells you, for each horizon $q$, whether prices diffuse faster (trend) or slower (reversion) than a random walk. And the P&L of a trend follower is, to leading order, proportional to $\mathrm{VR}(q)-1$ at the strategy's horizon (Dao et al., 2017). **The thing you measure, the thing you trade, and the thing that pays you are the same object.**
+tells you, for each horizon $q$, whether prices diffuse faster (trend) or slower (reversion) than a random walk. And the P&L of a trend follower is, to leading order, proportional to $\mathrm{VR}(q)-1$ at the strategy's horizon ([Dao et al., 2017](https://arxiv.org/abs/1607.02410){target="_blank"}). **The thing you measure, the thing you trade, and the thing that pays you are the same object.**
 
 Three views of one quantity:
 - **Time domain:** positive autocorrelation of returns at lag $\le q$.
 - **Frequency domain:** excess spectral power at low frequencies.
-- **P&L domain:** long-horizon variance exceeding short-horizon variance — equivalently, a long straddle position (Fung & Hsieh, 2001).
+- **P&L domain:** long-horizon variance exceeding short-horizon variance — equivalently, a long straddle position ([Fung & Hsieh, 2001](https://doi.org/10.1093/rfs/14.2.313){target="_blank"}).
 
 ### (III) The estimation problem: one master form
 
@@ -2762,7 +2762,7 @@ The random walk is not just one model among many. It is the **null hypothesis ag
 
 Historically, the model is older than everything in §2: Louis **Bachelier** (1900) modelled Paris bond prices as what we now call Brownian motion, five years before Einstein used the same mathematics for suspended particles, and sixty years before the finance profession rediscovered it.
 
-**The random walk, in three strengths.** *Idea:* "random walk" names three different claims of increasing severity, and conflating them is the single most common confusion in this literature. Financial returns satisfy the weakest, arguably satisfy the middle one, and definitively violate the strongest — because volatility is predictable even when direction is not. A test that rejects the strongest version may be detecting nothing but volatility clustering. *Formally:* writing $p_t = \mu + p_{t-1} + \varepsilon_t$, the standard taxonomy (Campbell, Lo & MacKinlay, 1997) is:
+**The random walk, in three strengths.** *Idea:* "random walk" names three different claims of increasing severity, and conflating them is the single most common confusion in this literature. Financial returns satisfy the weakest, arguably satisfy the middle one, and definitively violate the strongest — because volatility is predictable even when direction is not. A test that rejects the strongest version may be detecting nothing but volatility clustering. *Formally:* writing $p_t = \mu + p_{t-1} + \varepsilon_t$, the standard taxonomy ([Campbell, Lo & MacKinlay, 1997](https://doi.org/10.1515/9781400830213){target="_blank"}) is:
 
 | | Assumption on $\{\varepsilon_t\}$ | Rules out | Consistent with markets? |
 |---|---|---|---|
@@ -2772,7 +2772,7 @@ Historically, the model is older than everything in §2: Louis **Bachelier** (19
 
 Momentum is a claim that even RW3 fails. This is why §4.5.1 insists on the **heteroskedasticity-robust** variance-ratio statistic: the naive version tests RW1, so it rejects on volatility clustering alone and tells you nothing about predictability. It also maps onto the hierarchy in A.1 — RW3 is white-noise increments, RW2 is close to an MDS, RW1 is full independence. *Used in:* §1.4, §4.5.1.
 
-**Why the random walk is the right null: Samuelson's argument.** *Idea:* unpredictability is not an assumption about investor psychology; it is a *consequence* of forecasting being done well. If everyone's best estimate of tomorrow's price is already today's price, then whatever moves the price tomorrow must be something nobody could forecast — otherwise it would already be in today's price. Randomness is what competent anticipation looks like from the outside. *Formally:* if $p_t = \mathbb{E}[p_{t+1}\mid\mathcal{F}_t]$, then $\varepsilon_{t+1} = p_{t+1}-p_t$ satisfies $\mathbb{E}[\varepsilon_{t+1}\mid\mathcal{F}_t]=0$ — a martingale difference sequence by construction. Samuelson (1965). The general no-arbitrage version is the **First Fundamental Theorem of Asset Pricing**: absence of arbitrage is equivalent to the existence of a measure $\mathbb{Q}$ under which discounted prices are martingales.
+**Why the random walk is the right null: Samuelson's argument.** *Idea:* unpredictability is not an assumption about investor psychology; it is a *consequence* of forecasting being done well. If everyone's best estimate of tomorrow's price is already today's price, then whatever moves the price tomorrow must be something nobody could forecast — otherwise it would already be in today's price. Randomness is what competent anticipation looks like from the outside. *Formally:* if $p_t = \mathbb{E}[p_{t+1}\mid\mathcal{F}_t]$, then $\varepsilon_{t+1} = p_{t+1}-p_t$ satisfies $\mathbb{E}[\varepsilon_{t+1}\mid\mathcal{F}_t]=0$ — a martingale difference sequence by construction. [Samuelson (1965)](https://doi.org/10.1142/9789814566926_0002){target="_blank"}. The general no-arbitrage version is the **First Fundamental Theorem of Asset Pricing**: absence of arbitrage is equivalent to the existence of a measure $\mathbb{Q}$ under which discounted prices are martingales.
 
 **But a random walk is neither necessary nor sufficient for efficiency.** *Idea:* the point on which half the popular discussion goes wrong. Efficiency requires prices to be a martingale *after* adjusting for the equilibrium expected return; if that expected return varies over time — as risk premia demonstrably do — then prices are predictable and the market may still be perfectly efficient. Conversely, a price could pass every random-walk test and still be wildly mispriced relative to fundamentals. *Formally:* efficiency asserts $\mathbb{E}[r_{t+1}\mid\mathcal{F}_t] = \mu_t$ where $\mu_t$ is the model-implied required return; a random walk asserts $\mu_t = \mu$ constant. The gap between these two statements *is* the joint hypothesis problem (§1.3), and it is why rejecting the random walk does not by itself demonstrate inefficiency. *Used in:* §1.3, §2.2.
 
@@ -2790,7 +2790,7 @@ with $\mathrm{SR}$ the annualized Sharpe ratio and $T$ in **years**. Three direc
 
 - **Annualization.** Mean returns scale by $A$, volatilities by $\sqrt A$, and Sharpe ratios by $\sqrt A$ (§7.4.1).
 - **Detection time.** To reach $t = 2$ requires $T = (2/\mathrm{SR})^2$ years: **4 years at Sharpe 1.0, 16 years at Sharpe 0.5, 64 years at Sharpe 0.25.** Since §8.5 puts a realistic momentum program at Sharpe 0.4–0.8, *a full career is barely enough to establish that it works* — and by the Harvey–Liu–Zhu threshold of $t>3$, it is not enough. This is the honest reason the field leans so hard on breadth, on centuries of data, and on the Fundamental Law.
-- **Frequency does not help.** Both $\mu T$ and $\sigma\sqrt T$ depend on the calendar span, not on how finely you slice it. Sampling ten times more often within the same span leaves $\operatorname{SE}(\hat\mu) = \sigma/\sqrt T$ untouched while cutting $\operatorname{SE}(\hat\sigma)\approx\sigma/\sqrt{2n}$ by a factor of three. This is **Merton's (1980) result**: high-frequency data is a gift for the denominator of your signal and useless for the numerator. *Used in:* §6.2, §7.4.1.
+- **Frequency does not help.** Both $\mu T$ and $\sigma\sqrt T$ depend on the calendar span, not on how finely you slice it. Sampling ten times more often within the same span leaves $\operatorname{SE}(\hat\mu) = \sigma/\sqrt T$ untouched while cutting $\operatorname{SE}(\hat\sigma)\approx\sigma/\sqrt{2n}$ by a factor of three. This is **[Merton's (1980)](<https://doi.org/10.1016/0304-405x(80)90007-0>){target="_blank"} result**: high-frequency data is a gift for the denominator of your signal and useless for the numerator. *Used in:* §6.2, §7.4.1.
 
 **Continuous-time limit: Brownian motion.** *Idea:* zoom out from a random walk with tiny steps and you get a continuous process whose shape does not depend on what the individual steps looked like. This universality is why the Gaussian appears everywhere in finance despite nobody believing returns are Gaussian — it is a statement about *sums*, not about individual returns. It also tells you exactly when to distrust it: the convergence needs finite variance and weak dependence, and fat-tailed, dependent financial returns approach the limit slowly, especially in the tails you care about. *Formally:* **Donsker's theorem** (the functional CLT) says that for iid $\varepsilon_i$ with mean 0 and variance $\sigma^2$,
 
@@ -2826,14 +2826,14 @@ $$\Pr[\text{hit } +a \text{ before } -b] = \frac{b}{a+b}, \qquad \mathbb{E}[\tex
 
 Note the expected P&L is $\frac{b}{a+b}\cdot a - \frac{a}{a+b}\cdot b = 0$ regardless of how you set the barriers — the win rate and the win size trade off exactly, as they must. *Used in:* §7.3.4, §4.9.
 
-**Spurious regression between random walks.** *Idea:* regress one random walk on another, completely independent one, and you will usually get a "significant" coefficient and a high $R^2$ — and the problem gets *worse*, not better, with more data. The cause is that the regression residuals are themselves a random walk, so the standard errors are computed under an assumption that is catastrophically wrong. Any regression run on price *levels* — pairs relationships, "leading indicators", macro variables against prices — is guilty until proven innocent. *Formally:* Granger & Newbold (1974) found $|t|>2$ in roughly three-quarters of regressions between independent random walks at $T=100$; Phillips (1986) showed the $t$-statistic diverges at rate $\sqrt T$ while $R^2$ converges to a non-degenerate random variable rather than to zero. The fixes are to regress differences rather than levels, or to establish cointegration first. This is also the deep reason §4.2.1's regression-of-price-on-time needs care: fitting a trend line to an I(1) series will report an impressively significant slope on data with no trend at all.
+**Spurious regression between random walks.** *Idea:* regress one random walk on another, completely independent one, and you will usually get a "significant" coefficient and a high $R^2$ — and the problem gets *worse*, not better, with more data. The cause is that the regression residuals are themselves a random walk, so the standard errors are computed under an assumption that is catastrophically wrong. Any regression run on price *levels* — pairs relationships, "leading indicators", macro variables against prices — is guilty until proven innocent. *Formally:* [Granger & Newbold (1974)](<https://doi.org/10.1016/0304-4076(74)90034-7>){target="_blank"} found $|t|>2$ in roughly three-quarters of regressions between independent random walks at $T=100$; [Phillips (1986)](<https://doi.org/10.1016/0304-4076(86)90001-1>){target="_blank"} showed the $t$-statistic diverges at rate $\sqrt T$ while $R^2$ converges to a non-degenerate random variable rather than to zero. The fixes are to regress differences rather than levels, or to establish cointegration first. This is also the deep reason §4.2.1's regression-of-price-on-time needs care: fitting a trend line to an I(1) series will report an impressively significant slope on data with no trend at all.
 
 **Unit roots and why you cannot settle this with a test.** *Idea:* "is this a random walk or a slowly mean-reverting series?" is not answerable in finite samples. A process reverting with coefficient 0.99 per day is economically enormous — it implies a half-life of about 69 days, i.e. shocks fully wash out within a year — yet is statistically almost indistinguishable from 1.00 over decades. Low power here is not a defect of any particular test; it is intrinsic. *Formally:* the model $p_t = \phi p_{t-1}+\varepsilon_t$ has a **unit root** at $\phi=1$ (non-stationary, shocks permanent) and is stationary for $|\phi|<1$ (shocks decay with half-life $\ln 2/\ln(1/\phi)$). Augmented Dickey–Fuller tests $H_0:\phi=1$, and has notoriously low power against local alternatives $\phi = 1 - c/T$. The practical implication for this document: do not expect a hypothesis test to tell you whether momentum exists. Estimate the variance-ratio profile and the IC term structure, and look at *magnitudes with confidence bands*.
 
 **What actually breaks the random walk in real markets — and why most of it is not tradable.** *Idea:* the first autocorrelation a naive study finds is almost never momentum. It is microstructure. Two mechanisms dominate, they have opposite signs, and neither is exploitable after costs — so the working assumption should be that any autocorrelation found at short horizons is an artefact until shown otherwise. *Formally:*
 
-- **Bid-ask bounce** induces *negative* first-order autocorrelation in transaction-price returns. Under Roll's (1984) model, with effective spread $s$ and no information flow, $\operatorname{Cov}(\Delta p_t,\Delta p_{t-1}) = -s^2/4$, so the spread can be backed out as $s = 2\sqrt{-\operatorname{Cov}}$. Prices oscillate between bid and ask with no change in value whatsoever. This is the microstructure half of why the classic momentum signal skips the most recent month (§1.5).
-- **Stale and non-synchronous prices** induce *positive* autocorrelation, and spurious *cross*-autocorrelation that looks exactly like a lead-lag effect. If a large stock trades at 16:00:00 and a small one last traded at 15:47, the index return attributes part of today's news to the small stock tomorrow. Lo & MacKinlay (1990b) show this manufactures both index-level autocorrelation and large-cap-leads-small-cap patterns from nothing — which is directly relevant to term (B) of the profit decomposition in §4.6.2, and is why illiquid or smoothed assets show inflated Sharpe ratios (§4.3.2). *Used in:* §1.5, §4.3.2, §4.6.2, §6.5.
+- **Bid-ask bounce** induces *negative* first-order autocorrelation in transaction-price returns. Under [Roll's (1984)](https://doi.org/10.2307/2327617){target="_blank"} model, with effective spread $s$ and no information flow, $\operatorname{Cov}(\Delta p_t,\Delta p_{t-1}) = -s^2/4$, so the spread can be backed out as $s = 2\sqrt{-\operatorname{Cov}}$. Prices oscillate between bid and ask with no change in value whatsoever. This is the microstructure half of why the classic momentum signal skips the most recent month (§1.5).
+- **Stale and non-synchronous prices** induce *positive* autocorrelation, and spurious *cross*-autocorrelation that looks exactly like a lead-lag effect. If a large stock trades at 16:00:00 and a small one last traded at 15:47, the index return attributes part of today's news to the small stock tomorrow. [Lo & MacKinlay (1990b)](https://www.nber.org/papers/w2960){target="_blank"} show this manufactures both index-level autocorrelation and large-cap-leads-small-cap patterns from nothing — which is directly relevant to term (B) of the profit decomposition in §4.6.2, and is why illiquid or smoothed assets show inflated Sharpe ratios (§4.3.2). *Used in:* §1.5, §4.3.2, §4.6.2, §6.5.
 
 ---
 
@@ -2847,9 +2847,9 @@ Note the expected P&L is $\frac{b}{a+b}\cdot a - \frac{a}{a+b}\cdot b = 0$ regar
 
 $$\hat S = \hat\Gamma_0 + \sum_{k=1}^{K}\left(1 - \frac{k}{K+1}\right)\left(\hat\Gamma_k + \hat\Gamma_k'\right), \qquad \hat\Gamma_k = \frac1T\sum_t g_t g_{t-k}'$$
 
-and $\operatorname{Var}(\hat\beta) = (X'X)^{-1}\hat S(X'X)^{-1}$. The Bartlett weights $(1-k/(K+1))$ guarantee a positive semi-definite result — the point of Newey & West (1987). Choose $K \ge h-1$ for $h$-period overlapping data. *Used in:* §6.3, §7.5.
+and $\operatorname{Var}(\hat\beta) = (X'X)^{-1}\hat S(X'X)^{-1}$. The Bartlett weights $(1-k/(K+1))$ guarantee a positive semi-definite result — the point of [Newey & West (1987)](https://doi.org/10.2307/1913610){target="_blank"}. Choose $K \ge h-1$ for $h$-period overlapping data. *Used in:* §6.3, §7.5.
 
-**Overlapping observations and effective sample size.** *Idea:* if you compute a 12-month return every month, consecutive observations share 11 months of the same data. You have far fewer independent observations than rows in your dataframe, and every naive significance test is correspondingly overconfident. *Formally:* with $h$-period overlap the effective sample size is roughly $T/h$, and a naive $t$-statistic is inflated by up to $\sqrt{h}$. Hansen & Hodrick (1980) give the correction for overlapping forecast horizons. *Used in:* §6.3.
+**Overlapping observations and effective sample size.** *Idea:* if you compute a 12-month return every month, consecutive observations share 11 months of the same data. You have far fewer independent observations than rows in your dataframe, and every naive significance test is correspondingly overconfident. *Formally:* with $h$-period overlap the effective sample size is roughly $T/h$, and a naive $t$-statistic is inflated by up to $\sqrt{h}$. [Hansen & Hodrick (1980)](https://doi.org/10.1086/260910){target="_blank"} give the correction for overlapping forecast horizons. *Used in:* §6.3.
 
 **Statistical power.** *Idea:* the probability that a test finds an effect that is genuinely there. Momentum research is a low-power environment — real effects are small relative to noise — which produces two symmetric errors: believing a null result means "no effect", and believing a significant result means "real effect" when the search was wide. *Formally:* power $= 1 - \Pr[\text{Type II error}]$, increasing in effect size, sample size, and the significance threshold. The 1950s random-walk tests (§2.2) were low-powered against exactly the alternatives that later proved real.
 
@@ -2857,14 +2857,14 @@ and $\operatorname{Var}(\hat\beta) = (X'X)^{-1}\hat S(X'X)^{-1}$. The Bartlett w
 
 - **iid bootstrap:** draw $T$ observations with replacement. Invalid for time series.
 - **Block bootstrap:** draw contiguous blocks of length $b$; choose $b$ larger than the memory of your signal.
-- **Stationary bootstrap** (Politis & Romano, 1994): block lengths are geometric with mean $1/p$, which makes the resampled series stationary and removes the sharp sensitivity to $b$.
+- **Stationary bootstrap** ([Politis & Romano, 1994](https://doi.org/10.1080/01621459.1994.10476870){target="_blank"}): block lengths are geometric with mean $1/p$, which makes the resampled series stationary and removes the sharp sensitivity to $b$.
 - **Circular block bootstrap:** wrap the series end-to-start so every observation is sampled equally often.
 
 *Used in:* §7.7.1.
 
 **Permutation (randomization) test.** *Idea:* destroy exactly the relationship you claim to have found, leaving everything else intact, and see how often chance reproduces your result. It is the most assumption-free test available and it is under-used. *Formally:* under the null of no signal-return relation, the labels are exchangeable; compute your statistic on many random relabelings to obtain its null distribution, and read the $p$-value as the fraction of permuted statistics exceeding the observed one. *Used in:* §7.7.2.
 
-**Family-wise error rate vs. false discovery rate.** *Idea:* two different things you might want to control when running many tests. FWER controls the chance of *even one* false positive — appropriate when a single false discovery is costly. FDR controls the *expected proportion* of your discoveries that are false — appropriate when screening a library of candidate signals, where a few duds among many hits is tolerable. *Formally:* with $M$ tests, FWER $=\Pr[\text{at least one false rejection}]$; Bonferroni controls it by testing each at $q/M$, which is very conservative when tests are correlated. FDR $= \mathbb{E}[V/R]$ (false rejections over total rejections); **Benjamini–Hochberg (1995)** controls it by sorting $p$-values ascending and rejecting the largest $k$ satisfying $p_{(k)} \le \frac{k}{M}q$. *Used in:* §7.6.3.
+**Family-wise error rate vs. false discovery rate.** *Idea:* two different things you might want to control when running many tests. FWER controls the chance of *even one* false positive — appropriate when a single false discovery is costly. FDR controls the *expected proportion* of your discoveries that are false — appropriate when screening a library of candidate signals, where a few duds among many hits is tolerable. *Formally:* with $M$ tests, FWER $=\Pr[\text{at least one false rejection}]$; Bonferroni controls it by testing each at $q/M$, which is very conservative when tests are correlated. FDR $= \mathbb{E}[V/R]$ (false rejections over total rejections); **[Benjamini–Hochberg (1995)](https://doi.org/10.1111/j.2517-6161.1995.tb02031.x){target="_blank"}** controls it by sorting $p$-values ascending and rejecting the largest $k$ satisfying $p_{(k)} \le \frac{k}{M}q$. *Used in:* §7.6.3.
 
 **Expected maximum of $M$ draws.** *Idea:* the punchline of the multiple-testing problem. Take the best of many pure-noise strategies and it will look good — not because anything is real, but because maxima of random variables grow predictably with how many you took. The growth is slow (logarithmic), which is precisely why it fools people: a thousand trials is not ten times worse than a hundred, it is only about 15% worse, so intuition badly under-weights it. *Formally:* for $M$ iid standard normals, $\mathbb{E}[\max_m Z_m] \approx \sqrt{2\ln M}$, so the expected best Sharpe among $M$ skill-free backtests is $\approx \operatorname{SE}(\mathrm{SR})\sqrt{2\ln M}$. More precisely the maximum follows a **Gumbel** distribution, and the refined approximation used by the Deflated Sharpe Ratio,
 
@@ -2872,7 +2872,7 @@ $$\mathbb{E}[\max_m \mathrm{SR}_m] \approx \sqrt{\operatorname{Var}(\mathrm{SR}_
 
 uses the Euler–Mascheroni constant $\gamma \approx 0.5772$, which is the mean of the standard Gumbel distribution. *Used in:* §7.6.
 
-**White's Reality Check and Hansen's SPA.** *Idea:* a formal test of "is the best of my $M$ strategies better than the benchmark, given that I picked it *because* it was best?" The crucial feature is that it resamples all $M$ strategies *together*, so it accounts for the fact that a thousand similar momentum rules are nowhere near a thousand independent tests. *Formally:* with $f_{m,t}$ the performance of model $m$ over the benchmark, test $H_0: \max_m \mathbb{E}[f_m]\le0$ using $V=\max_m\sqrt T\bar f_m$ against a bootstrap distribution of $V^\ast = \max_m\sqrt T(\bar f_m^\ast - \bar f_m)$. **Hansen's (2005) SPA** studentizes each $f_m$ and down-weights models that are clearly inferior, which removes the Reality Check's conservatism when the candidate set contains many bad models. **Romano & Wolf (2005)** extends this to identify *which* models survive. *Used in:* §7.6.1.
+**White's Reality Check and Hansen's SPA.** *Idea:* a formal test of "is the best of my $M$ strategies better than the benchmark, given that I picked it *because* it was best?" The crucial feature is that it resamples all $M$ strategies *together*, so it accounts for the fact that a thousand similar momentum rules are nowhere near a thousand independent tests. *Formally:* with $f_{m,t}$ the performance of model $m$ over the benchmark, test $H_0: \max_m \mathbb{E}[f_m]\le0$ using $V=\max_m\sqrt T\bar f_m$ against a bootstrap distribution of $V^\ast = \max_m\sqrt T(\bar f_m^\ast - \bar f_m)$. **[Hansen's (2005)](https://doi.org/10.2139/ssrn.264569){target="_blank"} SPA** studentizes each $f_m$ and down-weights models that are clearly inferior, which removes the Reality Check's conservatism when the candidate set contains many bad models. **[Romano & Wolf (2005)](https://doi.org/10.2139/ssrn.563209){target="_blank"}** extends this to identify *which* models survive. *Used in:* §7.6.1.
 
 **Probabilistic and Deflated Sharpe Ratio.** *Idea:* convert an observed Sharpe into a probability that the true Sharpe beats a stated benchmark, correcting both for non-normal returns and for the fact that you selected this strategy out of many. The Deflated version simply sets the benchmark to the level that selection alone would have produced. *Formally:* the Probabilistic Sharpe Ratio against threshold $\mathrm{SR}_0$ is
 
@@ -2916,7 +2916,7 @@ $$\sigma_t^2 = \omega + \alpha r_{t-1}^2 + \beta\sigma_{t-1}^2, \qquad \alpha+\b
 
 with unconditional variance $\omega/(1-\alpha-\beta)$ and shock half-life $\ln 2/\ln(1/(\alpha+\beta))$. Typical daily equity estimates have $\alpha+\beta\approx0.97$–$0.99$, i.e. a half-life of weeks to months. *Used in:* §4.3.1.
 
-**Estimator efficiency and range-based estimators.** *Idea:* a close-to-close return tells you where a price ended, not how far it travelled to get there. The bar's high and low contain much more information about volatility for the same one bar of data, so range-based estimators reach a given precision with a fraction of the observations — which matters because a short volatility window is what keeps the estimate responsive. *Formally:* efficiency is the ratio of variances of two unbiased estimators. Relative to close-to-close, **Parkinson (1980)** is about 5× efficient, $\hat\sigma^2_P = \frac{1}{4\ln2}(\ln \mathrm{Hi}_t/\mathrm{Lo}_t)^2$; **Garman–Klass (1980)** adds open and close for roughly 7×, at the cost of assuming no drift and no jumps; **Yang–Zhang (2000)** combines an overnight component, an open-to-close component and the Rogers–Satchell drift-independent term, which is why it handles opening gaps and is often the best single choice for daily bars. *Used in:* §4.3.1.
+**Estimator efficiency and range-based estimators.** *Idea:* a close-to-close return tells you where a price ended, not how far it travelled to get there. The bar's high and low contain much more information about volatility for the same one bar of data, so range-based estimators reach a given precision with a fraction of the observations — which matters because a short volatility window is what keeps the estimate responsive. *Formally:* efficiency is the ratio of variances of two unbiased estimators. Relative to close-to-close, **[Parkinson (1980)](https://doi.org/10.1086/296071){target="_blank"}** is about 5× efficient, $\hat\sigma^2_P = \frac{1}{4\ln2}(\ln \mathrm{Hi}_t/\mathrm{Lo}_t)^2$; **[Garman–Klass (1980)](https://doi.org/10.1086/296072){target="_blank"}** adds open and close for roughly 7×, at the cost of assuming no drift and no jumps; **[Yang–Zhang (2000)](https://doi.org/10.1086/209650){target="_blank"}** combines an overnight component, an open-to-close component and the Rogers–Satchell drift-independent term, which is why it handles opening gaps and is often the best single choice for daily bars. *Used in:* §4.3.1.
 
 **Realized variance and microstructure noise.** *Idea:* if you have intraday data you can measure a day's volatility almost exactly by summing squared intraday returns — in theory the estimate improves without limit as you sample faster. In practice it does not, because at very fine scales you are measuring bid-ask bounce rather than price, and the estimator diverges. Five-minute sampling is the standard compromise. *Formally:* $\mathrm{RV}_t = \sum_{i=1}^{n} r_{t,i}^2 \to \int_t^{t+1}\sigma^2_s\,ds$ as $n\to\infty$ under a pure diffusion; with additive noise $\tilde p = p + u$, $\mathbb{E}[\mathrm{RV}] = \mathrm{IV} + 2n\operatorname{Var}(u)$, so the bias grows linearly in the sampling frequency. Noise-robust alternatives include two-scale estimators and realized kernels. *Used in:* §4.3.1, §6.2.
 
@@ -2960,7 +2960,7 @@ Parameters are fitted by **EM / Baum–Welch**, which alternates computing state
 
 $$\Pr[\rho_t, \mathcal{F}_t] = \sum_{\rho_{t-1}} \Pr[\rho_{t-1},\mathcal{F}_{t-1}]\; \pi(r_t\mid\rho_{t-1})\; \begin{cases} H(\rho_{t-1}) & \rho_t = 0\\ 1-H(\rho_{t-1}) & \rho_t = \rho_{t-1}+1\end{cases}$$
 
-Cost is $O(t)$ per step unless low-probability run lengths are pruned. Adams & MacKay (2007). *Used in:* §4.7.3.
+Cost is $O(t)$ per step unless low-probability run lengths are pruned. [Adams & MacKay (2007)](https://arxiv.org/abs/0710.3742){target="_blank"}. *Used in:* §4.7.3.
 
 ---
 
@@ -2989,7 +2989,7 @@ Filtering multiplies spectra: $f_y(\omega)=|H(\omega)|^2 f_x(\omega)$, which is 
 $$\text{HP:}\;\min_\tau \sum_t (p_t-\tau_t)^2 + \eta\sum_t\big[(\tau_{t+1}-\tau_t)-(\tau_t-\tau_{t-1})\big]^2$$
 $$\ell_1:\;\min_\tau \sum_t (p_t-\tau_t)^2 + \eta\sum_t\big|(\tau_{t+1}-\tau_t)-(\tau_t-\tau_{t-1})\big|$$
 
-Hamilton (2018) is the definitive critique of the HP filter: it manufactures dynamics that are artefacts of the filter rather than properties of the data, and its endpoint behaviour is unreliable. Kim, Koh, Boyd & Gorinevsky (2009) for $\ell_1$. *Used in:* §4.8.
+[Hamilton (2018)](https://doi.org/10.3386/w23429){target="_blank"} is the definitive critique of the HP filter: it manufactures dynamics that are artefacts of the filter rather than properties of the data, and its endpoint behaviour is unreliable. [Kim, Koh, Boyd & Gorinevsky (2009)](https://doi.org/10.1137/070690274){target="_blank"} for $\ell_1$. *Used in:* §4.8.
 
 **Wavelet multiresolution analysis.** *Idea:* Fourier analysis tells you which frequencies are present but not *when*, which is useless for a series whose behaviour changes over time. Wavelets localize in both time and frequency, decomposing a series into components at successive scales — a natural multi-horizon momentum decomposition. The catch is the right-hand edge: near the most recent observation, which is the only one you can trade on, the filter runs out of data. *Formally:* successive convolution with scaling and wavelet filters yields detail coefficients at dyadic scales $2^j$ that sum back to the original series. Use undecimated/causal variants with explicit boundary handling. *Used in:* §4.8, §4.9.
 
@@ -3005,7 +3005,7 @@ Hamilton (2018) is the definitive critique of the HP filter: it manufactures dyn
 
 $$\operatorname{SE}(\widehat{\mathrm{SR}}) \approx \sqrt{\frac{1+\mathrm{SR}^2/2}{T}}$$
 
-(Lo, 2002). With autocorrelated returns the correct multi-period scaling replaces $\sqrt q$ by $q/\sqrt{q+2\sum_{k=1}^{q-1}(q-k)\rho_k}$, which is *smaller* than $\sqrt q$ when $\rho_k>0$ — so smoothed or illiquid strategies overstate their Sharpe under naive annualization. *Used in:* §7.4.1.
+([Lo, 2002](https://doi.org/10.2469/faj.v58.n4.2453){target="_blank"}). With autocorrelated returns the correct multi-period scaling replaces $\sqrt q$ by $q/\sqrt{q+2\sum_{k=1}^{q-1}(q-k)\rho_k}$, which is *smaller* than $\sqrt q$ when $\rho_k>0$ — so smoothed or illiquid strategies overstate their Sharpe under naive annualization. *Used in:* §7.4.1.
 
 **Skewness and kurtosis.** *Idea:* the third and fourth moments describe the shape the Sharpe ratio ignores. Positive skew means many small losses and rare large gains — the trend-following signature, and a *desirable* property that Sharpe actively penalizes because the large gains inflate the denominator. Excess kurtosis means fat tails in both directions. *Formally:* $\gamma_3 = \mathbb{E}[(X-\mu)^3]/\sigma^3$ and $\gamma_4 = \mathbb{E}[(X-\mu)^4]/\sigma^4$ (Gaussian: 0 and 3). *Used in:* §7.4.2, §7.6.2.
 
@@ -3015,15 +3015,15 @@ $$\operatorname{SE}(\widehat{\mathrm{SR}}) \approx \sqrt{\frac{1+\mathrm{SR}^2/2
 
 **Information coefficient.** *Idea:* the correlation between what you predicted and what happened. It is the cleanest measure of a signal's raw forecasting power, and its typical magnitude in liquid markets — 0.02 to 0.05 — is the number every practitioner should have calibrated, because it converts an intuition of "mostly noise" into a workable design target. *Formally:* $\mathrm{IC}_t = \operatorname{Corr}_i(s_{i,t}, r_{i,t+1:t+h})$ computed across assets each period; the Spearman (rank) version is preferred for fat-tailed data. The **IC-IR** is $\overline{\mathrm{IC}}/\operatorname{sd}(\mathrm{IC}_t)$ and its $t$-statistic is $\mathrm{IC\text{-}IR}\sqrt{T}$. *Used in:* §7.3.1.
 
-**Fundamental Law of Active Management.** *Idea:* skill and breadth substitute for one another. A weak signal applied independently to many assets can produce the same information ratio as a strong signal applied to few — with the crucial caveat that "independently" is doing enormous work, since correlated bets do not count separately. The refinement adds a third term for the fraction of your theoretical edge that survives contact with constraints and costs. *Formally:* $\mathrm{IR}\approx\mathrm{IC}\sqrt{\mathrm{breadth}}$ (Grinold, 1989), refined to $\mathrm{IR}\approx\mathrm{TC}\cdot\mathrm{IC}\cdot\sqrt{\mathrm{breadth}}$ (Clarke, de Silva & Thorley, 2002), where the **transfer coefficient** TC is the correlation between the unconstrained optimal portfolio and the one you actually hold. Typical realized TC is 0.3–0.6, meaning most theoretical alpha is lost in implementation rather than prediction. *Used in:* §7.3.1.
+**Fundamental Law of Active Management.** *Idea:* skill and breadth substitute for one another. A weak signal applied independently to many assets can produce the same information ratio as a strong signal applied to few — with the crucial caveat that "independently" is doing enormous work, since correlated bets do not count separately. The refinement adds a third term for the fraction of your theoretical edge that survives contact with constraints and costs. *Formally:* $\mathrm{IR}\approx\mathrm{IC}\sqrt{\mathrm{breadth}}$ ([Grinold, 1989](https://doi.org/10.3905/jpm.1989.409211){target="_blank"}), refined to $\mathrm{IR}\approx\mathrm{TC}\cdot\mathrm{IC}\cdot\sqrt{\mathrm{breadth}}$ ([Clarke, de Silva & Thorley, 2002](https://doi.org/10.2469/faj.v58.n5.2468){target="_blank"}), where the **transfer coefficient** TC is the correlation between the unconstrained optimal portfolio and the one you actually hold. Typical realized TC is 0.3–0.6, meaning most theoretical alpha is lost in implementation rather than prediction. *Used in:* §7.3.1.
 
 **Factor models, alpha and beta.** *Idea:* decompose a return into the part explained by exposure to known common risks and the part that is not. "Alpha" is only ever alpha *relative to a specified model* — which is why the momentum debate is unresolvable from returns alone (§1.3) and why any new momentum signal must be regressed against UMD before its novelty can be claimed. *Formally:* $R_{p,t}-R_{f,t} = \alpha + \sum_k\beta_k F_{k,t} + \varepsilon_t$. Standard factors: **MKT** (market excess return), **SMB** (small minus big), **HML** (high minus low book-to-market), **UMD/WML** (winners minus losers — the momentum factor, Carhart 1997), plus RMW and CMA in the Fama–French five-factor model. *Used in:* §4.6.4, §7.4.4.
 
-**Conditional beta.** *Idea:* an exposure that changes with the state of the world. A strategy can have a market beta of zero on average while being reliably long the market in calm periods and violently short it in panics — which is momentum's actual risk profile, and which an unconditional regression reports as "market neutral". *Formally:* $\beta_t = \beta_0 + \beta_1 \mathbb{1}\{\text{bear}\} + \beta_2\hat\sigma_{m,t} + \dots$, estimated with interaction terms or state-dependent subsamples. Daniel & Moskowitz (2016) show momentum's conditional beta turns sharply negative after market declines. *Used in:* §1.6, §7.4.4.
+**Conditional beta.** *Idea:* an exposure that changes with the state of the world. A strategy can have a market beta of zero on average while being reliably long the market in calm periods and violently short it in panics — which is momentum's actual risk profile, and which an unconditional regression reports as "market neutral". *Formally:* $\beta_t = \beta_0 + \beta_1 \mathbb{1}\{\text{bear}\} + \beta_2\hat\sigma_{m,t} + \dots$, estimated with interaction terms or state-dependent subsamples. [Daniel & Moskowitz (2016)](https://doi.org/10.3386/w20439){target="_blank"} show momentum's conditional beta turns sharply negative after market declines. *Used in:* §1.6, §7.4.4.
 
-**Convexity, straddles and the lookback straddle.** *Idea:* a payoff is convex when large moves in *either* direction help you — the shape of an option position, and, empirically, the shape of a trend-following return profile. The reason is mechanical: a trend follower increases exposure as a move extends, which replicates the delta profile of a long option. The best available model of a trend program's payoff is a portfolio of options that pay the largest move within a period. *Formally:* a **straddle** is a long call plus a long put at the same strike, paying $|S_T-K|$; a **lookback straddle** pays $\max_{t\le T}S_t - \min_{t\le T}S_t$, the full range. Fung & Hsieh (2001) show CTA returns are well replicated by portfolios of lookback straddles; Dao et al. (2017) derive the same convexity from the variance difference $\mathrm{VR}(q)-1$. *Used in:* §1.2, §2.3, §5.5.
+**Convexity, straddles and the lookback straddle.** *Idea:* a payoff is convex when large moves in *either* direction help you — the shape of an option position, and, empirically, the shape of a trend-following return profile. The reason is mechanical: a trend follower increases exposure as a move extends, which replicates the delta profile of a long option. The best available model of a trend program's payoff is a portfolio of options that pay the largest move within a period. *Formally:* a **straddle** is a long call plus a long put at the same strike, paying $|S_T-K|$; a **lookback straddle** pays $\max_{t\le T}S_t - \min_{t\le T}S_t$, the full range. [Fung & Hsieh (2001)](https://doi.org/10.1093/rfs/14.2.313){target="_blank"} show CTA returns are well replicated by portfolios of lookback straddles; [Dao et al. (2017)](https://arxiv.org/abs/1607.02410){target="_blank"} derive the same convexity from the variance difference $\mathrm{VR}(q)-1$. *Used in:* §1.2, §2.3, §5.5.
 
-**Aim portfolio and no-trade bands.** *Idea:* with trading costs, the optimal portfolio is not the one your signal implies today — it is a partial step from where you are toward a weighted average of where your signal points now and where it will point later. Under proportional costs the optimum instead becomes a no-trade region: do nothing until the drift from target is large enough to be worth paying for. *Formally:* under quadratic costs, Gârleanu & Pedersen (2013) show the optimal policy is $w_t = (1-\theta)w_{t-1} + \theta\,\text{aim}_t$, with $\text{aim}_t$ a discounted average of expected future optimal portfolios and $\theta$ set by the cost-to-risk ratio. Under proportional costs the optimum is a band: trade only to the nearest edge of a no-trade region around the target. *Used in:* §6.4, §6.8.
+**Aim portfolio and no-trade bands.** *Idea:* with trading costs, the optimal portfolio is not the one your signal implies today — it is a partial step from where you are toward a weighted average of where your signal points now and where it will point later. Under proportional costs the optimum instead becomes a no-trade region: do nothing until the drift from target is large enough to be worth paying for. *Formally:* under quadratic costs, [Gârleanu & Pedersen (2013)](https://research.cbs.dk/en/publications/a781b731-1e3f-4875-b746-db13b3a88b9e){target="_blank"} show the optimal policy is $w_t = (1-\theta)w_{t-1} + \theta\,\text{aim}_t$, with $\text{aim}_t$ a discounted average of expected future optimal portfolios and $\theta$ set by the cost-to-risk ratio. Under proportional costs the optimum is a band: trade only to the nearest edge of a no-trade region around the target. *Used in:* §6.4, §6.8.
 
 ---
 
@@ -3033,7 +3033,7 @@ $$\operatorname{SE}(\widehat{\mathrm{SR}}) \approx \sqrt{\frac{1+\mathrm{SR}^2/2
 
 **Metaorder and child orders.** *Idea:* an institution wanting to buy a million shares cannot buy them at once without paying enormously, so it splits the parent decision into hundreds of small child orders executed over hours or days. The direct consequence is a persistent, one-directional pressure on price lasting as long as the execution — which is a mechanical source of return autocorrelation requiring no psychology at all. *Formally:* a metaorder of total size $Q$ executed over a period at **participation rate** $\phi = Q/(V\cdot\text{duration})$, where $V$ is average daily volume (**ADV**). Institutional practice caps $\phi$ at 5–20%. *Used in:* §1.3, §2.6, §6.8.
 
-**Kyle's lambda.** *Idea:* the first formal model in which price impact is not a friction but the *mechanism of price discovery*: a market maker who cannot tell informed from uninformed flow must move the price in proportion to net order flow, because flow is evidence about value. Impact is the price of information, not a tax. *Formally:* in Kyle (1985), the equilibrium pricing rule is linear, $\Delta p = \lambda\,\Omega$, where $\Omega$ is net order flow and $\lambda$ measures illiquidity — the inverse of market depth. *Used in:* §2.6.
+**Kyle's lambda.** *Idea:* the first formal model in which price impact is not a friction but the *mechanism of price discovery*: a market maker who cannot tell informed from uninformed flow must move the price in proportion to net order flow, because flow is evidence about value. Impact is the price of information, not a tax. *Formally:* in [Kyle (1985)](https://doi.org/10.2307/1913210){target="_blank"}, the equilibrium pricing rule is linear, $\Delta p = \lambda\,\Omega$, where $\Omega$ is net order flow and $\lambda$ measures illiquidity — the inverse of market depth. *Used in:* §2.6.
 
 **Adverse selection (Glosten–Milgrom).** *Idea:* a market maker loses to informed traders and must recoup it from uninformed ones. The bid-ask spread is precisely that compensation. This is why spreads widen when information asymmetry rises, and why "the spread" is not an arbitrary fee. *Formally:* the bid and ask are conditional expectations of value given the direction of the incoming order, $\text{ask} = \mathbb{E}[V\mid\text{buy}]$ and $\text{bid} = \mathbb{E}[V\mid\text{sell}]$; the spread is the resulting gap. *Used in:* §2.6.
 
@@ -3049,9 +3049,9 @@ with $Q$ and $V$ in matching units, $\sigma$ the daily return volatility, and $\
 
 $$p_t = \sum_{k<t} G(t-k)\,\epsilon_k f(v_k) + \text{noise}$$
 
-with a decaying kernel $G$ fine-tuned against the flow autocorrelation to leave prices a near-martingale (Bouchaud, Gefen, Potters & Wyart, 2004). *Used in:* §1.3, §2.6.
+with a decaying kernel $G$ fine-tuned against the flow autocorrelation to leave prices a near-martingale ([Bouchaud, Gefen, Potters & Wyart, 2004](https://doi.org/10.2139/ssrn.507322){target="_blank"}). *Used in:* §1.3, §2.6.
 
-**Order flow imbalance.** *Idea:* at sub-minute horizons, price changes are almost entirely explained by the net imbalance between buying and selling pressure at the top of the book. What is called "intraday momentum" is really flow prediction, and it has little in common with the 12-month effect. *Formally:* $\mathrm{OFI}$ aggregates signed changes in bid and ask queue sizes over an interval; $\Delta p_t = \beta\,\mathrm{OFI}_t + \varepsilon_t$ achieves high $R^2$ at short horizons (Cont, Kukanov & Stoikov, 2014). *Used in:* §2.6.
+**Order flow imbalance.** *Idea:* at sub-minute horizons, price changes are almost entirely explained by the net imbalance between buying and selling pressure at the top of the book. What is called "intraday momentum" is really flow prediction, and it has little in common with the 12-month effect. *Formally:* $\mathrm{OFI}$ aggregates signed changes in bid and ask queue sizes over an interval; $\Delta p_t = \beta\,\mathrm{OFI}_t + \varepsilon_t$ achieves high $R^2$ at short horizons ([Cont, Kukanov & Stoikov, 2014](https://doi.org/10.2139/ssrn.1712822){target="_blank"}). *Used in:* §2.6.
 
 **Cost decomposition.** *Idea:* the total cost of trading splits into an unavoidable immediate component (crossing the spread), a size-dependent component (impact), and explicit charges. Only the second is under your control through sizing and patience, and only the second binds at scale. *Formally:* cost per unit notional $= \tfrac12\text{spread} + Y\sigma\sqrt{Q/V} + \text{fees, borrow, financing}$. **Implementation shortfall** measures the whole thing empirically as the gap between the price when the decision was made and the average realized fill. *Used in:* §6.8.
 
@@ -3059,27 +3059,27 @@ with a decaying kernel $G$ fine-tuned against the flow autocorrelation to leave 
 
 ## A.9 Asset pricing and behavioral concepts
 
-**The three forms of the Efficient Market Hypothesis.** *Idea:* a graded claim about which information is already in the price. Weak form says past prices are; semi-strong says all public information is; strong says private information is too. Momentum, being built from past prices alone, is a challenge to the weakest form — which is what made Jegadeesh & Titman (1993) so consequential. *Formally:* prices reflect information set $\mathcal{I}$ if $\mathbb{E}[r_{t+1}\mid\mathcal{I}_t]$ equals the equilibrium expected return, with $\mathcal{I}$ = past prices (weak), public information (semi-strong), all information (strong). *Used in:* §1.3, §2.2.
+**The three forms of the Efficient Market Hypothesis.** *Idea:* a graded claim about which information is already in the price. Weak form says past prices are; semi-strong says all public information is; strong says private information is too. Momentum, being built from past prices alone, is a challenge to the weakest form — which is what made [Jegadeesh & Titman (1993)](https://doi.org/10.1111/j.1540-6261.1993.tb04702.x){target="_blank"} so consequential. *Formally:* prices reflect information set $\mathcal{I}$ if $\mathbb{E}[r_{t+1}\mid\mathcal{I}_t]$ equals the equilibrium expected return, with $\mathcal{I}$ = past prices (weak), public information (semi-strong), all information (strong). *Used in:* §1.3, §2.2.
 
-**The joint hypothesis problem.** *Idea:* you cannot test market efficiency on its own. Efficiency says prices are right *given* the correct model of what returns should be — so any rejection is a rejection of the pair, and you can never tell from returns alone whether the market was wrong or your risk model was. Thirty years of the momentum debate is this problem playing out. *Formally:* a test of $\mathbb{E}[r_{t+1}\mid\mathcal{I}_t] = f(\text{risk}; \theta)$ is jointly a test of efficiency and of the specification $f$. Fama (1970). *Used in:* §1.3, §2.2.
+**The joint hypothesis problem.** *Idea:* you cannot test market efficiency on its own. Efficiency says prices are right *given* the correct model of what returns should be — so any rejection is a rejection of the pair, and you can never tell from returns alone whether the market was wrong or your risk model was. Thirty years of the momentum debate is this problem playing out. *Formally:* a test of $\mathbb{E}[r_{t+1}\mid\mathcal{I}_t] = f(\text{risk}; \theta)$ is jointly a test of efficiency and of the specification $f$. [Fama (1970)](https://doi.org/10.2307/2325486){target="_blank"}. *Used in:* §1.3, §2.2.
 
-**Grossman–Stiglitz.** *Idea:* perfectly efficient prices are self-defeating. If prices already revealed everything, nobody would pay to gather information; but then prices could not reveal anything. So equilibrium requires prices to be slightly inefficient — by exactly enough to pay for the research that keeps them nearly efficient. Momentum lives in that gap, and this is why "the anomaly should have been arbitraged away" is not, on its own, an argument. *Formally:* Grossman & Stiglitz (1980); an informationally efficient equilibrium with costly information does not exist, so the equilibrium noise level is set by the cost of information acquisition. *Used in:* §1.3.
+**Grossman–Stiglitz.** *Idea:* perfectly efficient prices are self-defeating. If prices already revealed everything, nobody would pay to gather information; but then prices could not reveal anything. So equilibrium requires prices to be slightly inefficient — by exactly enough to pay for the research that keeps them nearly efficient. Momentum lives in that gap, and this is why "the anomaly should have been arbitraged away" is not, on its own, an argument. *Formally:* [Grossman & Stiglitz (1980)](https://www.aeaweb.org/aer/top20/70.3.393-408.pdf){target="_blank"}; an informationally efficient equilibrium with costly information does not exist, so the equilibrium noise level is set by the cost of information acquisition. *Used in:* §1.3.
 
 **Risk premium vs. alpha.** *Idea:* two economically opposite explanations of the same positive average return. A risk premium is compensation for bearing an exposure that hurts when it hurts most — it should persist, and it should not be levered without thought. Alpha is a mispricing — it should decay as it is exploited. Momentum has candidate explanations of both kinds, and the practical implication is that you should be unwilling to assume it is all alpha. *Formally:* under a factor model, the premium is $\beta'\mathbb{E}[F]$ and the alpha is the intercept; the distinction depends entirely on which factors are in the model. *Used in:* §1.3, §8.3.
 
 **Post-earnings-announcement drift.** *Idea:* the cleanest natural experiment in under-reaction. After an earnings surprise — a public, dated, unambiguous piece of news — prices continue drifting in the direction of the surprise for weeks. Whatever else is true, information is demonstrably not impounded instantly. *Formally:* portfolios sorted on standardized unexpected earnings earn significant abnormal returns over the following 60 days (Bernard & Thomas, 1989, 1990). *Used in:* §1.3.
 
-**Prospect theory, mental accounting and the disposition effect.** *Idea:* investors evaluate outcomes as gains and losses relative to a reference point rather than as levels of wealth, are risk-averse over gains and risk-seeking over losses, and track each position in a separate mental account. The behavioral consequence is the **disposition effect**: sell winners too early, hold losers too long. The market consequence is momentum — selling pressure above the aggregate cost basis retards the price's adjustment to good news. This is the behavioral story with the strongest independent confirmation, because it predicts something *other than returns* (the relationship to unrealized capital gains) and that prediction holds. *Formally:* value function $v(x)$ concave for $x>0$, convex for $x<0$, steeper for losses; Grinblatt & Han (2005) build a turnover-weighted reference price and show it subsumes much of momentum. *Used in:* §1.3, §2.5.
+**Prospect theory, mental accounting and the disposition effect.** *Idea:* investors evaluate outcomes as gains and losses relative to a reference point rather than as levels of wealth, are risk-averse over gains and risk-seeking over losses, and track each position in a separate mental account. The behavioral consequence is the **disposition effect**: sell winners too early, hold losers too long. The market consequence is momentum — selling pressure above the aggregate cost basis retards the price's adjustment to good news. This is the behavioral story with the strongest independent confirmation, because it predicts something *other than returns* (the relationship to unrealized capital gains) and that prediction holds. *Formally:* value function $v(x)$ concave for $x>0$, convex for $x<0$, steeper for losses; [Grinblatt & Han (2005)](https://utoronto.scholaris.ca/bitstreams/3a09de05-9370-4e68-a03d-ccce917a5cb6/download){target="_blank"} build a turnover-weighted reference price and show it subsumes much of momentum. *Used in:* §1.3, §2.5.
 
-**Conservatism and representativeness.** *Idea:* two opposed judgement biases which, combined, generate momentum then reversal. Conservatism means updating too little on each new piece of evidence (under-reaction, short horizon). Representativeness means treating a short run of similar outcomes as evidence of a pattern (over-extrapolation, longer horizon). Barberis, Shleifer & Vishny (1998) show that a regime-switching belief model with both produces the observed impulse response. *Used in:* §1.3.
+**Conservatism and representativeness.** *Idea:* two opposed judgement biases which, combined, generate momentum then reversal. Conservatism means updating too little on each new piece of evidence (under-reaction, short horizon). Representativeness means treating a short run of similar outcomes as evidence of a pattern (over-extrapolation, longer horizon). [Barberis, Shleifer & Vishny (1998)](https://doi.org/10.3386/w5926){target="_blank"} show that a regime-switching belief model with both produces the observed impulse response. *Used in:* §1.3.
 
-**Overconfidence and biased self-attribution.** *Idea:* investors over-weight their own private analysis, and — the crucial asymmetry — treat confirming public news as proof of their skill while dismissing disconfirming news as noise. Confidence therefore *rises* on confirmation and barely falls on contradiction, driving continued over-reaction before the eventual correction. Daniel, Hirshleifer & Subrahmanyam (1998). *Used in:* §1.3.
+**Overconfidence and biased self-attribution.** *Idea:* investors over-weight their own private analysis, and — the crucial asymmetry — treat confirming public news as proof of their skill while dismissing disconfirming news as noise. Confidence therefore *rises* on confirmation and barely falls on contradiction, driving continued over-reaction before the eventual correction. [Daniel, Hirshleifer & Subrahmanyam (1998)](http://deepblue.lib.umich.edu/bitstream/2027.42/73431/1/0022-1082.00077.pdf){target="_blank"}. *Used in:* §1.3.
 
-**Anchoring.** *Idea:* people judge a value by adjusting from a salient reference number, and adjust insufficiently. The 52-week high is such a reference: near it, investors are reluctant to bid higher regardless of news, so good news is impounded slowly and the price drifts through the anchor over time. This makes a sharp prediction that George & Hwang (2004) confirmed — proximity to the 52-week high predicts returns using no return path at all. *Used in:* §4.4.3.
+**Anchoring.** *Idea:* people judge a value by adjusting from a salient reference number, and adjust insufficiently. The 52-week high is such a reference: near it, investors are reluctant to bid higher regardless of news, so good news is impounded slowly and the price drifts through the anchor over time. This makes a sharp prediction that [George & Hwang (2004)](https://doi.org/10.1111/j.1540-6261.2004.00695.x){target="_blank"} confirmed — proximity to the 52-week high predicts returns using no return path at all. *Used in:* §4.4.3.
 
-**Limits to arbitrage and delegated management flows.** *Idea:* even if a mispricing is obvious, correcting it requires capital that is willing to bear interim losses. Delegated managers face redemptions precisely when their positions move against them, so capital flows *out* of underperforming strategies and *into* outperforming ones — which amplifies price moves rather than damping them. This produces momentum from entirely rational agents facing an agency friction. *Formally:* Vayanos & Woolley (2013) model fund flows responding to past performance, generating momentum at short horizons and reversal at long. *Used in:* §1.3, §8.6.
+**Limits to arbitrage and delegated management flows.** *Idea:* even if a mispricing is obvious, correcting it requires capital that is willing to bear interim losses. Delegated managers face redemptions precisely when their positions move against them, so capital flows *out* of underperforming strategies and *into* outperforming ones — which amplifies price moves rather than damping them. This produces momentum from entirely rational agents facing an agency friction. *Formally:* [Vayanos & Woolley (2013)](https://doi.org/10.1093/rfs/hht014){target="_blank"} model fund flows responding to past performance, generating momentum at short horizons and reversal at long. *Used in:* §1.3, §8.6.
 
-**Instrumented PCA (IPCA).** *Idea:* rather than assuming factor loadings are constant, let each asset's exposures be functions of its observable characteristics — so a stock that has recently risen may thereby *become* a higher-beta stock. If past returns predict future betas, then part of what looks like momentum alpha is compensation for a risk exposure that the characteristic was signalling all along. This is currently the most serious rational challenge to momentum. *Formally:* $r_{i,t+1} = \beta(z_{i,t})'f_{t+1} + \varepsilon_{i,t+1}$ with $\beta(z) = \Gamma'z$ estimated jointly with the latent factors $f$; Kelly, Moskowitz & Pruitt (2021). *Used in:* §1.3, §8.6.
+**Instrumented PCA (IPCA).** *Idea:* rather than assuming factor loadings are constant, let each asset's exposures be functions of its observable characteristics — so a stock that has recently risen may thereby *become* a higher-beta stock. If past returns predict future betas, then part of what looks like momentum alpha is compensation for a risk exposure that the characteristic was signalling all along. This is currently the most serious rational challenge to momentum. *Formally:* $r_{i,t+1} = \beta(z_{i,t})'f_{t+1} + \varepsilon_{i,t+1}$ with $\beta(z) = \Gamma'z$ estimated jointly with the latent factors $f$; [Kelly, Moskowitz & Pruitt (2021)](https://doi.org/10.1016/j.jfineco.2020.06.024){target="_blank"}. *Used in:* §1.3, §8.6.
 
 **Point-in-time data, survivorship and delisting returns.** *Idea:* a database that has been kept tidy has usually been kept tidy by deleting the past. If your universe contains only companies that still exist, you have removed exactly the names momentum's short leg would have held; if your prices are adjusted with today's split factors, a price-level filter is reading the future. Reconstructing what was *knowable at the time* is unglamorous and is where most silent backtest failures live. *Formally:* a point-in-time database stores each fact with the date it became known, so a query "as of $t$" returns the vintage available at $t$. **Delisting returns** record the terminal value received when a security stops trading (often large and negative); omitting them biases every long-history study upward. *Used in:* §6.10.
 
@@ -3093,17 +3093,17 @@ with a decaying kernel $G$ fine-tuned against the flow autocorrelation to leave 
 
 **Regularization: ridge and lasso.** *Idea:* penalize the size of the fitted coefficients so the model cannot chase noise. Ridge shrinks all coefficients smoothly toward zero — the right default when predictors are correlated, as momentum features always are. Lasso can set coefficients exactly to zero, performing selection, which is attractive but unstable when predictors are collinear. *Formally:* ridge minimizes $\|y-X\beta\|^2 + \eta\|\beta\|_2^2$ with closed form $\hat\beta = (X'X+\eta I)^{-1}X'y$; lasso uses $\eta\|\beta\|_1$. *Used in:* §4.9, §2.7.
 
-**Double descent and the "virtue of complexity".** *Idea:* the classical picture says test error falls, then rises as you add parameters. The modern observation is that if you keep going *past* the point where the model can fit the training data exactly, test error can fall again — because among the many perfect fits, the regularizer picks a well-behaved one. Kelly, Malamud & Zhou (2024) argue this holds in return prediction, which cuts directly against decades of parsimony orthodoxy. It is **[Contested]** and consequential if true. *Formally:* test error as a function of the parameter-to-sample ratio $P/T$ peaks near the interpolation threshold $P/T=1$ and can decline for $P/T\gg1$ under ridge regularization. *Used in:* §2.7, §4.9.
+**Double descent and the "virtue of complexity".** *Idea:* the classical picture says test error falls, then rises as you add parameters. The modern observation is that if you keep going *past* the point where the model can fit the training data exactly, test error can fall again — because among the many perfect fits, the regularizer picks a well-behaved one. [Kelly, Malamud & Zhou (2024)](https://doi.org/10.3386/w30217){target="_blank"} argue this holds in return prediction, which cuts directly against decades of parsimony orthodoxy. It is **[Contested]** and consequential if true. *Formally:* test error as a function of the parameter-to-sample ratio $P/T$ peaks near the interpolation threshold $P/T=1$ and can decline for $P/T\gg1$ under ridge regularization. *Used in:* §2.7, §4.9.
 
 **Tree ensembles.** *Idea:* a single decision tree is a set of nested if-then splits — high variance, but it captures interactions and nonlinearity automatically. Averaging many de-correlated trees (random forest) reduces the variance; fitting trees sequentially to the previous ensemble's errors (gradient boosting) reduces the bias. Boosted trees on a modest set of well-motivated features are the workhorse of applied return prediction. *Formally:* a random forest averages trees grown on bootstrap samples with random feature subsets; gradient boosting fits $F_m = F_{m-1} + \nu h_m$ where $h_m$ approximates the negative gradient of the loss at $F_{m-1}$ and $\nu$ is a learning rate. *Used in:* §4.9.
 
-**Sequence models: LSTM, attention and Transformers.** *Idea:* rather than choosing the kernel that weights past returns, let the model learn it. A recurrent network carries a hidden state forward through time with learned gates controlling what to remember; an attention mechanism instead computes, for each output, a set of learned weights over all input positions — a *data-dependent* kernel, which is the natural generalization of everything in §4.1.5. The cost is a very large number of parameters against a very small effective sample. *Formally:* attention computes $\operatorname{softmax}(QK'/\sqrt{d})V$ for learned query, key and value projections. Lim, Zohren & Roberts (2019); Wood et al. (2021). *Used in:* §4.9.
+**Sequence models: LSTM, attention and Transformers.** *Idea:* rather than choosing the kernel that weights past returns, let the model learn it. A recurrent network carries a hidden state forward through time with learned gates controlling what to remember; an attention mechanism instead computes, for each output, a set of learned weights over all input positions — a *data-dependent* kernel, which is the natural generalization of everything in §4.1.5. The cost is a very large number of parameters against a very small effective sample. *Formally:* attention computes $\operatorname{softmax}(QK'/\sqrt{d})V$ for learned query, key and value projections. [Lim, Zohren & Roberts (2019)](https://doi.org/10.2139/ssrn.3369195){target="_blank"}; [Wood et al. (2021)](https://arxiv.org/abs/2112.08534){target="_blank"}. *Used in:* §4.9.
 
 **Triple-barrier labeling and meta-labeling.** *Idea:* the usual label — the return over the next $h$ days — describes something no trader does. A real position ends when it hits a profit target, a stop, or a time limit, whichever comes first, so the label should record which one. **Meta-labeling** then splits the problem in two: a primary model decides direction, and a secondary model decides whether to act and how large — which lets you optimize sizing separately from prediction, and it is a genuinely useful separation. *Formally:* label $y_t\in\{+1,-1,0\}$ by which of the upper barrier ($+a\hat\sigma_t$), lower barrier ($-b\hat\sigma_t$) or vertical barrier (time limit) is touched first (López de Prado, 2018). *Used in:* §4.9, §7.3.4.
 
 **Sample uniqueness and effective sample size.** *Idea:* with overlapping labels and hundreds of correlated assets, the number of rows in your training set radically overstates how much independent information you have. This — not model choice — is the binding constraint on machine learning in finance, and no architecture fixes it. *Formally:* the uniqueness of observation $i$ is the average, over the bars its label spans, of the reciprocal of the number of labels covering that bar; weighting samples by uniqueness, or bootstrapping by date blocks, restores approximately correct inference. *Used in:* §4.9.
 
-**Path signatures.** *Idea:* a principled basis for functions of a *path* rather than of its endpoints. The signature collects iterated integrals along the path; low-order terms recover displacement, next-order terms capture the *order in which* moves happened, and so on. It is the natural formal answer to the "path-blind" weakness of §4.1.1, and it is under-used relative to its elegance. *Formally:* for a path $X:[0,T]\to\mathbb{R}^d$, the signature is the collection $S(X)^{i_1\dots i_k} = \int_{0<t_1<\dots<t_k<T} dX^{i_1}_{t_1}\cdots dX^{i_k}_{t_k}$, truncated at order $k$; dimension grows like $d^k$. Lyons; Levin, Lyons & Ni (2013). *Used in:* §4.9.
+**Path signatures.** *Idea:* a principled basis for functions of a *path* rather than of its endpoints. The signature collects iterated integrals along the path; low-order terms recover displacement, next-order terms capture the *order in which* moves happened, and so on. It is the natural formal answer to the "path-blind" weakness of §4.1.1, and it is under-used relative to its elegance. *Formally:* for a path $X:[0,T]\to\mathbb{R}^d$, the signature is the collection $S(X)^{i_1\dots i_k} = \int_{0<t_1<\dots<t_k<T} dX^{i_1}_{t_1}\cdots dX^{i_k}_{t_k}$, truncated at order $k$; dimension grows like $d^k$. Lyons; [Levin, Lyons & Ni (2013)](https://arxiv.org/abs/1309.0260){target="_blank"}. *Used in:* §4.9.
 
 **Fractional differentiation.** *Idea:* differencing a price series to make it stationary destroys almost all of its memory — you are handed returns, which barely remember anything. Fractional differencing takes a *non-integer* difference, removing just enough non-stationarity to satisfy a statistical test while retaining as much memory as possible. *Formally:* $(1-B)^d$ expanded as a binomial series with $d\in(0,1)$, applied to log prices and truncated by weight threshold; choose the smallest $d$ passing an ADF test (López de Prado, 2018). *Used in:* §3.2.
 

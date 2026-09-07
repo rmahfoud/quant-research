@@ -1,25 +1,48 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-source "$(dirname "$0")/../../scripts/shell_support.sh"
 
 # Usage:
-#   ./quant-research/scripts/render_docs.sh <doc|all> [pdf|html|both] [--figures]
+#   ./scripts/render_docs.sh <doc|all> [pdf|html|both] [--figures]
 #
-# Renders quant-research/<doc>.md to quant-research/docs/<doc>.{pdf,html}.
-# Format defaults to "both". The mermaid filter is applied only to documents
-# that actually contain mermaid blocks.
+# Renders <doc>.md to docs/<doc>.{pdf,html}. Format defaults to "both".
+# The mermaid filter is applied only to documents that contain mermaid blocks.
 #
-#   ./quant-research/scripts/render_docs.sh momentum_deep_dive
-#   ./quant-research/scripts/render_docs.sh stochastic_processes pdf
-#   ./quant-research/scripts/render_docs.sh all --figures
+#   ./scripts/render_docs.sh momentum_deep_dive
+#   ./scripts/render_docs.sh stochastic_processes pdf
+#   ./scripts/render_docs.sh all --figures
 #
-# --figures first re-runs every quant-research/figures/*.py generator. Those
-# outputs are committed and deterministic, so this is only needed after editing
-# a generator.
+# --figures first re-runs every figures/*.py generator. Those outputs are
+# committed and deterministic, so this is only needed after editing a generator.
+#
+# Paths in the markdown (quant-research/figures/..., quant-research/assets/...)
+# are resolved from the parent of this directory, so this folder must be named
+# quant-research (nested under Phoenix or as ~/src/quant-research).
 
-QR_DIR="$BASE_DIR/quant-research"
+RED='\033[31m'
+GREEN='\033[32m'
+RESET='\033[0m'
+
+print_error() {
+    echo -e "${RED}❌ $1${RESET}" >&2
+}
+
+print_success() {
+    echo -e "${GREEN}✅ $1${RESET}"
+}
+
+fail() {
+    print_error "$1"
+    exit 1
+}
+
+QR_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+REL_PREFIX="$(basename "$QR_DIR")"
+RENDER_ROOT="$(cd "$QR_DIR/.." && pwd)"
 OUT_DIR="$QR_DIR/docs"
+
+[[ "$REL_PREFIX" == "quant-research" ]] \
+    || fail "This directory must be named quant-research (got: $REL_PREFIX)"
 
 PDF_ARGS=(
     --pdf-engine=xelatex
@@ -34,8 +57,7 @@ HTML_ARGS=(
     --embed-resources
     --toc --toc-depth=2
     --mathjax
-    # Reading widget (theme + text size). HTML only; the PDF is unaffected.
-    --include-in-header=quant-research/assets/reading_widget.html
+    --include-in-header="$REL_PREFIX/assets/reading_widget.html"
     -V maxwidth=64em
     -V margin-left=32px
     -V margin-right=32px
@@ -55,16 +77,16 @@ for arg in "$@"; do
 done
 
 [[ -n "$DOC_ARG" ]] || fail "Usage: $0 <doc|all> [pdf|html|both] [--figures]"
-command -v pandoc >/dev/null || fail "pandoc not found. Install with: brew install pandoc"
+command -v pandoc >/dev/null || fail "pandoc not found. Run ./scripts/setup_dev.sh"
 
-# xelatex ships with MacTeX and is usually not on PATH.
+# xelatex ships with MacTeX/BasicTeX and is usually not on PATH.
 ensure_xelatex() {
     command -v xelatex >/dev/null && return 0
     if [[ -x /Library/TeX/texbin/xelatex ]]; then
         export PATH="/Library/TeX/texbin:$PATH"
         return 0
     fi
-    fail "xelatex not found. Install MacTeX, or add its bin directory to PATH."
+    fail "xelatex not found. Run ./scripts/setup_dev.sh (BasicTeX / texlive)."
 }
 
 resolve_docs() {
@@ -88,7 +110,7 @@ render() {
     local src="$QR_DIR/$doc.md"
     [[ -f "$src" ]] || fail "No such document: $src"
 
-    local args=(pandoc "quant-research/$doc.md" -o "quant-research/docs/$doc.$fmt")
+    local args=(pandoc "$REL_PREFIX/$doc.md" -o "$REL_PREFIX/docs/$doc.$fmt")
     local uses_mermaid=0
     grep -q '^```mermaid' "$src" && uses_mermaid=1
 
@@ -101,7 +123,7 @@ render() {
 
     if (( uses_mermaid )); then
         command -v mermaid-filter >/dev/null \
-            || fail "$doc.md uses mermaid but mermaid-filter is not installed (npm i -g mermaid-filter)"
+            || fail "$doc.md uses mermaid but mermaid-filter is not installed (./scripts/setup_dev.sh)"
         args+=(-F mermaid-filter)
         # SVG for HTML, PNG for PDF — xelatex cannot include SVG, and a diagram
         # emitted as SVG into the PDF loses every node label. Set this on every
@@ -114,11 +136,10 @@ render() {
         fi
     fi
 
-    # Run from the repo root: raw-LaTeX \includegraphics paths are relative to it.
-    ( cd "$BASE_DIR" && "${args[@]}" )
-    (( uses_mermaid )) && rm -f "$BASE_DIR/mermaid-filter.err"
+    ( cd "$RENDER_ROOT" && "${args[@]}" )
+    (( uses_mermaid )) && rm -f "$RENDER_ROOT/mermaid-filter.err"
 
-    print_success "quant-research/docs/$doc.$fmt"
+    print_success "$REL_PREFIX/docs/$doc.$fmt"
 }
 
 mkdir -p "$OUT_DIR"
@@ -127,7 +148,7 @@ if (( RUN_FIGURES )); then
     shopt -s nullglob
     for gen in "$QR_DIR"/figures/*.py; do
         echo "Generating figures: $(basename "$gen")"
-        ( cd "$BASE_DIR" && uv run --no-project --with matplotlib python "$gen" )
+        ( cd "$RENDER_ROOT" && uv run --no-project --with matplotlib python "$REL_PREFIX/figures/$(basename "$gen")" )
     done
     shopt -u nullglob
 fi

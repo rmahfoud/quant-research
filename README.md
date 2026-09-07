@@ -4,26 +4,15 @@ Markdown notes on quantitative topics, renderable to HTML and PDF.
 
 ## Prerequisites
 
-These are installed by [`scripts/setup_dev.sh`](../scripts/setup_dev.sh). To install just what’s needed for rendering:
+From this directory (independent of the Phoenix parent project):
 
 ```bash
-# pandoc
-brew install pandoc          # macOS
-# or: apt install pandoc     # Debian/Ubuntu
-
-# mermaid diagrams (momentum_deep_dive)
-npm install -g mermaid-filter
-
-# rsvg-convert: turns figures/*.svg into the PDFs the LaTeX build needs
-brew install librsvg          # macOS
-# or: apt install librsvg2-bin
-
-# PDF / LaTeX
-brew install basictex        # macOS
-# or: apt install texlive-latex-base texlive-fonts-recommended texlive-latex-extra
+./scripts/setup_dev.sh
 ```
 
-On macOS after installing BasicTeX, ensure `/Library/TeX/texbin` is on your `PATH` (or open a new shell — `scripts/render_docs.sh` also adds it when needed).
+That installs pandoc, Node (`mermaid-filter`), librsvg (`rsvg-convert`), BasicTeX / texlive, and `uv` (for figure generators).
+
+On macOS after BasicTeX, ensure `/Library/TeX/texbin` is on your `PATH` (or open a new shell — `scripts/render_docs.sh` also adds it when needed).
 
 ## Rendering
 
@@ -38,7 +27,6 @@ Examples:
 ./scripts/render_docs.sh all --figures
 ```
 
-
 Output lands in `docs/` (gitignored).
 
 `--figures` regenerates plots under `figures/` before rendering. Those outputs are committed, so this is only needed after editing a generator.
@@ -50,6 +38,8 @@ Output lands in `docs/` (gitignored).
 | `log_returns.md` | Mermaid diagrams; LaTeX math; ASCII figures |
 | `momentum_deep_dive.md` | Mermaid diagrams; hand-authored SVG figures (`figures/*.svg`) |
 | `stochastic_processes.md` | LaTeX math; HTML gets an interactive canvas figure, PDF a static plot |
+| `trend_following.md` | Mermaid diagrams; LaTeX math; matplotlib-generated SVG figures (`figures/trend_*.py`) plus the shared `kernel_weights.svg` |
+| `market_regimes.md` | Mermaid diagrams; LaTeX math; ASCII figures; matplotlib-generated SVG figures (`figures/regime_*.py`, which also print the simulated tables quoted in the text) plus the shared `purged_split.svg` |
 
 HTML output is a single self-contained file (offline-usable). PDF and HTML may diverge where a document uses format-specific figures.
 

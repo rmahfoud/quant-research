@@ -239,7 +239,7 @@ $$a\big[(1+R_1)(1+R_2) - 1\big] = a\big(R_1 + R_2 + R_1R_2\big) \;\overset{!}{=}
 
 which forces $a R_1 R_2 = 0$ for all $R_1, R_2$, hence $a = 0$. $\blacksquare$
 
-The proof runs just as cleanly from the other end. Property (T), rewritten in the gross return $x = 1+R$ with $\tilde f(x) \equiv f(x-1)$, is the multiplicative Cauchy equation $\tilde f(x_1 x_2) = \tilde f(x_1) + \tilde f(x_2)$ for all $x_1, x_2 > 0$, whose only continuous solutions are $\tilde f(x) = c \ln x$ (Aczél, 1966). So (T) alone pins $f$ down to a scalar multiple of the log return. Imposing (P) then requires
+The proof runs just as cleanly from the other end. Property (T), rewritten in the gross return $x = 1+R$ with $\tilde f(x) \equiv f(x-1)$, is the multiplicative Cauchy equation $\tilde f(x_1 x_2) = \tilde f(x_1) + \tilde f(x_2)$ for all $x_1, x_2 > 0$, whose only continuous solutions are $\tilde f(x) = c \ln x$ ([Aczél, 1966](https://archive.org/details/lecturesonfuncti0000jacz){target="_blank"}). So (T) alone pins $f$ down to a scalar multiple of the log return. Imposing (P) then requires
 
 $$c\,\ln\!\big(w x_1 + (1-w)x_2\big) \;=\; c\,\big(w \ln x_1 + (1-w)\ln x_2\big)$$
 
@@ -1389,7 +1389,7 @@ Under conditional lognormality the correct expression is
 
 $$\mathbb{E}[R \mid x] \;=\; \exp\!\Big(\hat m(x) + \tfrac12 \hat s^2(x)\Big) - 1$$
 
-where $\hat s^2(x)$ is the *conditional* variance of the log return at $x$ — the model's residual variance there, not the unconditional variance of the series. So $e^{\hat m(x)} - 1$ gives you the conditional **median**, not the mean. This is Goldberger's (1968) and [Duan's (1983)](https://people.stat.sc.edu/hoyen/PastTeaching/STAT704-2022/Notes/Smearing.pdf){target="_blank"} retransformation problem, and [Manning (1998)](https://ideas.repec.org/a/eee/jhecon/v17y1998i3p283-295.html){target="_blank"} is the standard treatment of what happens when the residual variance is not constant.
+where $\hat s^2(x)$ is the *conditional* variance of the log return at $x$ — the model's residual variance there, not the unconditional variance of the series. So $e^{\hat m(x)} - 1$ gives you the conditional **median**, not the mean. This is [Goldberger's (1968)](https://www.jstor.org/stable/1909517){target="_blank"} and [Duan's (1983)](https://people.stat.sc.edu/hoyen/PastTeaching/STAT704-2022/Notes/Smearing.pdf){target="_blank"} retransformation problem, and [Manning (1998)](https://ideas.repec.org/a/eee/jhecon/v17y1998i3p283-295.html){target="_blank"} is the standard treatment of what happens when the residual variance is not constant.
 
 **Why it is worse in finance than elsewhere.** In most applications the correction $\tfrac12 s^2$ is roughly constant, so the bias is a level shift that does not change any decision. In finance $s^2(x)$ varies by an order of magnitude across the cross-section, so **the bias varies across observations and therefore changes the ranking.**
 
@@ -1490,7 +1490,7 @@ The two communities use different conventions, and the split is not sloppiness. 
 | Execution and transaction-cost analysis | **Simple**, in basis points | Costs are proportional to notional |
 | Financial machine learning | Mixed, often unstated | See §11 |
 
-The pattern is legible once you look for it. The RiskMetrics Technical Document (1996) — the founding document of modern market-risk practice — models log changes in risk factors and then maps to dollar P&L for reporting, which is exactly the three-stage discipline of §7.3 written down thirty years ago. [Practice]
+The pattern is legible once you look for it. The [RiskMetrics Technical Document (1996)](https://www.msci.com/documents/10199/5915b101-4206-4ba0-aee2-3449d5c7e95a){target="_blank"} — the founding document of modern market-risk practice — models log changes in risk factors and then maps to dollar P&L for reporting, which is exactly the three-stage discipline of §7.3 written down thirty years ago. [Practice]
 
 ### 12.2 Where the two communities talk past each other
 
@@ -1537,7 +1537,7 @@ Annotated, grouped by kind, with a link for every entry where one is findable.
 
 **Classic, for lineage rather than current fact.**
 
-- **Cootner, P. H., ed. (1964).** *The Random Character of Stock Market Prices.* MIT Press. — The collection that consolidated the random-walk literature, including the first English translation of Bachelier.
+- **Cootner, P. H., ed. (1964).** [*The Random Character of Stock Market Prices.*](https://archive.org/details/randomcharactero00coot) MIT Press. — The collection that consolidated the random-walk literature, including the first English translation of Bachelier.
 
 ### 13.2 Papers specifically on the return-notion question
 
@@ -1553,10 +1553,10 @@ This is a small literature and unusually directly relevant; if the question in y
 - **Bachelier, L. (1900).** ["Théorie de la spéculation."](https://www.numdam.org/item/ASENS_1900_3_17__21_0/) *Annales scientifiques de l'École Normale Supérieure* (3) 17, 21–86. — Arithmetic Brownian motion on prices; the model whose negative-price defect motivated everything after it.
 - **Osborne, M. F. M. (1959).** ["Brownian Motion in the Stock Market."](https://doi.org/10.1287/opre.7.2.145) *Operations Research* 7(2), 145–173. [[paywalled]] — The paper that argued for $\ln P$ as the state variable, on psychophysical grounds.
 - **Mandelbrot, B. (1963).** ["The Variation of Certain Speculative Prices."](https://www.jstor.org/stable/2350970) *Journal of Business* 36(4), 394–419. [[paywalled]] — Fat tails, and the challenge to finite variance that §1.5 flags as still live.
-- **Samuelson, P. A. (1965).** "Proof That Properly Anticipated Prices Fluctuate Randomly." *Industrial Management Review* 6(2), 41–49. — The martingale formalisation of efficiency, and the geometric-Brownian-motion framing.
+- **Samuelson, P. A. (1965).** ["Proof That Properly Anticipated Prices Fluctuate Randomly."](https://doi.org/10.1142/9789814566926_0002) *Industrial Management Review* 6(2), 41–49. [[paywalled]] — Link is to the World Scientific reprint; the original journal is not online. — The martingale formalisation of efficiency, and the geometric-Brownian-motion framing.
 - **Fama, E. F. (1965).** ["The Behavior of Stock-Market Prices."](https://www.jstor.org/stable/2350752) *Journal of Business* 38(1), 34–105. [[paywalled]] — The empirical companion, and where the log-return convention became standard in empirical finance.
 - **Black, F. & Scholes, M. (1973).** ["The Pricing of Options and Corporate Liabilities."](https://www.jstor.org/stable/1831029) *Journal of Political Economy* 81(3), 637–654. [[paywalled]] — Lognormal prices, and the $\sigma^2/2$ in $d_2$.
-- **Merton, R. C. (1973).** "Theory of Rational Option Pricing." *Bell Journal of Economics and Management Science* 4(1), 141–183.
+- **Merton, R. C. (1973).** ["Theory of Rational Option Pricing."](https://econpapers.repec.org/RePEc:rje:bellje:v:4:y:1973:i:spring:p:141-183) *Bell Journal of Economics and Management Science* 4(1), 141–183.
 
 ### 13.4 Time-series econometrics
 
@@ -2035,7 +2035,7 @@ with $\omega > 0$, $\alpha,\beta \ge 0$. Persistence is $\lambda = \alpha + \bet
 
 **Why it appears here.** §6.2, and §8.4 lists "a distributional assumption is being made" as one of the six triggers that make the convention matter.
 
-**Deeper.** [Engle (1982)](https://www.jstor.org/stable/1912773){target="_blank"}; [Bollerslev (1986)](<https://doi.org/10.1016/0304-4076(86)90063-1>){target="_blank"}; [Nelson (1991)](https://www.jstor.org/stable/2938260){target="_blank"}; Hansen & Lunde (2005) for how hard GARCH(1,1) is to beat.
+**Deeper.** [Engle (1982)](https://www.jstor.org/stable/1912773){target="_blank"}; [Bollerslev (1986)](<https://doi.org/10.1016/0304-4076(86)90063-1>){target="_blank"}; [Nelson (1991)](https://www.jstor.org/stable/2938260){target="_blank"}; [Hansen & Lunde (2005)](https://ideas.repec.org/a/jae/japmet/v20y2005i7p873-889.html){target="_blank"} for how hard GARCH(1,1) is to beat.
 
 ### A.21 Cointegration and error correction {#a21}
 
@@ -2219,7 +2219,7 @@ $$\mathbb{E}[R \mid x] \;=\; \exp\!\Big(\hat m(x) + \tfrac12 s^2(x)\Big) - 1, \q
 
 **Why it appears here.** §9.7 and §11.5. Two stocks with identical predicted log returns and 1% versus 5% daily volatility differ by 12 bp per day in expected simple return, which is enough to look like a systematic short bias in high-volatility names.
 
-**Deeper.** [Duan (1983)](https://people.stat.sc.edu/hoyen/PastTeaching/STAT704-2022/Notes/Smearing.pdf){target="_blank"}; [Manning (1998)](https://ideas.repec.org/a/eee/jhecon/v17y1998i3p283-295.html){target="_blank"}; Goldberger (1968).
+**Deeper.** [Duan (1983)](https://people.stat.sc.edu/hoyen/PastTeaching/STAT704-2022/Notes/Smearing.pdf){target="_blank"}; [Manning (1998)](https://ideas.repec.org/a/eee/jhecon/v17y1998i3p283-295.html){target="_blank"}; [Goldberger (1968)](https://www.jstor.org/stable/1909517){target="_blank"}.
 
 ### A.35 Gradient-boosted trees {#a35}
 
@@ -2290,7 +2290,7 @@ Quantile (pinball) loss for level $\tau$ is $L_\tau(e) = \max\big(\tau e,\, (\ta
 
 Works referenced in passing in the main text that do not appear in §13.
 
-- **Aczél, J. (1966).** *Lectures on Functional Equations and Their Applications.* Academic Press. — The standard reference for the Cauchy equations used in the impossibility proof of §2.2, including the regularity conditions under which continuity can be weakened to measurability.
+- **Aczél, J. (1966).** [*Lectures on Functional Equations and Their Applications.*](https://archive.org/details/lecturesonfuncti0000jacz) Academic Press. — The standard reference for the Cauchy equations used in the impossibility proof of §2.2, including the regularity conditions under which continuity can be weakened to measurability.
 - **Andersen, T. G., Bollerslev, T., Diebold, F. X. & Labys, P. (2001).** ["The Distribution of Realized Exchange Rate Volatility."](https://www.nber.org/papers/w6961) *Journal of the American Statistical Association* 96(453), 42–55. — The empirical companion to their 2003 *Econometrica* paper; the source of the observation that log realized volatility is close to Gaussian (§6.2).
 - **Ang, A., Hodrick, R. J., Xing, Y. & Zhang, X. (2006).** ["The Cross-Section of Volatility and Expected Returns."](https://doi.org/10.1111/j.1540-6261.2006.00836.x) *Journal of Finance* 61(1), 259–299. [[paywalled]] — The idiosyncratic-volatility puzzle referenced in §9.3. Computed on simple returns, and therefore not subject to the bias described there.
 - **Box, G. E. P. & Cox, D. R. (1964).** ["An Analysis of Transformations."](https://www.jstor.org/stable/2984418) *Journal of the Royal Statistical Society, Series B* 26(2), 211–252. [[paywalled]] — The transformation family of §1.4, and the general theory of variance-stabilising transforms behind §2.5.
@@ -2299,8 +2299,9 @@ Works referenced in passing in the main text that do not appear in §13.
 - **Cochrane, J. H. (2011).** ["Presidential Address: Discount Rates."](https://doi.org/10.1111/j.1540-6261.2011.01671.x) *Journal of Finance* 66(4), 1047–1108. — The modern synthesis of the log-linear present-value framework of §6.5.
 - **Corsi, F. (2009).** ["A Simple Approximate Long-Memory Model of Realized Volatility."](https://doi.org/10.1093/jjfinec/nbp001) *Journal of Financial Econometrics* 7(2), 174–196. [[paywalled]] — The HAR model, usually fit on log realized variance (§6.2).
 - **Fama, E. F. & MacBeth, J. D. (1973).** ["Risk, Return, and Equilibrium: Empirical Tests."](https://www.jstor.org/stable/1831028) *Journal of Political Economy* 81(3), 607–636. [[paywalled]] — The cross-sectional regression methodology that requires simple returns (§7.2).
-- **Goldberger, A. S. (1968).** "The Interpretation and Estimation of Cobb-Douglas Functions." *Econometrica* 36(3–4), 464–472. — The earliest widely cited statement of the lognormal retransformation bias of §11.5.
+- **Goldberger, A. S. (1968).** ["The Interpretation and Estimation of Cobb-Douglas Functions."](https://www.jstor.org/stable/1909517) *Econometrica* 36(3), 464–472. [[paywalled]] — The earliest widely cited statement of the lognormal retransformation bias of §11.5.
 - **Hansen, L. P. & Hodrick, R. J. (1980).** ["Forward Exchange Rates as Optimal Predictors of Future Spot Rates."](https://www.jstor.org/stable/1837056) *Journal of Political Economy* 88(5), 829–853. [[paywalled]] — Standard errors for overlapping-observation regressions (§6.6).
+- **Hansen, P. R. & Lunde, A. (2005).** ["A Forecast Comparison of Volatility Models: Does Anything Beat a GARCH(1,1)?"](https://ideas.repec.org/a/jae/japmet/v20y2005i7p873-889.html) *Journal of Applied Econometrics* 20(7), 873–889. — The 330-model comparison behind the claim in §A.20 that GARCH(1,1) is hard to beat out-of-sample.
 - **Hosking, J. R. M. (1981).** ["Fractional Differencing."](https://doi.org/10.1093/biomet/68.1.165) *Biometrika* 68(1), 165–176. [[paywalled]] — With Granger & Joyeux (1980), the basis for §6.1.
 - **Johansen, S. (1991).** ["Estimation and Hypothesis Testing of Cointegration Vectors in Gaussian Vector Autoregressive Models."](https://www.jstor.org/stable/2938278) *Econometrica* 59(6), 1551–1580. [[paywalled]] — The multivariate cointegration procedure referenced in §6.1 and §6.4.
 - **Ke, G. et al. (2017).** ["LightGBM: A Highly Efficient Gradient Boosting Decision Tree."](https://papers.nips.cc/paper_files/paper/2017/hash/6449f44a102fde848669bdd9eb6b76fa-Abstract.html) *NeurIPS 30.* — Histogram construction over sorted feature values; see §11.2.
@@ -2308,7 +2309,7 @@ Works referenced in passing in the main text that do not appear in §13.
 - **J.P. Morgan / Reuters (1996).** [*RiskMetrics — Technical Document*, 4th ed.](https://www.msci.com/documents/10199/5915b101-4206-4ba0-aee2-3449d5c7e95a) — The founding document of modern market-risk practice, and an early instance of the invariant/projection/pricing discipline of §7.3.
 - **Roll, R. (1983).** ["On Computing Mean Returns and the Small Firm Premium."](https://doi.org/10.1016/0304-405X(83)90055-7) *Journal of Financial Economics* 12(3), 371–386. [[paywalled]] — Companion to Blume & Stambaugh (1983); shows how the choice of return-computation method changes a measured anomaly.
 - **Stambaugh, R. F. (1999).** ["Predictive Regressions."](https://doi.org/10.1016/S0304-405X(99)00041-0) *Journal of Financial Economics* 54(3), 375–421. [[paywalled]] — The small-sample bias in regressions with a persistent predictor (§6.6).
-- **Thorp, E. O. (2006).** "The Kelly Criterion in Blackjack, Sports Betting, and the Stock Market." In *Handbook of Asset and Liability Management*, Vol. 1. North-Holland. — The applied defence of fractional Kelly referenced in §7.1.
+- **Thorp, E. O. (2006).** ["The Kelly Criterion in Blackjack, Sports Betting, and the Stock Market."](https://gwern.net/doc/statistics/decision/2006-thorp.pdf) In *Handbook of Asset and Liability Management*, Vol. 1, 385–428. North-Holland. — The applied defence of fractional Kelly referenced in §7.1.
 
 ---
 

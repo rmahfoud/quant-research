@@ -262,7 +262,7 @@ Momentum is not one phenomenon. Different horizons have different signs, differe
 |---|---|---|---|---|
 | Sub-second to minutes | **Momentum** in order flow; price near-efficient | Order splitting, queue dynamics, latency arbitrage | Very low | Flow is predictable; *price* is much less so because market makers offset it |
 | Minutes to hours | Mixed; intraday momentum at specific times | Metaorder execution, VWAP/close flows | Low | **[Fact]** "Intraday momentum": the first half-hour return predicts the last half-hour return ([Gao, Han, Li & Zhou, 2018](https://doi.org/10.1016/j.jfineco.2018.05.009){target="_blank"}) |
-| 1 day – 1 month | **Reversal** (cross-sectional) | Compensation for liquidity provision; bid-ask bounce | Medium | [Jegadeesh (1990)](https://doi.org/10.1111/j.1540-6261.1990.tb05110.x){target="_blank"}, Lehmann (1990). Crucial: the classic momentum signal *skips* this month for exactly this reason |
+| 1 day – 1 month | **Reversal** (cross-sectional) | Compensation for liquidity provision; bid-ask bounce | Medium | [Jegadeesh (1990)](https://doi.org/10.1111/j.1540-6261.1990.tb05110.x){target="_blank"}, [Lehmann (1990)](https://www.nber.org/papers/w2533){target="_blank"}. Crucial: the classic momentum signal *skips* this month for exactly this reason |
 | 2 – 12 months | **Momentum** — the classic effect | Under-reaction, flow, disposition effect | High | [Jegadeesh & Titman (1993)](https://doi.org/10.1111/j.1540-6261.1993.tb04702.x){target="_blank"}. The 12-2 or 12-1 signal is the canonical form |
 | 1 – 3 years | Weak / transition | — | — | Signal largely absent |
 | 3 – 5 years | **Reversal** | Over-reaction correction, valuation anchoring | High | [De Bondt & Thaler (1985)](https://doi.org/10.1111/j.1540-6261.1985.tb05004.x){target="_blank"}; this is where value lives |
@@ -376,7 +376,7 @@ timeline
 
 **Limitations.** No statistical validation; the pattern vocabulary is a textbook case of ex-post pattern-fitting with enormous researcher degrees of freedom. Most of the specific patterns have never survived rigorous testing.
 
-**Lasting influence.** Mixed. The *pattern catalogue* is largely discredited as a source of edge. The *concepts* — support/resistance as reference-price effects, consolidation-then-breakout, volume confirmation — have partial modern grounding in the disposition effect and in order-book liquidity structure. Lo, Mamaysky & Wang (2000, *JF*) later gave the pattern-recognition program its only serious statistical treatment (see §2.4).
+**Lasting influence.** Mixed. The *pattern catalogue* is largely discredited as a source of edge. The *concepts* — support/resistance as reference-price effects, consolidation-then-breakout, volume confirmation — have partial modern grounding in the disposition effect and in order-book liquidity structure. [Lo, Mamaysky & Wang](https://www.nber.org/papers/w7613){target="_blank"} (2000, *JF*) later gave the pattern-recognition program its only serious statistical treatment (see §2.4).
 
 ## 2.2 Era II — The random walk and the first quantitative tests (1950–1975)
 
@@ -456,7 +456,7 @@ This strand developed almost entirely outside the academy, in commodity futures.
 
 **What changed.** It was the first credible modern rejection of weak-form efficiency using past prices alone, and it launched behavioral finance.
 
-**Limitations.** Contested on risk-adjustment and size effects (Chan, 1988; Ball & Kothari, 1989).
+**Limitations.** Contested on risk-adjustment and size effects ([Chan, 1988](https://ideas.repec.org/a/ucp/jnlbus/v61y1988i2p147-63.html){target="_blank"}; [Ball & Kothari, 1989](https://ideas.repec.org/a/eee/jfinec/v25y1989i1p51-74.html){target="_blank"}).
 
 **Lasting influence.** It established the *long* end of the momentum-reversal spectrum, and it framed the question that Jegadeesh & Titman answered at the short end.
 
@@ -592,7 +592,7 @@ This strand runs in parallel and only recently merged with the momentum literatu
 
 ### Machine learning
 
-**[Gu, Kelly & Xiu](https://doi.org/10.3386/w25398){target="_blank"} (2020, *RFS*)** benchmarked ML methods for return prediction and found tree ensembles and neural networks materially outperform linear models, with **momentum-family predictors consistently among the most important features**. **[Lim, Zohren & Roberts (2019)](https://doi.org/10.2139/ssrn.3369195){target="_blank"}** introduced "Deep Momentum Networks" — directly optimizing Sharpe with LSTMs over trend features; **[Wood, Giegerich, Roberts & Zohren (2021)](https://arxiv.org/abs/2112.08534){target="_blank"}** extended this with attention/Transformers. **López de Prado (2018)** contributed the essential methodological apparatus: triple-barrier labeling, meta-labeling, purged and embargoed cross-validation, and the Deflated Sharpe Ratio.
+**[Gu, Kelly & Xiu](https://doi.org/10.3386/w25398){target="_blank"} (2020, *RFS*)** benchmarked ML methods for return prediction and found tree ensembles and neural networks materially outperform linear models, with **momentum-family predictors consistently among the most important features**. **[Lim, Zohren & Roberts (2019)](https://doi.org/10.2139/ssrn.3369195){target="_blank"}** introduced "Deep Momentum Networks" — directly optimizing Sharpe with LSTMs over trend features; **[Wood, Giegerich, Roberts & Zohren (2021)](https://arxiv.org/abs/2112.08534){target="_blank"}** extended this with attention/Transformers. **[López de Prado (2018)](https://openlibrary.org/isbn/9781119482086){target="_blank"}** contributed the essential methodological apparatus: triple-barrier labeling, meta-labeling, purged and embargoed cross-validation, and the Deflated Sharpe Ratio.
 
 **[Kelly, Malamud & Zhou](https://doi.org/10.3386/w30217){target="_blank"} (2024, *JF*), "The Virtue of Complexity in Return Prediction"** argues — against decades of parsimony orthodoxy — that heavily over-parameterized models with appropriate ridge regularization can outperform, exhibiting "double descent." **[Contested]** and important if true.
 
@@ -747,7 +747,7 @@ These are white papers and practitioner-journal articles. They are less rigorous
 2. [Lo & MacKinlay](https://www.nber.org/papers/w2168){target="_blank"} (1988, 1990) — what you are actually measuring.
 3. [Moskowitz, Ooi & Pedersen (2012)](https://doi.org/10.2139/ssrn.2089463){target="_blank"} **with** [Huang, Li, Wang & Zhou (2020)](https://doi.org/10.2139/ssrn.3165284){target="_blank"} — the effect and its most serious critique, together.
 4. [Daniel & Moskowitz (2016)](https://doi.org/10.3386/w20439){target="_blank"} — the tail, and why risk management is intrinsic.
-5. Grinold & Kahn (1999) — how to turn a signal into a portfolio.
+5. [Grinold & Kahn (1999)](https://archive.org/details/activeportfoliom0000grin){target="_blank"} — how to turn a signal into a portfolio.
 6. [Sullivan, Timmermann & White (1999)](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/0022-1082.00163){target="_blank"} — why your backtest is probably wrong.
 
 ---
@@ -1204,7 +1204,7 @@ These are opposite trades from the same number. **Which is right is determined e
 
 **Intuition.** Over the last $n$ bars, what fraction of total absolute movement was upward?
 
-**Definition** (Wilder, 1978). With $U_i = \max(r_i, 0)$ and $D_i = \max(-r_i, 0)$, and Wilder's smoothing (an EMA with $\alpha = 1/n$):
+**Definition** ([Wilder, 1978](https://archive.org/details/newconceptsintec00wild){target="_blank"}). With $U_i = \max(r_i, 0)$ and $D_i = \max(-r_i, 0)$, and Wilder's smoothing (an EMA with $\alpha = 1/n$):
 
 $$\overline{U}_t = \frac{(n-1)\overline U_{t-1} + U_t}{n},\quad \overline D_t = \frac{(n-1)\overline D_{t-1} + D_t}{n}, \quad \mathrm{RS}_t = \frac{\overline U_t}{\overline D_t}$$
 $$\mathrm{RSI}_t = 100 - \frac{100}{1+\mathrm{RS}_t} = 100\cdot\frac{\overline U_t}{\overline U_t + \overline D_t}$$
@@ -1285,7 +1285,7 @@ Note the breakout rule excludes the current bar from its window (it compares tod
 
 **Intuition.** Separate two questions: *which direction* is price moving, and *how consistently*. ADX answers the second, and it is the only classical indicator designed specifically to measure **trend quality rather than trend direction**.
 
-**Definition** (Wilder, 1978). Directional movement per bar:
+**Definition** ([Wilder, 1978](https://archive.org/details/newconceptsintec00wild){target="_blank"}). Directional movement per bar:
 
 $$+\mathrm{DM}_t = \begin{cases} \mathrm{Hi}_t - \mathrm{Hi}_{t-1} & \text{if } (\mathrm{Hi}_t - \mathrm{Hi}_{t-1}) > (\mathrm{Lo}_{t-1}-\mathrm{Lo}_t) \text{ and } > 0\\ 0 & \text{otherwise}\end{cases}$$
 
@@ -1518,7 +1518,7 @@ Additional strengths: much lower factor/industry concentration; the residual sta
 
 ### 4.6.5 Dual momentum: combining absolute and relative
 
-**[Practice]** A widely used composition (Antonacci, 2014): first select the cross-sectional winner among a set of assets (relative momentum), then require that the winner also have positive absolute momentum versus cash or T-bills (time-series momentum); otherwise hold cash.
+**[Practice]** A widely used composition ([Antonacci, 2014](https://openlibrary.org/isbn/9780071849449){target="_blank"}): first select the cross-sectional winner among a set of assets (relative momentum), then require that the winner also have positive absolute momentum versus cash or T-bills (time-series momentum); otherwise hold cash.
 
 The logic is that the two reference points fail differently: relative momentum keeps you in the *best* asset but not necessarily a *good* one (in 2008 it kept you in the least-bad equity market); absolute momentum gets you out of falling markets but has no view on which asset. Composing them addresses both. The empirical support is mostly backtest-based and the specific published parameterizations are certainly data-snooped, but the *structural* argument is sound and the composition principle generalizes well.
 
@@ -1655,7 +1655,7 @@ The choice of *target* matters at least as much as the features:
 
 - **Fixed-horizon return** $r_{t+1:t+h}$ — simple; ignores path and risk.
 - **Volatility-scaled return** $r_{t+1:t+h}/\hat\sigma_t$ — targets Sharpe rather than return; usually better behaved.
-- **Triple-barrier labeling** (López de Prado, 2018) — label by which of {profit target, stop loss, time limit} is hit first. Encodes the actual trading decision including path dependence. **[Practice]** Valuable, and the associated *meta-labeling* idea (a primary model gives direction; a secondary model predicts whether to act) is genuinely useful for separating signal from sizing.
+- **Triple-barrier labeling** ([López de Prado, 2018](https://openlibrary.org/isbn/9781119482086){target="_blank"}) — label by which of {profit target, stop loss, time limit} is hit first. Encodes the actual trading decision including path dependence. **[Practice]** Valuable, and the associated *meta-labeling* idea (a primary model gives direction; a secondary model predicts whether to act) is genuinely useful for separating signal from sizing.
 - **Direct Sharpe optimization** ([Lim, Zohren & Roberts, 2019](https://doi.org/10.2139/ssrn.3369195){target="_blank"}) — make the loss function the negative Sharpe of the resulting position series. Elegant because it optimizes the actual objective and skips the prediction-to-position mapping entirely.
 
 ### Assumptions, strengths, weaknesses
@@ -1673,7 +1673,7 @@ The choice of *target* matters at least as much as the features:
 **Failure modes — the ones that actually bite:**
 
 1. **Normalization leakage.** Computing z-scores, scalers, or feature medians over the full sample before splitting. This is the most common leak in practice and it is silent.
-2. **Overlapping labels.** With $h$-day forward returns, adjacent samples share $h-1$ days of outcome. Naive $k$-fold CV puts near-identical samples in train and test. Fix: **purging** (drop training samples whose label window overlaps the test set) and **embargo** (drop a further buffer after the test set) — López de Prado (2018).
+2. **Overlapping labels.** With $h$-day forward returns, adjacent samples share $h-1$ days of outcome. Naive $k$-fold CV puts near-identical samples in train and test. Fix: **purging** (drop training samples whose label window overlaps the test set) and **embargo** (drop a further buffer after the test set) — [López de Prado (2018)](https://openlibrary.org/isbn/9781119482086){target="_blank"}.
 3. **Survivorship and point-in-time errors.** Using today's index membership, restated fundamentals, or a delisting-free universe.
 4. **Cross-sectional correlation.** $N$ assets on the same day are not $N$ independent samples. Sample weighting by uniqueness helps; block bootstrap by date is better.
 5. **Hyperparameter search on the test set.** If you tune on your OOS period, it is no longer OOS. Nested CV or a locked holdout is the only defense.
@@ -2116,7 +2116,7 @@ At each step: fit/select parameters on the training window, apply them unchanged
 
 Standard $k$-fold CV is invalid on time series for two reasons: it trains on the future to predict the past, and — more insidiously — **overlapping labels leak information across folds**. With an $h$-day forward return label, an observation at $t$ and one at $t+1$ share $h-1$ days of outcome. If one is in train and the other in test, you are testing on data you trained on.
 
-The fixes (López de Prado, 2018):
+The fixes ([López de Prado, 2018](https://openlibrary.org/isbn/9781119482086){target="_blank"}):
 
 - **Purging.** Remove from the training set any observation whose label window overlaps the test set's time span.
 - **Embargo.** Additionally remove training observations for a buffer period *after* the test set, to handle serial correlation in features that would otherwise leak backward.
@@ -2210,7 +2210,7 @@ $$\mathbb{E}[\text{P\&L}] = p\cdot \mathbb{E}[\text{win}] - (1-p)\cdot \mathbb{E
 
 **[Fact]** Trend-following strategies typically have hit rates of 30–45% and are profitable because the win/loss size ratio exceeds 2:1. Optimizing for hit rate actively destroys trend strategies, because it pushes you to take profits early and let losses run — the exact inversion of what makes them work. **A high hit rate combined with a low payoff ratio is the signature of a short-volatility strategy**, which will look excellent until it doesn't.
 
-**Confusion matrices, precision and recall** are appropriate when the signal is genuinely a classifier — e.g. a meta-labeling model deciding whether to *act* on a primary signal, or a regime classifier. In that framing: precision = of the trades taken, what fraction were profitable; recall = of the profitable opportunities, what fraction were captured. This is a natural and useful framing for meta-labeling specifically (López de Prado, 2018), because the primary model sets direction and the secondary model is a genuine binary decision.
+**Confusion matrices, precision and recall** are appropriate when the signal is genuinely a classifier — e.g. a meta-labeling model deciding whether to *act* on a primary signal, or a regime classifier. In that framing: precision = of the trades taken, what fraction were profitable; recall = of the profitable opportunities, what fraction were captured. This is a natural and useful framing for meta-labeling specifically ([López de Prado, 2018](https://openlibrary.org/isbn/9781119482086){target="_blank"}), because the primary model sets direction and the secondary model is a genuine binary decision.
 
 For a directional forecast on continuous returns, confusion matrices **discard magnitude information**, which is where the P&L is. Use them as diagnostics (is the signal asymmetric between longs and shorts? does it fail specifically in one direction?), not as objectives.
 
@@ -2440,9 +2440,9 @@ This reframing has consequences that cascade through every design decision. If m
 
 **Grid-search parameter optimization.** Replaced by ensembling, regularization, and — where optimization is used at all — walk-forward selection with explicit multiple-testing accounting.
 
-**Naive TSMOM tests.** Post-Huang et al. (2020), a time-series momentum claim that does not control for the unconditional mean is not taken seriously.
+**Naive TSMOM tests.** Post-[Huang et al. (2020)](https://doi.org/10.2139/ssrn.3165284){target="_blank"}, a time-series momentum claim that does not control for the unconditional mean is not taken seriously.
 
-**Chart-pattern recognition** as a primary signal. Lo, Mamaysky & Wang (2000) gave it its most rigorous hearing and the verdict was "some information, unclear profitability."
+**Chart-pattern recognition** as a primary signal. [Lo, Mamaysky & Wang (2000)](https://www.nber.org/papers/w7613){target="_blank"} gave it its most rigorous hearing and the verdict was "some information, unclear profitability."
 
 ## 8.4 How a sophisticated implementation looks today
 
@@ -2488,7 +2488,7 @@ Three observations about this picture:
 
 ## 8.6 Where active research is focused
 
-1. **Is stock momentum derivative?** The factor-momentum literature (Gupta & Kelly, 2019; [Ehsani & Linnainmaa, 2022](https://doi.org/10.1111/jofi.13131){target="_blank"}; [Arnott et al., 2023](https://doi.org/10.1093/rfs/hhad006){target="_blank"}) argues that momentum in individual stocks may be a *consequence* of autocorrelation in factor returns. If true, it changes both the mechanism story and the optimal implementation. **[Contested]**, actively worked.
+1. **Is stock momentum derivative?** The factor-momentum literature ([Gupta & Kelly, 2019](https://doi.org/10.2139/ssrn.3300728){target="_blank"}; [Ehsani & Linnainmaa, 2022](https://doi.org/10.1111/jofi.13131){target="_blank"}; [Arnott et al., 2023](https://doi.org/10.1093/rfs/hhad006){target="_blank"}) argues that momentum in individual stocks may be a *consequence* of autocorrelation in factor returns. If true, it changes both the mechanism story and the optimal implementation. **[Contested]**, actively worked.
 
 2. **How much is conditional risk?** [Kelly, Moskowitz & Pruitt (2021)](https://doi.org/10.1016/j.jfineco.2020.06.024){target="_blank"} and the IPCA program. If a large fraction of momentum returns is compensation for time-varying beta, the "alpha" framing is wrong and the hedging implications are direct.
 
@@ -3099,13 +3099,13 @@ with a decaying kernel $G$ fine-tuned against the flow autocorrelation to leave 
 
 **Sequence models: LSTM, attention and Transformers.** *Idea:* rather than choosing the kernel that weights past returns, let the model learn it. A recurrent network carries a hidden state forward through time with learned gates controlling what to remember; an attention mechanism instead computes, for each output, a set of learned weights over all input positions — a *data-dependent* kernel, which is the natural generalization of everything in §4.1.5. The cost is a very large number of parameters against a very small effective sample. *Formally:* attention computes $\operatorname{softmax}(QK'/\sqrt{d})V$ for learned query, key and value projections. [Lim, Zohren & Roberts (2019)](https://doi.org/10.2139/ssrn.3369195){target="_blank"}; [Wood et al. (2021)](https://arxiv.org/abs/2112.08534){target="_blank"}. *Used in:* §4.9.
 
-**Triple-barrier labeling and meta-labeling.** *Idea:* the usual label — the return over the next $h$ days — describes something no trader does. A real position ends when it hits a profit target, a stop, or a time limit, whichever comes first, so the label should record which one. **Meta-labeling** then splits the problem in two: a primary model decides direction, and a secondary model decides whether to act and how large — which lets you optimize sizing separately from prediction, and it is a genuinely useful separation. *Formally:* label $y_t\in\{+1,-1,0\}$ by which of the upper barrier ($+a\hat\sigma_t$), lower barrier ($-b\hat\sigma_t$) or vertical barrier (time limit) is touched first (López de Prado, 2018). *Used in:* §4.9, §7.3.4.
+**Triple-barrier labeling and meta-labeling.** *Idea:* the usual label — the return over the next $h$ days — describes something no trader does. A real position ends when it hits a profit target, a stop, or a time limit, whichever comes first, so the label should record which one. **Meta-labeling** then splits the problem in two: a primary model decides direction, and a secondary model decides whether to act and how large — which lets you optimize sizing separately from prediction, and it is a genuinely useful separation. *Formally:* label $y_t\in\{+1,-1,0\}$ by which of the upper barrier ($+a\hat\sigma_t$), lower barrier ($-b\hat\sigma_t$) or vertical barrier (time limit) is touched first ([López de Prado, 2018](https://openlibrary.org/isbn/9781119482086){target="_blank"}). *Used in:* §4.9, §7.3.4.
 
 **Sample uniqueness and effective sample size.** *Idea:* with overlapping labels and hundreds of correlated assets, the number of rows in your training set radically overstates how much independent information you have. This — not model choice — is the binding constraint on machine learning in finance, and no architecture fixes it. *Formally:* the uniqueness of observation $i$ is the average, over the bars its label spans, of the reciprocal of the number of labels covering that bar; weighting samples by uniqueness, or bootstrapping by date blocks, restores approximately correct inference. *Used in:* §4.9.
 
 **Path signatures.** *Idea:* a principled basis for functions of a *path* rather than of its endpoints. The signature collects iterated integrals along the path; low-order terms recover displacement, next-order terms capture the *order in which* moves happened, and so on. It is the natural formal answer to the "path-blind" weakness of §4.1.1, and it is under-used relative to its elegance. *Formally:* for a path $X:[0,T]\to\mathbb{R}^d$, the signature is the collection $S(X)^{i_1\dots i_k} = \int_{0<t_1<\dots<t_k<T} dX^{i_1}_{t_1}\cdots dX^{i_k}_{t_k}$, truncated at order $k$; dimension grows like $d^k$. Lyons; [Levin, Lyons & Ni (2013)](https://arxiv.org/abs/1309.0260){target="_blank"}. *Used in:* §4.9.
 
-**Fractional differentiation.** *Idea:* differencing a price series to make it stationary destroys almost all of its memory — you are handed returns, which barely remember anything. Fractional differencing takes a *non-integer* difference, removing just enough non-stationarity to satisfy a statistical test while retaining as much memory as possible. *Formally:* $(1-B)^d$ expanded as a binomial series with $d\in(0,1)$, applied to log prices and truncated by weight threshold; choose the smallest $d$ passing an ADF test (López de Prado, 2018). *Used in:* §3.2.
+**Fractional differentiation.** *Idea:* differencing a price series to make it stationary destroys almost all of its memory — you are handed returns, which barely remember anything. Fractional differencing takes a *non-integer* difference, removing just enough non-stationarity to satisfy a statistical test while retaining as much memory as possible. *Formally:* $(1-B)^d$ expanded as a binomial series with $d\in(0,1)$, applied to log prices and truncated by weight threshold; choose the smallest $d$ passing an ADF test ([López de Prado, 2018](https://openlibrary.org/isbn/9781119482086){target="_blank"}). *Used in:* §3.2.
 
 ---
 
@@ -3167,6 +3167,7 @@ with a decaying kernel $G$ fine-tuned against the flow autocorrelation to leave 
 - Baz, J., Granger, N., Harvey, C. R., Le Roux, N. & Rattray, S. (2015). "[Dissecting Investment Strategies in the Cross Section and Time Series](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2695101)." SSRN 2695101. *(Source of the volatility-normalized MACD and the $z e^{-z^2/4}$ response function.)*
 - Bailey, D., Borwein, J., López de Prado, M. & Zhu, Q. J. (2014). "[Pseudo-Mathematics and Financial Charlatanism: The Effects of Backtest Overfitting on Out-of-Sample Performance](https://doi.org/10.1090/noti1105)." *Notices of the AMS* 61(5), 458–471.
 - Bailey, D., Borwein, J., López de Prado, M. & Zhu, Q. J. (2017). "[The Probability of Backtest Overfitting](https://escholarship.org/uc/item/4w1110bb)." *Journal of Computational Finance* 20(4), 39–69.
+- Ball, R. & Kothari, S. P. (1989). "[Nonstationary Expected Returns: Implications for Tests of Market Efficiency and Serial Correlation in Returns](https://ideas.repec.org/a/eee/jfinec/v25y1989i1p51-74.html)." *JFE* 25(1), 51–74. *(With Chan (1988), the risk-based challenge to the early overreaction evidence; see §4.4.)*
 - Bernard, V. & Thomas, J. (1989). "[Post-Earnings-Announcement Drift: Delayed Price Response or Risk Premium](https://doi.org/10.2307/2491062)?" *Journal of Accounting Research* 27, 1–36.
 - Berk, J., Green, R. & Naik, V. (1999). "[Optimal Investment, Growth Options, and Security Returns](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/0022-1082.00161)." *Journal of Finance* 54(5), 1553–1607.
 - Brock, W., Lakonishok, J. & LeBaron, B. (1992). "[Simple Technical Trading Rules and the Stochastic Properties of Stock Returns](https://doi.org/10.1111/j.1540-6261.1992.tb04681.x)." *Journal of Finance* 47(5), 1731–1764.
@@ -3174,6 +3175,7 @@ with a decaying kernel $G$ fine-tuned against the flow autocorrelation to leave 
 - Bruder, B., Dao, T.-L., Richard, J.-C. & Roncalli, T. (2013). "[Trend Filtering Methods for Momentum Strategies](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2289097)." SSRN 2289097.
 - Campbell, J. & Thompson, S. (2008). "[Predicting Excess Stock Returns Out of Sample: Can Anything Beat the Historical Average](http://nrs.harvard.edu/urn-3:HUL.InstRepos:2622619)?" *RFS* 21(4), 1509–1531.
 - Campbell, J. Y., Lo, A. W. & MacKinlay, A. C. (1997). [*The Econometrics of Financial Markets.*](https://doi.org/10.1515/9781400830213) Princeton University Press. *(Source of the RW1/RW2/RW3 taxonomy.)*
+- Chan, K. C. (1988). "[On the Contrarian Investment Strategy](https://ideas.repec.org/a/ucp/jnlbus/v61y1988i2p147-63.html)." *Journal of Business* 61(2), 147–163. *(Argues De Bondt–Thaler reversal profits survive only without a time-varying risk adjustment.)*
 - Chan, L., Jegadeesh, N. & Lakonishok, J. (1996). "[Momentum Strategies](https://doi.org/10.3386/w5375)." *Journal of Finance* 51(5), 1681–1713.
 - Cooper, M., Gutierrez, R. & Hameed, A. (2004). "[Market States and Momentum](https://doi.org/10.2139/ssrn.299927)." *Journal of Finance* 59(3), 1345–1365.
 - Dickey, D. & Fuller, W. (1979). "[Distribution of the Estimators for Autoregressive Time Series with a Unit Root](https://doi.org/10.2307/2286348)." *JASA* 74(366), 427–431.
@@ -3190,6 +3192,7 @@ with a decaying kernel $G$ fine-tuned against the flow autocorrelation to leave 
 - Goyal, A. & Welch, I. (2008). "[A Comprehensive Look at the Empirical Performance of Equity Premium Prediction](https://doi.org/10.1093/rfs/hhm014)." *RFS* 21(4), 1455–1508.
 - Granger, C. & Newbold, P. (1974). "[Spurious Regressions in Econometrics](https://doi.org/10.1016/0304-4076(74)90034-7)." *Journal of Econometrics* 2(2), 111–120.
 - Grossman, S. & Stiglitz, J. (1980). "[On the Impossibility of Informationally Efficient Markets](https://www.aeaweb.org/aer/top20/70.3.393-408.pdf)." *American Economic Review* 70(3), 393–408.
+- Gupta, T. & Kelly, B. (2019). "[Factor Momentum Everywhere](https://doi.org/10.2139/ssrn.3300728)." *Journal of Portfolio Management* 45(3), 13–36.
 - Hamilton, J. (1989). "[A New Approach to the Economic Analysis of Nonstationary Time Series and the Business Cycle](https://doi.org/10.2307/1912559)." *Econometrica* 57(2), 357–384.
 - Hamilton, J. (2018). "[Why You Should Never Use the Hodrick-Prescott Filter](https://doi.org/10.3386/w23429)." *Review of Economics and Statistics* 100(5), 831–843.
 - Hansen, L. P. & Hodrick, R. (1980). "[Forward Exchange Rates as Optimal Predictors of Future Spot Rates](https://doi.org/10.1086/260910)." *Journal of Political Economy* 88(5), 829–853.
@@ -3199,7 +3202,9 @@ with a decaying kernel $G$ fine-tuned against the flow autocorrelation to leave 
 - Kim, S.-J., Koh, K., Boyd, S. & Gorinevsky, D. (2009). "[$\ell_1$ Trend Filtering](https://doi.org/10.1137/070690274)." *SIAM Review* 51(2), 339–360.
 - Lesmond, D., Schill, M. & Zhou, C. (2004). "[The Illusory Nature of Momentum Profits](https://doi.org/10.2139/ssrn.256926)." *JFE* 71(2), 349–380.
 - Levin, D., Lyons, T. & Ni, H. (2013). "[Learning from the Past, Predicting the Statistics for the Future, Learning an Evolving System](https://arxiv.org/abs/1309.0260)." arXiv:1309.0260. *(Path signatures.)*
+- Lehmann, B. (1990). "[Fads, Martingales, and Market Efficiency](https://www.nber.org/papers/w2533)." *Quarterly Journal of Economics* 105(1), 1–28. *(Short-horizon weekly reversal; the reason the classic momentum signal skips the most recent month.)*
 - Lo, A. W. & MacKinlay, A. C. (1990b). "[An Econometric Analysis of Nonsynchronous Trading](https://www.nber.org/papers/w2960)." *Journal of Econometrics* 45(1–2), 181–211. *(Distinct from the 1990 contrarian-profits paper, §3.3 item 10.)*
+- Lo, A. W., Mamaysky, H. & Wang, J. (2000). "[Foundations of Technical Analysis: Computational Algorithms, Statistical Inference, and Empirical Implementation](https://www.nber.org/papers/w7613)." *Journal of Finance* 55(4), 1705–1765. *(The kernel-regression treatment of chart patterns discussed in §5.)*
 - Magdon-Ismail, M., Atiya, A., Pratap, A. & Abu-Mostafa, Y. (2004). "[On the Maximum Drawdown of a Brownian Motion](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/F9E3B8A454B020DDEBF0AC3390EF7807/S0021900200014108a.pdf/div-class-title-on-the-maximum-drawdown-of-a-brownian-motion-div.pdf)." *Journal of Applied Probability* 41(1), 147–161.
 - Merton, R. (1980). "[On Estimating the Expected Return on the Market](https://doi.org/10.1016/0304-405x(80)90007-0)." *JFE* 8(4), 323–361.
 - Parkinson, M. (1980). "[The Extreme Value Method for Estimating the Variance of the Rate of Return](https://doi.org/10.1086/296071)." *Journal of Business* 53(1), 61–65.

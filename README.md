@@ -40,6 +40,7 @@ Output lands in `docs/` (gitignored).
 | `stochastic_processes.md` | LaTeX math; HTML gets an interactive canvas figure, PDF a static plot |
 | `trend_following.md` | Mermaid diagrams; LaTeX math; matplotlib-generated SVG figures (`figures/trend_*.py`) plus the shared `kernel_weights.svg` |
 | `market_regimes.md` | Mermaid diagrams; LaTeX math; ASCII figures; matplotlib-generated SVG figures (`figures/regime_*.py`, which also print the simulated tables quoted in the text) plus the shared `purged_split.svg` |
+| `portfolio_construction.md` | Mermaid diagrams; LaTeX math; matplotlib-generated SVG figures (`figures/pc_*.py`, which also print the simulated numbers quoted in §2.1, §5.5 and §9.8) |
 
 HTML output is a single self-contained file (offline-usable). PDF and HTML may diverge where a document uses format-specific figures.
 

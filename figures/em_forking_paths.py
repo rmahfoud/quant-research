@@ -93,7 +93,9 @@ def main() -> None:
     axL.set_title("Search long enough and something is significant", fontsize=11, color=INK, loc="left", pad=8)
     axL.set_xticks([1, 10, 100, 1000])
     axL.set_xticklabels(["1", "10", "100", "1000"])
-    legend = axL.legend(frameon=False, fontsize=9.5, loc="upper left", title="correlation between\nspecifications", title_fontsize=9)
+    legend = axL.legend(
+        frameon=False, fontsize=9.5, loc="upper left", title="correlation between\nspecifications", title_fontsize=9
+    )
     legend.get_title().set_color(MUTED)
 
     axR.plot(power, ratio, color=RUST, lw=2.2)

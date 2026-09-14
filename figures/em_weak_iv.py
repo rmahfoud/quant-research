@@ -112,9 +112,7 @@ def main() -> None:
 
     rej_iv = np.array([np.mean(np.abs(results[ef]["t_iv"]) > 1.96) for ef in EXPECTED_F])
     rej_ar = np.array([np.mean(np.abs(results[ef]["t_ar"]) > 1.96) for ef in EXPECTED_F])
-    rej_screened = np.array(
-        [np.mean(np.abs(results[ef]["t_iv"][results[ef]["F"] > 10]) > 1.96) for ef in EXPECTED_F]
-    )
+    rej_screened = np.array([np.mean(np.abs(results[ef]["t_iv"][results[ef]["F"] > 10]) > 1.96) for ef in EXPECTED_F])
     axR.axhline(0.05, color=GREY, lw=1.0, ls=":")
     axR.axvline(10, color=GREY, lw=0.8, ls="--")
     axR.plot(efs, rej_screened, "^--", color=INK, lw=1.6, ms=4.5, label="2SLS t-test, reported only if F > 10")

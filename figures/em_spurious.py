@@ -144,7 +144,9 @@ def main() -> None:
     for ext in ("pdf", "svg"):
         fig.savefig(f"{out}.{ext}", transparent=True, bbox_inches="tight")
 
-    print(f"{'T':>5} {'rej iid':>8} {'rej RW':>8} {'rej RW NW':>10} {'med|t| RW':>10} {'medR2 iid':>10} {'medR2 RW':>9} {'P(R2>.3) RW':>12}")
+    print(
+        f"{'T':>5} {'rej iid':>8} {'rej RW':>8} {'rej RW NW':>10} {'med|t| RW':>10} {'medR2 iid':>10} {'medR2 RW':>9} {'P(R2>.3) RW':>12}"
+    )
     for r in rows:
         print(f"{int(r[0]):5d} {r[1]:8.3f} {r[2]:8.3f} {r[3]:10.3f} {r[4]:10.2f} {r[5]:10.4f} {r[6]:9.3f} {r[7]:12.3f}")
 

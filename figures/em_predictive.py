@@ -96,7 +96,7 @@ def long_horizon(x: np.ndarray, r: np.ndarray, h: int) -> dict[str, np.ndarray]:
     # the h most recent predictor values.
     xall = x[:, :T] - x[:, :T].mean(axis=1, keepdims=True)
     cx = np.concatenate([np.zeros((x.shape[0], 1)), xall.cumsum(axis=1)], axis=1)
-    s = cx[:, h:T + 1] - cx[:, 0:T - h + 1]  # s[:, j] = x_j + ... + x_{j+h-1}
+    s = cx[:, h : T + 1] - cx[:, 0 : T - h + 1]  # s[:, j] = x_j + ... + x_{j+h-1}
     eps = r - r.mean(axis=1, keepdims=True)
     eps_next = eps[:, h - 1 : T]  # r_{j+h}, paired with the window ending at x_{j+h-1}
     meat_h = ((eps_next * s) ** 2).sum(axis=1)
@@ -178,8 +178,12 @@ def main() -> None:
     print(f"  approx s.e. of beta_hat       {se_theory:.5f}   -> bias / s.e. = {stambaugh / se_theory:.2f}")
     print(f"  mean t, exogenous             {np.mean(t_exo):+.3f}")
     print(f"  mean t, corr -0.95            {np.mean(t_end):+.3f}")
-    print(f"  one-sided rejection (t>1.645) exogenous {np.mean(t_exo > 1.645):.3f}   corr -0.95 {np.mean(t_end > 1.645):.3f}")
-    print(f"  two-sided rejection (|t|>1.96) exogenous {np.mean(np.abs(t_exo) > 1.96):.3f}   corr -0.95 {np.mean(np.abs(t_end) > 1.96):.3f}")
+    print(
+        f"  one-sided rejection (t>1.645) exogenous {np.mean(t_exo > 1.645):.3f}   corr -0.95 {np.mean(t_end > 1.645):.3f}"
+    )
+    print(
+        f"  two-sided rejection (|t|>1.96) exogenous {np.mean(np.abs(t_exo) > 1.96):.3f}   corr -0.95 {np.mean(np.abs(t_end) > 1.96):.3f}"
+    )
     print()
     print("Right panel: exogenous predictor, overlapping h-month returns")
     print(f"{'h':>4} {'classical':>10} {'NW(h)':>7} {'Hodrick':>8} {'median R2':>10} {'90th pct R2':>12}")

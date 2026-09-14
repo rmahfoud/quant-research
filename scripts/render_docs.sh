@@ -63,6 +63,12 @@ HTML_ARGS=(
     -V margin-right=32px
 )
 
+SOURCE_URL="https://github.com/rmahfoud/quant-research/blob/master"
+
+# Documents that get the outline sidebar (assets/sidebar.html). Trialled on
+# these before rolling out to every document.
+SIDEBAR_DOCS=(momentum_deep_dive)
+
 DOC_ARG=""
 FORMAT="both"
 RUN_FIGURES=0
@@ -119,6 +125,12 @@ render() {
         args+=("${PDF_ARGS[@]}")
     else
         args+=("${HTML_ARGS[@]}")
+        if [[ " ${SIDEBAR_DOCS[*]} " == *" $doc "* ]]; then
+            args+=(
+                --include-in-header="$REL_PREFIX/assets/sidebar.html"
+                -V include-before="<qr-sidebar source=\"$SOURCE_URL/$doc.md\"></qr-sidebar>"
+            )
+        fi
     fi
 
     if (( uses_mermaid )); then

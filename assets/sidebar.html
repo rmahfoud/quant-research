@@ -1,0 +1,416 @@
+<!-- Outline sidebar: a collapsible left bar holding the document outline, with
+     links to the index and to the markdown source on GitHub.
+
+     Defines the <qr-sidebar> custom element. Injected into <head> via pandoc
+     --include-in-header (HTML output only); render_docs.sh places the element
+     itself at the top of <body>:
+
+       <qr-sidebar source="https://github.com/…/<doc>.md"></qr-sidebar>
+
+     Attributes: source (the Source link is omitted without it) and index
+     (defaults to index.html). Once the document is parsed, the element adopts
+     pandoc's <nav id="TOC">; without JS the outline stays inline as before.
+
+     Self-contained like the reading widget, whose --rdw-* colour tokens it
+     reuses. Class prefix is "qrs-". Open/closed is persisted in localStorage
+     under qr-sidebar, next to the widget's qr-theme and qr-size.
+-->
+
+<style>
+  :root { --qrs-width: 290px; }
+
+  qr-sidebar { display: block; }
+
+  /* Hidden until the sidebar adopts it, so it never flashes at the top. */
+  :root[data-qrs] body > #TOC { display: none; }
+
+  /* Docked beside the text on wide screens, a drawer over it on narrow ones.
+     The breakpoint is repeated in the script. */
+  @media (min-width: 1024px) {
+    :root[data-qrs="open"] { padding-left: var(--qrs-width); }
+  }
+
+  .qrs-panel {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 997;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: var(--qrs-width);
+    max-width: 85vw;
+    border-right: 1px solid var(--rdw-rule, #d8dde3);
+    background: var(--rdw-surface, #f4f6f8);
+    color: var(--rdw-fg, #1a1a1a);
+    font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    hyphens: manual;
+    transition: transform 0.2s ease, visibility 0s;
+  }
+
+  :root[data-qrs="closed"] .qrs-panel {
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition: transform 0.2s ease, visibility 0s 0.2s;
+  }
+
+  .qrs-head {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 6px;
+    min-height: 64px;
+    padding: 0 12px 0 62px;
+    border-bottom: 1px solid var(--rdw-rule, #d8dde3);
+  }
+
+  .qrs-link,
+  .qrs-link:visited {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px 5px 9px;
+    border: 1px solid var(--rdw-rule, #d8dde3);
+    border-radius: 999px;
+    background: var(--rdw-bg, #fdfdfd);
+    color: var(--rdw-fg, #1a1a1a);
+    font-size: 13px;
+    text-decoration: none;
+  }
+
+  .qrs-link:hover { border-color: var(--rdw-muted, #5c6570); }
+  .qrs-link svg { flex: none; color: var(--rdw-muted, #5c6570); }
+
+  .qrs-scroll {
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 10px 8px 28px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rdw-rule, #d8dde3) transparent;
+  }
+
+  qr-sidebar #TOC ul { margin: 0; padding: 0; list-style: none; }
+  qr-sidebar #TOC li { position: relative; margin: 0; }
+  qr-sidebar #TOC li > ul { display: none; }
+  qr-sidebar #TOC li.qrs-open > ul { display: block; }
+
+  /* Subsections hang off a guide line under their parent's chevron. */
+  qr-sidebar #TOC ul ul {
+    margin: 1px 0 6px 13px;
+    padding-left: 6px;
+    border-left: 1px solid var(--rdw-rule, #d8dde3);
+  }
+
+  qr-sidebar #TOC a {
+    display: block;
+    padding: 5px 8px 5px 26px;
+    border-radius: 6px;
+    color: var(--rdw-fg, #1a1a1a);
+    text-decoration: none;
+  }
+
+  qr-sidebar #TOC ul ul a {
+    padding-left: 9px;
+    color: var(--rdw-muted, #5c6570);
+    font-size: 13.5px;
+  }
+
+  qr-sidebar #TOC ul ul .qrs-branch > a { padding-left: 26px; }
+
+  qr-sidebar #TOC a:hover {
+    background: var(--rdw-surface-2, #eceff3);
+    color: var(--rdw-fg, #1a1a1a);
+  }
+
+  qr-sidebar #TOC a[aria-current] {
+    background: var(--rdw-surface-2, #eceff3);
+    color: var(--rdw-link, #0b6e4f);
+  }
+
+  .qrs-twisty {
+    position: absolute;
+    top: 4px;
+    left: 2px;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: 0;
+    border-radius: 5px;
+    background: none;
+    color: var(--rdw-muted, #5c6570);
+    cursor: pointer;
+  }
+
+  .qrs-twisty:hover { color: var(--rdw-fg, #1a1a1a); }
+  .qrs-twisty svg { transition: transform 0.15s ease; }
+  .qrs-open > .qrs-twisty svg { transform: rotate(90deg); }
+
+  .qrs-toggle {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 998;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 1px solid var(--rdw-rule, #d8dde3);
+    border-radius: 50%;
+    background: var(--rdw-bg, #fdfdfd);
+    color: var(--rdw-muted, #5c6570);
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .qrs-toggle:hover { color: var(--rdw-fg, #1a1a1a); }
+
+  /* Closed, the toggle floats over the text: rest faint, like the reading widget. */
+  :root[data-qrs="closed"] .qrs-toggle:not(:hover):not(:focus-visible) { opacity: 0.35; }
+
+  .qrs-toggle:focus-visible,
+  .qrs-twisty:focus-visible,
+  .qrs-link:focus-visible,
+  qr-sidebar #TOC a:focus-visible {
+    outline: 2px solid var(--rdw-link, #0b6e4f);
+    outline-offset: -2px;
+  }
+
+  .qrs-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 996;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0s 0.2s;
+  }
+
+  @media (max-width: 1023.98px) {
+    .qrs-panel { box-shadow: 0 0 28px rgba(0, 0, 0, 0.18); }
+
+    :root[data-qrs="open"] .qrs-scrim {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.2s ease;
+    }
+  }
+
+  @media print {
+    qr-sidebar { display: none !important; }
+    :root[data-qrs] { padding-left: 0 !important; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    qr-sidebar, qr-sidebar * { transition: none !important; }
+  }
+</style>
+
+<script>
+  (() => {
+    if (!window.customElements) return;
+
+    const KEY = "qr-sidebar";
+    const root = document.documentElement;
+    // Keep in sync with the min-width breakpoint in the stylesheet.
+    const wide = window.matchMedia("(min-width: 1024px)");
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const remembered = () => {
+      try { return localStorage.getItem(KEY) !== "closed"; } catch (e) { return true; }
+    };
+    const remember = (open) => {
+      try { localStorage.setItem(KEY, open ? "open" : "closed"); } catch (e) { /* private mode */ }
+    };
+
+    // Before first paint, so the text column never jumps sideways.
+    root.setAttribute("data-qrs", wide.matches && remembered() ? "open" : "closed");
+    document.addEventListener("DOMContentLoaded", () => {
+      if (!document.querySelector("qr-sidebar")) root.removeAttribute("data-qrs");
+    });
+
+    const icon = (size, paths) =>
+      `<svg width="${size}" height="${size}" viewBox="0 0 16 16" aria-hidden="true" focusable="false">${paths}</svg>`;
+    const line = 'fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"';
+    const ICON_SIDEBAR = icon(17, `<rect x="2" y="2.75" width="12" height="10.5" rx="1.75" ${line}/><path d="M6.25 2.75v10.5" ${line}/>`);
+    const ICON_BACK = icon(13, `<path d="M10 3.5 5.5 8l4.5 4.5" ${line}/>`);
+    const ICON_CHEVRON = icon(12, `<path d="M6 3.5 10.5 8 6 12.5" ${line}/>`);
+    const ICON_GITHUB = icon(14, '<path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>');
+
+    // The innermost element at the reader's eye line. Docking reflows the text
+    // column, so its position is restored afterwards to keep the reader's place.
+    const readingAnchor = () => {
+      const { left, width } = document.body.getBoundingClientRect();
+      for (let y = window.innerHeight / 4; y < window.innerHeight / 2; y += 16) {
+        const el = document.elementFromPoint(left + width / 2, y);
+        if (el && el !== document.body && el !== root) return el;
+      }
+      return null;
+    };
+
+    class QrSidebar extends HTMLElement {
+      connectedCallback() {
+        if (this.panel) return;
+        this.innerHTML = `
+          <aside class="qrs-panel" id="qrs-panel" aria-label="Document outline">
+            <div class="qrs-head">
+              <a class="qrs-link">${ICON_BACK}<span>Index</span></a>
+              <a class="qrs-link">${ICON_GITHUB}<span>Source</span></a>
+            </div>
+            <div class="qrs-scroll"></div>
+          </aside>
+          <div class="qrs-scrim"></div>
+          <button type="button" class="qrs-toggle" aria-controls="qrs-panel">${ICON_SIDEBAR}</button>`;
+        this.panel = this.querySelector(".qrs-panel");
+        this.scroller = this.querySelector(".qrs-scroll");
+        this.toggle = this.querySelector(".qrs-toggle");
+
+        const [index, source] = this.querySelectorAll(".qrs-link");
+        index.setAttribute("href", this.getAttribute("index") || "index.html");
+        const src = this.getAttribute("source");
+        if (src) {
+          source.setAttribute("href", src);
+          source.title = `${src.split("/").pop()} on GitHub`;
+        } else {
+          source.remove();
+        }
+
+        this.toggle.addEventListener("click", () => this.setOpen(!this.open, true));
+        this.querySelector(".qrs-scrim").addEventListener("click", () => this.setOpen(false));
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && this.open && !wide.matches) {
+            this.setOpen(false);
+            this.toggle.focus();
+          }
+        });
+        wide.addEventListener("change", () => this.setOpen(wide.matches && remembered()));
+        this.sync();
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", () => this.adopt(), { once: true });
+        } else {
+          this.adopt();
+        }
+      }
+
+      get open() {
+        return root.getAttribute("data-qrs") === "open";
+      }
+
+      setOpen(open, byUser) {
+        if (byUser && wide.matches) remember(open);
+        const anchor = wide.matches && readingAnchor();
+        const before = anchor && anchor.getBoundingClientRect().top;
+        root.setAttribute("data-qrs", open ? "open" : "closed");
+        if (anchor) window.scrollBy(0, anchor.getBoundingClientRect().top - before);
+        this.sync();
+      }
+
+      sync() {
+        const label = this.open ? "Hide outline" : "Show outline";
+        this.toggle.setAttribute("aria-expanded", String(this.open));
+        this.toggle.setAttribute("aria-label", label);
+        this.toggle.title = label;
+      }
+
+      adopt() {
+        const toc = document.getElementById("TOC");
+        if (!toc) return;
+        this.scroller.appendChild(toc);
+
+        this.branches = [...toc.querySelectorAll("li")].filter((li) => li.querySelector(":scope > ul > li"));
+        for (const li of this.branches) {
+          li.classList.add("qrs-branch");
+          li.insertAdjacentHTML("afterbegin",
+            `<button type="button" class="qrs-twisty" aria-expanded="false" aria-label="Subsections">${ICON_CHEVRON}</button>`);
+        }
+        this.items = [...toc.querySelectorAll('a[href^="#"]')]
+          .map((a) => ({ a, heading: document.getElementById(a.getAttribute("href").slice(1)) }))
+          .filter((item) => item.heading);
+        this.current = -1;
+        this.path = new Set();
+        this.overrides = new Map();
+
+        toc.addEventListener("click", (e) => {
+          const twisty = e.target.closest(".qrs-twisty");
+          if (twisty) this.flip(twisty.parentElement);
+          else if (e.target.closest("a") && !wide.matches) this.setOpen(false);
+        });
+        const touched = () => { this.touchedAt = Date.now(); };
+        this.scroller.addEventListener("wheel", touched, { passive: true });
+        this.scroller.addEventListener("touchmove", touched, { passive: true });
+
+        let queued = false;
+        const schedule = () => {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(() => { queued = false; this.spy(); });
+        };
+        window.addEventListener("scroll", schedule, { passive: true });
+        window.addEventListener("resize", schedule);
+        this.spy();
+      }
+
+      // The current section is the last heading above 30% of the viewport.
+      spy() {
+        const limit = window.innerHeight * 0.3;
+        const passed = (i) => this.items[i].heading.getBoundingClientRect().top <= limit;
+        let i = this.current;
+        while (i + 1 < this.items.length && passed(i + 1)) i++;
+        while (i >= 0 && !passed(i)) i--;
+        if (i === this.current) return;
+
+        if (this.current >= 0) this.items[this.current].a.removeAttribute("aria-current");
+        this.current = i;
+        const link = i >= 0 ? this.items[i].a : null;
+        if (link) link.setAttribute("aria-current", "location");
+        this.expand(link);
+        if (link) this.reveal(link);
+      }
+
+      // Branches on the current section's path open automatically. A chevron
+      // click overrides that: a branch the reader opens stays open, and one
+      // they close stays closed until the current section leaves it.
+      expand(link) {
+        this.path = new Set();
+        for (let li = link && link.closest("li"); li; li = li.parentElement.closest("li")) this.path.add(li);
+        for (const li of this.branches) {
+          const onPath = this.path.has(li);
+          if (!onPath && this.overrides.get(li) === false) this.overrides.delete(li);
+          this.show(li, this.overrides.get(li) ?? onPath);
+        }
+      }
+
+      flip(li) {
+        const open = !li.classList.contains("qrs-open");
+        if (open === this.path.has(li)) this.overrides.delete(li);
+        else this.overrides.set(li, open);
+        this.show(li, open);
+      }
+
+      show(li, open) {
+        li.classList.toggle("qrs-open", open);
+        li.firstElementChild.setAttribute("aria-expanded", String(open));
+      }
+
+      // Keep the current section in view, unless the reader is scrolling the
+      // outline themselves.
+      reveal(link) {
+        if (Date.now() - (this.touchedAt || 0) < 1500 || !link.getClientRects().length) return;
+        const box = this.scroller.getBoundingClientRect();
+        const { top, bottom } = link.getBoundingClientRect();
+        if (top >= box.top + 16 && bottom <= box.bottom - 16) return;
+        this.scroller.scrollTo({
+          top: this.scroller.scrollTop + top - box.top - box.height / 3,
+          behavior: calm.matches ? "auto" : "smooth",
+        });
+      }
+    }
+
+    customElements.define("qr-sidebar", QrSidebar);
+  })();
+</script>

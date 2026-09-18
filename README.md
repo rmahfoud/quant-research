@@ -37,6 +37,7 @@ Output lands in `docs/` (gitignored).
 |---|---|
 | `log_returns.md` | Mermaid diagrams; LaTeX math; ASCII figures |
 | `econometrics_foundations.md` | Mermaid diagrams; LaTeX math; ASCII figures; matplotlib-generated SVG figures (`figures/em_*.py`, which also print the simulated numbers quoted in the text) |
+| `bond_markets.md` | Mermaid diagrams; LaTeX math; ASCII figures; matplotlib-generated SVG figures (`figures/bd_*.py`, which also print the worked and simulated numbers quoted in the text; `bd_worked_numbers.py` prints the tables that have no figure) |
 | `momentum_deep_dive.md` | Mermaid diagrams; hand-authored SVG figures (`figures/*.svg`) |
 | `stochastic_processes.md` | LaTeX math; HTML gets an interactive canvas figure, PDF a static plot |
 | `trend_following.md` | Mermaid diagrams; LaTeX math; matplotlib-generated SVG figures (`figures/trend_*.py`) plus the shared `kernel_weights.svg` |

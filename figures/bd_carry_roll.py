@@ -48,7 +48,7 @@ def price(y: float, maturity: float, coupon: float) -> float:
 
 def one_year_return(maturity: float, dy: float) -> float:
     """Buy at the curve, hold a year, curve shifts by dy in parallel."""
-    coupon = float(curve(maturity))            # issued at par
+    coupon = float(curve(maturity))  # issued at par
     p0 = price(coupon, maturity, coupon)
     y1 = float(curve(maturity - 1.0)) + dy
     p1 = price(y1, maturity - 1.0, coupon)
@@ -75,16 +75,21 @@ def main() -> None:
     ax.plot([5.0], [y5 * 100], "o", color=RUST, ms=8, zorder=5)
     ax.plot([4.0], [y4 * 100], "o", color=TEAL, ms=8, zorder=5)
     ax.annotate(
-        "", xy=(4.05, y4 * 100), xytext=(4.95, y5 * 100),
+        "",
+        xy=(4.05, y4 * 100),
+        xytext=(4.95, y5 * 100),
         arrowprops=dict(arrowstyle="->", color=RUST, lw=1.6),
     )
     ax.text(4.5, y5 * 100 + 0.10, "one year passes", ha="center", fontsize=8.5, color=RUST)
-    ax.text(5.25, y5 * 100 - 0.06, f"buy a 5-year at {y5 * 100:.2f}%", fontsize=8.5,
-            color=RUST, va="center")
+    ax.text(5.25, y5 * 100 - 0.06, f"buy a 5-year at {y5 * 100:.2f}%", fontsize=8.5, color=RUST, va="center")
     ax.annotate(
         f"it is now a 4-year, worth {y4 * 100:.2f}%\non the same curve — the price rises",
-        xy=(4.0, y4 * 100 - 0.03), xytext=(6.8, 3.32),
-        fontsize=8.5, color=TEAL, ha="center", va="center",
+        xy=(4.0, y4 * 100 - 0.03),
+        xytext=(6.8, 3.32),
+        fontsize=8.5,
+        color=TEAL,
+        ha="center",
+        va="center",
         arrowprops=dict(arrowstyle="->", color=TEAL, lw=1.0),
     )
     ax.set_xlabel("maturity (years)", fontsize=9)
@@ -94,8 +99,7 @@ def main() -> None:
     ax.legend(fontsize=8.5, frameon=False, loc="lower right")
 
     shifts = np.linspace(-0.015, 0.03, 300)
-    mats = [(2.0, "2-year", NAVY), (5.0, "5-year", TEAL),
-            (10.0, "10-year", GOLD), (30.0, "30-year", RUST)]
+    mats = [(2.0, "2-year", NAVY), (5.0, "5-year", TEAL), (10.0, "10-year", GOLD), (30.0, "30-year", RUST)]
     for mat, label, c in mats:
         r = np.array([one_year_return(mat, dy) for dy in shifts]) * 100
         bx.plot(shifts * 1e4, r, color=c, lw=1.9, label=label)
@@ -108,8 +112,15 @@ def main() -> None:
     bx.set_title("The cushion, and how fast it runs out", fontsize=10.5, color=INK, loc="left")
     bx.set_ylim(-28, 22)
     bx.legend(fontsize=8.5, frameon=False, loc="upper right")
-    bx.text(0.02, 0.06, "dots: the sell-off each bond can absorb\nbefore the year's return turns negative",
-            transform=bx.transAxes, fontsize=8.0, color=MUTED, va="bottom")
+    bx.text(
+        0.02,
+        0.06,
+        "dots: the sell-off each bond can absorb\nbefore the year's return turns negative",
+        transform=bx.transAxes,
+        fontsize=8.0,
+        color=MUTED,
+        va="bottom",
+    )
 
     for a in (ax, bx):
         a.tick_params(labelsize=8.5, colors=MUTED)
@@ -119,11 +130,14 @@ def main() -> None:
             a.spines[s].set_color(FAINT)
 
     fig.text(
-        0.5, -0.05,
+        0.5,
+        -0.05,
         "Carry and roll-down are the return you get for doing nothing, and they are known the day you buy. "
         "Duration converts\na yield move into a price move. A long bond has more yield and far less "
         "protection: its cushion is measured in weeks of patience.",
-        ha="center", fontsize=8.5, color=MUTED,
+        ha="center",
+        fontsize=8.5,
+        color=MUTED,
     )
     fig.tight_layout()
     out = Path(__file__).with_suffix("")
@@ -137,12 +151,16 @@ def main() -> None:
         p0 = price(cpn, mat, cpn)
         roll = (price(float(curve(mat - 1.0)), mat - 1.0, cpn) - p0) / p0
         be = breakeven(mat)
-        print(f"{label:>8} {cpn * 100:6.2f}% {cpn * 100:6.2f}% {roll * 100:6.2f}% "
-              f"{(cpn + roll) * 100:10.2f}% {be * 1e4:8.0f}bp")
+        print(
+            f"{label:>8} {cpn * 100:6.2f}% {cpn * 100:6.2f}% {roll * 100:6.2f}% "
+            f"{(cpn + roll) * 100:10.2f}% {be * 1e4:8.0f}bp"
+        )
     print()
     for mat, label, _ in mats:
-        print(f"{label:>8}: +100bp year {one_year_return(mat, 0.01) * 100:+6.2f}%   "
-              f"-100bp year {one_year_return(mat, -0.01) * 100:+6.2f}%")
+        print(
+            f"{label:>8}: +100bp year {one_year_return(mat, 0.01) * 100:+6.2f}%   "
+            f"-100bp year {one_year_return(mat, -0.01) * 100:+6.2f}%"
+        )
 
 
 main()

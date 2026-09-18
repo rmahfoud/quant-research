@@ -21,11 +21,11 @@ matplotlib.rcParams["svg.fonttype"] = "path"
 matplotlib.rcParams["svg.hashsalt"] = "bd_negative_convexity"
 matplotlib.rcParams["font.family"] = ["Helvetica", "Arial", "DejaVu Sans"]
 
+from math import erf
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
-from math import erf
 
 INK = "#10171B"
 MUTED = "#58666E"
@@ -66,9 +66,9 @@ def bullet(y: np.ndarray) -> np.ndarray:
 
 def callable_bond(y: np.ndarray) -> np.ndarray:
     """Bullet minus the issuer's call, Black on the forward price of the stub."""
-    fwd = price(y, 10.0 - T_CALL)          # value at call date if the curve is unchanged
+    fwd = price(y, 10.0 - T_CALL)  # value at call date if the curve is unchanged
     dur_stub = mod_duration(lambda z: price(z, 10.0 - T_CALL), y)
-    sig = dur_stub * YIELD_VOL             # price vol implied by yield vol
+    sig = dur_stub * YIELD_VOL  # price vol implied by yield vol
     st = sig * np.sqrt(T_CALL)
     d1 = (np.log(fwd / STRIKE) + 0.5 * st**2) / st
     d2 = d1 - st
@@ -79,7 +79,7 @@ def callable_bond(y: np.ndarray) -> np.ndarray:
 
 def pass_through(y: np.ndarray) -> np.ndarray:
     """Prepayment shortens the pool exactly when rates fall."""
-    incentive = (COUPON - y) * 100.0       # in percentage points of refi saving
+    incentive = (COUPON - y) * 100.0  # in percentage points of refi saving
     w_fast = 1.0 / (1.0 + np.exp(-2.2 * (incentive - 0.35)))
     return w_fast * price(y, 2.5) + (1.0 - w_fast) * price(y, 8.5)
 
@@ -102,7 +102,10 @@ def main() -> None:
     ax.annotate(
         "the call caps the upside",
         xy=(1.6, float(callable_bond(np.array(0.016)))),
-        xytext=(2.9, 128), fontsize=8.5, color=RUST, ha="left",
+        xytext=(2.9, 128),
+        fontsize=8.5,
+        color=RUST,
+        ha="left",
         arrowprops=dict(arrowstyle="->", color=RUST, lw=1.0),
     )
     ax.set_xlabel("yield (%)", fontsize=9)
@@ -114,7 +117,10 @@ def main() -> None:
     bx.annotate(
         "duration falls as rates fall\n(you own less bond in a rally)",
         xy=(2.0, float(mod_duration(pass_through, np.array(0.020)))),
-        xytext=(3.6, 1.1), fontsize=8.5, color=TEAL, ha="left",
+        xytext=(3.6, 1.1),
+        fontsize=8.5,
+        color=TEAL,
+        ha="left",
         arrowprops=dict(arrowstyle="->", color=TEAL, lw=1.0),
     )
     bx.set_xlabel("yield (%)", fontsize=9)
@@ -130,31 +136,34 @@ def main() -> None:
             a.spines[s].set_color(FAINT)
 
     fig.text(
-        0.5, -0.05,
+        0.5,
+        -0.05,
         "Positive convexity means duration lengthens into a rally and shortens into a sell-off — the holder is "
         "automatically on the right side.\nNegative convexity reverses both. Stylised instruments; the shapes "
         "are the point, not the levels.",
-        ha="center", fontsize=8.5, color=MUTED,
+        ha="center",
+        fontsize=8.5,
+        color=MUTED,
     )
     fig.tight_layout()
     out = Path(__file__).with_suffix("")
     for ext in ("pdf", "svg"):
         fig.savefig(f"{out}.{ext}", transparent=True, bbox_inches="tight")
 
-    print(f"{'yield':>7} {'bullet P':>9} {'call P':>8} {'MBS P':>8} "
-          f"{'bullet D':>9} {'call D':>8} {'MBS D':>7}")
+    print(f"{'yield':>7} {'bullet P':>9} {'call P':>8} {'MBS P':>8} {'bullet D':>9} {'call D':>8} {'MBS D':>7}")
     for yv in (0.02, 0.03, 0.04, 0.05, 0.06):
         a = np.array(yv)
-        print(f"{yv * 100:6.1f}% {float(bullet(a)):9.2f} {float(callable_bond(a)):8.2f} "
-              f"{float(pass_through(a)):8.2f} {float(mod_duration(bullet, a)):9.2f} "
-              f"{float(mod_duration(callable_bond, a)):8.2f} {float(mod_duration(pass_through, a)):7.2f}")
+        print(
+            f"{yv * 100:6.1f}% {float(bullet(a)):9.2f} {float(callable_bond(a)):8.2f} "
+            f"{float(pass_through(a)):8.2f} {float(mod_duration(bullet, a)):9.2f} "
+            f"{float(mod_duration(callable_bond, a)):8.2f} {float(mod_duration(pass_through, a)):7.2f}"
+        )
     print()
     for fn, label, _, _ in series:
         p0 = float(fn(np.array(Y0)))
         up = float(fn(np.array(Y0 + 0.01))) / p0 - 1
         dn = float(fn(np.array(Y0 - 0.01))) / p0 - 1
-        print(f"{label:>30}: -100bp {dn * 100:+6.2f}%   +100bp {up * 100:+6.2f}%   "
-              f"asymmetry {(dn + up) * 100:+5.2f}pp")
+        print(f"{label:>30}: -100bp {dn * 100:+6.2f}%   +100bp {up * 100:+6.2f}%   asymmetry {(dn + up) * 100:+5.2f}pp")
 
 
 main()

@@ -112,9 +112,10 @@ excludes accrued interest (§6.6).
 | $r$ | real interest rate | The rate net of inflation (§10.1); $r^*$ is its long-run level |
 | $\pi^e$ | expected inflation | Inflation the market expects over a stated horizon |
 | $\mathrm{TP}$ | term premium | Extra yield for holding a long bond rather than rolling short ones (§10.4) |
-| $\mathrm{EL}$ | expected loss | Default probability times loss given default (§9.2) |
+| $\mathrm{EL}$ | expected loss | Default probability times loss given default, per unit of exposure (§9.1) |
 | $\mathrm{CRP}$ | credit risk premium | Extra spread demanded for bearing default risk beyond its expected cost (§9.2) |
 | $\ell$ | liquidity premium | Extra yield for a bond that is harder to sell (§3.3) |
+| $g$ | growth rate | Real growth rate of the economy, compared with $r$ in debt dynamics (§10.6) |
 | $o$ | option cost | Yield given up for an option the borrower holds against you, such as a call or prepayment right (§7.6) |
 
 A **basis point** (bp) is one hundredth of a percentage point: 100bp = 1%. Yields and
@@ -266,9 +267,10 @@ bonds have historically delivered a *net* premium after default losses — but a
 considerably smaller one than the headline spread suggests, because a meaningful
 fraction of the spread is expected loss rather than reward (§9.5). The instinct to
 reach for yield is the most reliably punished instinct in fixed income, and it is
-measurable: fund managers systematically tilt toward higher-yielding bonds within
-their rating category, and this is better explained by how funds are marketed than by
-skill ([Choi & Kronlund, 2018](https://doi.org/10.1093/rfs/hhx132)).
+measurable: corporate bond funds systematically tilt toward bonds yielding more than
+their benchmark, most of all when rates are low, because it attracts investor flows —
+and the tilt raises raw returns but delivers negative risk-adjusted ones ([Choi &
+Kronlund, 2018](https://doi.org/10.1093/rfs/hhx132){target="_blank"}).
 
 ### 1.3 What a bond is not
 
@@ -448,9 +450,8 @@ flowchart TB
         C3["convexity"] --> C5
         C4["credit losses"] --> C5
     end
-    ID1 ~~~ ID2 ~~~ ID3
-    A2 -.->|"invert to a single rate"| B5
-    B5 -.->|"differentiate in time and yield"| C5
+    ID1 -.->|"invert to a single rate"| ID2
+    ID2 -.->|"differentiate in time and yield"| ID3
     style ID1 fill:#eef3f7,stroke:#1F3A6E
     style ID2 fill:#eef6f4,stroke:#0B6E75
     style ID3 fill:#f7f0ea,stroke:#A8452B
@@ -476,22 +477,22 @@ the market *wants* the product: safe, liquid collateral is a raw material for th
 financial system, and there is persistent evidence that investors pay a premium for
 Treasury securities over and above their cash flows — a "convenience yield" worth
 perhaps 70 basis points on average ([Krishnamurthy & Vissing-Jorgensen,
-2012](https://doi.org/10.1086/666526)). [Fact]
+2012](https://doi.org/10.1086/666526){target="_blank"}). [Fact]
 
 **Companies** issue because debt is cheaper than equity, for two reasons. Interest is
 tax-deductible in most jurisdictions and dividends are not, which is a direct
 subsidy. And debt is a less risky claim, so investors require less return for it. The
 counterweight is that debt must be serviced regardless of circumstances, so more of
 it raises the probability of financial distress. The classical treatment of this
-trade-off runs from [Modigliani & Miller (1958)](https://www.jstor.org/stable/1809766)
+trade-off runs from [Modigliani & Miller (1958)](https://www.jstor.org/stable/1809766){target="_blank"}
 through the agency-cost literature ([Jensen & Meckling,
-1976](https://doi.org/10.1016/0304-405X(76)90026-X); [Myers,
-1977](https://doi.org/10.1016/0304-405X(77)90015-0)), and is summarised in §5.1.
+1976](https://doi.org/10.1016/0304-405X(76)90026-X){target="_blank"}; [Myers,
+1977](https://doi.org/10.1016/0304-405X(77)90015-0){target="_blank"}), and is summarised in §5.1.
 
 **The timing matters to you as an investor.** Companies issue when it is cheap to
 issue, which means supply is heaviest exactly when spreads are tight and credit
 standards are loose. [Greenwood & Hanson
-(2013)](https://doi.org/10.1093/rfs/hht028) show that when the *quality* of issuers
+(2013)](https://doi.org/10.1093/rfs/hht028){target="_blank"} show that when the *quality* of issuers
 coming to market deteriorates — measured by the share of issuance from low-rated
 firms — subsequent excess returns on corporate bonds are low. [Fact] The composition
 of new supply is a usable signal precisely because issuers are better informed about
@@ -526,17 +527,20 @@ recurs throughout, and each term is easier to learn attached to a stage than as 
 glossary entry.
 
 ```mermaid
-flowchart LR
-    A["<b>Decision to borrow</b><br/>size, maturity, currency,<br/>fixed or floating"] --> B["<b>Documentation</b><br/>indenture or prospectus:<br/>coupon, seniority, covenants,<br/>call schedule"]
-    B --> C["<b>Rating</b><br/>agencies assign<br/>a letter grade"]
-    C --> D["<b>Primary sale</b><br/>auction for governments,<br/>syndication for corporates"]
-    D --> E["<b>Secondary trading</b><br/>dealers quote, investors<br/>buy and sell, index inclusion"]
-    E --> F["<b>Coupon payments</b><br/>typically semi-annual"]
-    F --> E
-    E --> G{"<b>How does it end?</b>"}
+flowchart TB
+    subgraph LIFE[" "]
+        direction LR
+        A["<b>Decision to borrow</b><br/>size, maturity,<br/>currency, fixed<br/>or floating"] --> B["<b>Documents and rating</b><br/>coupon, seniority,<br/>covenants, calls;<br/>a letter grade"]
+        B --> D["<b>Primary sale</b><br/>auction for<br/>governments,<br/>syndication for<br/>corporates"]
+        D --> E["<b>Secondary trading</b><br/>dealers quote,<br/>investors trade,<br/>index inclusion"]
+        E --> F["<b>Coupons</b><br/>typically<br/>semi-annual"]
+        F --> E
+    end
+    LIFE --> G{"<b>How does it end?</b>"}
     G -->|"most bonds"| H["<b>Maturity</b><br/>face value repaid,<br/>bond ceases to exist"]
     G -->|"issuer's choice"| I["<b>Called or tendered</b><br/>repaid early at a<br/>contractual price"]
-    G -->|"issuer cannot pay"| J["<b>Default</b><br/>restructuring or<br/>bankruptcy; partial recovery"]
+    G -->|"issuer cannot pay"| J["<b>Default</b><br/>restructuring or bankruptcy;<br/>partial recovery"]
+    style LIFE fill:none,stroke:none
     style A fill:#1F3A6E,color:#fff
     style D fill:#0B6E75,color:#fff
     style E fill:#0B6E75,color:#fff
@@ -555,7 +559,7 @@ unit of yield change as a 2-year bond (§7.2). Issuers pick maturity by trading 
 the cost of long-term funding against the risk of having to refinance at a bad moment
 — and the choice is consequential for the market as a whole, since the government's
 maturity choice changes the supply of duration that investors must hold ([Greenwood,
-Hanson & Stein, 2015](https://doi.org/10.1111/jofi.12253)).
+Hanson & Stein, 2015](https://doi.org/10.1111/jofi.12253){target="_blank"}).
 
 **Coupon.** The periodic payment, usually set so the bond prices at or near 100 on
 issue day. A bond issued when 10-year yields are 4% will carry roughly a 4% coupon.
@@ -574,7 +578,7 @@ are contractual promises by the borrower — limits on additional debt, on asset
 on dividends — that give lenders rights if the borrower's condition deteriorates.
 They are worth real money: covenant violations transfer control rights to creditors
 and demonstrably change corporate behaviour, with investment falling sharply after a
-breach ([Chava & Roberts, 2008](https://doi.org/10.1111/j.1540-6261.2008.01391.x)).
+breach ([Chava & Roberts, 2008](https://doi.org/10.1111/j.1540-6261.2008.01391.x){target="_blank"}).
 [Fact]
 
 All of this is written into an **indenture** (for a corporate bond under US law) or a
@@ -597,14 +601,15 @@ yield and size, or *non-competitive* bids accepting whatever yield clears. The
 Treasury fills from the lowest yield upward until the issue is sold, and everyone pays
 the **same** clearing yield. This "uniform price" or Dutch format replaced the older
 pay-your-bid format after Treasury experiments in the 1990s found it reduced bidder
-caution and improved revenue (Malvey & Archibald, 1998, US Treasury Office of Market Finance).
+caution and improved revenue ([Malvey & Archibald,
+1998](https://home.treasury.gov/system/files/136/archive-documents/upas.pdf){target="_blank"}).
 [Contested] — the theoretical comparison between formats is ambiguous, and the
 empirical gains measured were small.
 
 The auction calendar is public, regular, and enormous, and it has a measurable price
 footprint: yields tend to rise into an auction and fall after it, consistent with
 dealers demanding compensation for temporarily absorbing supply ([Lou, Yan & Zhang,
-2013](https://doi.org/10.1093/rfs/hht034)). [Fact] This is a pure inventory effect in
+2013](https://doi.org/10.1093/rfs/hht034){target="_blank"}). [Fact] This is a pure inventory effect in
 the most liquid market on earth, which should calibrate your expectations about how
 much price pressure supply can create in less liquid ones.
 
@@ -635,20 +640,20 @@ thousands of distinct corporate bond issues in the US market against a few thous
 listed stocks. You cannot maintain a continuous two-sided market in an instrument
 that trades twice a month, so a search-and-bargaining structure emerges instead —
 which is exactly the setting analysed by [Duffie, Gârleanu & Pedersen
-(2005)](https://doi.org/10.1111/j.1468-0262.2005.00639.x), whose central result is
+(2005)](https://doi.org/10.1111/j.1468-0262.2005.00639.x){target="_blank"}, whose central result is
 that **investors with worse outside options get worse prices.** [Fact] Retail
 investors in corporate bonds pay dramatically more than institutions for the same
 bond on the same day, and, unusually, they pay *more* per bond on small trades —
 the opposite of the equity market's pattern ([Edwards, Harris & Piwowar,
-2007](https://doi.org/10.1111/j.1540-6261.2007.01240.x)).
+2007](https://doi.org/10.1111/j.1540-6261.2007.01240.x){target="_blank"}).
 
 The consequence is **opacity**, which US regulators addressed in 2002 by requiring
 corporate bond trades to be reported to **TRACE** within minutes. The natural
 experiment this created is one of the cleanest results in market microstructure:
 transaction costs fell substantially for bonds brought into the system, with no
 measurable damage to liquidity ([Bessembinder, Maxwell & Venkataraman,
-2006](https://doi.org/10.1016/j.jfineco.2005.11.001); [Goldstein, Hotchkiss & Sirri,
-2007](https://doi.org/10.1093/rfs/hhl020)). [Fact] Transparency helped investors and
+2006](https://doi.org/10.1016/j.jfineco.2005.11.001){target="_blank"}; [Goldstein, Hotchkiss & Sirri,
+2007](https://doi.org/10.1093/rfs/hhl020){target="_blank"}). [Fact] Transparency helped investors and
 cost dealers, which is why dealers opposed it.
 
 Since roughly 2015 the corporate bond market has been **electronifying** — moving
@@ -657,7 +662,7 @@ several dealers simultaneously, and increasingly to all-to-all venues where inve
 trade with each other. The economics are the ones you would expect from an auction
 replacing a search: more competition, tighter prices, and the largest benefit in the
 liquid part of the market ([Hendershott & Madhavan,
-2015](https://doi.org/10.1111/jofi.12185)). [Fact] Portfolio trading — executing a
+2015](https://doi.org/10.1111/jofi.12185){target="_blank"}). [Fact] Portfolio trading — executing a
 basket of hundreds of bonds in one negotiated transaction — has grown rapidly and is
 tied closely to the ETF market's ability to price baskets (§17.4). [Practice]
 
@@ -667,8 +672,8 @@ on-the-run bond is far more liquid, concentrates the trading and hedging activit
 therefore trades at a *lower* yield — you give up a few basis points for the ability
 to transact in size. The gap is a clean measure of liquidity value and widens sharply
 in crises ([Amihud & Mendelson,
-1991](https://doi.org/10.1111/j.1540-6261.1991.tb04623.x); [Longstaff,
-2004](https://doi.org/10.1086/386528)). [Fact] It is also the source of a famous
+1991](https://doi.org/10.1111/j.1540-6261.1991.tb04623.x){target="_blank"}; [Longstaff,
+2004](https://doi.org/10.1086/386528){target="_blank"}). [Fact] It is also the source of a famous
 trade: buy the cheap off-the-run bond, sell the expensive on-the-run, wait for
 convergence. The trade is correct on average and was a major component of what
 destroyed Long-Term Capital Management in 1998, because convergence trades funded
@@ -691,7 +696,7 @@ contractually forbidden from holding sub-investment-grade paper. The resulting f
 selling is a genuine, documented price effect: insurers subject to
 ratings-based capital rules sell downgraded bonds, and those sales push prices below
 fundamental value temporarily ([Ellul, Jotikasthira & Lundblad,
-2011](https://doi.org/10.1016/j.jfineco.2011.03.020)). [Fact] It is also an
+2011](https://doi.org/10.1016/j.jfineco.2011.03.020){target="_blank"}). [Fact] It is also an
 opportunity — fallen-angel bonds have historically been bought cheaply by investors
 without the constraint.
 
@@ -699,7 +704,7 @@ Ratings themselves deserve scepticism. They are explicitly *through-the-cycle*
 ordinal rankings, not probability estimates, they lag market prices, and the
 issuer-pays business model creates a conflict that shows up in the data: ratings are
 more favourable when competition among agencies is more intense ([Becker & Milbourn,
-2011](https://doi.org/10.1016/j.jfineco.2011.03.012)). [Fact] Use them as a coarse
+2011](https://doi.org/10.1016/j.jfineco.2011.03.012){target="_blank"}). [Fact] Use them as a coarse
 sorting device and a description of who is *allowed* to own the bond, not as a risk
 measure.
 
@@ -750,8 +755,8 @@ something — cash, new bonds, or equity in the reorganised business — worth o
 perhaps 40% of face for a senior unsecured corporate bond, with enormous variation
 around that average and a systematic pattern of *lower* recoveries in exactly the
 years when defaults are most numerous ([Altman & Kishore,
-1996](https://doi.org/10.2469/faj.v52.n6.2040); [Acharya, Bharath & Srinivasan,
-2007](https://doi.org/10.1016/j.jfineco.2006.05.011)). [Fact] That co-movement — many
+1996](https://doi.org/10.2469/faj.v52.n6.2040){target="_blank"}; [Acharya, Bharath & Srinivasan,
+2007](https://doi.org/10.1016/j.jfineco.2006.05.011){target="_blank"}). [Fact] That co-movement — many
 defaults and low recoveries arriving together — is what makes credit risk a *systemic*
 exposure rather than a diversifiable one, and it is the reason a credit portfolio's
 loss distribution has such a long tail.
@@ -796,19 +801,19 @@ component to the yield that the previous one lacked.
 ```
 
 ```mermaid
-flowchart TB
-    ROOT["<b>Bond markets</b><br/>a promise to pay, made tradeable"]
-    ROOT --> GOV["<b>Government</b><br/>r, inflation, term premium"]
+flowchart LR
+    ROOT["<b>Bond markets</b><br/>a promise to pay,<br/>made tradeable"]
+    ROOT --> GOV["<b>Government</b><br/>r, inflation,<br/>term premium"]
     ROOT --> CRED["<b>Credit</b><br/>everything above,<br/>plus default risk"]
     ROOT --> STRUCT["<b>Securitised</b><br/>everything above,<br/>plus prepayment"]
-    GOV --> G1["domestic-currency sovereign<br/>Treasuries, JGBs, Gilts, Bunds"]
-    GOV --> G2["inflation-linked<br/>TIPS, linkers, OATi"]
-    GOV --> G3["sub-sovereign<br/>municipals, provinces, agencies"]
-    GOV --> G4["supranational<br/>World Bank, EIB, EU"]
+    GOV --> G1["domestic-currency sovereign:<br/>Treasuries, JGBs, Gilts, Bunds"]
+    GOV --> G2["inflation-linked:<br/>TIPS, linkers, OATi"]
+    GOV --> G3["sub-sovereign:<br/>municipals, provinces, agencies"]
+    GOV --> G4["supranational:<br/>World Bank, EIB, EU"]
     CRED --> C1["investment grade"]
     CRED --> C2["high yield"]
     CRED --> C3["leveraged loans"]
-    CRED --> C4["emerging-market sovereign<br/>hard and local currency"]
+    CRED --> C4["emerging-market sovereign:<br/>hard and local currency"]
     STRUCT --> S1["agency mortgage-backed"]
     STRUCT --> S2["asset-backed: autos, cards"]
     STRUCT --> S3["CLOs, CMBS"]
@@ -848,13 +853,13 @@ particular:
 
 That last property has a price. Because Treasuries do a job beyond paying their cash
 flows, investors accept a lower yield than the cash flows alone justify. [Krishnamurthy
-& Vissing-Jorgensen (2012)](https://doi.org/10.1086/666526) estimate this
+& Vissing-Jorgensen (2012)](https://doi.org/10.1086/666526){target="_blank"} estimate this
 **convenience yield** at roughly 70 basis points on average, and show it varies
 inversely with the supply of Treasury debt — when the government issues more, the
 premium shrinks. [Fact] A closely related literature finds that the "true" risk-free
 rate implied by option markets sits *above* the Treasury yield, which is the same
 observation from another angle ([van Binsbergen, Diamond & Grotteria,
-2022](https://doi.org/10.1016/j.jfineco.2021.06.012)). [Fact] The practical
+2022](https://doi.org/10.1016/j.jfineco.2021.06.012){target="_blank"}). [Fact] The practical
 consequence: the Treasury curve is the market's reference rate, but it is *not* a
 clean measurement of the risk-free rate. It is the risk-free rate minus a
 time-varying convenience premium. Practitioners who need a genuine discount curve
@@ -924,8 +929,8 @@ nominal Treasuries. [Fact] Both correction terms are material and both move arou
 In the autumn of 2008, TIPS breakevens briefly implied *deflation of several percent
 per year for a decade* — an implausible forecast, and in fact mostly a collapse in
 TIPS liquidity as leveraged holders were forced to sell ([Gürkaynak, Sack & Wright,
-2010](https://doi.org/10.1257/mac.2.1.70); [Fleckenstein, Longstaff & Lustig,
-2014](https://doi.org/10.1111/jofi.12032)).
+2010](https://doi.org/10.1257/mac.2.1.70){target="_blank"}; [Fleckenstein, Longstaff & Lustig,
+2014](https://doi.org/10.1111/jofi.12032){target="_blank"}).
 
 The Fleckenstein–Longstaff–Lustig result deserves emphasis because it is remarkable:
 a TIPS combined with an inflation swap replicates a nominal Treasury's cash flows
@@ -975,7 +980,7 @@ typically the on-the-run issue, because it is the hedging instrument of choice �
 the bond becomes scarce as collateral, and lenders of it can demand a lower repo
 rate. A bond "on special" effectively earns its holder extra income, and that income
 is capitalised into a higher price and lower yield ([Duffie,
-1996](https://doi.org/10.1111/j.1540-6261.1996.tb02692.x)). [Fact] Part of the
+1996](https://doi.org/10.1111/j.1540-6261.1996.tb02692.x){target="_blank"}). [Fact] Part of the
 on-the-run premium is precisely this.
 
 **The cash–futures basis trade.** Treasury futures usually trade slightly rich to the
@@ -983,7 +988,7 @@ underlying bonds, because many investors prefer the capital efficiency of future
 levered fund can sell the future, buy the bond, finance the bond in repo, and collect
 the small difference. The gap is a few basis points, so the trade is run at very high
 leverage, and it has grown to a very large scale ([Barth & Kahn,
-2025](https://doi.org/10.1016/j.jmoneco.2025.103823)).
+2025](https://doi.org/10.1016/j.jmoneco.2025.103823){target="_blank"}).
 It is generally stabilising — it links the futures and cash markets — but in March
 2020 the unwind of these positions was a significant contributor to Treasury market
 dysfunction, and it remains a standing concern of financial stability authorities.
@@ -1007,11 +1012,11 @@ and their yields *rose* during the worst of the equity collapse. The mechanism w
 combination of foreign official selling, mutual fund redemptions, and the forced
 unwind of levered relative-value positions, all hitting dealer balance sheets that
 were constrained by post-crisis leverage rules. [He, Nagel & Song
-(2022)](https://doi.org/10.1016/j.jfineco.2021.06.002) document the resulting
+(2022)](https://doi.org/10.1016/j.jfineco.2021.06.002){target="_blank"} document the resulting
 "inconvenience yield" — Treasuries trading *cheap* to their own derivatives, the
 convenience premium inverting. [Fact] The Federal Reserve resolved it by buying
 roughly $1 trillion of Treasuries in a matter of weeks ([Vissing-Jorgensen,
-2021](https://doi.org/10.1016/j.jmoneco.2021.09.005)).
+2021](https://doi.org/10.1016/j.jmoneco.2021.09.005){target="_blank"}).
 
 The lesson is not that Treasuries are dangerous. It is that **liquidity is a property
 of the market's intermediation capacity, not of the instrument.** The bonds were
@@ -1020,7 +1025,7 @@ sheet available to stand between buyers and sellers. Every model that treats liq
 as an attribute of a security rather than a state of the system will be wrong at
 precisely the moment it matters. Whether the current structure remains adequate as
 debt outstanding grows is an active policy debate ([Duffie,
-2020](https://www.brookings.edu/wp-content/uploads/2020/05/WP62_Duffie_updated.pdf)).
+2020](https://www.brookings.edu/wp-content/uploads/2020/05/WP62_Duffie_updated.pdf){target="_blank"}).
 
 ### 3.6 Government-adjacent markets
 
@@ -1037,7 +1042,7 @@ $y^{\text{taxable-equivalent}} = y^{\text{muni}}/(1-\text{tax rate})$ is a decen
 first pass, but the market does not price municipals as if all investors faced the
 same tax rate, and the apparent cheapness of long municipals partly reflects the tax
 treatment of *capital gains* on bonds bought at a discount ([Ang, Bhansali & Xing,
-2010](https://doi.org/10.1111/j.1540-6261.2009.01545.x)). [Fact] Municipals also
+2010](https://doi.org/10.1111/j.1540-6261.2009.01545.x){target="_blank"}). [Fact] Municipals also
 carry genuine credit risk — Detroit and Puerto Rico both defaulted in the 2010s —
 though default rates for general-obligation debt of US states and large cities have
 historically been far below corporate rates at equivalent ratings.
@@ -1167,7 +1172,7 @@ reflecting that volatility.
 The historical inability of most developing countries to borrow abroad in their own
 currency was named **"original sin"** by Eichengreen and Hausmann, and its
 consequences are set out in [Eichengreen, Hausmann & Panizza
-(2003)](https://www.nber.org/papers/w10036). The mechanism is vicious: because the debt is in dollars and the revenue is in local currency, a
+(2003)](https://www.nber.org/papers/w10036){target="_blank"}. The mechanism is vicious: because the debt is in dollars and the revenue is in local currency, a
 currency depreciation *increases* the real debt burden exactly when the economy is
 weakening. A shock that would be absorbed by a floating exchange rate instead becomes
 a solvency problem. This is the mechanism behind most emerging-market crises of the
@@ -1183,7 +1188,7 @@ risk — a distinction that governs how it should be sized in a portfolio (§15.
 A further inconvenient fact: sovereign credit spreads across countries are driven far
 more by **global** factors — US risk appetite, global volatility — than by
 country-specific fundamentals ([Longstaff, Pan, Pedersen & Singleton,
-2011](https://doi.org/10.1257/mac.3.2.75)). [Fact] A portfolio of twenty
+2011](https://doi.org/10.1257/mac.3.2.75){target="_blank"}). [Fact] A portfolio of twenty
 emerging-market sovereigns is much less diversified than it looks, because they are
 mostly one trade: global risk appetite.
 
@@ -1197,9 +1202,9 @@ country defaults, they mostly cannot: a creditor cannot repossess Argentina. So 
 does any country ever repay?
 
 The first answer was **reputation** ([Eaton & Gersovitz,
-1981](https://doi.org/10.2307/2296886)): default means losing access to credit
+1981](https://doi.org/10.2307/2296886){target="_blank"}): default means losing access to credit
 markets, and a country that expects to want to borrow again will pay to preserve that
-access. [Bulow & Rogoff (1989)](https://www.nber.org/papers/w2623) then demonstrated
+access. [Bulow & Rogoff (1989)](https://www.nber.org/papers/w2623){target="_blank"} then demonstrated
 that reputation alone is insufficient: a country that defaults and loses access to
 future borrowing can instead save what it would have repaid — somewhere no creditor
 can reach — and draw on those savings exactly as it would have drawn on new loans, so
@@ -1207,7 +1212,7 @@ losing its reputation costs it nothing once self-insurance is available. Repayme
 must therefore be sustained by **direct costs**: trade sanctions, seizure of assets
 abroad, disruption of trade credit and the domestic banking system. [Fact] The modern quantitative
 models build on this, generating default as an optimal decision that becomes
-attractive when output is low ([Arellano, 2008](https://doi.org/10.1257/aer.98.3.690)).
+attractive when output is low ([Arellano, 2008](https://doi.org/10.1257/aer.98.3.690){target="_blank"}).
 
 Three things follow that matter practically:
 
@@ -1217,7 +1222,7 @@ Three things follow that matter practically:
   spreadsheet, and why debt ratios predict default far less well than people expect.
 - **Default is usually partial and negotiated.** The outcome is a restructuring with
   a haircut, and the size of that haircut is the key variable. [Cruces & Trebesch
-  (2013)](https://doi.org/10.1257/mac.5.3.85) show that larger haircuts are followed
+  (2013)](https://doi.org/10.1257/mac.5.3.85){target="_blank"} show that larger haircuts are followed
   by significantly higher borrowing spreads and longer exclusion from markets — so
   countries face a real trade-off, and the market does punish aggressive
   restructurings. [Fact]
@@ -1269,13 +1274,13 @@ hard to optimise.
 interest is subsidised by the corporate tax rate. Debt is also a less risky claim
 than equity, so it costs less. And debt imposes discipline — a manager who must
 service debt has less freedom to spend cash unwisely, which is the "free cash flow"
-argument of [Jensen (1986)](https://www.jstor.org/stable/1818789).
+argument of [Jensen (1986)](https://www.jstor.org/stable/1818789){target="_blank"}.
 
 **Against debt:** it must be serviced regardless of circumstances. More of it raises
 the probability of financial distress, which is expensive even short of bankruptcy —
 customers leave, suppliers tighten terms, talent departs. And a heavily indebted firm
 suffers **debt overhang** ([Myers,
-1977](https://doi.org/10.1016/0304-405X(77)90015-0)): profitable investments may go
+1977](https://doi.org/10.1016/0304-405X(77)90015-0){target="_blank"}): profitable investments may go
 unmade, because the gains accrue to creditors while shareholders fund the outlay.
 
 For a bond investor, the useful implication is that **a company's leverage is a
@@ -1345,7 +1350,7 @@ capital rules, many pension mandates, index funds tracking IG benchmarks — is
 contractually restricted to investment grade. A downgrade across the line therefore
 triggers mechanical selling into a market with a different and smaller buyer base.
 This produces measurable price pressure beyond fundamentals ([Ellul, Jotikasthira &
-Lundblad, 2011](https://doi.org/10.1016/j.jfineco.2011.03.020)). [Fact]
+Lundblad, 2011](https://doi.org/10.1016/j.jfineco.2011.03.020){target="_blank"}). [Fact]
 
 Two practical consequences. The growth of the BBB segment — the lowest IG rung — is a
 standing systemic concern, since a recession that downgrades a large share of it
@@ -1384,7 +1389,7 @@ an options problem more than a credit problem.
 ### 5.5 The key equivalence: credit is a short put on the firm {#merton}
 
 Here is the idea that makes credit intelligible, due to [Merton
-(1974)](https://doi.org/10.1111/j.1540-6261.1974.tb03058.x).
+(1974)](https://doi.org/10.1111/j.1540-6261.1974.tb03058.x){target="_blank"}.
 
 Consider a firm whose assets are worth $V$ and which owes a single payment of $F$ at
 time $T$. At maturity, one of two things happens. If $V_T \ge F$, the debt is paid in
@@ -1441,7 +1446,7 @@ The model's empirical failures are as informative as its successes, and they def
 the **credit spread puzzle** (§9.5): Merton-type models calibrated to match observed
 default rates and recovery rates predict spreads far below what investment-grade
 bonds actually yield, especially at short maturities ([Huang & Huang,
-2012](https://doi.org/10.1093/rapstu/ras011)). [Fact] Resolving that gap is the
+2012](https://doi.org/10.1093/rapstu/ras011){target="_blank"}). [Fact] Resolving that gap is the
 central empirical question in credit, and the answer turns out to matter for whether
 you should own credit at all.
 
@@ -1466,8 +1471,8 @@ holder targeting a fixed duration must *buy* duration to replace what it lost; w
 rates rise, mortgages extend, and it must *sell*. Buying into rallies and selling
 into sell-offs amplifies moves in both directions. This convexity hedging is a
 documented driver of Treasury yield volatility ([Hanson,
-2014](https://doi.org/10.1016/j.jfineco.2014.05.002); [Malkhozov, Mueller, Vedolin &
-Venter, 2016](https://doi.org/10.1093/rfs/hhv049)). [Fact] It is one of the
+2014](https://doi.org/10.1016/j.jfineco.2014.05.002){target="_blank"}; [Malkhozov, Mueller, Vedolin &
+Venter, 2016](https://doi.org/10.1093/rfs/hhv049){target="_blank"}). [Fact] It is one of the
 clearest cases in markets of one market's hedging demand being another market's
 price dynamics.
 
@@ -1670,11 +1675,13 @@ coupons you collect along the way. A bond trading at 92 is not "cheap"; you will
 *gain* 8 points, offsetting its below-market coupon. Price levels relative to 100
 tell you about the coupon relative to current yields, and nothing about value.
 
-Where it does matter is **tax**, which does not treat coupon income and capital gain
-alike. In jurisdictions taxing income at a higher rate than capital gains, a discount
-bond delivering part of its return as a pull-to-par gain is worth more after tax than
-an otherwise-identical premium bond — a real effect that shows up in relative pricing
-(§17.6).
+Where it does matter is **tax**, and the details depend on the jurisdiction. Where the
+pull-to-par gain is taxed as a capital gain, more lightly than coupon income, a
+low-coupon bond bought below par is worth more after tax than an otherwise-identical
+high-coupon bond; UK gilts, whose capital gains are exempt for individuals, are the
+clean case. US rules are less generous: a discount on a bond bought in the secondary
+market is generally taxed as ordinary income when realised, unless it is very small.
+Either way the effect is real and shows up in relative pricing (§17.6).
 
 ### 6.6 The conventions, briefly
 
@@ -1757,12 +1764,16 @@ the whole framework quietly breaks.
 
 Start with the simplest reading. A bond pays a sequence of amounts at a sequence of
 dates. **Macaulay duration** is the average of those dates, weighted by the present
-value of what arrives on each:
+value of what arrives on each, with every cash flow discounted at the bond's own
+yield $y$ (which by definition reproduces the price):
 
 $$
-D_{\text{mac}} \;=\; \frac{\sum_t t \cdot C_t Z(t)}{\sum_t C_t Z(t)}
-\;=\; \sum_t t \cdot w_t, \qquad w_t = \frac{C_t Z(t)}{P}
+D_{\text{mac}} \;=\; \frac{\sum_t t \cdot C_t \,(1+y/m)^{-mt}}{\sum_t C_t\,(1+y/m)^{-mt}}
+\;=\; \sum_t t \cdot w_t, \qquad w_t = \frac{C_t\,(1+y/m)^{-mt}}{P}
 $$
+
+(Discounting each cash flow off the zero curve instead, with $Z(t)$, gives a very
+slightly different number, the Fisher–Weil duration. On a flat curve they coincide.)
 
 The weights $w_t$ sum to one, so this is a genuine weighted average, measured in
 years. Picture the bond's cash flows as weights placed along a timeline: duration is
@@ -1836,7 +1847,7 @@ why the same number serves two apparently unrelated purposes.
 effects run in opposite directions, so there must be a holding period at which they
 exactly offset — a horizon at which your terminal wealth is insensitive to what
 happens to rates. That horizon is the Macaulay duration. The result is due to
-[Redington (1952)](https://www.actuaries.org.uk/documents/review-principles-life-office-valuations),
+[Redington (1952)](https://www.actuaries.org.uk/documents/review-principles-life-office-valuations){target="_blank"},
 who called the resulting strategy **immunisation**.
 
 The demonstration is worth seeing numerically. Take the 10-year bond, shock yields
@@ -1878,7 +1889,8 @@ is this observation applied with leverage (§12.3, §13.4).
 ### 7.4 Convexity
 
 Duration is a first derivative, so it is a straight-line approximation to a curved
-relationship. The curvature is **convexity**:
+relationship — the first term of a Taylor expansion (A.3). The next term, the
+curvature, is **convexity**:
 
 $$
 \mathcal{C} = \frac{1}{P}\frac{d^2 P}{dy^2}, \qquad
@@ -2062,7 +2074,7 @@ duration and large exposure to the curve *steepening*, which key-rate durations
 reveal and aggregate duration hides. Empirically, curve movements decompose almost
 entirely into three factors — level, slope and curvature, accounting for the great
 majority of variance ([Litterman & Scheinkman,
-1991](https://doi.org/10.3905/jfi.1991.692347)) [Fact] — so three numbers usually
+1991](https://doi.org/10.3905/jfi.1991.692347){target="_blank"}) [Fact] — so three numbers usually
 suffice.
 
 **Spread duration.** For a credit bond, sensitivity to its *spread* moving is
@@ -2076,7 +2088,7 @@ regularity is that spreads move *proportionally* rather than in parallel — a b
 500bp moves about five times as much in basis points as a bond at 100bp — so the
 right risk measure for credit is spread duration multiplied by spread level, not
 spread duration alone ([Ben Dor, Dynkin, Hyman, Houweling, van Leeuwen & Penninga,
-2007](https://doi.org/10.3905/jpm.2007.674795)). [Fact] This is one of the most
+2007](https://doi.org/10.3905/jpm.2007.674795){target="_blank"}). [Fact] This is one of the most
 useful practical results in credit portfolio management, and it means that risk
 budgeting on spread duration alone systematically understates the risk of low-quality
 holdings.
@@ -2155,7 +2167,7 @@ With LIBOR retired, the swap curve in the major currencies is now referenced to 
 overnight rate — SOFR in dollars, €STR in euros, SONIA in sterling — and is therefore
 an **overnight indexed swap (OIS)** curve: the fixed rate that exchanges for the
 compounded overnight rate over the swap's life ([Schrimpf & Sushko,
-2019](https://www.bis.org/publ/qtrpdf/r_qt1903e.htm)). Because an overnight loan
+2019](https://www.bis.org/publ/qtrpdf/r_qt1903e.htm){target="_blank"}). Because an overnight loan
 carries almost no credit risk and the swap exchanges no principal, the OIS curve is
 the closest thing available to a clean risk-free discount curve, free of the
 convenience premium embedded in Treasury yields (§3.1).
@@ -2210,7 +2222,7 @@ share a name.
 | Z-spread $\approx$ nominal spread | Approximate | Within a few bp for near-par bullets on a normal curve; tens of bp for off-par bonds on a steep curve |
 | OAS $=$ Z-spread | **Exact** | Only for an option-free bond |
 | OAS $=$ Z-spread $-$ option cost | **Exact, by definition** | The option cost is model-dependent, so OAS inherits that dependence |
-| Discount margin $=$ Z-spread | **Exact** | It is the same calculation applied to a floater |
+| Discount margin $=$ Z-spread | **Exact in concept** | The same calculation applied to a floater; quoted margins also depend on the convention for projecting future coupons |
 | ASW $\approx$ Z-spread | Approximate | Equal at par; diverges roughly in proportion to (price $-$ 100) |
 | CDS spread $\approx$ bond spread over risk-free | Approximate | The difference is the **basis** (§8.5); driven by funding, deliverability and bond price |
 | Spread $\approx \lambda(1-R)$ | Approximate | The **credit triangle**; exact in continuous time with a flat hazard rate (§9.2) |
@@ -2408,14 +2420,14 @@ on:
   liquid resale market; a software company's assets are mostly the people, who leave.
 - **The state of the industry.** And this is the important one.
 
-[Acharya, Bharath & Srinivasan (2007)](https://doi.org/10.1016/j.jfineco.2006.05.011)
+[Acharya, Bharath & Srinivasan (2007)](https://doi.org/10.1016/j.jfineco.2006.05.011){target="_blank"}
 document that creditors recover significantly less when the defaulting firm's
 *industry* is distressed — because the natural buyers of its assets are themselves
 constrained. [Fact] Since industries tend to be distressed when many of their firms
 are defaulting, this produces a systematic negative correlation between default rates
 and recovery rates: **the years with the most defaults are also the years with the
 worst recoveries.** [Altman, Brady, Resti & Sironi
-(2005)](https://doi.org/10.1086/497044) estimate this relationship directly. [Fact]
+(2005)](https://doi.org/10.1086/497044){target="_blank"} estimate this relationship directly. [Fact]
 
 The consequence is that a credit portfolio's bad years are much worse than an
 independent-defaults model predicts, because two variables that a simple model treats
@@ -2461,12 +2473,12 @@ Separating these is the central empirical problem in credit, and it has a name.
 observed default rates, recovery rates and equity premia, predict credit spreads far
 below the observed ones — particularly for investment grade and particularly at short
 maturities. The canonical statement is [Huang & Huang
-(2012)](https://doi.org/10.1093/rapstu/ras011), who find that credit risk accounts for
+(2012)](https://doi.org/10.1093/rapstu/ras011){target="_blank"}, who find that credit risk accounts for
 only a modest fraction of the spread on investment-grade bonds, with the share rising
 as quality falls. [Fact]
 
 A complementary decomposition by [Elton, Gruber, Agrawal & Mann
-(2001)](https://doi.org/10.1111/0022-1082.00324) finds that expected default loss
+(2001)](https://doi.org/10.1111/0022-1082.00324){target="_blank"} finds that expected default loss
 explains a surprisingly small part of the corporate-Treasury spread; a substantial
 chunk is US state taxes, which apply to corporate coupon income but not to Treasury
 income; and most of the rest behaves like a systematic risk premium, moving with the
@@ -2477,18 +2489,18 @@ same factors that price equities. [Fact]
 - **Defaults cluster in bad states.** Losing money on your bonds at the same moment
   your equities fall and your job is at risk is far worse than losing the same amount
   at random. [Chen, Collin-Dufresne & Goldstein
-  (2009)](https://doi.org/10.1093/rfs/hhn078) show that a model with the countercyclical
+  (2009)](https://doi.org/10.1093/rfs/hhn078){target="_blank"} show that a model with the countercyclical
   risk aversion needed to explain the equity premium also generates realistic credit
   spreads — linking the two puzzles into one. This is currently the most persuasive
   strand. [Contested]
 - **Skewness and undiversifiability.** A credit portfolio's return is negatively
   skewed by construction (§5.5), and the number of names needed to diversify it is far
   larger than for equities, so investors reasonably demand a premium ([Amato &
-  Remolona, 2003](https://www.bis.org/publ/qtrpdf/r_qt0312.pdf)). [Contested]
+  Remolona, 2003](https://www.bis.org/publ/qtrpdf/r_qt0312.pdf){target="_blank"}). [Contested]
 - **Illiquidity.** Corporate bonds are genuinely hard to trade, and the illiquid
   component of the spread is measurable and large, especially in crises ([Bao, Pan &
-  Wang, 2011](https://doi.org/10.1111/j.1540-6261.2011.01655.x); [Dick-Nielsen,
-  Feldhütter & Lando, 2012](https://doi.org/10.1016/j.jfineco.2011.10.009)). [Fact]
+  Wang, 2011](https://doi.org/10.1111/j.1540-6261.2011.01655.x){target="_blank"}; [Dick-Nielsen,
+  Feldhütter & Lando, 2012](https://doi.org/10.1016/j.jfineco.2011.10.009){target="_blank"}). [Fact]
 - **There is no puzzle.** A more recent line argues the puzzle is an artefact of
   calibration choices and largely disappears with better default-probability inputs.
   [Contested]
@@ -2496,7 +2508,7 @@ same factors that price equities. [Fact]
 **My read**, and it is a read: the truth is a mixture, and the practically important
 part is not the decomposition but the residual. Over the long sweep of history, credit
 spreads have averaged roughly twice realised default losses ([Giesecke, Longstaff,
-Schaefer & Strebulaev, 2011](https://doi.org/10.1016/j.jfineco.2011.01.011)), which is
+Schaefer & Strebulaev, 2011](https://doi.org/10.1016/j.jfineco.2011.01.011){target="_blank"}), which is
 to say credit *has* paid a genuine premium — but one considerably smaller than the
 headline spread, and earned in a shape that punishes leverage and forced selling.
 [Fact] Sizing a credit allocation off the quoted spread rather than off the spread net
@@ -2514,20 +2526,20 @@ rate shock, a commodity move — and the weakest of the recent cohort cannot ref
 Defaults rise, spreads widen, lending stops, and more borrowers fail because they
 cannot refinance rather than because their business failed.
 
-That last step is the one people underweight. **Most corporate defaults are refinancing
-failures, not business failures.** A company with a viable business and a bond maturing
+That last step is the one people underweight. [Practice] **Many corporate defaults are
+refinancing failures rather than business failures.** A company with a viable business and a bond maturing
 in a closed market defaults; the same company with the same business and a five-year
 runway does not. This is why the **maturity wall** — the schedule of upcoming
 refinancings — is a genuinely useful forward-looking indicator, and why central bank
 actions that reopen credit markets reduce defaults so effectively.
 
 Two usable regularities. [Greenwood & Hanson
-(2013)](https://doi.org/10.1093/rfs/hht028) show that the *quality* of issuers coming
+(2013)](https://doi.org/10.1093/rfs/hht028){target="_blank"} show that the *quality* of issuers coming
 to market predicts subsequent credit excess returns: when junk issuance share is high,
 returns are subsequently low. [Fact] And spreads themselves are mean-reverting and
 mildly predictive of their own future returns, which is the credit analogue of the
 carry effect found across asset classes ([Koijen, Moskowitz, Pedersen & Vrugt,
-2018](https://doi.org/10.1016/j.jfineco.2017.11.002)).
+2018](https://doi.org/10.1016/j.jfineco.2017.11.002){target="_blank"}).
 
 ### 9.7 How practitioners actually estimate default risk
 
@@ -2536,7 +2548,7 @@ carry effect found across asset classes ([Koijen, Moskowitz, Pedersen & Vrugt,
 | **Ratings** | Agency ordinal judgment | Comparable across issuers and time; drives mandates | Lags; through-the-cycle by design; issuer-pays conflict |
 | **Structural (Merton/KMV)** | Default when asset value hits the debt boundary | Uses market data; updates continuously; economically interpretable | Needs unobservable asset value and volatility; underpredicts short-horizon spreads |
 | **Reduced-form** | Default is a jump with an intensity fitted to prices | Fits market prices well; natural for derivatives pricing | Says nothing about *why*; no economic content |
-| **Accounting scores** | Ratios combined into a discriminant score ([Altman, 1968](https://doi.org/10.1111/j.1540-6261.1968.tb00843.x)) | Simple, transparent, long track record | Backward-looking; poor for financials and asset-light firms |
+| **Accounting scores** | Ratios combined into a discriminant score ([Altman, 1968](https://doi.org/10.1111/j.1540-6261.1968.tb00843.x){target="_blank"}) | Simple, transparent, long track record | Backward-looking; poor for financials and asset-light firms |
 | **Market-implied** | Read the CDS or bond spread directly | Fastest-updating; incorporates everything known | Contains a risk premium, so it is not a probability (§9.4) |
 
 The honest summary is that these are complements rather than competitors. Market-implied
@@ -2567,8 +2579,9 @@ predictable blind spot. [Practice]
 > 7. Historically, credit spreads have averaged roughly twice realised default losses.
 >    Credit pays a real premium — about half the headline spread, in a shape hostile
 >    to leverage.
-> 8. Most defaults are refinancing failures, not business failures, which is why the
->    maturity wall is informative and why reopening credit markets prevents defaults.
+> 8. Many defaults are refinancing failures rather than business failures, which is
+>    why the maturity wall is informative and why reopening credit markets prevents
+>    defaults.
 
 ---
 
@@ -2585,7 +2598,7 @@ demand facts that determine them in practice rather than in theory.
 
 A lender cares about purchasing power, not currency units. If you lend at 5% and
 prices rise 3%, you have gained 2% of real buying power. This gives the **Fisher
-relation** ([Fisher, 1930](https://www.econlib.org/library/YPDBooks/Fisher/fshToI.html)):
+relation** ([Fisher, 1930](https://www.econlib.org/library/YPDBooks/Fisher/fshToI.html){target="_blank"}):
 
 $$
 \underbrace{y}_{\text{nominal}} \;\approx\; \underbrace{r}_{\text{real}} \;+\; \underbrace{\pi^e}_{\text{expected inflation}}
@@ -2612,9 +2625,9 @@ Economists call the level that prevails when the economy is at full employment w
 stable inflation the **natural rate** or $r^*$. It is not observable — it must be
 inferred from the behaviour of output and inflation — and the standard estimation
 approach is due to [Laubach & Williams
-(2003)](https://doi.org/10.1162/003465303772815934), extended internationally by
+(2003)](https://doi.org/10.1162/003465303772815934){target="_blank"}, extended internationally by
 [Holston, Laubach & Williams
-(2017)](https://doi.org/10.1016/j.jinteco.2017.01.004). Their central finding is the
+(2017)](https://doi.org/10.1016/j.jinteco.2017.01.004){target="_blank"}. Their central finding is the
 dominant macro-financial fact of the past forty years: **$r^*$ declined substantially
 and in nearly every developed economy simultaneously.** [Fact] Estimates of the US
 $r^*$ fell from around 3–4% in the 1980s to below 1% by the mid-2010s.
@@ -2622,7 +2635,7 @@ $r^*$ fell from around 3–4% in the 1980s to below 1% by the mid-2010s.
 The candidate explanations — demographics raising desired saving, slower productivity
 growth reducing desired investment, rising inequality concentrating income among high
 savers, increased demand for safe assets — are surveyed by [Rachel & Summers
-(2019)](https://doi.org/10.1353/eca.2019.0000), who make the additional point that
+(2019)](https://doi.org/10.1353/eca.2019.0000){target="_blank"}, who make the additional point that
 *without* the offsetting rise in government debt and pension spending, the private
 sector's natural rate would have fallen further still. [Contested] — the direction is
 agreed; the relative weights are not, and the measurement itself is imprecise enough
@@ -2687,15 +2700,15 @@ rally while equities fall — bonds are insurance and the term premium can be ne
 When the dominant shock is a supply shock — inflation rises, growth falls, bonds *and*
 equities fall together — bonds are risk, and the term premium must be positive. The
 formal version of this argument is [Campbell, Pflueger & Viceira
-(2020)](https://doi.org/10.1086/710082), and it is the most useful single idea in
+(2020)](https://doi.org/10.1086/710082){target="_blank"}, and it is the most useful single idea in
 this part of the document.
 
 **Measurement, and its difficulties.** The term premium is not observable: it is the
 residual after subtracting an expectation nobody can see. Every estimate is a model
 output. Two standard ones are the affine model of [Kim & Wright
-(2005)](https://www.federalreserve.gov/pubs/feds/2005/200533/200533abs.html) —
+(2005)](https://www.federalreserve.gov/pubs/feds/2005/200533/200533abs.html){target="_blank"} —
 "affine" is unpacked in §11.4 — and the regression-based estimator of [Adrian, Crump &
-Moench (2013)](https://doi.org/10.1016/j.jfineco.2013.04.009), the latter maintained
+Moench (2013)](https://doi.org/10.1016/j.jfineco.2013.04.009){target="_blank"}, the latter maintained
 publicly by the New York Fed. They agree on the broad picture and disagree on levels
 by enough to matter.
 
@@ -2737,11 +2750,11 @@ on its own portfolio. The *portfolio-balance* channel: removing duration from th
 market forces the remaining holders to hold less of it, and if investors have
 preferences over maturities rather than being indifferent arbitrageurs, that raises
 the price of what remains ([Vayanos & Vila,
-2021](https://doi.org/10.3982/ECTA17440)). The empirical literature broadly supports
+2021](https://doi.org/10.3982/ECTA17440){target="_blank"}). The empirical literature broadly supports
 material effects ([Gagnon, Raskin, Remache & Sack,
-2011](https://www.ijcb.org/journal/ijcb11q1a1.htm); [Krishnamurthy &
-Vissing-Jorgensen, 2011](https://doi.org/10.1353/eca.2011.0019); [D'Amico & King,
-2013](https://doi.org/10.1016/j.jfineco.2012.11.007)), with estimates clustering
+2011](https://www.ijcb.org/journal/ijcb11q1a1.htm){target="_blank"}; [Krishnamurthy &
+Vissing-Jorgensen, 2011](https://doi.org/10.1353/eca.2011.0019){target="_blank"}; [D'Amico & King,
+2013](https://doi.org/10.1016/j.jfineco.2012.11.007){target="_blank"}), with estimates clustering
 around tens of basis points per few hundred billion of purchases. [Contested] — the
 sign and existence are well established; the magnitude varies by study and by market
 conditions, and the effects appear larger when markets are stressed and smaller when
@@ -2764,7 +2777,7 @@ composition of holders has shifted from price-insensitive official buyers toward
 price-sensitive private ones (§12.4).
 
 **The relationship between $r$ and $g$ has become the centre of the debate.**
-[Blanchard (2019)](https://doi.org/10.1257/aer.109.4.1197) made the influential
+[Blanchard (2019)](https://doi.org/10.1257/aer.109.4.1197){target="_blank"} made the influential
 argument that when the interest rate on government debt is below the economy's growth
 rate, debt can be rolled indefinitely without ever being repaid, and the fiscal costs
 of debt are much lower than conventionally assumed. [Contested] — the arithmetic is
@@ -2775,11 +2788,11 @@ you cannot afford it to.
 The limiting case is **fiscal dominance**: the point at which the debt burden
 constrains the central bank, because raising rates far enough to control inflation
 would make the debt unsustainable. The classic analysis is [Sargent & Wallace
-(1981)](https://www.minneapolisfed.org/research/quarterly-review/some-unpleasant-monetarist-arithmetic),
+(1981)](https://www.minneapolisfed.org/research/quarterly-review/some-unpleasant-monetarist-arithmetic){target="_blank"},
 whose "unpleasant arithmetic" is that a government committed to deficits forces the
 central bank to eventually monetise them, so tight money today buys looser money
 tomorrow. The modern fiscal-theory literature ([Cochrane,
-2023](https://press.princeton.edu/books/hardcover/9780691242248/the-fiscal-theory-of-the-price-level))
+2023](https://press.princeton.edu/books/hardcover/9780691242248/the-fiscal-theory-of-the-price-level){target="_blank"})
 develops this into a full theory of the price level. [Contested] — a serious,
 internally consistent framework whose empirical discrimination against conventional
 monetary theory remains debated.
@@ -2854,21 +2867,21 @@ no compensation, only information.
 
 **It is false, and the way it fails is systematic.** Two classic tests.
 
-[Fama & Bliss (1987)](https://www.jstor.org/stable/1814539) regressed a bond's excess
+[Fama & Bliss (1987)](https://www.jstor.org/stable/1814539){target="_blank"} regressed a bond's excess
 return over the following year on the spread between its forward rate and the current
 spot rate. Under the expectations hypothesis, that spread should predict nothing — it
 is pure forecast. In fact it predicts strongly, with explanatory power rising with
 horizon. [Fact] **When forward rates are high relative to spot, long bonds subsequently
 earn high excess returns.**
 
-[Campbell & Shiller (1991)](https://doi.org/10.2307/2298008) ran the complementary
+[Campbell & Shiller (1991)](https://doi.org/10.2307/2298008){target="_blank"} ran the complementary
 test: regress the *change* in long yields on the curve slope. The expectations
 hypothesis predicts a coefficient of $+1$ — a steep curve means long yields rise. The
 estimated coefficients are consistently *negative*. [Fact] When the curve is steep,
 long yields have historically tended to *fall*. This is the opposite of the textbook
 prediction, and it is one of the most robust anomalies in empirical finance.
 
-[Cochrane & Piazzesi (2005)](https://doi.org/10.1257/0002828053828581) tightened this
+[Cochrane & Piazzesi (2005)](https://doi.org/10.1257/0002828053828581){target="_blank"} tightened this
 considerably: a single linear combination of forward rates — a tent-shaped weighting
 across maturities — predicts one-year excess returns on bonds of every maturity, with
 $R^2$ of roughly a third. [Fact] One factor prices the whole curve's risk premium.
@@ -2876,7 +2889,7 @@ $R^2$ of roughly a third. [Fact] One factor prices the whole curve's risk premiu
 **The critique, which matters.** These are predictive regressions on overlapping
 annual returns from a short sample of genuinely persistent variables, which is the
 setting where standard inference is most misleading. [Bauer & Hamilton
-(2018)](https://www.nber.org/papers/w23480) show that once small-sample bias and the
+(2018)](https://www.nber.org/papers/w23480){target="_blank"} show that once small-sample bias and the
 persistence of the regressors are handled properly, the evidence for several proposed
 bond-return predictors weakens substantially, and some does not survive. [Contested]
 The core Fama–Bliss and Campbell–Shiller results are more robust than the later
@@ -2898,8 +2911,8 @@ indicator in the standard macro toolkit, and also one of the most over-read.
 **The record.** The spread between the ten-year and three-month Treasury yields has
 inverted before every US recession since the 1960s, with roughly one false positive
 ([Estrella & Hardouvelis,
-1991](https://doi.org/10.1111/j.1540-6261.1991.tb02674.x); [Estrella & Mishkin,
-1998](https://doi.org/10.1162/003465398557320)). [Fact] It outperforms most
+1991](https://doi.org/10.1111/j.1540-6261.1991.tb02674.x){target="_blank"}; [Estrella & Mishkin,
+1998](https://doi.org/10.1162/003465398557320){target="_blank"}). [Fact] It outperforms most
 alternatives, including surveys and equity-market signals.
 
 **The mechanism.** Inversion is not a cause; it is the market saying that policy is
@@ -2933,7 +2946,7 @@ Three levels of machinery, in increasing order of commitment.
 
 **Statistical decomposition.** The classic result is that essentially all curve
 movement is three factors ([Litterman & Scheinkman,
-1991](https://doi.org/10.3905/jfi.1991.692347)):
+1991](https://doi.org/10.3905/jfi.1991.692347){target="_blank"}):
 
 | Factor | Shape | Interpretation | Share of variance |
 |---|---|---|---|
@@ -2948,25 +2961,25 @@ points rarely add much.
 
 **Parametric fitting.** To get a smooth curve from a scatter of bond prices, the
 standard is the [Nelson & Siegel
-(1987)](https://www.jstor.org/stable/2352957) functional form and its [Svensson
-(1994)](https://www.nber.org/papers/w4871) extension — a small number of parameters
+(1987)](https://www.jstor.org/stable/2352957){target="_blank"} functional form and its [Svensson
+(1994)](https://www.nber.org/papers/w4871){target="_blank"} extension — a small number of parameters
 producing level, slope and curvature components by construction. The Federal Reserve
 publishes daily fitted curves on this basis ([Gürkaynak, Sack & Wright,
-2007](https://doi.org/10.1016/j.jmoneco.2007.06.029)), and that dataset is the
+2007](https://doi.org/10.1016/j.jmoneco.2007.06.029){target="_blank"}), and that dataset is the
 standard research input.
 
 **Arbitrage-free models.** For pricing derivatives, curve fitting is not enough — the
 model must rule out arbitrage across maturities and over time. The lineage runs from
 the one-factor equilibrium models of [Vasicek
-(1977)](https://doi.org/10.1016/0304-405X(77)90016-2) and [Cox, Ingersoll & Ross
-(1985)](https://doi.org/10.2307/1911242), through models calibrated to fit today's
-curve exactly ([Ho & Lee, 1986](https://doi.org/10.1111/j.1540-6261.1986.tb02528.x);
-[Hull & White, 1990](https://doi.org/10.1093/rfs/3.4.573)), to the general framework
-of [Heath, Jarrow & Morton (1992)](https://doi.org/10.2307/2951677), which models the
+(1977)](https://doi.org/10.1016/0304-405X(77)90016-2){target="_blank"} and [Cox, Ingersoll & Ross
+(1985)](https://doi.org/10.2307/1911242){target="_blank"}, through models calibrated to fit today's
+curve exactly ([Ho & Lee, 1986](https://doi.org/10.1111/j.1540-6261.1986.tb02528.x){target="_blank"};
+[Hull & White, 1990](https://doi.org/10.1093/rfs/3.4.573){target="_blank"}), to the general framework
+of [Heath, Jarrow & Morton (1992)](https://doi.org/10.2307/2951677){target="_blank"}, which models the
 entire forward curve's evolution. The affine class — where yields are linear in a set
 of state variables ([Duffie & Kan,
-1996](https://doi.org/10.1111/j.1467-9965.1996.tb00123.x)) — is the workhorse, and
-[Piazzesi (2010)](https://doi.org/10.1016/B978-0-444-50897-3.50015-8) is the standard
+1996](https://doi.org/10.1111/j.1467-9965.1996.tb00123.x){target="_blank"}) — is the workhorse, and
+[Piazzesi (2010)](https://doi.org/10.1016/B978-0-444-50897-3.50015-8){target="_blank"} is the standard
 survey.
 
 The practical guidance for someone who is not building a derivatives book: **you
@@ -2998,7 +3011,7 @@ exposure to curvature, and duration-matching is only valid for small moves. And 
 trades in bonds, like carry trades everywhere, have negatively skewed returns — they
 earn small amounts steadily and lose large amounts occasionally, which is the general
 property documented across asset classes by [Koijen, Moskowitz, Pedersen & Vrugt
-(2018)](https://doi.org/10.1016/j.jfineco.2017.11.002). [Fact]
+(2018)](https://doi.org/10.1016/j.jfineco.2017.11.002){target="_blank"}. [Fact]
 
 > ### §11 Key takeaways
 >
@@ -3039,18 +3052,18 @@ their liabilities and their regulators, and real arbitrageurs have finite balanc
 sheets. Once you admit both, quantities matter.
 
 This is the **preferred habitat** theory, proposed by [Modigliani & Sutch
-(1966)](https://www.jstor.org/stable/1821246) and formalised by [Vayanos & Vila
-(2021)](https://doi.org/10.3982/ECTA17440). Investors have preferred maturities;
+(1966)](https://www.jstor.org/stable/1821246){target="_blank"} and formalised by [Vayanos & Vila
+(2021)](https://doi.org/10.3982/ECTA17440){target="_blank"}. Investors have preferred maturities;
 arbitrageurs connect the segments but are risk-averse and capital-constrained. The
 model's central prediction is that **a change in the supply of bonds at one maturity
 moves yields there and, attenuated, elsewhere** — exactly what QE was designed to
 exploit.
 
 The empirical support is good. [Greenwood & Vayanos
-(2014)](https://doi.org/10.1093/rfs/hht133) show that when the government's debt is
+(2014)](https://doi.org/10.1093/rfs/hht133){target="_blank"} show that when the government's debt is
 tilted toward long maturities, long bonds subsequently earn higher excess returns —
 the market must be paid more to absorb more duration. [Fact] [Greenwood, Hanson &
-Stein (2015)](https://doi.org/10.1111/jofi.12253) develop the corresponding theory of
+Stein (2015)](https://doi.org/10.1111/jofi.12253){target="_blank"} develop the corresponding theory of
 optimal government debt maturity.
 
 **The general principle, which generalises well beyond bonds:** when a large share of
@@ -3070,7 +3083,7 @@ you who is forced to sell and who is free to buy.
 | **Foreign official reserves** | Currency management, safety | No | May sell to defend a currency |
 | **Banks** | Liquidity regulation; collateral | Partly | Constrained by leverage rules |
 | **Insurers** | Match long liabilities | Partly | Forced sellers on downgrade |
-| **Pension funds** | Match long liabilities | Partly | Can be forced sellers if levered (§13.6) |
+| **Pension funds** | Match long liabilities | Partly | Can be forced sellers if levered (§13.4) |
 | **Mutual funds and ETFs** | On behalf of end investors | Yes | Sell on redemptions |
 | **Hedge funds** | Relative value, levered | Very | Forced to deleverage |
 | **Households** | Income, safety | Yes | Usually stabilising |
@@ -3108,7 +3121,7 @@ Insurance regulation does something similar. Solvency-style frameworks require
 insurers to hold capital against duration mismatch, pushing them toward long bonds
 and toward selling anything downgraded — which is the forced-selling channel of
 [Ellul, Jotikasthira & Lundblad
-(2011)](https://doi.org/10.1016/j.jfineco.2011.03.020). Bank liquidity rules
+(2011)](https://doi.org/10.1016/j.jfineco.2011.03.020){target="_blank"}. Bank liquidity rules
 similarly require holdings of high-quality liquid assets, of which government bonds
 are the primary example, creating a large regulatory bid that is insensitive to yield.
 
@@ -3129,7 +3142,7 @@ established.
 **The growth of funds and ETFs.** A growing share of corporate credit is held through
 vehicles offering daily liquidity on an underlying asset that does not have it. This
 is a genuine structural fragility: [Goldstein, Jiang & Ng
-(2017)](https://doi.org/10.1016/j.jfineco.2017.09.002) document that corporate bond
+(2017)](https://doi.org/10.1016/j.jfineco.2017.09.002){target="_blank"} document that corporate bond
 funds exhibit a *concave* flow-performance relationship, meaning bad performance
 triggers disproportionate outflows — the signature of a run incentive. [Fact] The
 mechanism is a first-mover advantage: redeeming early gets you out at today's stale
@@ -3261,6 +3274,11 @@ The arithmetic: **[Computed]**
 | Cross terms | −0.26% | +0.11% |
 | **Total** | **−12.35%** | **+16.71%** |
 
+(**Cross terms** is the small gap left when a second-order approximation — duration
+plus convexity — stands in for the bond's actual repricing over a full year rather
+than an instant; §7.4 shows the same kind of gap growing with the size of the yield
+move; A.3 has the expansion. It is never the story.)
+
 Four readings that generalise.
 
 **The coupon is nearly irrelevant in a big year.** Four points of income against
@@ -3295,7 +3313,7 @@ about it was mysterious; it was Identity 3 with a large $\Delta y$.
 | **2013 taper tantrum** | 2 | A hint of reduced purchases moved 10-year yields well over 100bp higher within four months | Term premium can reprice violently on a change in expected *supply* |
 | **March 2020** | 4 | Treasuries sold off *during* an equity crash; the Fed bought ~$1tn | Even the safest market can lose its liquidity |
 | **2022** | 1 | Inflation forced the fastest tightening in decades; bonds and equities fell together | The bond–equity hedge fails in inflation shocks (§14) |
-| **Sept 2022 UK** | 1 then 4 | A fiscal announcement triggered gilt losses, then LDI margin calls, then a doom loop | Leverage inside a "safe" strategy is the danger |
+| **Sept 2022 UK** | 1, 3 then 4 | A fiscal announcement triggered gilt losses, then LDI margin calls, then a doom loop | Leverage inside a "safe" strategy is the danger |
 | **March 2023** | Rally | Bank failures drove one of the largest short-dated Treasury rallies on record | Flight to quality still works when the shock is not inflationary |
 
 The pattern across episodes: **types 1 through 3 are repricings you can hold through;
@@ -3334,7 +3352,8 @@ capital. That is liability-driven investing, and as a hedging strategy it is cor
 
 On 23 September 2022 the government announced large unfunded tax cuts. Gilt yields
 rose sharply — an ordinary type-1 and type-3 repricing. But leveraged duration
-positions require collateral, and rising yields generated margin calls. Meeting them
+positions require collateral, and rising yields generated margin calls — on the order
+of 15% of notional for a 100 basis point rise on a 30-year position (A.16). Meeting them
 required selling assets; the most liquid asset was gilts; selling gilts pushed yields
 higher; which generated more margin calls. **A hedge against falling rates had become
 a forced seller into rising rates.** The Bank of England intervened with emergency
@@ -3436,8 +3455,10 @@ P^{\text{equity}} = \sum_t \frac{\mathbb{E}[\text{profit}_t]}{(1+y_t+\text{ERP})
 P^{\text{bond}} = \sum_t \frac{C_t}{(1+y_t)^t}
 $$
 
-The bond has a fixed numerator; the equity's numerator moves with the economy. So
-consider the two kinds of shock separately:
+$\mathrm{ERP}$ is the **equity risk premium**, the extra return equity investors demand
+over the bond yield for bearing the risk that profits are not fixed. The bond has a
+fixed numerator; the equity's numerator moves with the economy. So consider the two
+kinds of shock separately:
 
 ```
                          DISCOUNT-RATE SHOCK              CASH-FLOW (GROWTH) SHOCK
@@ -3472,7 +3493,7 @@ The correlation is not a constant, and its regime shifts are large and long-live
 | **2021–2023** | **Positive** | Inflation | 2022: both fell hard, simultaneously |
 
 The shift around 1998 is well documented, and [Campbell, Sunderam & Viceira
-(2017)](https://doi.org/10.1561/104.00000030) title it precisely: nominal bonds moved
+(2017)](https://doi.org/10.1561/104.00000030){target="_blank"} title it precisely: nominal bonds moved
 from being "inflation bets" to "deflation hedges." [Fact] An entire generation of
 investment practice — the modern 60/40 portfolio, risk parity, the use of Treasuries
 as the standard equity hedge — was built during the negative-correlation regime and
@@ -3484,7 +3505,7 @@ bonds. It is a property of the macroeconomic regime.
 
 ### 14.3 Why it flips
 
-[Campbell, Pflueger & Viceira (2020)](https://doi.org/10.1086/710082) give the
+[Campbell, Pflueger & Viceira (2020)](https://doi.org/10.1086/710082){target="_blank"} give the
 mechanism, and it is the two-shock framework made rigorous. Two ingredients determine
 the sign:
 
@@ -3507,7 +3528,7 @@ when inflation is the dominant macro risk, they do not.** [Fact]
 A complementary literature finds the correlation also has a flight-to-quality
 component that macro fundamentals do not capture — it moves with liquidity and risk
 appetite on horizons shorter than any macro variable changes ([Baele, Bekaert &
-Inghelbrecht, 2010](https://doi.org/10.1093/rfs/hhq014)). [Fact] Both channels are
+Inghelbrecht, 2010](https://doi.org/10.1093/rfs/hhq014){target="_blank"}). [Fact] Both channels are
 real; the macro one sets the multi-year regime, the flight-to-quality one drives
 day-to-day comovement.
 
@@ -3555,7 +3576,7 @@ This has consequences that persistently surprise people:
 - **Empirically, corporate bond returns load on factors closely related to equity
   risk**, and a large part of the cross-section of credit returns is explained by
   downside risk and credit-quality factors ([Bai, Bali & Wen,
-  2019](https://doi.org/10.1016/j.jfineco.2018.08.002)). [Fact]
+  2019](https://doi.org/10.1016/j.jfineco.2018.08.002){target="_blank"}). [Fact]
 
 The practical implication for portfolio construction is to allocate to bonds by
 *function*, not by label. Government bonds are the growth hedge. Inflation-linked
@@ -3621,11 +3642,13 @@ investing, and converting back gives the same return as investing at home. That
 relationship is **covered interest parity**:
 
 $$
-\frac{F}{S} \;=\; \frac{1 + r_{\text{dom}}}{1 + r_{\text{for}}}
+\frac{\mathrm{Fwd}}{S} \;=\; \frac{1 + i_{\text{dom}}}{1 + i_{\text{for}}}
 $$
 
-where $S$ and $F$ are the spot and forward exchange rates and $r$ are short-term
-interest rates. If Australian short rates are above US short rates, the Australian
+where $S$ and $\mathrm{Fwd}$ are the spot and forward exchange rates — not to be
+confused with the bond's face value $F$ from the notation block — and $i$ are
+short-term **nominal** money-market rates, not the real rate $r$ used elsewhere in
+this document. If Australian short rates are above US short rates, the Australian
 dollar trades at a forward *discount* by exactly that difference, and selling it
 forward costs you exactly the rate differential.
 
@@ -3633,9 +3656,9 @@ Doing the algebra, the hedged return on a foreign bond is approximately
 
 $$
 \underbrace{y^{\text{for}}}_{\substack{\text{foreign bond}\\\text{yield}}}
-\;-\; \underbrace{\bigl(r^{\text{for}} - r^{\text{dom}}\bigr)}_{\text{hedging cost}}
-\;=\; \underbrace{r^{\text{dom}}}_{\substack{\text{your own}\\\text{short rate}}}
-\;+\; \underbrace{\bigl(y^{\text{for}} - r^{\text{for}}\bigr)}_{\substack{\text{the foreign bond's premium}\\\text{over its own short rate}}}
+\;-\; \underbrace{\bigl(i^{\text{for}} - i^{\text{dom}}\bigr)}_{\text{hedging cost}}
+\;=\; \underbrace{i^{\text{dom}}}_{\substack{\text{your own}\\\text{short rate}}}
+\;+\; \underbrace{\bigl(y^{\text{for}} - i^{\text{for}}\bigr)}_{\substack{\text{the foreign bond's premium}\\\text{over its own short rate}}}
 $$
 
 **A currency-hedged foreign bond pays your domestic short rate plus the foreign
@@ -3652,7 +3675,7 @@ The diversification is across **monetary cycles**, not across yield levels. [Fac
 
 CIP was treated as a near-identity before 2008. It is not one now.
 
-[Du, Tepper & Verdelhan (2018)](https://doi.org/10.1111/jofi.12620) document
+[Du, Tepper & Verdelhan (2018)](https://doi.org/10.1111/jofi.12620){target="_blank"} document
 persistent, systematic deviations — the **cross-currency basis** — that are large
 enough to matter, widen at quarter-ends and year-ends, and correlate with bank
 regulatory constraints. [Fact] The mechanism is that the arbitrage requires a bank
@@ -3680,7 +3703,7 @@ the forward implies. This is the **uncovered interest parity** question, and the
 empirical answer is one of the oldest anomalies in finance.
 
 UIP says high-interest-rate currencies should depreciate by the interest differential,
-leaving expected returns equal. [Fama (1984)](https://doi.org/10.1016/0304-3932(84)90046-1)
+leaving expected returns equal. [Fama (1984)](https://doi.org/10.1016/0304-3932(84)90046-1){target="_blank"}
 showed the opposite: high-interest-rate currencies have historically depreciated
 *less* than the differential, and often appreciated. [Fact] Borrowing in low-rate
 currencies and lending in high-rate ones — the **carry trade** — has therefore earned
@@ -3689,7 +3712,7 @@ a positive average return.
 The catch is the shape of those returns. Carry trade returns are strongly negatively
 skewed: long stretches of steady gains punctuated by sharp losses, concentrated in
 periods of global risk aversion. [Lustig, Roussanov & Verdelhan
-(2011)](https://doi.org/10.1093/rfs/hhr068) show the returns are compensation for
+(2011)](https://doi.org/10.1093/rfs/hhr068){target="_blank"} show the returns are compensation for
 exposure to a common risk factor rather than a free lunch. [Fact] The colloquialism —
 picking up nickels in front of a steamroller — is a fair description of the return
 distribution, and it is the same shape as credit (§5.5) and as bond carry trades
@@ -3884,7 +3907,7 @@ identifiable in advance:
 | **Covenant quality** | Growing | Weak documents permit collateral to be moved before default |
 
 The second, third and fourth interact badly. [Acharya, Bharath & Srinivasan
-(2007)](https://doi.org/10.1016/j.jfineco.2006.05.011) show that industry distress
+(2007)](https://doi.org/10.1016/j.jfineco.2006.05.011){target="_blank"} show that industry distress
 drives recoveries down materially, and since industry distress is what causes defaults
 in the first place, the correlation is structural rather than incidental. [Fact] Any
 model using a constant recovery rate is not conservatively wrong; it is wrong in the
@@ -3915,7 +3938,7 @@ now owed to creditors outside these frameworks, which has made recent restructur
 markedly slower.
 
 **The costs are real and measurable.** [Cruces & Trebesch
-(2013)](https://doi.org/10.1257/mac.5.3.85) find that larger haircuts are followed by
+(2013)](https://doi.org/10.1257/mac.5.3.85){target="_blank"} find that larger haircuts are followed by
 higher spreads and longer market exclusion, with effects persisting for years. [Fact]
 This is the empirical content of §4.4's claim that repayment is sustained by direct
 costs: countries face a genuine trade-off between relief today and access tomorrow,
@@ -4026,7 +4049,7 @@ decent execution.
 **For corporate credit, funds dominate for almost everyone.** You need dozens of
 issuers to diversify idiosyncratic default risk, retail execution costs on individual
 corporate bonds are punitive ([Edwards, Harris & Piwowar,
-2007](https://doi.org/10.1111/j.1540-6261.2007.01240.x)), and the analysis required
+2007](https://doi.org/10.1111/j.1540-6261.2007.01240.x){target="_blank"}), and the analysis required
 per name is real work. The exception is a large enough portfolio to build genuine
 diversification directly.
 
@@ -4043,7 +4066,7 @@ mark it. The accounting differs; the economics do not.
 
 **What is right, and better.** A bond *fund* recovers from a rate shock too, and there
 is a precise result about how long it takes. [Leibowitz, Bova & Kogelman
-(2014)](https://doi.org/10.2469/faj.v70.n1.5) show that the annualised return of a
+(2014)](https://doi.org/10.2469/faj.v70.n1.5){target="_blank"} show that the annualised return of a
 portfolio held at a constant duration $D$ converges, in both mean and dispersion,
 around its **starting yield** over a horizon of about $2D - 1$ years, across a wide
 range of rate paths. [Fact]
@@ -4073,8 +4096,8 @@ for a portfolio rather than a single bond.
 
 **A steady trend takes about $2D-1$ years.** When yields keep moving, every year
 delivers a fresh price change, so the reinvestment effect needs longer to catch up;
-both trend rows cross the starting yield at eleven years, which is where the
-published result lives.
+both trend rows are back within about a tenth of a percentage point of the starting
+yield by eleven years, which is where the published result lives.
 
 **Across random paths the starting yield is the forecast, and it is sharpest near
 $2D-1$.** The mean annualised return equals the starting yield at every horizon. The
@@ -4121,7 +4144,7 @@ The durable lessons: an ETF's premium or discount is information about the under
 market's liquidity, not a mispricing to arbitrage; ETFs have become a price discovery
 mechanism for the underlying market; and daily-dealing funds holding illiquid assets
 carry a genuine first-mover advantage on redemption ([Goldstein, Jiang & Ng,
-2017](https://doi.org/10.1016/j.jfineco.2017.09.002)), which is a reason to prefer
+2017](https://doi.org/10.1016/j.jfineco.2017.09.002){target="_blank"}), which is a reason to prefer
 ETFs over mutual funds for illiquid credit — you exit at a market-clearing price
 rather than externalising your liquidation cost onto the people who stayed.
 
@@ -4136,9 +4159,10 @@ Three ways to distribute a portfolio across maturities:
 | **Barbell** | Very short plus very long | Same as a bullet, if matched | **Highest** | A view on curve shape; wanting convexity |
 
 The non-obvious point: **a barbell and a bullet with the same duration do not have the
-same risk.** The barbell has materially more convexity, because convexity grows with
-the square of maturity while duration grows linearly, so the long leg contributes
-disproportionately. A duration-matched barbell therefore outperforms a bullet on any
+same risk.** The barbell has materially more convexity, because convexity grows
+much faster with maturity than duration does — from the 2-year to the 30-year,
+duration rises about ninefold and convexity about ninetyfold (§7.2) — so the long leg
+contributes disproportionately. A duration-matched barbell therefore outperforms a bullet on any
 large parallel move in either direction — and underperforms if the curve flattens or
 steepens against it, and yields slightly less, since convexity is priced (§7.4).
 
@@ -4161,14 +4185,22 @@ intuition suggests.
 
 **Taxes.** Bonds are tax-inefficient in a way equities are not, because coupon income
 is taxed annually at income rates regardless of whether you spend it, while equity
-returns are largely deferred capital gains. Four specifics:
+returns are largely deferred capital gains. Five specifics:
 
+- **Discount and premium bonds are not tax-equivalent, even at the same yield.** How
+  the pull to par (§6.5) is taxed depends on the jurisdiction. Where it counts as a
+  capital gain taxed below coupon income — UK gilts held by individuals are the clean
+  case — a low-coupon bond bought below par beats a high-coupon one after tax. In the
+  US, market discount is generally taxed as ordinary income unless it is very small,
+  and that threshold alone moves municipal bond prices ([Ang, Bhansali & Xing,
+  2010](https://doi.org/10.1111/j.1540-6261.2009.01545.x){target="_blank"}). Either way, bonds of the
+  same issuer and maturity can trade at slightly different yields because of it.
 - **Bonds belong in tax-sheltered accounts** where the choice exists. This is one of
   the few genuinely free improvements available in portfolio construction.
 - **Municipal bonds** are exempt from US federal income tax, which is why they yield
   less; the comparison to taxable bonds must be on a tax-equivalent basis, and the
   right adjustment is more subtle than dividing by one minus your rate ([Ang, Bhansali
-  & Xing, 2010](https://doi.org/10.1111/j.1540-6261.2009.01545.x)).
+  & Xing, 2010](https://doi.org/10.1111/j.1540-6261.2009.01545.x){target="_blank"}).
 - **TIPS generate phantom income**: the inflation adjustment to principal is taxed in
   the year it accrues, though you receive it only at maturity. In a taxable account a
   TIPS can generate a tax bill exceeding its cash coupon.
@@ -4248,6 +4280,10 @@ A workable default framework, to be adapted rather than copied:
 
 ---
 
+```{=latex}
+\newpage
+```
+
 ## 18. Failure modes {#18-failure-modes}
 
 The document's warnings, collected in one place. They are grouped by the kind of
@@ -4315,7 +4351,7 @@ damage, and each is an instance of the same underlying error — treating a
 
 1. **Believing bonds are safe without asking "safe against what".** Safe against
    default is not safe against rates, and not safe against inflation. 2022 cost
-   holders of the safest bonds in the world roughly a sixth of their money.
+   holders of the safest bonds in the world roughly an eighth of their money (§13.2).
 2. **Believing bonds hedge equities unconditionally.** They hedge growth shocks. The
    hedge fails in inflation shocks, and it fails by construction, not by accident.
 3. **Adding leverage to something safe.** Every major bond market accident of the past
@@ -4352,13 +4388,13 @@ Confronted with any position, ask which term you are being paid to bear and whet
 that is the risk you meant to take.
 
 ```mermaid
-flowchart LR
-    Q["<b>Any bond, any moment</b>"] --> A["<b>What is this yield made of?</b><br/>Identity 2:<br/>real rate, inflation, term premium,<br/>credit, liquidity, options"]
-    A --> B["<b>Which risk am I paid for?</b><br/>and is it the one<br/>I meant to take?"]
-    B --> C["<b>What happens if it moves?</b><br/>Identity 3:<br/>carry, roll, duration,<br/>convexity, losses"]
-    C --> D["<b>What is my cushion?</b><br/>breakeven move<br/>equals carry plus roll,<br/>divided by duration"]
-    D --> E["<b>Who else owns this,<br/>and who is forced?</b>"]
-    E --> Q
+flowchart TB
+    Q["<b>Any bond, any moment</b>"] --> A["<b>What is this yield made of?</b><br/>Identity 2: real rate, inflation, term premium,<br/>credit, liquidity, options"]
+    A --> B["<b>Which risk am I paid for?</b><br/>and is it the one I meant to take?"]
+    B --> C["<b>What happens if it moves?</b><br/>Identity 3: carry, roll, duration,<br/>convexity, losses"]
+    C --> D["<b>What is my cushion?</b><br/>breakeven move = (carry + roll) / duration"]
+    D --> E["<b>Who else owns this, and who is forced?</b>"]
+    E -.->|"next bond"| Q
     style Q fill:#10171B,color:#fff
     style A fill:#0B6E75,color:#fff
     style C fill:#A8452B,color:#fff
@@ -4375,20 +4411,19 @@ Treasury bill, a Brazilian local-currency bond, and a distressed second-lien loa
 ```
 
 ```mermaid
-flowchart TB
-    S["<b>What do I want the bonds to do?</b>"]
-    S -->|"hold value short-term"| CASH["<b>T-bills or a money market fund</b><br/>duration under 1 year, government only.<br/>Do not reach for yield here"]
-    S -->|"hedge my equities"| HEDGE{"Is inflation the<br/>dominant macro risk?"}
-    S -->|"fund a known future need"| LIAB{"Is the liability<br/>real or nominal?"}
-    S -->|"earn a return"| RET["<b>Credit, sized against equities</b><br/>not against government bonds.<br/>Diversify: a fund, not single names"]
-    HEDGE -->|"no — growth risk dominates"| H1["<b>Long nominal government bonds</b><br/>the hedge works; longer is more<br/>efficient per dollar"]
-    HEDGE -->|"yes"| H2["<b>Inflation-linked bonds plus real assets</b><br/>nominal bonds will not hedge this;<br/>expect positive stock-bond correlation"]
-    LIAB -->|"nominal, fixed date"| L1["<b>Zero-coupon bond or a bullet</b><br/>at that maturity.<br/>No reinvestment risk"]
-    LIAB -->|"real — spending, retirement"| L2["<b>TIPS ladder</b><br/>matched to the spending path.<br/>This is the true risk-free asset"]
+flowchart LR
+    S["<b>What do I want<br/>the bonds to do?</b>"]
+    S -->|"hold value<br/>short-term"| CASH["<b>T-bills or a money market fund</b><br/>duration under 1 year, government only;<br/>do not reach for yield here"]
+    S -->|"hedge my<br/>equities"| HEDGE{"Is inflation the<br/>dominant macro risk?"}
+    S -->|"fund a known<br/>future need"| LIAB{"Is the liability<br/>real or nominal?"}
+    S -->|"earn a<br/>return"| RET["<b>Credit, sized against equities</b><br/>not against government bonds;<br/>diversify through a fund"]
+    HEDGE -->|"no: growth risk<br/>dominates"| H1["<b>Long nominal government bonds</b><br/>the hedge works; longer is<br/>more efficient per dollar"]
+    HEDGE -->|"yes"| H2["<b>Inflation-linked bonds and real assets</b><br/>nominal bonds will not hedge this;<br/>expect positive stock-bond correlation"]
+    LIAB -->|"nominal,<br/>fixed date"| L1["<b>Zero-coupon bond or a bullet</b><br/>at that maturity;<br/>no reinvestment risk"]
+    LIAB -->|"real: spending,<br/>retirement"| L2["<b>TIPS ladder</b><br/>matched to the spending path;<br/>the true risk-free asset"]
     RET --> R1{"Horizon at least<br/>twice the duration?"}
-    R1 -->|"yes"| R2["<b>Starting yield is your forecast.</b><br/>A sell-off raises it. Rebalance in"]
-    R1 -->|"no"| R3["<b>Shorten duration</b><br/>toward half your horizon.<br/>Path risk dominates otherwise"]
-    ALL["<b>Whatever the branch:</b> hedge foreign currency; hold bonds in tax-sheltered accounts; count duration once across the whole portfolio; never lever the safe sleeve"]
+    R1 -->|"yes"| R2["<b>Starting yield is your forecast</b><br/>a sell-off raises it; rebalance in"]
+    R1 -->|"no"| R3["<b>Shorten duration</b><br/>toward half your horizon"]
     style S fill:#10171B,color:#fff
     style CASH fill:#1F3A6E,color:#fff
     style H1 fill:#1F3A6E,color:#fff
@@ -4396,8 +4431,10 @@ flowchart TB
     style L1 fill:#1F3A6E,color:#fff
     style L2 fill:#0B6E75,color:#fff
     style RET fill:#A8452B,color:#fff
-    style ALL fill:#5A4A42,color:#fff
 ```
+
+**Whatever the branch:** hedge foreign currency, hold bonds in tax-sheltered accounts,
+count duration once across the whole portfolio, and never lever the safe sleeve.
 
 ### 19.3 A roadmap, if you are starting from scratch
 
@@ -4499,26 +4536,30 @@ you are uncertain about is most of what it means to understand this asset class.
 
 ---
 
-## 20. References {#20-references}
+```{=latex}
+\newpage
+```
+
+# 20. References {#20-references}
 
 Grouped by kind, because the kinds are read differently. Every entry carries a link
 where a findable one exists; freely readable copies are preferred over paywalled
 publisher pages, and working-paper versions are linked where the published article is
 behind a paywall.
 
-### 20.1 If you only read five things
+## 20.1 If you only read five things
 
 1. **Tuckman & Serrat**, *Fixed Income Securities* — the best single technical
    reference, and the one to own.
-2. **Merton (1974)** — twelve pages that make credit intelligible forever.
-3. **Campbell, Pflueger & Viceira (2020)** — why bonds sometimes hedge equities and
+2. **[Merton (1974)](https://doi.org/10.1111/j.1540-6261.1974.tb03058.x){target="_blank"}** — twelve pages that make credit intelligible forever.
+3. **[Campbell, Pflueger & Viceira (2020)](https://www.nber.org/papers/w20070){target="_blank"}** — why bonds sometimes hedge equities and
    sometimes do not.
 4. **Ilmanen**, *Expected Returns*, chapters on bonds — the best available synthesis
    of what each part of a yield has historically paid.
-5. **Leibowitz, Bova & Kogelman (2014)** — the duration-targeting result, which answers
+5. **[Leibowitz, Bova & Kogelman (2014)](https://doi.org/10.2469/faj.v70.n1.5){target="_blank"}** — the duration-targeting result, which answers
    the question every bond investor actually has.
 
-### 20.2 Books
+## 20.2 Books
 
 **Modern technical references**
 
@@ -4547,7 +4588,7 @@ behind a paywall.
   Four thousand years of interest rates. Read it to stop believing any particular rate
   level is normal.
 - **Garbade, K. (2012).** [*Birth of a Market: The U.S. Treasury Securities Market from
-  the Great War to the Great Depression*.](https://mitpress.mit.edu/9780262017077/birth-of-a-market/)
+  the Great War to the Great Depression*.](https://direct.mit.edu/books/monograph/2195/Birth-of-a-MarketThe-U-S-Treasury-Securities)
   MIT Press. — How the world's most important market was actually constructed.
 - **Stigum, M. & Crescenzi, A. (2007).** *Stigum's Money Market*, 4th ed. McGraw-Hill.
   — The reference on repo, bills and short-term funding plumbing.
@@ -4575,7 +4616,7 @@ behind a paywall.
 - **Hicks, J. R. (1939).** *Value and Capital*. Oxford University Press. — The original
   liquidity-preference argument for a positive term premium.
 
-### 20.3 Yields, curves and term premia
+## 20.3 Yields, curves and term premia
 
 - **Redington, F. M. (1952).** ["Review of the Principles of Life-Office
   Valuations."](https://www.actuaries.org.uk/documents/review-principles-life-office-valuations)
@@ -4646,6 +4687,10 @@ behind a paywall.
   of Interest Rates: A New Methodology."](https://doi.org/10.2307/2951677)
   *Econometrica* 60(1), 77–105. — Model the whole forward curve's evolution; the
   general framework.
+- **Black, F. (1976).** ["The Pricing of Commodity
+  Contracts."](https://doi.org/10.1016/0304-405X(76)90024-6) *Journal of Financial
+  Economics* 3(1–2), 167–179. — The formula for options on forwards, and through it the
+  market's convention for quoting interest rate options. [paywalled]
 - **Duffie, D. & Kan, R. (1996).** ["A Yield-Factor Model of Interest
   Rates."](https://doi.org/10.1111/j.1467-9965.1996.tb00123.x) *Mathematical Finance*
   6(4), 379–406. — The affine class, which contains almost everything used in practice.
@@ -4653,7 +4698,7 @@ behind a paywall.
   Models."](https://doi.org/10.1016/B978-0-444-50897-3.50015-8) In *Handbook of
   Financial Econometrics*, 691–766. — The standard survey. [paywalled]
 
-### 20.4 Credit
+## 20.4 Credit
 
 - **Merton, R. (1974).** ["On the Pricing of Corporate Debt: The Risk Structure of
   Interest Rates."](https://doi.org/10.1111/j.1540-6261.1974.tb03058.x) *Journal of
@@ -4739,7 +4784,7 @@ behind a paywall.
   Returns."](https://doi.org/10.1111/jofi.13233) *Journal of Finance* 78(4),
   1967–2008. — A modern, high-dimensional treatment of the credit cross-section.
 
-### 20.5 Market structure, liquidity and funding
+## 20.5 Market structure, liquidity and funding
 
 - **Duffie, D., Gârleanu, N. & Pedersen, L. H. (2005).** ["Over-the-Counter
   Markets."](https://www.nber.org/papers/w10816) *Econometrica* 73(6), 1815–1847.
@@ -4776,6 +4821,9 @@ behind a paywall.
 - **Longstaff, F. (2004).** ["The Flight-to-Liquidity Premium in U.S. Treasury Bond
   Prices."](https://doi.org/10.1086/386528) *Journal of Business* 77(3), 511–526. —
   Treasuries against agency bonds: the pure liquidity premium.
+- **Ang, A., Bhansali, V. & Xing, Y. (2010).** ["Taxes on Tax-Exempt
+  Bonds."](https://doi.org/10.1111/j.1540-6261.2009.01545.x) *Journal of Finance* 65(2),
+  565–601. — How the tax treatment of market discount moves municipal bond prices.
 - **Duffie, D. (1996).** ["Special Repo
   Rates."](https://doi.org/10.1111/j.1540-6261.1996.tb02692.x) *Journal of Finance*
   51(2), 493–526. — Why a bond in demand to short trades rich.
@@ -4786,6 +4834,10 @@ behind a paywall.
 - **Gorton, G. & Metrick, A. (2012).** ["Securitized Banking and the Run on
   Repo."](https://doi.org/10.1016/j.jfineco.2011.03.016) *Journal of Financial
   Economics* 104(3), 425–451. — How a funding market freezes.
+- **Malvey, P. & Archibald, C. (1998).** ["Uniform-Price Auctions: Update of the Treasury
+  Experience."](https://home.treasury.gov/system/files/136/archive-documents/upas.pdf)
+  US Treasury, Office of Market Finance. — The Treasury's own evaluation of the switch to
+  uniform-price auctions (§2.2).
 - **Lou, D., Yan, H. & Zhang, J. (2013).** ["Anticipated and Repeated Shocks in Liquid
   Markets."](https://doi.org/10.1093/rfs/hht034) *Review of Financial Studies* 26(8),
   1891–1912. — The Treasury auction cycle's price footprint.
@@ -4811,11 +4863,15 @@ behind a paywall.
   Puzzle."](https://www.nber.org/papers/w16358) *Journal of Finance* 69(5), 2151–2197.
   [[DOI]](https://doi.org/10.1111/jofi.12032) — A very large, very persistent
   violation of the law of one price.
+- **Shleifer, A. & Vishny, R. (1997).** ["The Limits of
+  Arbitrage."](https://doi.org/10.1111/j.1540-6261.1997.tb03807.x) *Journal of Finance*
+  52(1), 35–55. — Why arbitrageurs who invest other people's money cut positions exactly
+  when mispricing is widest.
 - **Schrimpf, A. & Sushko, V. (2019).** ["Beyond LIBOR: A Primer on the New Benchmark
   Rates."](https://www.bis.org/publ/qtrpdf/r_qt1903e.htm) *BIS Quarterly Review*, March
   2019. — What replaced LIBOR and why it matters for discounting.
 
-### 20.6 Macro, policy, supply and demand
+## 20.6 Macro, policy, supply and demand
 
 - **Laubach, T. & Williams, J. (2003).** ["Measuring the Natural Rate of
   Interest."](https://doi.org/10.1162/003465303772815934) *Review of Economics and
@@ -4873,12 +4929,16 @@ behind a paywall.
   Corporate Bond Funds."](https://doi.org/10.1016/j.jfineco.2017.09.002) *Journal of
   Financial Economics* 126(3), 592–613. — The concave flow-performance relationship
   and the run incentive.
+- **Choi, J. & Kronlund, M. (2018).** ["Reaching for Yield in Corporate Bond Mutual
+  Funds."](https://doi.org/10.1093/rfs/hhx132) *Review of Financial Studies* 31(5),
+  1930–1965. — Funds reach for yield to attract flows, especially when rates are low;
+  the tilt earns higher raw returns and inflows but negative risk-adjusted returns.
 - **Koont, N., Ma, Y., Pástor, Ľ. & Zeng, Y. (2025).** ["Steering a Ship in Illiquid
   Waters: Active Management of Passive Funds."](https://doi.org/10.1093/rfs/hhaf034)
   *Review of Financial Studies* 38(10), 2887–2935. — How bond ETFs actually manage
   liquidity mismatch.
 
-### 20.7 Cross-asset, currency and sovereign
+## 20.7 Cross-asset, currency and sovereign
 
 - **Campbell, J., Sunderam, A. & Viceira, L. (2017).** ["Inflation Bets or Deflation
   Hedges? The Changing Risks of Nominal
@@ -4918,6 +4978,9 @@ behind a paywall.
 - **Aguiar, M. & Gopinath, G. (2006).** ["Defaultable Debt, Interest Rates and the
   Current Account."](https://doi.org/10.1016/j.jinteco.2005.05.005) *Journal of
   International Economics* 69(1), 64–83. — Default driven by trend growth shocks.
+- **Cole, H. & Kehoe, T. (2000).** ["Self-Fulfilling Debt
+  Crises."](https://doi.org/10.1111/1467-937X.00123) *Review of Economic Studies* 67(1),
+  91–116. — The standard model of a run on a sovereign.
 - **Cruces, J. & Trebesch, C. (2013).** ["Sovereign Defaults: The Price of
   Haircuts."](https://doi.org/10.1257/mac.5.3.85) *American Economic Journal:
   Macroeconomics* 5(3), 85–117. — Bigger haircuts, higher subsequent spreads, longer
@@ -4935,7 +4998,7 @@ behind a paywall.
   alongside every other asset. The best available calibration of long-horizon
   expectations.
 
-### 20.8 Corporate finance and capital structure
+## 20.8 Corporate finance and capital structure
 
 - **Modigliani, F. & Miller, M. (1958).** ["The Cost of Capital, Corporation Finance and
   the Theory of Investment."](https://www.jstor.org/stable/1809766) *American Economic
@@ -4960,7 +5023,7 @@ behind a paywall.
   Covenants."](https://doi.org/10.1142/S2010139215500019) *Quarterly Journal of
   Finance* 5(2). — What covenants are worth in yield terms.
 
-### 20.9 Mortgages and securitised credit
+## 20.9 Mortgages and securitised credit
 
 - **Gabaix, X., Krishnamurthy, A. & Vigneron, O. (2007).** ["Limits of Arbitrage: Theory
   and Evidence from the Mortgage-Backed Securities
@@ -4974,7 +5037,7 @@ behind a paywall.
   the Yield Curve."](https://doi.org/10.1093/rfs/hhv049) *Review of Financial Studies*
   29(5), 1220–1253. — The same mechanism, in the term structure.
 
-### 20.10 Practitioner research
+## 20.10 Practitioner research
 
 Directly usable, and produced by people who sell the thing. Discount accordingly, but
 do not ignore — much of the implementation evidence exists nowhere else.
@@ -5009,11 +5072,11 @@ do not ignore — much of the implementation evidence exists nowhere else.
   Beta."](https://doi.org/10.1016/j.jfineco.2013.10.005) *Journal of Financial
   Economics* 111(1), 1–25. — Includes the fixed-income evidence that low-duration
   bonds have had better risk-adjusted returns, attributed to leverage aversion.
-- **Fama, E. & French (1993).** ["Common Risk Factors in the Returns on Stocks and
+- **Fama, E. & French, K. (1993).** ["Common Risk Factors in the Returns on Stocks and
   Bonds."](https://doi.org/10.1016/0304-405X(93)90023-5) *Journal of Financial
   Economics* 33(1), 3–56. — The TERM and DEF factors: the original bond risk factors.
 
-### 20.11 Critiques and cautions
+## 20.11 Critiques and cautions
 
 A bibliography listing only a field's successes is propaganda. These are the papers
 that constrain how confidently the rest should be read.
@@ -5022,20 +5085,24 @@ that constrain how confidently the rest should be read.
   Premia."](https://www.nber.org/papers/w23480) *Review of Financial Studies* 31(2). —
   Much of the bond-return predictability literature does not survive proper
   small-sample inference. Read alongside §11.2.
+- **Stambaugh, R. (1999).** ["Predictive
+  Regressions."](https://doi.org/10.1016/S0304-405X(99)00041-0) *Journal of Financial
+  Economics* 54(3), 375–421. — The finite-sample bias that inflates a predictive slope
+  when a persistent predictor's shocks are correlated with returns.
 - **Huang, J.-Z. & Huang, M. (2012).** *(above)* — Structural credit models do not
   explain observed spreads. The foundational critique of §5.5's framework.
-- **Collin-Dufresne, Goldstein & Martin (2001).** *(above)* — Structural variables
+- **[Collin-Dufresne, Goldstein & Martin (2001)](https://doi.org/10.1111/0022-1082.00402){target="_blank"}.** *(above)* — Structural variables
   explain little of spread *changes*, which is a harder problem than explaining
   levels.
-- **Becker & Milbourn (2011).** *(above)* — The ratings on which a large part of the
+- **[Becker & Milbourn (2011)](https://doi.org/10.1016/j.jfineco.2011.03.012){target="_blank"}.** *(above)* — The ratings on which a large part of the
   institutional bond market's plumbing depends respond to competitive pressure.
-- **Amato & Remolona (2003).** *(above)* — An argument that the puzzle is really about
+- **[Amato & Remolona (2003)](https://www.bis.org/publ/qtrpdf/r_qt0312.pdf){target="_blank"}.** *(above)* — An argument that the puzzle is really about
   the difficulty of diversifying a negatively-skewed portfolio, not about mispricing.
-- **He, Nagel & Song (2022)**, **Vissing-Jorgensen (2021)**, **Duffie (2020)**
+- **[He, Nagel & Song (2022)](https://www.nber.org/papers/w27416){target="_blank"}**, **[Vissing-Jorgensen (2021)](https://doi.org/10.1016/j.jmoneco.2021.09.005){target="_blank"}**, **[Duffie (2020)](https://www.brookings.edu/wp-content/uploads/2020/05/WP62_Duffie_updated.pdf){target="_blank"}**
   *(above)* — Three independent demonstrations that the safe-asset property of
   Treasuries is conditional on intermediation capacity.
 
-### 20.12 Data and official sources
+## 20.12 Data and official sources
 
 - [**FRED**](https://fred.stlouisfed.org/) — Federal Reserve Bank of St. Louis. Yields,
   spreads, breakevens, and index option-adjusted spreads. The default starting point.
@@ -5054,3 +5121,937 @@ that constrain how confidently the rest should be read.
   they are free with registration.
 
 ---
+
+```{=latex}
+\newpage
+```
+
+# Appendix A — Concepts and prerequisites {#appendix-a}
+
+This appendix collects the concepts the main text uses without fully developing. Each
+entry has the same four parts — what the concept is, its formal definition, why it
+appears in this document, and where to go deeper — and the entries are ordered so that
+each leans only on earlier ones. A reader meeting an unfamiliar term in the main text
+can look it up in the index below; a reader without a finance background can read the
+appendix straight through as a build-up.
+
+Symbols defined inside an entry are local to it unless they appear in the notation
+block at the front of the document.
+
+| Concept | Used in | Concept | Used in |
+|---|---|---|---|
+| [A.1 Compounding conventions](#a1) | §6.6, §9.2 | [A.18 Interest rate swaps and OIS](#a18) | §3.1, §8.2 |
+| [A.2 Internal rate of return](#a2) | §1.2, §6.3 | [A.19 Covered and uncovered interest parity](#a19) | §15.1–§15.3 |
+| [A.3 Taylor expansion](#a3) | §1.4, §7.4, §13.2 | [A.20 Credit default swaps](#a20) | §8.5, §16.1 |
+| [A.4 Law of one price and replication](#a4) | §3.3, §6.2, §15.1 | [A.21 Uniform-price and pay-as-bid auctions](#a21) | §2.2 |
+| [A.5 Convenience yield](#a5) | §1.5, §3.1 | [A.22 Over-the-counter markets](#a22) | §2.3, §17.2 |
+| [A.6 Call and put options](#a6) | §1.3, §5.5, §7.6 | [A.23 ETF creation and redemption](#a23) | §17.4 |
+| [A.7 Volatility and option value](#a7) | §5.5, §8.4 | [A.24 Reserves and the policy rate](#a24) | §10.5 |
+| [A.8 Long and short optionality](#a8) | §5.5, §7.4, §15.3 | [A.25 State-space models and the Kalman filter](#a25) | §10.2 |
+| [A.9 Hazard rates and survival](#a9) | §1.4, §9.2 | [A.26 Debt dynamics: $r-g$](#a26) | §10.6 |
+| [A.10 Systematic risk and factor models](#a10) | §9.5, §14.5, §15.3 | [A.27 Multiple equilibria](#a27) | §4.2, §13.4 |
+| [A.11 Risk-neutral probabilities](#a11) | §9.4, §9.5 | [A.28 Principal components of the curve](#a28) | §7.7, §11.4 |
+| [A.12 Default correlation](#a12) | §5.6, §9.1 | [A.29 Affine term-structure models](#a29) | §10.4, §11.4 |
+| [A.13 Distance to default](#a13) | §5.5, §9.7 | [A.30 Modigliani–Miller and the trade-off theory](#a30) | §1.5, §5.1 |
+| [A.14 Discriminant analysis and the Z-score](#a14) | §9.7 | [A.31 Agency costs and debt overhang](#a31) | §1.5, §5.1 |
+| [A.15 Repurchase agreements](#a15) | §3.4 | [A.32 Absolute priority and Chapter 11](#a32) | §16.2–§16.3 |
+| [A.16 Margin and mark-to-market](#a16) | §3.4, §13.4 | [A.33 Predictive regressions and their traps](#a33) | §11.2 |
+| [A.17 Bond futures and the basis](#a17) | §3.4, §8.5 | [A.34 Risk contributions and risk parity](#a34) | §14.2, §14.4 |
+
+**Part 1 — Time, prices and arbitrage**
+
+## A.1 Compounding conventions {#a1}
+
+**What it is.** An interest rate is not a number until you know how often it compounds.
+"4% a year" paid as 2% every six months turns 100 into 104.04 after a year, because the
+second half-year earns interest on the first half-year's interest. Markets quote rates
+under different conventions — annual for most European government bonds, semi-annual
+for US Treasuries and corporates, simple interest for money-market instruments — and
+comparing two rates quoted under different conventions is comparing numbers in
+different units. *Continuous* compounding is the limit of compounding ever more often.
+It is rarely quoted, but it is the natural convention for mathematics, because growth
+factors become exponentials and exponentials multiply by adding their exponents.
+
+**Formally.** A rate $y$ compounded $m$ times a year grows 1 unit to $(1+y/m)^{mt}$ over
+$t$ years. Its effective annual rate is $(1+y/m)^m - 1$, and the continuously compounded
+rate $y_c$ with $e^{y_c t} = (1+y/m)^{mt}$ is $y_c = m\ln(1+y/m)$. So 4% semi-annual is
+4.04% effective annual and 3.96% continuous. Under continuous compounding the discount
+factor is $Z(t) = e^{-z_c(t)\,t}$, and rates over consecutive periods simply add in the
+exponent.
+
+**Why it appears here.** The notation block writes $Z(t)$ with annual compounding;
+§6.3 and §6.6 work with semi-annual yields and warn about converting between
+conventions; the survival probability $e^{-\lambda t}$ behind the credit triangle (§9.2)
+is a continuous-time object.
+
+**Going deeper.** Sections 1 and 3 of [Simple and Log Returns](log_returns.html) — a
+continuously compounded rate is a log return. [Tuckman & Serrat (2022)](https://www.wiley.com/en-us/Fixed+Income+Securities%3A+Tools+for+Today%27s+Markets%2C+4th+Edition-p-9781119835554){target="_blank"} on quoting
+conventions.
+
+## A.2 Internal rate of return {#a2}
+
+**What it is.** The single constant interest rate that, used to discount every cash flow
+of an investment, makes their present value equal to its price. It compresses a whole
+schedule of payments into one number, so that investments with different schedules can
+be compared. The cost of the compression is an assumption hidden inside it: that one
+rate applies to every period, and in particular that every interim cash flow can be
+reinvested at that same rate until the end.
+
+**Formally.** For a price $P$ paid for cash flows $C_t$, the IRR is the root $k$ of
+$\sum_t C_t(1+k)^{-t} - P = 0$. When every cash flow is positive, as for a bond, the
+left-hand side falls steadily as $k$ rises, from $\sum_t C_t - P$ at $k=0$ towards $-P$,
+so there is exactly one root (negative only if the price exceeds the undiscounted sum of
+the payments). Investments whose cash flows change sign more than once can have several
+IRRs, and then the number is ambiguous. Terminal wealth equals $P(1+k)^T$ exactly when
+every interim cash flow earns $k$ until $T$.
+
+**Why it appears here.** Yield to maturity is a bond's IRR (§6.3), and the reinvestment
+assumption is the whole reason a yield is not an expected return (§1.2, §6.4).
+
+**Going deeper.** [Tuckman & Serrat (2022)](https://www.wiley.com/en-us/Fixed+Income+Securities%3A+Tools+for+Today%27s+Markets%2C+4th+Edition-p-9781119835554){target="_blank"} on yield measures.
+
+## A.3 Taylor expansion, and why the return identity is one {#a3}
+
+**What it is.** Any smooth function can be approximated near a point by its value there,
+its slope and its curvature — a straight line corrected by a parabola. Duration is the
+slope of price against yield, convexity is the curvature, and carry is the slope against
+time. Identity 3 is nothing more than this approximation applied to a bond's price,
+which is why it is accurate for small moves and increasingly wrong for large ones.
+
+**Formally.** For a price that depends on yield and time,
+
+$$
+P(y+\Delta y,\;t+\Delta t) \;\approx\; P + \frac{\partial P}{\partial t}\Delta t
++ \frac{\partial P}{\partial y}\Delta y + \frac{1}{2}\frac{\partial^2 P}{\partial y^2}(\Delta y)^2 .
+$$
+
+Dividing by $P$ and using $D = -\frac{1}{P}\frac{\partial P}{\partial y}$ and
+$\mathcal{C} = \frac{1}{P}\frac{\partial^2 P}{\partial y^2}$ gives
+$\frac{\Delta P}{P} \approx \frac{1}{P}\frac{\partial P}{\partial t}\Delta t - D\,\Delta y
++ \frac{1}{2}\mathcal{C}(\Delta y)^2$. Held at an unchanged yield, a bond's price drift
+plus its coupon income earns exactly the yield, which supplies the carry term
+$y\,\Delta t$. Roll-down enters through $\Delta y$: on a sloped curve, the yield at which
+the bond is valued changes as its maturity shortens even if the curve stays put. The
+terms the expansion drops — third derivatives, and the interaction between time and
+yield — are the "cross terms" of §13.2.
+
+**Why it appears here.** Identity 3 (§1.4); duration and convexity (§7.2, §7.4); the
+return attribution of §13.2; the remark in §19.5 that Identity 3 is a Taylor expansion.
+
+**Going deeper.** [Tuckman & Serrat (2022)](https://www.wiley.com/en-us/Fixed+Income+Securities%3A+Tools+for+Today%27s+Markets%2C+4th+Edition-p-9781119835554){target="_blank"} on DV01, duration and convexity.
+
+## A.4 The law of one price, replication and the limits of arbitrage {#a4}
+
+**What it is.** Two assets that deliver identical cash flows in every possible future must
+cost the same today. If they did not, you could buy the cheap one, sell the dear one,
+and keep the difference with no risk — an *arbitrage* — and the presumption that such
+opportunities are competed away is the backbone of fixed-income and derivatives
+pricing. *Replication* is the constructive version: build a portfolio of instruments
+you can already price that reproduces a security's payoffs, and the security must be
+worth what the portfolio costs. The *limits of arbitrage* are the catch. Arbitrage needs
+capital, financing and patience, and a trade that is riskless at maturity can lose
+heavily along the way — so gaps can open wide, and stay open, when capital is scarce.
+
+**Formally.** If a payoff $X$ equals $\sum_i w_i X_i$ in every state, the law of one
+price requires $\text{price}(X) = \sum_i w_i\,\text{price}(X_i)$. A coupon bond is the
+portfolio $\sum_t C_t \times (\text{zero-coupon bond maturing at } t)$, so
+$P = \sum_t C_t\,Z(t)$ — Identity 1 without default. The limits-of-arbitrage argument of
+[Shleifer & Vishny (1997)](https://doi.org/10.1111/j.1540-6261.1997.tb03807.x){target="_blank"} is that
+arbitrageurs invest other people's money and face withdrawals after losses, so they are
+forced to cut positions exactly when the mispricing is widest.
+
+**Why it appears here.** Coupon bonds as portfolios of zeros, and STRIPS (§3.2, §6.2);
+the TIPS–Treasury gap (§3.3); the CDS–bond basis (§8.5); covered interest parity and its
+failure (§15.1–§15.2); the recurring conclusion that persistent gaps are the price of
+balance sheet (§15.2).
+
+**Going deeper.** [Shleifer & Vishny (1997)](https://doi.org/10.1111/j.1540-6261.1997.tb03807.x){target="_blank"};
+[Gabaix, Krishnamurthy & Vigneron (2007)](https://www.nber.org/papers/w11851){target="_blank"} for the
+mortgage-market evidence; section 3.2 of [Dealer Hedging and Gamma
+Exposure](dealer_hedging.html) for replication in options.
+
+## A.5 Convenience yield {#a5}
+
+**What it is.** The part of an asset's return that comes not from its cash flows but from
+the services it provides by being held. For a Treasury those services are the ability to
+post it as collateral, to satisfy a liquidity regulation, to park cash safely, and to
+sell it in size in almost any market. Holders receive these services in kind, so they
+accept a lower cash yield than the cash flows alone would justify. The term comes from
+commodity markets, where holding physical inventory carries a similar non-cash benefit.
+
+**Formally.** If $y^{\text{obs}}$ is the observed yield and $y^{\text{cf}}$ is the yield
+the same cash flows would command without the services — for example on an equally safe
+but less money-like claim — the convenience yield is $y^{\text{cf}} - y^{\text{obs}}$.
+[Krishnamurthy & Vissing-Jorgensen (2012)](https://doi.org/10.1086/666526){target="_blank"} measure it
+from the spread of the highest-quality corporate bonds over Treasuries and find that it
+shrinks as the supply of Treasuries grows: a downward-sloping demand curve for safety
+and liquidity.
+
+**Why it appears here.** It explains why the Treasury curve is not a clean risk-free
+curve (§1.5, §3.1) and why practitioners discount with OIS instead (§8.2); in March
+2020 it briefly turned negative (§3.5).
+
+**Going deeper.** [Krishnamurthy & Vissing-Jorgensen (2012)](https://doi.org/10.1086/666526){target="_blank"};
+[He, Nagel & Song (2022)](https://www.nber.org/papers/w27416){target="_blank"}; [van Binsbergen, Diamond &
+Grotteria (2022)](https://doi.org/10.1016/j.jfineco.2021.06.012){target="_blank"}.
+
+**Part 2 — Options**
+
+## A.6 Call and put options {#a6}
+
+**What it is.** An option is a right without an obligation. A *call* is the right to buy
+an asset at a fixed price, the *strike*; a *put* is the right to sell at the strike. The
+buyer pays a premium up front; the seller keeps it and carries the obligation. Because
+the holder exercises only when it pays, the payoff is one-sided — and that asymmetry is
+the source of both an option's value and its characteristic risk.
+
+**Formally.** At expiry, with the underlying worth $S_T$ and strike $K$, a call pays
+$\max(S_T-K,\,0)$ and a put pays $\max(K-S_T,\,0)$. An option is *in the money* when
+immediate exercise would pay and *out of the money* when it would not; the part of its
+value above what immediate exercise would yield is its *time value*. For European
+options on an asset that pays nothing before expiry, **put–call parity** holds:
+$\text{Call} - \text{Put} = S - K\,Z(T)$. Merton's model (§5.5) is parity with the firm
+as the underlying: equity is a call on the assets $V$ with strike $F$, debt is
+$F\,Z(T)$ minus a put, and since equity plus debt equals $V$, the identity
+$\text{Call} - \text{Put} = V - F\,Z(T)$ follows.
+
+**Why it appears here.** Convertible bonds (§1.3, §5.4); credit as a short put on the
+firm (§5.5); callable bonds, where the issuer holds a call on its own debt (§2.5, §7.6);
+mortgages, where each homeowner holds a prepayment option (§5.6).
+
+**Going deeper.** Sections 2.1–2.6 of [Dealer Hedging and Gamma
+Exposure](dealer_hedging.html), which build option vocabulary from zero.
+
+## A.7 Volatility and option value {#a7}
+
+**What it is.** Because an option's payoff is floored on one side, more uncertainty about
+the underlying helps the holder: bigger moves in the favourable direction raise the
+payoff, and bigger moves in the other direction cannot push it below zero. So an
+option's value rises with the volatility of what it is written on. Volatility cannot be
+observed directly — only estimated from history or implied from option prices — which
+makes it the central, and most argued-over, pricing input.
+
+**Formally.** For an option on a forward price $F$ with strike $K$, expiry $T$ and
+lognormal volatility $\sigma$, the [Black (1976)](https://doi.org/10.1016/0304-405X(76)90024-6){target="_blank"}
+formula values the call at $Z(T)\,[\,F\,N(d_1) - K\,N(d_2)\,]$, with
+$d_{1,2} = [\ln(F/K) \pm \tfrac{1}{2}\sigma^2 T]/(\sigma\sqrt{T})$ and $N$ the standard
+normal distribution function. Its sensitivity to $\sigma$ is positive for calls and puts
+alike. For an option on a bond, the bond's price volatility is approximately its
+duration times the volatility of its yield — the conversion used to price the callable
+bond in the §7.6 figure.
+
+**Why it appears here.** Credit spreads widen with the firm's asset volatility (§5.5);
+option-adjusted spreads depend on the assumed volatility of rates (§8.4); the callable
+bond of §7.6.
+
+**Going deeper.** Sections 3.1–3.3 and 3.7 of [Dealer Hedging and Gamma
+Exposure](dealer_hedging.html); [Hull & White (1990)](https://doi.org/10.1093/rfs/3.4.573){target="_blank"}
+for options on interest rates.
+
+## A.8 Long and short optionality: convexity, gamma and skew {#a8}
+
+**What it is.** Owning an option makes your gains accelerate when the market moves your
+way and your losses slow down when it does not: you are *long convexity*. Selling one
+does the reverse — you collect a small premium in quiet times and absorb large losses in
+violent ones. Bond convexity and option *gamma* are the same object, the curvature of
+value against the thing that moves it. A short-convexity position has a return
+distribution with a long left tail — negative *skewness* — which is why carry trades,
+credit and mortgage-backed securities share a family resemblance.
+
+**Formally.** For a value $V(x)$, $\Delta V \approx V'\,\Delta x + \tfrac{1}{2}V''(\Delta x)^2$,
+and $V'' > 0$ is long convexity. If $x$ moves with zero mean and variance $\sigma^2$ a
+year, the curvature term contributes about $\tfrac{1}{2}V''\sigma^2$ a year on average —
+for a bond, $\tfrac{1}{2}\mathcal{C}\sigma_y^2$ of return with $\sigma_y$ the yield's
+volatility. That is why convexity is priced: a more convex bond yields less, and a
+short-convexity instrument must yield more (§7.4, §7.6). Skewness is
+$\mathbb{E}[(X-\mu)^3]/\sigma^3$; selling insurance-like payoffs makes it negative.
+Negative skew also diversifies slowly: averaging many independent positions shrinks
+variance like one over their number, but losses from a shared shock do not average away
+(A.12).
+
+**Why it appears here.** Convexity helps and is priced (§7.4); negative convexity in
+callables and mortgages (§7.6); credit as a short put (§5.5); carry trades in bonds and
+currencies (§11.5, §15.3); the diversification argument in the credit spread puzzle
+(§9.5).
+
+**Going deeper.** Sections 3.5 and 4.4–4.5 of [Dealer Hedging and Gamma
+Exposure](dealer_hedging.html): the identity that a hedged option earns its gamma times
+the variance surprise is the general form of convexity's payoff.
+
+**Part 3 — Probability and credit**
+
+## A.9 Hazard rates, Poisson arrivals and survival {#a9}
+
+**What it is.** A way of modelling an event that can strike at any moment without
+warning — a default, a machine failure. The *hazard rate* is the probability per unit of
+time that the event happens now, given that it has not happened yet. A constant hazard
+makes the event memoryless: a borrower that has survived five years is exactly as likely
+to default in the coming year as a new one. In reduced-form credit models, default is
+the first arrival of a Poisson process with this intensity.
+
+**Formally.** With hazard $\lambda(t)$ and default time $T_D$,
+$\Pr(T_D \in (t, t+dt] \mid T_D > t) = \lambda(t)\,dt$, and the survival probability is
+$S(t) = \Pr(T_D > t) = \exp\!\big(-\int_0^t \lambda(u)\,du\big)$, which is $e^{-\lambda t}$
+for a constant hazard. The exponential comes from chaining: surviving to $t$ means
+surviving each of many short intervals in turn, and $\prod (1-\lambda\,\Delta t) \to
+e^{-\lambda t}$ as the intervals shrink. The probability of default within one year is
+$1 - e^{-\lambda}$, close to $\lambda$ when $\lambda$ is small — 1.66% for a hazard of
+1.67% a year.
+
+**Why it appears here.** The survival term $Q(t)$ of Identity 1 (§1.4); the credit
+triangle (§9.2); reduced-form models (§9.7).
+
+**Going deeper.** [Duffie & Singleton (2003)](https://press.princeton.edu/books/hardcover/9780691090467/credit-risk){target="_blank"};
+[Jarrow & Turnbull (1995)](https://doi.org/10.1111/j.1540-6261.1995.tb05167.x){target="_blank"} and
+[Duffie & Singleton (1999)](https://doi.org/10.1093/rfs/12.4.687){target="_blank"} for the pricing
+framework; the Poisson process appears in section 9 of [Stochastic
+Processes](stochastic_processes.html).
+
+## A.10 Systematic risk and factor models {#a10}
+
+**What it is.** Not every risk is paid. A risk that can be diversified away — one
+company's bad luck, which washes out across a large portfolio — earns no premium in
+equilibrium, because anyone who bears it can shed it for free. A risk that cannot be
+diversified away — a recession that hurts almost everything at once — must be paid,
+because someone has to hold it. Factor models make this operational: they write each
+asset's return as exposures to a few common sources of risk plus an idiosyncratic
+remainder, and say that expected excess returns compensate only the common exposures.
+
+**Formally.** A linear factor model writes an asset's excess return as
+$R_i = \alpha_i + \sum_k \beta_{ik} f_k + e_i$, where the $f_k$ are common factors, the
+$\beta_{ik}$ are the asset's exposures to them, and $e_i$ is a residual uncorrelated with
+the factors and across assets. If the factors capture all priced risk, then
+$\mathbb{E}[R_i] = \sum_k \beta_{ik}\,\gamma_k$, with $\gamma_k$ the premium per unit of
+exposure to factor $k$, and $\alpha_i = 0$: the residual earns nothing, however volatile
+it is. For bonds, [Fama & French (1993)](https://doi.org/10.1016/0304-405X(93)90023-5){target="_blank"}
+proposed two such factors: a *term* factor, long government bonds minus bills, and a
+*default* factor, long corporate bonds minus long government bonds.
+
+**Why it appears here.** Why a credit spread contains a premium beyond expected loss
+(§9.4–§9.5); why sovereign spreads move with global risk appetite (§4.3); the claims
+that credit, carry trades and currency carry are compensation for exposure to common
+risk rather than free money (§14.5, §15.3).
+
+**Going deeper.** [Fama & French (1993)](https://doi.org/10.1016/0304-405X(93)90023-5){target="_blank"};
+[Bai, Bali & Wen (2019)](https://doi.org/10.1016/j.jfineco.2018.08.002){target="_blank"} for credit;
+[Lustig, Roussanov & Verdelhan (2011)](https://www.nber.org/papers/w14082){target="_blank"} for
+currencies.
+
+## A.11 Risk-neutral and real-world probabilities {#a11}
+
+**What it is.** Two different sets of probabilities describe the same future.
+*Real-world* (physical) probabilities describe how often things actually happen.
+*Risk-neutral* probabilities are the ones under which every price equals its expected
+payoff discounted at the risk-free rate. They differ because investors are not
+indifferent to risk: a payoff that arrives in a recession, when money is scarce, is
+worth more than the same payoff in a boom. Risk-neutral probabilities fold that
+valuation into the probabilities themselves, overweighting bad states. They are the
+right tool for pricing and the wrong tool for forecasting.
+
+**Formally.** Absent arbitrage there is a positive *stochastic discount factor* $M$ with
+$\text{price}(X) = \mathbb{E}^{\mathbb{P}}[M X]$ for every payoff $X$. Defining $\mathbb{Q}$
+by $d\mathbb{Q}/d\mathbb{P} = M/\mathbb{E}^{\mathbb{P}}[M]$ gives
+$\text{price}(X) = Z\,\mathbb{E}^{\mathbb{Q}}[X]$, where $Z = \mathbb{E}^{\mathbb{P}}[M]$
+is the risk-free discount factor. Where $M$ is high — bad times — $\mathbb{Q}$ puts more
+weight than $\mathbb{P}$. Defaults cluster in bad times, so the risk-neutral default
+probability exceeds the real-world one, and the gap is the credit risk premium expressed
+as a probability.
+
+**Why it appears here.** Default probabilities implied from spreads are risk-neutral,
+which is why they exceed historical default rates (§9.2, §9.4); the survival term $Q(t)$
+in Identity 1 is of this kind (§1.4); the credit spread puzzle asks how large the gap
+should be (§9.5).
+
+**Going deeper.** [Duffie & Singleton (2003)](https://press.princeton.edu/books/hardcover/9780691090467/credit-risk){target="_blank"};
+[Chen, Collin-Dufresne & Goldstein (2009)](https://doi.org/10.1093/rfs/hhn078){target="_blank"} on why the
+gap is large; section 3.2 of [Dealer Hedging and Gamma Exposure](dealer_hedging.html) on
+how replication leads to risk-neutral pricing.
+
+## A.12 Default correlation and the one-factor model {#a12}
+
+**What it is.** Borrowers fail together because they share an economy. Default
+correlation does not change a portfolio's *expected* loss — that is just the sum of the
+individual expected losses — but it transforms the *distribution* around it. With
+independent defaults, a large portfolio loses almost exactly its expected loss every
+year. With correlated defaults it loses little in most years and a great deal in a few.
+Tranching (§5.6) slices exactly this distribution, which is why a senior tranche's safety
+is a bet on correlation.
+
+**Formally.** In the one-factor Gaussian model, borrower $i$ defaults if
+$\sqrt{\rho}\,M + \sqrt{1-\rho}\,\varepsilon_i < N^{-1}(\mathrm{PD})$, where $M$ is a common
+factor, the $\varepsilon_i$ are independent, both are standard normal, and $\rho$ is the
+asset correlation. Given $M$, defaults are independent with probability
+$\mathrm{PD}(M) = N\big([N^{-1}(\mathrm{PD}) - \sqrt{\rho}\,M]/\sqrt{1-\rho}\big)$, so in a
+large portfolio the default *rate* is $\mathrm{PD}(M)$ — random, and driven entirely by
+the common factor. With a 2% default probability: **[Computed]**
+
+| Asset correlation | Median year | 1-in-100 year | 1-in-1,000 year |
+|---:|---:|---:|---:|
+| 0.0 | 2.0% | 2.0% | 2.0% |
+| 0.1 | 1.5% | 8.2% | 12.8% |
+| 0.2 | 1.1% | 12.9% | 22.6% |
+| 0.3 | 0.7% | 17.6% | 33.3% |
+
+Raising the correlation makes the typical year *better* and the bad year far worse —
+the signature of a risk that averaging cannot remove. The same model underlies the bank
+capital rules for credit risk.
+
+**Why it appears here.** The fourth number of credit risk (§9.1); tranching and the
+2007–08 failure (§5.6); the co-movement of default and recovery rates (§9.3).
+
+**Going deeper.** [Duffie & Singleton (2003)](https://press.princeton.edu/books/hardcover/9780691090467/credit-risk){target="_blank"}.
+
+## A.13 Distance to default {#a13}
+
+**What it is.** The Merton model of §5.5 turned into a single comparable number: how many
+standard deviations the value of a firm's assets sits above the level at which it could
+no longer cover its debt. A firm with assets far above its debt and stable asset values
+is many standard deviations from default; a highly levered firm in a volatile business
+is only a few.
+
+**Formally.** With asset value $V$, debt $F$ due at horizon $T$, expected asset growth
+$\mu$ and asset volatility $\sigma_V$,
+$\mathrm{DD} = [\ln(V/F) + (\mu - \tfrac{1}{2}\sigma_V^2)\,T]/(\sigma_V\sqrt{T})$, and
+under the model's lognormal assumption the default probability is $N(-\mathrm{DD})$.
+Neither $V$ nor $\sigma_V$ is observed; both are backed out of the equity price and
+equity volatility, using the fact that equity is a call on $V$. Commercial
+implementations map DD to default frequencies empirically rather than trusting the
+normal tail.
+
+**Why it appears here.** §5.5 names it as a direct consequence of the Merton view, and
+§9.7 lists the structural approach among the ways default risk is estimated.
+
+**Going deeper.** [Merton (1974)](https://doi.org/10.1111/j.1540-6261.1974.tb03058.x){target="_blank"};
+[Duffie & Singleton (2003)](https://press.princeton.edu/books/hardcover/9780691090467/credit-risk){target="_blank"}.
+
+## A.14 Discriminant analysis and the Z-score {#a14}
+
+**What it is.** A classic statistical recipe for sorting cases into two groups: find the
+weighted combination of measurements that best separates, say, firms that went bankrupt
+from firms that did not, and score new firms by that combination. Altman's Z-score
+applies it to five accounting ratios and is still a standard first screen for distress.
+
+**Formally.** Linear discriminant analysis chooses weights $a$ to maximise the distance
+between the two groups' average scores relative to the spread within groups:
+$a \propto \Sigma_W^{-1}(\bar{x}_1 - \bar{x}_0)$, where $\bar{x}_1, \bar{x}_0$ are the
+groups' mean ratio vectors and $\Sigma_W$ their pooled within-group covariance matrix. A
+firm's score is $a^\top x$, and a threshold classifies it. The weights are proportional to
+the coefficients of a linear regression of the group label on the ratios. [Altman
+(1968)](https://doi.org/10.1111/j.1540-6261.1968.tb00843.x){target="_blank"} combines working capital,
+retained earnings, operating earnings and sales, each scaled by total assets, with the
+market value of equity relative to total liabilities.
+
+**Why it appears here.** The accounting-score row of the §9.7 table.
+
+**Going deeper.** [Altman (1968)](https://doi.org/10.1111/j.1540-6261.1968.tb00843.x){target="_blank"};
+section 3.2 of [Foundations of Econometrics](econometrics_foundations.html) on linear
+projection, of which discriminant analysis is a special case.
+
+**Part 4 — Instruments and plumbing**
+
+## A.15 Repurchase agreements {#a15}
+
+**What it is.** A repo is a short-term loan secured by a bond, written as a sale plus an
+agreed repurchase. The cash lender holds the bond as collateral and lends somewhat less
+than its value; the gap, the *haircut*, protects the lender if the bond falls in price.
+Most repo is *general collateral*: any bond of a class will do, and the rate sits close
+to the overnight policy rate. When a particular bond is in heavy demand, typically to
+cover short sales, it trades *special*: cash lenders accept a lower rate to get that
+bond specifically.
+
+**Formally.** Against a bond worth $P$ with haircut $h$, the cash lent is $P(1-h)$ and the
+repurchase price is $P(1-h)(1 + r_{\text{repo}}\,d/360)$ for a $d$-day term at the
+money-market convention. The maximum leverage is roughly $1/h$: a 2% haircut supports a
+position about fifty times the equity behind it. *Specialness* is the general collateral
+rate minus the special rate; a bond expected to stay special earns its owner that saving,
+and is priced higher for it ([Duffie, 1996](https://doi.org/10.1111/j.1540-6261.1996.tb02692.x){target="_blank"}).
+
+**Why it appears here.** Financing and leverage in the Treasury market (§3.4); the basis
+trade (§3.4); LTCM and March 2020 (§2.3, §3.5); funding costs in the CDS–bond basis
+(§8.5).
+
+**Going deeper.** Stigum & Crescenzi (2007); [Duffie (1996)](https://doi.org/10.1111/j.1540-6261.1996.tb02692.x){target="_blank"};
+[Gorton & Metrick (2012)](https://doi.org/10.1016/j.jfineco.2011.03.016){target="_blank"} on how repo
+funding can run.
+
+## A.16 Margin, collateral and mark-to-market {#a16}
+
+**What it is.** Derivative and repo positions are revalued every day, and the side that
+has lost must post cash or bonds to the side that has gained — *variation margin*. This
+keeps the credit exposure between counterparties small, but it converts price moves into
+immediate demands for cash. A position can be economically sound, even perfectly hedged
+against the liabilities it exists to match, and still fail because it cannot find the
+cash for today's call.
+
+**Formally.** Variation margin paid on a day equals the fall in the position's value,
+$-\Delta V$; for a rate position that is about its DV01 times the yield move in basis
+points. *Initial margin* is an extra buffer sized to cover a severe move. For scale: a
+long position of 1 billion in 30-year bonds or receive-fixed swaps at a 4% yield loses
+about 155 million if yields rise 100 basis points (174 million by duration alone), and
+the cash must be found at once, whatever has happened to the liabilities being hedged.
+**[Computed]**
+
+**Why it appears here.** The UK LDI episode, where rising yields generated collateral
+calls that forced gilt sales (§13.4); leverage in repo and futures (§3.4); LTCM (§2.3).
+
+**Going deeper.** [Duffie (2020)](https://www.brookings.edu/wp-content/uploads/2020/05/WP62_Duffie_updated.pdf){target="_blank"}
+on dealer balance sheets and market functioning.
+
+## A.17 Bond futures, cheapest-to-deliver and the basis {#a17}
+
+**What it is.** A Treasury futures contract obliges the seller to deliver a government
+bond on a future date at a price fixed today. The seller may choose which bond to deliver
+from a basket of eligible issues, each scaled by a *conversion factor*; in practice one
+issue is cheapest to deliver, and the futures price tracks it. The *basis* is the gap
+between a bond's cash price and its futures-implied price. The *basis trade* buys the
+cash bond, finances it in repo and sells the future, earning the difference between the
+financing rate implied by the prices and the actual repo rate.
+
+**Formally.** For a deliverable bond $i$ with conversion factor $\mathrm{CF}_i$ and
+futures price $F$, $\text{basis}_i = P_i^{\text{clean}} - F\cdot\mathrm{CF}_i$. The
+cheapest-to-deliver issue is the one with the highest *implied repo rate* — the return
+from buying it now and delivering it into the future. The basis trade earns roughly the
+implied repo rate minus the actual repo rate over the holding period, which is small, so
+it is run at high leverage.
+
+**Why it appears here.** The cash–futures basis trade and its role in March 2020 (§3.4);
+the delivery option as a template for the cheapest-to-deliver option in CDS (§8.5).
+
+**Going deeper.** [Tuckman & Serrat (2022)](https://www.wiley.com/en-us/Fixed+Income+Securities%3A+Tools+for+Today%27s+Markets%2C+4th+Edition-p-9781119835554){target="_blank"} on note and bond futures; [Barth & Kahn
+(2025)](https://doi.org/10.1016/j.jmoneco.2025.103823){target="_blank"}.
+
+## A.18 Interest rate swaps and OIS {#a18}
+
+**What it is.** An agreement to exchange a fixed interest rate for a floating one on a
+notional amount that never changes hands. One side pays, say, 4% a year fixed; the other
+pays whatever the floating rate turns out to be. The fixed rate that makes the swap worth
+nothing at inception is the *swap rate*, and swap rates by maturity form the market's
+other main yield curve. In an *overnight indexed swap* the floating leg compounds an
+overnight rate — SOFR, €STR, SONIA — so the curve carries almost no bank credit risk.
+
+**Formally.** Paying a fixed rate $s$ on accrual fractions $\alpha_i$ against a floating
+leg worth par at inception, the swap is fair when $s\sum_i \alpha_i Z(t_i) = 1 - Z(T)$, so
+
+$$
+s_T \;=\; \frac{1 - Z(T)}{\sum_i \alpha_i\,Z(t_i)},
+$$
+
+the par-yield formula of §6.2. A receive-fixed swap is economically a fixed-rate bond
+financed by a floating-rate note, so its DV01 is close to that of a par bond of the same
+maturity.
+
+**Why it appears here.** OIS as a cleaner discount curve (§3.1, §8.2); the I-spread and
+the asset swap spread (§8.2); inflation swaps in the TIPS–Treasury comparison (§3.3);
+pension liability hedging (§12.3, §13.4).
+
+**Going deeper.** [Schrimpf & Sushko (2019)](https://www.bis.org/publ/qtrpdf/r_qt1903e.htm){target="_blank"};
+[Tuckman & Serrat (2022)](https://www.wiley.com/en-us/Fixed+Income+Securities%3A+Tools+for+Today%27s+Markets%2C+4th+Edition-p-9781119835554){target="_blank"} on swaps.
+
+## A.19 Covered and uncovered interest parity {#a19}
+
+**What it is.** Two statements about how interest rates and exchange rates connect.
+*Covered* parity is an arbitrage relation: investing abroad and locking in the exchange
+rate home with a forward contract must earn the same as investing at home. *Uncovered*
+parity is a hypothesis: investing abroad *without* the hedge should earn the same as at
+home on average, because high-rate currencies should depreciate by the rate difference.
+The first held almost exactly until 2008 and has deviated persistently since; the second
+has failed for as long as it has been tested.
+
+**Formally.** With $S$ and $\mathrm{Fwd}$ the spot and forward prices of one unit of
+foreign currency in domestic units, and $i_{\text{dom}}, i_{\text{for}}$ the nominal interest
+rates for the forward's term, covered parity is
+$\mathrm{Fwd}/S = (1+i_{\text{dom}})/(1+i_{\text{for}})$. A
+persistent deviation is measured by the *cross-currency basis*, the adjustment to one
+currency's rate needed to restore equality. Uncovered parity is
+$\mathbb{E}[S_T]/S = (1+i_{\text{dom}})/(1+i_{\text{for}})$. The standard test regresses
+the realised change in the exchange rate on the forward premium; parity implies a slope
+of one, and estimates have typically been below zero ([Fama,
+1984](https://doi.org/10.1016/0304-3932(84)90046-1){target="_blank"}).
+
+**Why it appears here.** The identity that hedging removes a foreign bond's yield pickup
+(§15.1); the cross-currency basis (§15.2); the carry trade (§15.3).
+
+**Going deeper.** [Du, Tepper & Verdelhan (2018)](https://www.nber.org/papers/w23170){target="_blank"};
+[Fama (1984)](https://doi.org/10.1016/0304-3932(84)90046-1){target="_blank"}; [Lustig, Roussanov &
+Verdelhan (2011)](https://www.nber.org/papers/w14082){target="_blank"}.
+
+## A.20 Credit default swaps {#a20}
+
+**What it is.** Insurance against a borrower's default, traded as a derivative. The
+protection buyer pays a regular premium; if a defined *credit event* occurs, the seller
+pays the buyer the loss — face value minus the recovery value of the defaulted debt,
+fixed by an industry auction. Whether a credit event has happened is decided not by a
+court but by a committee of dealers and investors convened under the industry's standard
+contract terms, the ISDA Determinations Committee — which is why the CDS definition of
+default is contractual, and narrower than the economic one. Anyone can buy protection, whether or not they own the
+bonds, so CDS are used both to hedge and to take views.
+
+**Formally.** With survival probabilities $S(t)$ (A.9) and recovery $R$, the premium leg
+is worth $s\sum_i \alpha_i Z(t_i) S(t_i)$ and the protection leg
+$(1-R)\sum_i Z(t_i)\,[S(t_{i-1}) - S(t_i)]$. Setting them equal with a flat hazard over
+short periods gives $s \approx \lambda(1-R)$ — the credit triangle of §9.2, derived from
+the contract itself. Contracts now trade with standardised coupons, such as 100 or 500
+basis points, plus an upfront payment that makes up the difference from the fair spread.
+
+**Why it appears here.** CDS as the cleanest credit measure, and the CDS–bond basis
+(§8.5); the three definitions of default and why a CDS hedges only the contractual one
+(§16.1).
+
+**Going deeper.** [Duffie & Singleton (2003)](https://press.princeton.edu/books/hardcover/9780691090467/credit-risk){target="_blank"}.
+
+## A.21 Uniform-price and pay-as-bid auctions {#a21}
+
+**What it is.** Two ways to sell a fixed quantity to many bidders. In a *pay-as-bid*
+(discriminatory) auction each winner pays its own bid, so bidders shade their bids below
+their true value to avoid overpaying — and worry about the *winner's curse*, winning
+precisely because they valued the bond more than everyone else. In a *uniform-price*
+auction every winner pays the same market-clearing price, which weakens the incentive to
+shade. The US Treasury has used the uniform format for all its auctions since 1998.
+
+**Formally.** Bids — a yield and a quantity — are sorted from the lowest yield upward, and
+the clearing (stop-out) yield $y^*$ is the highest yield needed to fill the offering. In
+a uniform-price auction every accepted bid is filled at $y^*$, with bids exactly at $y^*$
+pro-rated; in pay-as-bid, each is filled at its own yield. Theory does not rank the two
+formats' revenue in general.
+
+**Why it appears here.** The primary market for government bonds (§2.2).
+
+**Going deeper.** [Malvey & Archibald
+(1998)](https://home.treasury.gov/system/files/136/archive-documents/upas.pdf){target="_blank"} on the
+Treasury's own experiment.
+
+## A.22 Over-the-counter markets and search frictions {#a22}
+
+**What it is.** On an exchange, orders meet in a central book. In an over-the-counter
+market you trade bilaterally: you ask dealers for prices, one at a time or through an
+electronic request, and bargain. Prices then depend on who you are and what alternatives
+you have — an investor who can easily call ten dealers gets a better price than one who
+can call one — and a dealer holding inventory charges for the risk and the balance sheet
+it uses. *Search frictions* are the costs of finding and negotiating with a
+counterparty.
+
+**Formally.** In the model of [Duffie, Gârleanu & Pedersen
+(2005)](https://www.nber.org/papers/w10816){target="_blank"}, investors meet dealers at a rate that
+reflects their search technology and split the gains from trade by bargaining. The
+bid–ask spread an investor pays rises with the dealer's bargaining power and falls with
+how quickly the investor could find another dealer, so better-connected investors face
+tighter spreads for the same bond.
+
+**Why it appears here.** Why bonds trade through dealers rather than on exchanges, and
+why retail investors pay more (§2.3, §17.2); the value of dealer balance sheet in a
+crisis (§3.5).
+
+**Going deeper.** [Duffie, Gârleanu & Pedersen (2005)](https://www.nber.org/papers/w10816){target="_blank"};
+[Hendershott & Madhavan (2015)](https://doi.org/10.1111/jofi.12185){target="_blank"}; section 1.2 of
+[Dealer Hedging and Gamma Exposure](dealer_hedging.html) on what a market maker sells.
+
+## A.23 ETF creation, redemption and NAV {#a23}
+
+**What it is.** A bond ETF's shares trade on an exchange all day, while the bonds it owns
+trade over the counter, if at all. The link between the two is a group of large dealers,
+*authorised participants*, who can deliver a basket of bonds to the fund in exchange for
+new shares (creation) or hand shares back in exchange for bonds (redemption). When the
+ETF's price rises above the value of its holdings they create and sell shares; when it
+falls below, they buy shares and redeem. The *net asset value* (NAV) is the fund's
+estimate of its holdings' value — for bonds, largely *matrix prices*: estimates for
+bonds that did not trade, interpolated from the prices of comparable bonds that did.
+
+**Formally.** The premium is $(\text{ETF price} - \text{NAV})/\text{NAV}$. Arbitrage keeps
+it within the cost of creating or redeeming, which includes the bid–ask spread on the
+underlying bonds; when those costs spike, the band widens. If the NAV is stale, a large
+"discount" can simply mean the ETF price has moved and the NAV has not.
+
+**Why it appears here.** ETF discounts in March 2020 (§17.4); the run incentive in
+daily-dealing mutual funds (§12.4).
+
+**Going deeper.** [Koont, Ma, Pástor & Zeng (2025)](https://doi.org/10.1093/rfs/hhaf034){target="_blank"};
+[Goldstein, Jiang & Ng (2017)](https://doi.org/10.1016/j.jfineco.2017.09.002){target="_blank"} for the
+mutual fund comparison.
+
+**Part 5 — Macro, policy and the curve**
+
+## A.24 Central bank reserves and the policy rate {#a24}
+
+**What it is.** Reserves are the deposits commercial banks hold at the central bank — the
+money banks use to pay one another. Modern central banks set overnight interest rates
+largely by choosing what they pay on those reserves: no bank will lend overnight for less
+than it can earn risk-free at the central bank, so the rate on reserves acts as a floor
+under market rates. Quantitative easing creates reserves, because the central bank pays
+for the bonds it buys by crediting the reserve accounts of the sellers' banks.
+
+**Formally.** In the US "ample reserves" framework, the Federal Reserve announces a target
+range for the federal funds rate and steers market rates into it with two administered
+rates: the interest it pays on banks' reserve balances, and the rate on an overnight
+reverse repo facility open to a wider set of institutions such as money market funds.
+Short-term market rates trade close to these administered rates for as long as reserves
+remain plentiful.
+
+**Why it appears here.** How the policy rate anchors the front of the curve, and how QE
+and QT work (§10.5).
+
+**Going deeper.** Stigum & Crescenzi (2007) on money-market plumbing.
+
+## A.25 State-space models and the Kalman filter {#a25}
+
+**What it is.** A framework for estimating something you cannot see from things you can.
+The unobserved quantity — the natural real rate, say — evolves over time by a simple
+rule; the observed data — output and inflation — depend on it plus noise. The Kalman
+filter updates the best estimate of the hidden quantity each period, weighting the new
+data by how informative they are relative to the uncertainty already carried forward.
+
+**Formally.** A state equation $\xi_{t+1} = \Phi\,\xi_t + w_t$ and an observation equation
+$\zeta_t = \Lambda\,\xi_t + v_t$, with independent Gaussian noises $w_t$ and $v_t$. The
+filter alternates a prediction, $\hat\xi_{t\mid t-1} = \Phi\,\hat\xi_{t-1\mid t-1}$, with a
+correction, $\hat\xi_{t\mid t} = \hat\xi_{t\mid t-1} + G_t\,(\zeta_t - \Lambda\,\hat\xi_{t\mid t-1})$,
+where the gain $G_t$ is large when the data are precise relative to the prior. When the
+observations carry little information about the state — as output and inflation do
+about the natural rate — the gain is small, the estimate moves slowly, and its
+confidence band is wide.
+
+**Why it appears here.** The Laubach–Williams and Holston–Laubach–Williams estimates of
+$r^*$ (§10.2); many term-premium models are estimated the same way (§10.4).
+
+**Going deeper.** [Laubach & Williams (2003)](https://doi.org/10.1162/003465303772815934){target="_blank"};
+Appendix A.25 of [Foundations of Econometrics](econometrics_foundations.html).
+
+## A.26 Government debt dynamics: $r - g$ {#a26}
+
+**What it is.** A government's debt, measured against the size of the economy, grows with
+the interest it pays and shrinks as the economy grows. If the interest rate on the debt
+exceeds the growth rate, debt compounds faster than the economy and must eventually be
+stabilised with budget surpluses. If growth exceeds the rate, the debt ratio shrinks by
+itself, and the government can run modest deficits indefinitely without the ratio rising.
+
+**Formally.** With debt-to-GDP $b$, real interest rate $r$ on the debt, real growth rate
+$g$ and primary surplus $s$ (the budget balance excluding interest) as a share of GDP,
+$b_{t+1} = b_t\,(1+r)/(1+g) - s_{t+1}$. The same identity holds with nominal rates on
+both sides, since inflation cancels. The ratio is stable when $s = b\,(r-g)/(1+g)$. At a
+debt ratio of 100% and 2% real growth: **[Computed]**
+
+| $r - g$ | Primary balance that holds debt/GDP steady |
+|---:|---:|
+| −1 point | deficit of 0.98% of GDP |
+| 0 | balanced budget excluding interest |
+| +2 points | surplus of 1.96% of GDP |
+
+**Why it appears here.** Blanchard's argument about low rates and fiscal dominance
+(§10.6), and why the euro-area sovereigns of §4.2 were so sensitive to their own
+borrowing rate.
+
+**Going deeper.** [Blanchard (2019)](https://www.nber.org/papers/w25621){target="_blank"}; [Jiang, Lustig,
+Van Nieuwerburgh & Xiaolan (2024)](https://www.nber.org/papers/w26583){target="_blank"}; [Sargent &
+Wallace (1981)](https://www.minneapolisfed.org/research/quarterly-review/some-unpleasant-monetarist-arithmetic){target="_blank"}.
+
+## A.27 Multiple equilibria and self-fulfilling crises {#a27}
+
+**What it is.** Sometimes an outcome is set by what people expect rather than by
+fundamentals alone, because the expectations change the fundamentals. If investors fear
+a government will default, they demand a high yield; the high yield raises its interest
+bill; the bill makes default likelier — so the fear is justified. If they are calm, the
+yield stays low and the calm is justified too. Both outcomes are self-consistent, and
+which one prevails is a coordination problem. A credible backstop can select the good
+outcome without ever being used, because once investors believe in it the bad outcome
+stops being self-consistent.
+
+**Formally.** The sovereign's yield must solve a fixed point, $y = r_f + \lambda(y)\,(1-R)$
+— the credit triangle of §9.2 with $r_f$ the rate on safe debt — where the default
+intensity $\lambda$ rises with the interest burden and so with $y$ itself. If $\lambda(y)$
+is steep enough over some range, the equation has two stable solutions, one with a low
+yield and little default risk and one with a high yield and a lot, separated by an
+unstable one. Bank runs have the same structure, as does the first-mover advantage in
+daily-dealing bond funds.
+
+**Why it appears here.** The euro-area crisis and the ECB's "whatever it takes" (§4.2);
+the doom loop in the UK LDI episode (§13.4); the run incentive in bond funds (§12.4).
+
+**Going deeper.** [Cole & Kehoe (2000)](https://doi.org/10.1111/1467-937X.00123){target="_blank"}, the
+standard model of self-fulfilling debt crises.
+
+## A.28 Principal components of the yield curve {#a28}
+
+**What it is.** Yields at different maturities move together, but not identically.
+Principal component analysis finds the few independent patterns of movement that account
+for most of the variation — here a *level* shift in which everything moves together, a
+change in *slope* in which short and long rates move oppositely, and a change in
+*curvature* in which the middle moves against the ends. Because these few patterns
+explain nearly everything, a whole curve's risk can be summarised by three numbers.
+
+**Formally.** Collect changes in yields at $n$ maturities and compute their covariance
+matrix $\Sigma$. Its eigendecomposition $\Sigma = V\,\Omega\,V^\top$ gives orthogonal
+directions — the columns of $V$, the components' *loadings* — and their variances, the
+diagonal entries $\omega_k$ of $\Omega$. Component $k$ explains the share
+$\omega_k / \sum_j \omega_j$ of total variance. For yield curves the first loading vector
+is nearly flat, the second changes monotonically across maturities, and the third is
+hump-shaped.
+
+**Why it appears here.** Level, slope and curvature (§11.4); why key-rate durations beyond
+three points add little (§7.7).
+
+**Going deeper.** [Litterman & Scheinkman (1991)](https://doi.org/10.3905/jfi.1991.692347){target="_blank"};
+Appendix A.28 of [Portfolio Construction and the Covariance
+Matrix](portfolio_construction.html) on principal component analysis in general.
+
+## A.29 Affine term-structure models {#a29}
+
+**What it is.** A family of models in which a handful of unobserved factors drive the
+short-term interest rate, and every bond yield is a linear ("affine") function of those
+factors, with coefficients pinned down by the requirement that there be no arbitrage
+across maturities. The linearity makes pricing tractable. Because the model specifies
+both how the factors actually evolve and how they are priced, it can split each yield
+into an expected-rate part and a term premium.
+
+**Formally.** With a state vector $X_t$ following a Gaussian autoregression and a short
+rate $r_t = \delta_0 + \delta_1^\top X_t$, the price of a zero-coupon bond with $n$ periods
+to maturity takes the form $\exp(A_n + B_n^\top X_t)$, so its yield,
+$-(A_n + B_n^\top X_t)/n$, is linear in the state. The coefficients $A_n$ and $B_n$ follow
+recursions set by the factor dynamics under the pricing (risk-neutral) measure. The term
+premium is the model yield minus the average of expected future short rates computed
+under the real-world dynamics. The one-factor model of [Vasicek
+(1977)](https://doi.org/10.1016/0304-405X(77)90016-2){target="_blank"}, in which the short rate mean-reverts,
+$dr_t = \kappa(\theta - r_t)\,dt + \sigma\,dW_t$, is the simplest member.
+
+**Why it appears here.** The Kim–Wright and Adrian–Crump–Moench term premium estimates
+(§10.4), and the modelling lineage of §11.4.
+
+**Going deeper.** [Piazzesi (2010)](https://doi.org/10.1016/B978-0-444-50897-3.50015-8){target="_blank"};
+[Duffie & Kan (1996)](https://doi.org/10.1111/j.1467-9965.1996.tb00123.x){target="_blank"};
+[Stochastic Processes](stochastic_processes.html) for the Brownian motion $W_t$.
+
+**Part 6 — Corporate finance and distress**
+
+## A.30 Modigliani–Miller and the trade-off theory {#a30}
+
+**What it is.** The baseline result of corporate finance: in a world without taxes,
+bankruptcy costs or information problems, how a firm splits its financing between debt
+and equity cannot change its total value — slicing a pie differently does not make it
+bigger. Everything interesting about corporate debt comes from the ways the real world
+departs from that baseline. The main departures give the *trade-off theory*: debt adds
+value through the tax deductibility of interest and destroys it through the expected
+costs of financial distress, and a firm settles where the two balance at the margin.
+
+**Formally.** Without frictions, $V_{\text{levered}} = V_{\text{unlevered}}$. With a
+corporate tax rate $\phi$ and permanent debt $D_{\text{debt}}$, the tax shield adds
+$\phi\,D_{\text{debt}}$. The trade-off theory writes
+$V_{\text{levered}} = V_{\text{unlevered}} + \mathrm{PV}(\text{tax shields}) -
+\mathrm{PV}(\text{distress costs})$ and puts optimal leverage where the marginal tax
+benefit equals the marginal expected distress cost; [Leland
+(1994)](https://doi.org/10.1111/j.1540-6261.1994.tb02452.x){target="_blank"} derives this inside a
+structural credit model.
+
+**Why it appears here.** Why companies issue debt (§1.5) and how much (§5.1).
+
+**Going deeper.** [Modigliani & Miller (1958)](https://www.jstor.org/stable/1809766){target="_blank"};
+[Leland (1994)](https://doi.org/10.1111/j.1540-6261.1994.tb02452.x){target="_blank"}.
+
+## A.31 Agency costs and debt overhang {#a31}
+
+**What it is.** Managers, shareholders and creditors want different things, and the
+conflicts cost money. Two matter most to bondholders. *Asset substitution*: shareholders
+of a heavily indebted firm gain from gambling, because they keep the upside while
+creditors absorb the downside. *Debt overhang*: they may turn down a profitable
+investment because most of its benefit would go to making the existing debt safer.
+Covenants exist largely to contain these incentives.
+
+**Formally.** Both follow from the Merton view (§5.5, A.6). Equity is a call on the firm's
+assets, so its value rises with asset volatility — shifting into riskier projects pays
+shareholders at creditors' expense. For overhang: a project costing $I$, funded by the
+shareholders, raises firm value by $\Delta V > I$, but part of that gain, $\Delta D_{\text{debt}}$,
+accrues to creditors as their claim becomes safer. Shareholders go ahead only if
+$\Delta V - \Delta D_{\text{debt}} > I$, so projects with
+$I < \Delta V < I + \Delta D_{\text{debt}}$ are rejected even though they create value.
+
+**Why it appears here.** The costs of debt (§1.5, §5.1); the value of covenants (§2.1,
+§5.2); event risk from debt-funded buybacks (§5.1).
+
+**Going deeper.** [Jensen & Meckling (1976)](https://doi.org/10.1016/0304-405X(76)90026-X){target="_blank"};
+[Myers (1977)](https://doi.org/10.1016/0304-405X(77)90015-0){target="_blank"}; [Chava & Roberts
+(2008)](https://doi.org/10.1111/j.1540-6261.2008.01391.x){target="_blank"} on covenants in action.
+
+## A.32 The absolute priority rule and Chapter 11 {#a32}
+
+**What it is.** The rules that decide who gets what when a US company reorganises.
+Creditors are grouped into classes by the nature of their claims; the company proposes a
+plan stating what each class receives; the classes vote. The *absolute priority rule*
+says a dissenting senior class must be paid in full before any junior class receives
+anything. The class whose claim is only partly covered by the reorganised firm's value —
+the *fulcrum* — typically receives most of the new equity.
+
+**Formally.** A class accepts a plan if creditors holding at least two-thirds of the amount
+and more than half of the number of claims voting in that class approve. A plan can be
+confirmed over a dissenting class — a *cramdown* — if at least one impaired class accepts
+and the plan is "fair and equitable" to the dissenter, which for unsecured creditors
+means absolute priority. New *debtor-in-possession* financing can be granted priority
+over existing claims to keep the business running.
+
+**Why it appears here.** The resolution paths, and why absolute priority bends in practice
+(§16.2–§16.3); the fulcrum security in distressed investing (§16.6).
+
+**Going deeper.** [Acharya, Bharath & Srinivasan (2007)](https://doi.org/10.1016/j.jfineco.2006.05.011){target="_blank"}
+on how the process shows up in recoveries; Sturzenegger & Zettelmeyer (2006) for the
+sovereign contrast, where none of this machinery exists.
+
+**Part 7 — Statistics and portfolios**
+
+## A.33 Predictive regressions and their traps {#a33}
+
+**What it is.** Regressing future returns on something known today — the slope of the
+curve, a forward spread — to see whether it forecasts them. The method is simple and the
+inference is treacherous in exactly the setting of §11.2: the predictors move slowly,
+the samples are short, and multi-year returns sampled every month overlap, so
+consecutive observations share most of their information. Each of these makes the
+evidence look stronger than it is.
+
+**Formally.** The regression is $r_{t \to t+h} = a + b\,x_t + \varepsilon_{t+h}$. With
+overlapping $h$-period returns the errors are serially correlated and naive standard
+errors understate the uncertainty; autocorrelation-robust corrections help but are
+unreliable in short samples. When $x_t$ is persistent and its innovations are correlated
+with returns, $\hat{b}$ is biased in finite samples — the bias of [Stambaugh
+(1999)](https://doi.org/10.1016/S0304-405X(99)00041-0){target="_blank"}, approximately
+$-(\sigma_{uv}/\sigma_v^2)(1+3\phi)/T$ for an autoregressive predictor with persistence
+$\phi$ over $T$ observations, where $\sigma_{uv}$ is the covariance between the return and
+predictor innovations and $\sigma_v^2$ the predictor innovation's variance. In-sample
+$R^2$ also rises mechanically with the horizon even when predictability is modest.
+
+**Why it appears here.** The expectations-hypothesis tests, and the critique of bond-return
+predictability (§11.2).
+
+**Going deeper.** Section 6.6 and Appendix A.22 of [Simple and Log
+Returns](log_returns.html); section 4.5 of [Foundations of
+Econometrics](econometrics_foundations.html) on autocorrelation-robust standard errors;
+[Bauer & Hamilton (2018)](https://www.nber.org/papers/w23480){target="_blank"}.
+
+## A.34 Risk contributions, risk parity and the 60/40 portfolio {#a34}
+
+**What it is.** A portfolio's *capital* weights say where the money is; its *risk
+contributions* say where the volatility comes from, and the two can be very different.
+The classic 60/40 portfolio — 60% equities, 40% bonds — is balanced by capital but
+carries almost all of its risk in equities, because equities are far more volatile.
+*Risk parity* sizes assets so that each contributes equally to risk, which for a
+stock–bond portfolio means holding far more bonds, usually with leverage to reach a useful
+return. Both designs depend on the stock–bond correlation, and risk parity depends on it
+heavily.
+
+**Formally.** With weights $w$ and covariance matrix $\Sigma$, asset $i$ contributes
+$w_i(\Sigma w)_i$ to the portfolio variance $w^\top\Sigma w$, and the contributions sum to
+the total. With 16% equity volatility and 6% bond volatility: **[Computed]**
+
+| Stock–bond correlation | 60/40 volatility | Equity share of risk |
+|---:|---:|---:|
+| −0.3 | 9.17% | 101% |
+| 0.0 | 9.90% | 94% |
+| +0.3 | 10.57% | 89% |
+
+At a negative correlation the bond sleeve's contribution is itself negative — it
+subtracts risk — which is the regime §14.2 describes. Equal risk contributions from two
+assets require weights inversely proportional to their volatilities: 27% equities and
+73% bonds here, before leverage.
+
+**Why it appears here.** The 60/40 portfolio and risk parity as products of the
+negative-correlation regime (§14.2), and what 2022 did to them (§14.4).
+
+**Going deeper.** Section 4.5 of [Portfolio Construction and the Covariance
+Matrix](portfolio_construction.html) on risk-based portfolios.
+
+---
+
+[Index](index.html) · [Source](https://github.com/rmahfoud/quant-research){target="_blank"}

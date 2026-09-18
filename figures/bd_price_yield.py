@@ -73,7 +73,9 @@ def main() -> None:
         "convexity:\nthe curve sits above\nits own tangent",
         xy=(7.6, float(price(np.array(0.076), 30.0, Y0))),
         xytext=(6.4, 118),
-        fontsize=8.5, color=RUST, ha="center",
+        fontsize=8.5,
+        color=RUST,
+        ha="center",
         arrowprops=dict(arrowstyle="->", color=RUST, lw=1.0),
     )
     ax.set_xlabel("yield to maturity (%)", fontsize=9)
@@ -104,11 +106,14 @@ def main() -> None:
             a.spines[s].set_color(FAINT)
 
     fig.text(
-        0.5, -0.05,
+        0.5,
+        -0.05,
         "Duration is the slope at today's yield; it is exact only for an infinitesimal move. Convexity is the "
         "curvature,\nand for an option-free bond it always helps: gains from a rally exceed losses from an "
         "equal-sized sell-off.",
-        ha="center", fontsize=8.5, color=MUTED,
+        ha="center",
+        fontsize=8.5,
+        color=MUTED,
     )
     fig.tight_layout()
     out = Path(__file__).with_suffix("")

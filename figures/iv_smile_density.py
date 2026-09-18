@@ -109,8 +109,11 @@ def main() -> None:
         sd = math.sqrt(np.trapezoid(q * (r - mu) ** 2, x) / mass)
         skew = np.trapezoid(q * (r - mu) ** 3, x) / mass / sd**3
         kurt = np.trapezoid(q * (r - mu) ** 4, x) / mass / sd**4 - 3
-        below90 = np.trapezoid(q[x <= 90], x[x <= 90]) / mass
-        above105 = np.trapezoid(q[x >= 105], x[x >= 105]) / mass
+        # Probabilities are digitals: the first strike-derivative of the price
+        # curve, which is far better conditioned than integrating the density.
+        slope = np.gradient(c, dk)
+        below90 = 1 + float(np.interp(90.0, strikes, slope))
+        above105 = -float(np.interp(105.0, strikes, slope))
         s90, s105 = float(vol(name, np.array(90.0))), float(vol(name, np.array(105.0)))
         d2_90 = (math.log(F / 90) - 0.5 * s90**2 * T) / (s90 * math.sqrt(T))
         d2_105 = (math.log(F / 105) - 0.5 * s105**2 * T) / (s105 * math.sqrt(T))

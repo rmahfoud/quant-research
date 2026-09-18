@@ -129,6 +129,7 @@ render() {
             args+=(
                 --include-in-header="$REL_PREFIX/assets/sidebar.html"
                 -V include-before="<qr-sidebar source=\"$SOURCE_URL/$doc.md\"></qr-sidebar>"
+                --lua-filter="$REL_PREFIX/scripts/drop_toc_section.lua"
             )
         fi
     fi

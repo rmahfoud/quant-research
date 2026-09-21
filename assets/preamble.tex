@@ -1,0 +1,44 @@
+% Shared LaTeX preamble for the PDF build, injected via --include-in-header.
+%
+% THIS IS THE ONLY PLACE PREAMBLE ADDITIONS CAN GO. Pandoc's
+% --include-in-header sets the `header-includes` *variable*, and a variable
+% overrides the metadata field of the same name — so a `header-includes:` block
+% in a document's YAML front matter is silently ignored while this file is
+% passed. Putting a \usepackage in a document therefore does nothing; put it
+% here instead.
+
+% Nine of the ten documents get graphicx from pandoc's own template, which
+% loads it only when the document contains an image element — mermaid diagrams
+% and matplotlib figures qualify. A document whose only figures are raw-LaTeX
+% \includegraphics (stochastic_processes) does not, and failed to build until
+% this line existed.
+\usepackage{graphicx}
+
+% --- ELI5 card (HTML counterpart: assets/eli5.html) -------------------------
+%
+% Core LaTeX plus xcolor only: BasicTeX ships neither framed nor tcolorbox, and
+% a tinted \colorbox would not break across pages. The card is therefore drawn
+% as an accent rule above and below a narrowed, smaller-set block, which breaks
+% across pages cleanly and needs no package beyond the xcolor that pandoc's
+% default template already loads.
+%
+% The ELI5 heading sits outside the environment in the source, so it stays an
+% ordinary \section and keeps its place in the document structure.
+
+\definecolor{eli5accent}{HTML}{0B6E4F}
+
+\newenvironment{eli5}{%
+  \par\addvspace{0.7\baselineskip}%
+  \noindent{\color{eli5accent}\rule{\linewidth}{1.2pt}}%
+  \par\nobreak\vspace{0.45\baselineskip}%
+  \begingroup
+    \small
+    \setlength{\leftskip}{1.1em}%
+    \setlength{\rightskip}{1.1em}%
+}{%
+  \par
+  \endgroup
+  \vspace{0.2\baselineskip}%
+  \noindent{\color{eli5accent}\rule{\linewidth}{0.5pt}}%
+  \par\addvspace{0.9\baselineskip}%
+}

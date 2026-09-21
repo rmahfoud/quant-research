@@ -4,6 +4,50 @@
 
 ---
 
+```{=html}
+<aside class="eli5">
+```
+
+# ELI5 — the short version {#eli5}
+
+```{=latex}
+\begin{eli5}
+```
+
+**In one sentence.** The formula for the best portfolio was settled in 1952 and has never been the problem; the problem is that it takes your estimates literally, and an estimate of how assets move together is far worse than it looks.
+
+**1. The optimiser believes every number you give it** ([§1](#1-what-portfolio-construction-is)). Hand it expected returns and a table of how assets co-move, and it treats each entry as exact. If your estimate for one asset says 45% when the truth is 4%, it does not hedge that possibility — it piles in. So better optimisation applied to noisy inputs makes things *worse*, which is the reverse of the intuition everyone starts with.
+
+**2. Where the damage comes from** ([§2](#2-why-the-naive-answer-fails)). The formula effectively divides by the co-movement table, and dividing by something you measured badly is where results explode. The optimiser's largest positions turn out to be bets *between* assets it believes are nearly identical — and "nearly identical" is exactly the belief your data supports least. In a simulation where the model was perfectly correct and only the sample was finite, the optimiser reported a risk-adjusted return of 5.3 against a true attainable 0.43.
+
+**3. One number tells you how bad it is** ([§2](#2-why-the-naive-answer-fails)). Divide the number of assets by the number of observations you have per asset. The risk you actually take exceeds the risk you predict by a factor of one over one minus that ratio: at one half you are running twice the risk you think, and at one the calculation has no answer at all. It follows that **doubling your universe does exactly as much harm as halving your history** — how many assets to include is a statistical decision, not only a business one.
+
+**4. Expected returns are the dangerous input** ([§2](#2-why-the-naive-answer-fails)). Errors in expected returns do roughly eleven times the damage of errors in volatilities and twenty-two times that of errors in correlations. So if you do not have a genuine return forecast, leaving expected returns out altogether is not a compromise, it is the best available move. The celebrated finding that naive equal weighting beats optimisation is evidence against *sample average returns*, not against optimising.
+
+**5. Every "risk-based" method is the same formula** ([§7](#7-from-covariance-to-weights), [§8](#8-taxonomy-and-equivalences)). Minimum variance, maximum diversification, inverse volatility, equal risk contribution and equal weighting are one formula with different stand-ins for expected return and different amounts of structure imposed on the co-movement table. Equal weighting is not the humble choice — it is the most opinionated one in the set, since it asserts that every asset has the same return, the same volatility and the same correlation with everything else.
+
+**6. Your constraints are already doing statistics** ([§8](#8-taxonomy-and-equivalences), [§10](#10-costs-turnover-and-rebalancing)). Forbidding short positions is mathematically the same operation as shrinking your covariance estimate toward something simpler. That equivalence is the hinge of the whole field: it explains why crude practice beat refined theory for decades. It also means regularisation does not stack — shrinkage plus no-shorting plus position caps plus a turnover penalty is four shrinkages at once, and you may have quietly rebuilt equal weighting without noticing. Measure how close you are to it.
+
+**7. Trading costs are a regulariser too** ([§10](#10-costs-turnover-and-rebalancing)). A penalty on turnover is *provably* the same operation as shrinking the covariance matrix and pulling the answer toward the portfolio you already hold. And under per-trade costs you should not rebalance all the way to the target: trade to the edge of a no-trade band whose width grows like the cube root of the cost.
+
+**8. Small traps, large consequences** ([§6](#6-estimating-the-covariance-matrix), [§9](#9-implementation-what-actually-matters)). Stale and non-synchronous prices make illiquid and foreign assets look like diversifiers, so the optimiser overweights precisely the positions that are hardest to exit. The standard exponentially-weighted risk estimate has an effective memory of about 32 observations, which makes it unusable above roughly thirty assets — and it never warns you. Volatilities want short windows while correlations want long ones, so estimate the two separately.
+
+**9. The single most useful number** ([§11](#11-evaluation-and-pitfalls)). Realised volatility divided by predicted volatility, out of sample. It needs no forecast and no backtest. If it comes out at 1.16, your risk model is understating risk by 16%, and the main benefit of fixing that is honesty rather than a smaller number. Compare methods only at matched volatility — leverage is a free parameter, so unmatched comparisons measure nothing — and remember that ten years of data cannot tell a Sharpe of 0.5 from one of 1.5.
+
+---
+
+**If you do only three things:** leave expected returns out unless you genuinely have them, shrink the covariance matrix and err toward shrinking too much, and track realised over predicted volatility out of sample.
+
+```{=latex}
+\end{eli5}
+```
+
+```{=html}
+</aside>
+```
+
+---
+
 **What this is.** Portfolio construction is the step between having views and
 having positions. It is also the step where more real money has been lost to a
 correct-looking calculation than anywhere else in quantitative finance, because
@@ -101,6 +145,8 @@ $\mathcal{C}$ the constraint set of §8.1.
 ---
 
 ## Table of contents
+
+- [ELI5 — the short version](#eli5)
 
 1. [What portfolio construction is](#1-what-portfolio-construction-is)
 2. [Why the naive answer fails](#2-why-the-naive-answer-fails)
@@ -397,6 +443,24 @@ estimated weights, evaluated at the true parameters).
 ```
 
 ```{=html}
+<style>
+/* Figures for this document. Prefix "mdd-", shared with the other notes and
+   distinct from the reading widget's "rdw-". Narrow viewports reclaim the
+   body's side padding so the figure gets the full width. */
+.mdd-fig {
+  display: block; width: 100%; height: auto;
+  max-width: 640px; margin: 1.6rem auto;
+  /* the reading widget adds a light plate (padding) in dark mode */
+  box-sizing: border-box;
+}
+@media (max-width: 760px) {
+  .mdd-fig { width: calc(100% + 64px); max-width: none; margin-left: -32px; margin-right: -32px; }
+}
+@media (max-width: 600px) { /* pandoc's own stylesheet drops body padding to 12px here */
+  .mdd-fig { width: calc(100% + 24px); margin-left: -12px; margin-right: -12px; }
+}
+</style>
+
 <img class="mdd-fig" src="quant-research/figures/pc_frontier_illusion.svg"
      alt="Three mean-variance frontiers: estimated, true, and realised">
 ```

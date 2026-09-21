@@ -1,0 +1,23 @@
+<!-- MathJax TeX extensions that the embedded build does not carry.
+
+     MathJax autoloads an extension the first time a document uses one of its
+     macros, resolving the URL against its own <script src>. --embed-resources
+     inlines the MathJax build, leaving no src, so the request resolves against
+     the page instead (input/tex/extensions/<name>.js), 404s, and the equation
+     renders as "Extension … failed to load".
+
+     Fetching each extension here at render time instead lets --embed-resources
+     inline it alongside the build, and preLoaded() marks it as already loaded
+     so autoload uses this copy rather than going back to the network. Injected
+     at the end of <body> via pandoc --include-after-body (HTML output only)
+     because the extensions attach to MathJax and so must run after it.
+
+     When a document starts using another extension, add its script here and its
+     name to preLoaded() — both are needed. The names are MathJax's (see its
+     autoload table). Keep the version in the URLs in step with the --mathjax
+     build in render_docs.sh. -->
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@4/input/tex/extensions/boldsymbol.js"></script>
+<script>
+  MathJax.loader.preLoaded("[tex]/boldsymbol");
+</script>

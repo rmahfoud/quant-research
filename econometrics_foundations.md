@@ -4,6 +4,52 @@
 
 ---
 
+```{=html}
+<aside class="eli5">
+```
+
+# ELI5 — the short version {#eli5}
+
+```{=latex}
+\begin{eli5}
+```
+
+**In one sentence.** A regression tells you how two things move together; turning that into "this causes that" needs an assumption the data can never check for you, and this document is about which assumption, how to argue for it, and how sure you are then allowed to be.
+
+**1. A coefficient is not an effect** ([§1](#1-what-econometrics-is), [§3](#3-regression)). What a regression computes is a ratio: how much two things vary together, divided by how much one of them varies. That number always exists and always means something. Calling it "the effect of X on Y" is a separate claim about *why* X differs from row to row. If the firms that advertise more are also better run, the advertising coefficient is carrying both.
+
+**2. Three questions, strictly in order** ([§1](#1-what-econometrics-is)). What exactly am I trying to measure? Can it be recovered at all from this data? How precisely has it been estimated? Errors flow downward and never upward: flawless statistics cannot rescue a quantity the data cannot identify, and no amount of data fixes the wrong target. Nearly all real disputes are about the first two questions, and nearly all the effort goes into the third.
+
+**3. Your residuals cannot warn you** ([§3](#3-regression)). This is the fact that surprises people most. The leftovers from a regression are *mathematically guaranteed* to be uncorrelated with the variables you regressed on — that is how the fitting works. So no residual plot and no diagnostic computed from the output can detect the problem that matters most. The evidence for it has to come from outside the regression entirely.
+
+**4. Two unrelated ways to be wrong** ([§1](#1-what-econometrics-is), [§4](#4-inference)). Being wrong about *why* the variation exists gives you a wrong answer. Being wrong about *how dependent* your observations are gives you a right answer with a fake error bar. Every standard-error correction you have heard of addresses the second, and none of them touches the first.
+
+**5. Rows are not information** ([§2](#2-probability), [§4](#4-inference)). Precision depends on the number of genuinely independent pieces of information. A highly persistent series of 1,000 observations can be worth about 53 of them; forty years of overlapping twelve-month returns can be worth about forty. Grouped data are worse than they look: with fifty groups of a hundred and a within-group correlation of just 0.05, the naive standard error is 2.4 times too small.
+
+**6. An underpowered study does not merely miss things — it misleads** ([§4](#4-inference)). If your design can only detect effects much larger than the truth, then the only findings that clear the significance bar are the overestimates. Work out the smallest effect you *could* detect — roughly 2.8 standard errors — before you look at the result.
+
+**7. Controls create bias as easily as they remove it** ([§6](#6-endogeneity)). Control for a genuine common cause and you remove bias. Control for something sitting *between* cause and effect and you subtract away part of what you were measuring. Control for something that both variables influence and you can reverse the sign outright. Survivorship, database inclusion and any filter based on what happened later belong to that third category, and they are everywhere in financial data.
+
+**8. Two traps specific to time** ([§8](#8-time-series)). Regress one aimless wandering series on a completely unrelated one and you will usually find a "significant" relationship — and collecting more data makes this worse rather than better. And "Granger causality" is not causality: it says one series helps predict another, which is a statement about precedence.
+
+**9. What machine learning does and does not change** ([§10](#10-prediction)). It is very good at "what happens next" and it is not a research design — it estimates things, it does not identify them, and feature importances describe the model rather than the world. Ordinary cross-validation also leaks badly here: walk forward, drop the overlapping labels, group by date, and treat a hyperparameter search as the pile of multiple tests it is.
+
+**10. Where results actually go wrong** ([§9](#9-financial-econometrics), [§11](#11-practice)). Mostly in the data: joins, units, timing, corporate actions, delistings. Plot everything before estimating anything. Published return predictors lose about a quarter of their edge out of sample and more than half after publication, and published test statistics bunch suspiciously just above the significance threshold — most of all in the designs that give the researcher the most freedom. The remedies are procedural: keep a log of everything you tried, and report the range of estimates across all the reasonable choices instead of a curated table of the flattering ones.
+
+---
+
+**If you do only three things:** state what you are trying to measure before estimating anything, argue for identification from outside the regression rather than from its output, and count independent observations rather than rows.
+
+```{=latex}
+\end{eli5}
+```
+
+```{=html}
+</aside>
+```
+
+---
+
 **What this is.** A first-principles tutorial on econometrics, meaning the methods for
 learning about economic and financial relationships from data that nobody designed
 as an experiment. It covers the foundations (what a regression actually estimates,
@@ -151,6 +197,8 @@ percentages and have no symbol.
 ---
 
 ## Table of contents
+
+- [ELI5 — the short version](#eli5)
 
 **Part I — What econometrics is for**
 

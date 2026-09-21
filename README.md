@@ -33,6 +33,11 @@ Output lands in `docs/` (gitignored).
 
 ## Documents
 
+Every document opens with an **ELI5 card** — a plain-language summary of the whole
+thing, set apart from the body text and linked first in the table of contents.
+Styling is shared across documents in `assets/eli5.html` (web) and
+`assets/eli5.tex` (print).
+
 | Source | Notes |
 |---|---|
 | `log_returns.md` | Mermaid diagrams; LaTeX math; ASCII figures |

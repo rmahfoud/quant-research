@@ -4,6 +4,50 @@
 
 ---
 
+```{=html}
+<aside class="eli5">
+```
+
+# ELI5 — the short version {#eli5}
+
+```{=latex}
+\begin{eli5}
+```
+
+**In one sentence.** A bond is a fixed schedule of promised payments that you can trade, so only two things can move its price — what the market charges for money over time, and whether it believes the payments will arrive — and every chapter below is one of those two channels in more detail.
+
+**1. What you actually own** ([§1](#1-what-a-bond-is)). A loan, cut into tradeable pieces. The payments are fixed at birth and never change, so all the drama is in what someone will pay today for that unchanging schedule. Four decisions made at issue — how long, how big the coupon, which currency, and where you sit in the queue if things go wrong — determine most of how the bond behaves for the rest of its life.
+
+**2. "Risk-free" means one specific thing** ([§1](#1-what-a-bond-is), [§3](#3-government-bonds)). It means the payments will arrive, and nothing more. A long government bond can lose a third of its value on the way, and in 2022 the safest bonds in the world had their worst calendar year on record. Nobody defaulted; the price of money changed.
+
+**3. Duration is the whole rate story** ([§7](#7-duration-convexity)). Duration measures how much the price moves when yields move, and a 30-year bond carries roughly nine times the rate risk of a two-year one, dollar for dollar. That ratio swamps the extra yield you are paid for going long. The useful arithmetic is the **cushion**: how far yields can rise before a year's income is wiped out. On a normal curve it is about 385 basis points for a two-year bond and 30 for a thirty-year — a third more yield in exchange for a thirteenth of the protection.
+
+**4. Owning corporate debt is owning a government bond and selling insurance** ([§5](#5-corporate-credit)). Exactly: a corporate bond is a Treasury plus a written put on the company's assets. Everything else about credit follows from that one sentence — it explains the shape of the returns (small steady gains, occasional large losses), why spreads widen when the world gets volatile, and why leverage suits it badly. Historically spreads have been about twice the losses actually suffered, so roughly half the spread is genuine compensation and half is payment for defaults arriving in clusters, at the worst moments.
+
+**5. A spread never tells you the odds of default** ([§9](#9-credit-risk)). What you can observe is the chance of default multiplied by the loss if it happens, never the two separately. Any statement of the form "the market implies a 4% chance of default" has quietly assumed a recovery rate. And those implied odds are far higher than history — for the best credits, by a factor of ten — because they are prices, not forecasts.
+
+**6. The upward slope of the yield curve is mostly a fee, not a forecast** ([§11](#11-yield-curve)). Curves usually slope up, and rates usually do not rise, so most of the slope is compensation for committing your money rather than a prediction. Inversion has preceded every US recession since the 1960s — real information with useless timing, given a lead time that ranges from six months to two years across a sample of eight.
+
+**7. Who *must* trade explains more than valuation does** ([§12](#12-supply-demand)). Investors have strong maturity preferences and the people who could arbitrage them have limited balance sheets, so supply and demand move prices. The biggest holders are the least price-sensitive and the most price-sensitive ones are levered, which is how an ordinary shock becomes a dislocation. Note also that a bond index weights by debt outstanding, so an indexed portfolio lends most to whoever borrowed most.
+
+**8. Whether bonds hedge stocks depends on inflation** ([§14](#14-bonds-equities)). Both are promises of future money, so when the discount rate moves they move together, and when growth expectations move they move oppositely. Whichever dominates sets the sign — positive from the 1960s to the late 1990s, negative from about 1998 to 2020, positive again in 2021–23. The regime variable is inflation, and 2022 did not show that diversification failed: nominal bonds hedge growth shocks and never hedged inflation shocks.
+
+**9. The one fact that makes a bond investor calm** ([§17](#17-building-a-portfolio)). A portfolio that keeps its duration constant earns, over a long enough horizon, approximately its starting yield — a one-off rate shock washes out in about as many years as its duration. So a rise in yields is *good* for anyone whose horizon is longer than their duration, and the 2022 sell-off raised expected returns for exactly those investors. It is fixed income's version of "valuation predicts long-run returns", and it is far more reliable than the equity version.
+
+---
+
+**If you remember three things:** the only two levers are the price of money and the chance of being paid; duration, not yield, decides how much a bond moves; and credit is insurance you have sold, priced as though defaults arrive together — because they do.
+
+```{=latex}
+\end{eli5}
+```
+
+```{=html}
+</aside>
+```
+
+---
+
 **What this is.** A first-principles tutorial on bonds: the instrument, the markets it
 trades in, the arithmetic that prices it, the forces that move that price, and the
 decisions that face someone putting money into it. Bonds are usually taught either as
@@ -131,6 +175,8 @@ qualification, this is the one.
 ---
 
 ## Table of contents
+
+- [ELI5 — the short version](#eli5)
 
 **Part I — The object**
 

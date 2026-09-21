@@ -4,6 +4,48 @@
 
 ---
 
+```{=html}
+<aside class="eli5">
+```
+
+# ELI5 — the short version {#eli5}
+
+```{=latex}
+\begin{eli5}
+```
+
+**In one sentence.** There are two ways to write down "how much did it go up" — the everyday percentage and its logarithm — and this document is about the one job each can do that the other cannot, plus the single correction term, half the variance, that separates them everywhere they disagree.
+
+**1. Two labels for one fact** ([§1](#1-what-a-return-is-and-why-there-are-two-of-them)). A 5% gain multiplies your money by 1.05. You can call that $+5\%$ or you can call it $+0.0488$, its logarithm. Neither is an approximation of the other, and neither carries more information — they are two coordinate systems for the same quantity, like Celsius and Fahrenheit.
+
+**2. The one thing you cannot have** ([§2](#2-the-spine-additivity-or-linearity-never-both)). Log returns add up across *time*: three days of log returns sum to the three-day log return, exactly. Percentages add up across *positions*: a portfolio's percentage return is the weighted average of its holdings'. **No transform does both** — that is a theorem, not a convention, because compounding creates a cross-term that plain addition cannot represent. So the choice is settled by which way you are summing: down a column of days, use logs; across a row of positions, use percentages.
+
+**3. Half the variance, over and over** ([§3](#3-the-identity-catalogue)). Averaging is where the two part company, and the gap is always about half the variance. It is one Taylor term, and it turns up as volatility drag, the correction in continuous-time models, the Kelly growth rate, the diversification return, and the gap between two Sharpe ratios. Spotting it on sight is most of what fluency here consists of.
+
+**4. Equal and opposite is not a round trip** ([§5](#5-comparability-laterally-and-longitudinally), [§10](#10-building-intuition)). Up 10% then down 10% leaves you down 1%, and down 50% needs up 100% to recover. In logs the same two moves cancel exactly. That missing 1% is the half-variance term arriving by another door — and it is also why a fund promising three times an index's daily move trails three times the index's growth by around 12 percentage points a year on a 20%-volatility index. That is arithmetic, not fees.
+
+**5. Where each one is compulsory** ([§7](#7-where-the-choice-is-forced)). Anything that models a price *through time* — volatility models, option pricing, simulation, realized variance — is written in logs, and the percentage version has no correct formulation. Anything that *counts dollars* — portfolio returns, attribution, P&L, costs, leverage, client reporting — is percentages, and logs simply do not aggregate across positions. Convert deliberately at the boundary instead of adopting one convention everywhere.
+
+**6. Where it genuinely does not matter** ([§8](#8-where-it-does-not-matter-quantified), [§11](#11-returns-as-features-and-targets-for-gbt-and-dnn)). On daily equity data the two series correlate at 0.99996; no statistic you can compute will tell them apart. For tree models the two are *provably* identical, because a tree only reads the ordering of a feature and the logarithm preserves order. The notable exception is the Sharpe ratio, which differs by about half your annualised volatility — 0.1 for a long-only book, 0.3 for a volatile one — so say which one you are quoting.
+
+**7. What deserves the attention instead** ([§5](#5-comparability-laterally-and-longitudinally)). Dividing returns by an estimate of how jumpy the asset is beats the whole transform question by roughly a factor of a thousand, and it works in either convention. The same $+3\%$ move is anywhere from half a standard deviation to thirty across a real cross-section, while the convention moves the number by about 1.5%.
+
+**8. How it actually goes wrong** ([§9](#9-failure-modes)). Logs need strictly positive prices, so spreads, interest rates and P&L series have no log return at all. Writing `log` where you meant `log1p` quietly turns a return into a sign indicator, and the libraries absorb it without complaint. Exponentiating a predicted log return gives you a median rather than an average, and the missing piece is larger for volatile names, so it reshuffles a ranking rather than just shifting it. And if a backtest and the live P&L differ by about half the variance per period, that is a convention mismatch at a system boundary, not slippage.
+
+---
+
+**If you do only three things:** normalise by volatility before arguing about the transform; sum across positions in percentages and across time in logs, through exactly one conversion function; and carry "minus half the variance" in your head.
+
+```{=latex}
+\end{eli5}
+```
+
+```{=html}
+</aside>
+```
+
+---
+
 **How to read this document.** Sections 1–3 are the foundations: what a return is, the one theorem that explains why two conventions exist and why no third one can replace them, and a reference catalogue of the identities you will actually use. Sections 4–6 are the statistical theory — distributions, comparability across assets and across time, and the time-series econometrics that make the log transform non-negotiable in some settings. Sections 7–10 are practice: where the choice is forced in each direction, where it provably does not matter, how it goes wrong, and how to build working intuition. Section 11 is the machine-learning question — features and targets for gradient-boosted trees and neural networks — and is written to stand alone if that is all you came for. Sections 12–14 are convention, bibliography, and synthesis.
 
 If you want the short answer, read §2, the table in §3.6, and §14.
@@ -32,6 +74,8 @@ Three symbols are deliberately overloaded because each usage is standard in its 
 ---
 
 ## Table of contents
+
+- [ELI5 — the short version](#eli5)
 
 **Part I — Foundations**
 

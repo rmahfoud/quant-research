@@ -95,6 +95,21 @@
     border-radius: 3px;
   }
 
+  /* Display equations are typeset at their natural width and can run wider
+     than the text column — much wider on a phone, which would otherwise widen
+     the whole page and push the fixed controls out of reach. Give each one its
+     own horizontal scroll instead. Overflow clips at the padding box, so the
+     vertical padding leaves room for what tall constructs (stretchy braces,
+     overlines) draw beyond MathJax's own 0.3em. MathJax injects its stylesheet
+     after this one, so the `body` prefix is what wins the padding against it. */
+  body mjx-container[display="true"] {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+  }
+
   /* Figures are baked-in SVG/PNG images (mermaid diagrams, matplotlib plots)
      with dark ink on transparent backgrounds. CSS cannot recolour their
      interiors, so in dark mode they sit on a light plate and read as printed

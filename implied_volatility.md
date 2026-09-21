@@ -4,6 +4,54 @@
 
 ---
 
+```{=html}
+<aside class="eli5">
+```
+
+# ELI5 — the short version {#eli5}
+
+```{=latex}
+\begin{eli5}
+```
+
+**In one sentence.** Implied volatility is not a forecast and not a price — it is a *unit*: the number you must feed a standard formula to make it agree with what an option actually costs, and this document is about the several different true things that one number tells you.
+
+**1. It is a ruler, not a belief** ([§1](#1-the-number), [§2](#2-the-ruler)). Take an option's market price and ask what volatility would make the textbook formula produce exactly that price. The answer is the implied volatility. Nobody believes the textbook formula, any more than quoting a bond in yield terms means believing in a single constant interest rate. In both cases a price is run through a deliberately simple model to get a number that *compares* across instruments, which raw prices do not.
+
+**2. There is no such thing as "the" implied volatility of a stock** ([§1](#1-the-number)). Every strike and every expiry has its own. The single number people quote is a convention about which one to use.
+
+**3. Three true readings of the same number** ([§3](#3-a-price), [§4](#4-break-even), [§7](#7-smile)).
+
+| Read it as | Meaning |
+|---|---|
+| A price in comparable units | Dollar prices spanning two orders of magnitude can all be "20% volatility". The unit removes the share price, the strike, the expiry and interest rates — which is why desks quote and mark in it |
+| A break-even rate | Buy an option and hedge it continuously, and you gain on days the underlying moves more than implied volatility said, and lose on quieter days. At 20%, the break-even is about 1.26% a day |
+| A distribution | Across strikes, the pattern of implied volatilities *is* the market's price-implied probability distribution, written as a departure from the bell-shaped default |
+
+**4. Arithmetic worth memorising** ([§2](#2-the-ruler)). Divide an annual volatility by 16 to get the typical daily move: 16% a year is about 1% a day. And an at-the-money straddle costs roughly the expected size of the move over the option's life.
+
+**5. It is a forecast with a fee attached** ([§6](#6-forecast)). Implied volatility genuinely does predict future realised volatility, better than forecasts built from history. But it runs high: on the S&P 500 it has averaged about four points above what subsequently happened, since 1990. That gap is not an error — it is the premium for writing insurance whose payoff is small steady gains and rare enormous losses. Selling it is a legitimate business with a brutal distribution, and it should be sized by what the bad day costs rather than by how calm the good ones are.
+
+**6. Probabilities read off options are prices, not beliefs** ([§7](#7-smile)). Anything derived from option prices is computed in a world that deliberately overweights bad outcomes, so "the market implies a 12% chance of a 10% fall" is an upper bound on the real chance, not an estimate of it. And such probabilities live in the *slope* across strikes, not in any single strike's number: the shortcut of plugging one strike's own volatility into the formula overstated the chance of a 10% fall by three quarters in the worked example.
+
+**7. Most of the difficulty is data, not theory** ([§9](#9-inverting), [§14](#14-failure-modes)). Getting the forward price right matters more than everything else combined — an error of half a percent manufactures 4.4 points of skew that does not exist. Far out-of-the-money quotes translate into nearly meaningless volatilities, because there a five-cent pricing error becomes hundreds of volatility points. Even the clock counts: the same intraday price implies volatilities differing by a factor of 2.3 depending on how you measure time to expiry.
+
+**8. The VIX is the same object with the weights rearranged** ([§5](#5-price-of-variance)). Take a basket of out-of-the-money options weighted so that hedging it pays realised variance against a fixed strike, and you have a variance swap; discretise that and you have the VIX. The rearrangement is why an index can be published without anyone agreeing on a pricing model, and it also explains the "volatility crush" after an earnings date: a scheduled event is a lump of variance sitting in the term structure, and afterwards the lump has been spent.
+
+---
+
+**If you remember three things:** implied volatility is a unit of price rather than a prediction; every probability you read off it is a price, and therefore tilted toward bad outcomes; and when a surface looks strange, check the forward before checking anything else.
+
+```{=latex}
+\end{eli5}
+```
+
+```{=html}
+</aside>
+```
+
+---
+
 **What this is.** A from-first-principles tutorial on implied volatility — the most
 quoted number in options markets, and one of the most casually misread. It gets
 called the market's forecast of volatility, the price of an option, the fear gauge,
@@ -129,6 +177,8 @@ $F = S = 100$ and $D = 1$), and 20% volatility. The call and the put each cost
 ---
 
 ## Table of contents
+
+- [ELI5 — the short version](#eli5)
 
 **Part I — The concept**
 

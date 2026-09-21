@@ -47,18 +47,30 @@ OUT_DIR="$QR_DIR/docs"
 PDF_ARGS=(
     --pdf-engine=xelatex
     -V mainfont="Arial Unicode MS"
+    # Arial Unicode MS is a single-face font: without these, \textbf and \emph
+    # render as plain upright text, so headings, epistemic tags and emphasis all
+    # come out flat. Synthesizing them keeps the font's wide glyph coverage.
+    -V mainfontoptions="AutoFakeBold=2.2,AutoFakeSlant=0.2"
     -V monofont="Menlo"
     -V monofontoptions="Scale=0.8"
     -V geometry:margin=0.5in
+    # Shared LaTeX preamble (packages + the ELI5 card environment). Note this
+    # overrides any `header-includes:` a document sets in its YAML front matter,
+    # so preamble additions belong in that file, not in the document.
+    --include-in-header="$REL_PREFIX/assets/preamble.tex"
 )
 
 HTML_ARGS=(
     --standalone
     --embed-resources
     --toc --toc-depth=2
-    --mathjax
+    # Pandoc's own default today, pinned so it stays in step with the extensions
+    # in assets/mathjax_extensions.html, which are built against MathJax 4.
+    --mathjax=https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js
     --include-in-header="$REL_PREFIX/assets/reading_widget.html"
     --include-in-header="$REL_PREFIX/assets/sidebar.html"
+    --include-in-header="$REL_PREFIX/assets/eli5.html"
+    --include-after-body="$REL_PREFIX/assets/mathjax_extensions.html"
     --lua-filter="$REL_PREFIX/scripts/drop_toc_section.lua"
     -V maxwidth=64em
     -V margin-left=32px

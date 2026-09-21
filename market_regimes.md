@@ -4,6 +4,52 @@
 
 ---
 
+```{=html}
+<aside class="eli5">
+```
+
+# ELI5 — the short version {#eli5}
+
+```{=latex}
+\begin{eli5}
+```
+
+**In one sentence.** A "regime" is not something the market has; it is a way of chopping time into a few boxes inside a model you chose — and the honest finding of sixty years of work is that such models identify *calm versus turbulent* well and *going up versus going down* badly.
+
+**1. The word names a model output, not an observation** ([§1](#1-what-a-market-regime-is)). "Which regime are we in?" has no answer until you have already decided how many there are and how they behave. Two people using different models are not disagreeing about the world; they are using different rulers.
+
+**2. The output is a set of probabilities, not a label** ([§1](#1-what-a-market-regime-is)). A regime model hands you something like "70% calm, 30% stressed" — a whole predictive distribution. Flattening that into the single most likely label throws away the model's own uncertainty, and it is the most common implementation error in the field. Keep the probabilities and let them shrink the position for you.
+
+**3. Everything useful comes from persistence** ([§1](#1-what-a-market-regime-is), [§5](#5-the-formal-models)). If the state were redrawn independently every day, the model would predict nothing you did not already know. It is useful only because today's state tends to persist into tomorrow — and how fast that tendency decays puts a hard ceiling on how far ahead it can forecast. There is a one-line check: work out how long the model's memory lasts, and if that is shorter than the gap between your trades, stop there.
+
+**4. The result that governs everything else** ([§7](#7-what-is-known-to-work-and-what-is-not)). Estimating how *volatile* a state is gets easier with more observations; estimating its average *return* improves only with more calendar time, which you cannot buy. So even with ten years of daily data and a perfectly specified model, the estimated return gap between two states comes out with the wrong sign about one sample in six, while the volatility ratio from the same fit is pinned down with a signal-to-noise ratio of 16. That is arithmetic rather than anyone's bad implementation: **regime models find volatility states and do not find return states.**
+
+**5. So what is it worth?** ([§7](#7-what-is-known-to-work-and-what-is-not)). If two states differ only in volatility, knowing the state *perfectly* is worth about 0.03 of risk-adjusted return to a directional strategy. If they differ only in average return, the filter is worse than a constant guess and recognises the regime only once it is over. Real cases sit in between, and the honest ceiling is around 0.08 under ideal conditions. Regimes earn their keep on risk, correlation and drawdown — those findings replicate. Directional timing does not.
+
+**6. You may already be doing it** ([§6](#6-taxonomy-and-equivalences)). Every volatility-targeted strategy is a regime-conditional strategy with a continuum of states. Many people who say they do not use regime models are quietly running the most reliable one there is.
+
+**7. Fitting well is not evidence** ([§2](#2-why-regimes-could-exist)). A process whose volatility drifts continuously, with no regimes anywhere in it, produces data that regime models fit beautifully. A better likelihood from adding a state says nothing about whether states exist. Two cheap tests: is the chosen number of states stable across subsamples, and does a continuous model beat the discrete one out of sample? Also, correlations rising in a crisis are partly a mechanical consequence of volatility rising — count that once, not twice.
+
+**8. Putting one inside a machine-learning model** ([§8](#8-which-shift-do-you-have), [§9](#9-integration-schemes)). Diagnose which thing is shifting before reaching for a remedy: a regime feature cannot fix a variance problem, because the variance does not live in the mean function. The highest-value change is not a regime model at all — divide the thing you are predicting by a trailing volatility estimate. Without that, the most turbulent fifth of days supplies about two-thirds of the error the model is trying to minimise, so you are fitting crises whether you meant to or not. And that denominator must use only past data; normalising by the volatility realised over the very period you are predicting is the most spectacular leak in the document.
+
+**9. Testing it is harder than testing anything else** ([§10](#10-research-and-evaluation)). Your effective sample size is the number of *episodes*, not the number of days: four years of accumulated crisis leaves the risk-adjusted return uncertain by more than 0.5, and twenty honest attempts produce an expected best crisis result near 1.0 out of pure noise. Shuffle the regime labels while keeping their persistence and confirm your result disappears; simulate from a process with no regimes at all and confirm the pipeline finds nothing.
+
+**10. Do the economics before the modelling** ([§11](#11-trading-a-regime-aware-model)). A realistic regime overlay is worth roughly 118 basis points a year before costs and breaks even at 13 basis points of one-way trading cost. That arithmetic decides whether the project should exist. And remember that everyone's regime signal fires at the same moment, so price your exits at stress levels.
+
+---
+
+**If you do only three things:** normalise by trailing volatility, use regimes to set risk rather than direction, and keep the probabilities instead of the label.
+
+```{=latex}
+\end{eli5}
+```
+
+```{=html}
+</aside>
+```
+
+---
+
 **What this is.** "Regime" is the most overloaded word in systematic trading. It
 is used for a latent Markov state, for a VIX threshold, for a business-cycle
 phase, for a correlation cluster, and for the vague feeling that this year is not
@@ -100,6 +146,8 @@ number of regimes (never a kernel or a Kalman gain).
 ---
 
 ## Table of contents
+
+- [ELI5 — the short version](#eli5)
 
 **Part I — What a regime is, and what is known about it**
 

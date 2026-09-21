@@ -1,0 +1,64 @@
+<!-- ELI5 card — the plain-language summary that opens each document.
+
+     In the markdown the card is a raw <aside class="eli5"> … </aside> pair
+     wrapped around a real markdown heading, so the heading still reaches
+     pandoc's outline (and therefore the sidebar) while its body renders as a
+     set-apart card rather than as body text.
+
+     Colours are the reading widget's --rdw-* tokens, so the card follows the
+     Auto/Light/Dark control without rules of its own. CSS prefix is "eli5",
+     kept distinct from the reading widget's "rdw-", the sidebar's "qrs-", and
+     the per-document figure prefixes. The PDF counterpart is assets/eli5.tex;
+     change the two together. -->
+<style>
+  .eli5 {
+    margin: 1.75rem 0 2.75rem;
+    padding: 1.1rem 1.5rem 1.35rem;
+    border: 1px solid var(--rdw-rule, #d8dde3);
+    border-left: 4px solid var(--rdw-link, #0b6e4f);
+    border-radius: 10px;
+    background: var(--rdw-surface, #f4f6f8);
+    box-shadow: 0 1px 3px rgba(20, 24, 29, 0.06);
+    font-size: 0.95em;
+    line-height: 1.5;
+  }
+
+  /* The heading is a real <h1> so it reaches the outline; here it reads as the
+     card's label instead of as a document title. */
+  .eli5 > h1 {
+    margin: 0 0 0.9rem;
+    padding: 0;
+    border: 0;
+    font-size: 0.82em;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rdw-link, #0b6e4f);
+  }
+
+  .eli5 > p:first-of-type { margin-top: 0; }
+  .eli5 > :last-child { margin-bottom: 0; }
+
+  .eli5 p { margin: 0.7rem 0; }
+  .eli5 ul, .eli5 ol { margin: 0.7rem 0; padding-left: 1.4rem; }
+  .eli5 li { margin: 0.25rem 0; }
+
+  .eli5 table {
+    margin: 0.9rem 0;
+    font-size: 0.94em;
+    border-collapse: collapse;
+  }
+  .eli5 th, .eli5 td { padding: 0.28rem 0.7rem 0.28rem 0; }
+
+  /* A closing rule before the last line, to set off the "remember this" tail. */
+  .eli5 hr {
+    margin: 1rem 0 0.8rem;
+    border: 0;
+    border-top: 1px solid var(--rdw-rule, #d8dde3);
+    background: none;
+  }
+
+  @media (max-width: 600px) {
+    .eli5 { padding: 0.9rem 1rem 1.1rem; border-radius: 8px; }
+  }
+</style>

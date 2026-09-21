@@ -1,11 +1,48 @@
----
-header-includes:
-  - \usepackage{graphicx}
----
-
 # Stochastic Processes
 
 ### The definition, unpacked ingredient by ingredient
+
+---
+
+```{=html}
+<aside class="eli5">
+```
+
+# ELI5 — the short version {#eli5}
+
+```{=latex}
+\begin{eli5}
+```
+
+**In one sentence.** A stochastic process is a *random function*: rather than drawing a number, you draw an entire path — a whole history, all at once — and everything below is the machinery that makes that sentence precise.
+
+**1. The picture to hold** ([§6](#readings)). Imagine a fan of wiggly lines spreading out from a single starting point, each line one possible history of a price. The process is the whole fan, together with the rules for how likely each line is. There are two ways to read it. Cut down through the fan at one moment and you have an ordinary random variable — a spread of values that might occur at that instant. Follow one line from left to right and you have a *sample path*: an entirely ordinary function, with nothing random left in it.
+
+**2. The randomness happens once, not repeatedly** ([§9](#instantiated)). "Take a step, roll the dice, take another step" is how you *build* a process on a computer, but it is not what the definition says. One draw fixes the entire path, past and future together. Nothing is rolled again later; the line was already there when you picked it.
+
+**3. Four ingredients and one condition** ([§1](#definition)). Where the randomness lives, what labels the family (usually time, but it can be position on a map), where the values land, and a rule that the questions you want to ask are ones probability is able to answer. That is the whole definition. Everything else in the subject is extra structure added later to get theorems.
+
+**4. The load-bearing word is "one"** ([§2](#probability-space)). Every moment of the process reads the *same* draw. That shared source is the entire difference between a process and an unrelated pile of random variables: it is why "low today *and* high next month" has a probability at all. Remove it and dependence across time cannot even be stated.
+
+**5. Probability sizes collections, not outcomes** ([Section A](#app-a)). Pick a random number between 0 and 1. Every individual number has probability zero, yet something happens — so probability cannot be a rule about single outcomes. It has to assign sizes to *collections* of them, and once you are doing that you are doing measure theory: length, area, mass and probability are one mathematical object, with probability normalized so the whole space weighs exactly 1. One awkward fact forces the last piece of apparatus — you cannot consistently size *every* collection — so the theory names in advance the ones it promises to handle.
+
+**6. "Measurable" means the question is answerable** ([§5](#measurability)). The clause everybody skims is the one that makes the rest legal. It says that "which histories put the price below 90?" picks out a collection the theory promised to size. Without it, the probability of that event is not false or unknown — it is undefined.
+
+**7. Nobody ever builds the space of all histories** ([§7](#fdd)). In practice you describe what happens at any handful of times — Brownian motion is "starts at zero, separate stretches are independent, each one bell-shaped" — and a theorem promises that some process with exactly those properties exists. The catch is that those snapshots do not settle whether the path is continuous or jumpy; smoothness is a separate question with a separate proof.
+
+**8. Filtrations are lookahead bias, formalized** ([§8](#filtrations)). A filtration is the growing list of what is settled by each moment, and a process is *adapted* when its value at each time is knowable at that time. That is exactly the backtesting rule: a signal computed from something outside the information set at time $t$ is one you could not have had, however good the results look.
+
+---
+
+**If you remember three things:** a process is one random function rather than a sequence of separate rolls; the single shared probability space is what makes dependence across time expressible; and measurability is not bookkeeping — it is the condition under which probabilities exist at all.
+
+```{=latex}
+\end{eli5}
+```
+
+```{=html}
+</aside>
+```
 
 ---
 
@@ -16,6 +53,8 @@ header-includes:
 ---
 
 ## Table of contents
+
+- [ELI5 — the short version](#eli5)
 
 **Part I — The definition**
 

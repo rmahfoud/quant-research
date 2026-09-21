@@ -1,3 +1,11 @@
+---
+pagetitle: "Trend-Following in Financial Markets"
+description: "What a trend rule actually earns, derived as an exact identity, and how that dictates the estimation, sizing and risk decisions of a working system."
+keywords: ["trend following", "managed futures", "moving averages", "position sizing", "CTA"]
+author: "Robert Mahfoud"
+lang: en
+---
+
 # Trend-Following in Financial Markets
 
 ### From the P&L identity to a working system

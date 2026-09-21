@@ -1,3 +1,11 @@
+---
+pagetitle: "Stochastic Processes"
+description: "The formal definition of a stochastic process unpacked ingredient by ingredient, with a measure-theoretic appendix built from σ-algebras up."
+keywords: ["stochastic processes", "probability theory", "measure theory", "filtration", "Brownian motion"]
+author: "Robert Mahfoud"
+lang: en
+---
+
 # Stochastic Processes
 
 ### The definition, unpacked ingredient by ingredient

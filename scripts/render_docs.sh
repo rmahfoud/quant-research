@@ -80,6 +80,9 @@ HTML_ARGS=(
 # Target of the sidebar's Source link: <doc>.md in the public repo.
 SOURCE_URL="https://github.com/rmahfoud/quant-research/blob/master"
 
+# Published site root, used for canonical URLs, Open Graph and the sitemap.
+SITE_URL="https://rmahfoud.github.io/quant-research/"
+
 DOC_ARG=""
 FORMAT="both"
 RUN_FIGURES=0
@@ -177,8 +180,23 @@ formats=()
 [[ "$FORMAT" == "both" || "$FORMAT" == "html" ]] && formats+=(html)
 [[ "$FORMAT" == "both" || "$FORMAT" == "pdf" ]] && formats+=(pdf)
 
+rendered=()
+
 while read -r doc; do
     for fmt in "${formats[@]}"; do
         render "$doc" "$fmt"
     done
+    rendered+=(--require "$doc")
 done < <(resolve_docs "$DOC_ARG")
+
+# Canonical URL, Open Graph, JSON-LD and the sitemap. Must run after pandoc:
+# --embed-resources inlines the target of any <link href> it is handed, which
+# strips the href off a canonical added via --include-in-header. Sweeps every
+# rendered page so the sitemap stays complete when only one doc was rendered;
+# it is idempotent, so untouched pages come out byte-identical. Only the docs
+# rendered in this run are required to carry metadata — an older page missing it
+# warns rather than failing a partial render.
+if [[ " ${formats[*]} " == *" html "* ]]; then
+    python3 "$QR_DIR/scripts/inject_seo.py" "$OUT_DIR" \
+        --site-url "$SITE_URL" --repo-root "$RENDER_ROOT" "${rendered[@]}"
+fi

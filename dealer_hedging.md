@@ -1,3 +1,11 @@
+---
+pagetitle: "Dealer Hedging and Gamma Exposure"
+description: "How options dealers hedge, when that hedging moves prices, and how to read gamma exposure — built up from what an option is, trade by trade."
+keywords: ["dealer hedging", "gamma exposure", "delta hedging", "options market making", "GEX"]
+author: "Robert Mahfoud"
+lang: en
+---
+
 # Dealer Hedging and Gamma Exposure
 
 ### How options market makers hedge, what their hedging does to prices, and how to read it from either side of the trade

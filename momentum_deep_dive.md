@@ -1,3 +1,11 @@
+---
+pagetitle: "Momentum in Financial Markets"
+description: "A first-principles tutorial on momentum: how it is measured, the taxonomy of signals, what implementation costs, and how to evaluate it honestly."
+keywords: ["momentum", "cross-sectional momentum", "time-series momentum", "trading signals", "factor investing"]
+author: "Robert Mahfoud"
+lang: en
+---
+
 # Momentum in Financial Markets
 
 ### A first-principles tutorial for quantitative practitioners

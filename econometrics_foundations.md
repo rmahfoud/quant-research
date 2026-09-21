@@ -1,3 +1,11 @@
+---
+pagetitle: "Foundations of Econometrics"
+description: "Estimands, identification and inference as one framework: what a regression estimates, how designs make it causal, and why financial data overstate precision."
+keywords: ["econometrics", "identification", "causal inference", "regression", "time series"]
+author: "Robert Mahfoud"
+lang: en
+---
+
 # Foundations of Econometrics
 
 ### Estimands, identification, and inference: what a regression can tell you, and how sure to be

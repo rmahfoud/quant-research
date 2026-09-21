@@ -1,3 +1,11 @@
+---
+pagetitle: "Market Regimes and Machine Learning"
+description: "Why regime models identify volatility and never returns, and what that implies for wiring one into a gradient-boosted tree or a neural network."
+keywords: ["market regimes", "hidden Markov models", "volatility", "machine learning", "feature engineering"]
+author: "Robert Mahfoud"
+lang: en
+---
+
 # Market Regimes and Machine Learning
 
 ### What a regime model actually estimates, and how to put one inside a GBT or a neural network

@@ -1,3 +1,11 @@
+---
+pagetitle: "Implied Volatility"
+description: "What implied volatility is — a price in volatility units, a hedge break-even, a distribution — and how to compute, plot and use a volatility surface."
+keywords: ["implied volatility", "volatility surface", "options pricing", "volatility smile", "Black-Scholes"]
+author: "Robert Mahfoud"
+lang: en
+---
+
 # Implied Volatility
 
 ### What the number means, how it is computed, how to look at it, and what practitioners do with it

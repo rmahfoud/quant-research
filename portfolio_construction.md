@@ -1,3 +1,11 @@
+---
+pagetitle: "Portfolio Construction and the Covariance Matrix"
+description: "Why mean-variance optimisation destroys itself when fed sample estimates, and what shrinkage, constraints and transaction costs are secretly doing about it."
+keywords: ["portfolio construction", "covariance matrix", "mean-variance optimisation", "shrinkage", "risk parity"]
+author: "Robert Mahfoud"
+lang: en
+---
+
 # Portfolio Construction and the Covariance Matrix
 
 ### Why the optimiser is not the problem, and the matrix is

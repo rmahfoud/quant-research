@@ -1,3 +1,11 @@
+---
+pagetitle: "Bonds and Bond Markets"
+description: "How bonds are priced, why they sell off and rally, and what they do to a portfolio — Treasuries to defaulted credit, built on one decomposition of the yield."
+keywords: ["bonds", "duration", "convexity", "credit spreads", "yield curve", "fixed income"]
+author: "Robert Mahfoud"
+lang: en
+---
+
 # Bonds and Bond Markets
 
 ### What you own, where the price comes from, why it moves, and what it does to a portfolio

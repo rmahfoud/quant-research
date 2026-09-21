@@ -31,6 +31,8 @@ Output lands in `docs/` (gitignored).
 
 `--figures` regenerates plots under `figures/` before rendering. Those outputs are committed, so this is only needed after editing a generator.
 
+Each document opens with a YAML front-matter block (`pagetitle`, `description`, `keywords`, `author`, `lang`). Pandoc turns it into the page title, meta description and PDF document properties; `scripts/inject_seo.py` then adds the canonical URL, Open Graph tags, JSON-LD and `docs/sitemap.xml`.
+
 ## Documents
 
 Every document opens with an **ELI5 card** — a plain-language summary of the whole

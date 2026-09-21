@@ -1,3 +1,11 @@
+---
+pagetitle: "Simple and Log Returns"
+description: "Why two return conventions exist, what each is exactly right for, and how the choice propagates through econometrics, risk models and ML features."
+keywords: ["log returns", "simple returns", "compounding", "return aggregation", "quantitative finance"]
+author: "Robert Mahfoud"
+lang: en
+---
+
 # Simple and Log Returns
 
 ### What changes when you take the logarithm, and when it matters

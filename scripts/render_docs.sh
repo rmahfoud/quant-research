@@ -186,17 +186,29 @@ while read -r doc; do
     for fmt in "${formats[@]}"; do
         render "$doc" "$fmt"
     done
-    rendered+=(--require "$doc")
+    rendered+=("$doc")
 done < <(resolve_docs "$DOC_ARG")
 
-# Canonical URL, Open Graph, JSON-LD and the sitemap. Must run after pandoc:
-# --embed-resources inlines the target of any <link href> it is handed, which
-# strips the href off a canonical added via --include-in-header. Sweeps every
-# rendered page so the sitemap stays complete when only one doc was rendered;
-# it is idempotent, so untouched pages come out byte-identical. Only the docs
-# rendered in this run are required to carry metadata — an older page missing it
-# warns rather than failing a partial render.
 if [[ " ${formats[*]} " == *" html "* ]]; then
+    # Share cards: docs/og/<doc>.png, the image a pasted link previews with,
+    # drawn from each rendered document's pagetitle and ### subtitle, plus the
+    # site-wide docs/og/default.png. Committed like the pages; a card is only
+    # rewritten when its pixels change. Runs first so inject_seo.py can link it.
+    command -v uv >/dev/null || fail "uv not found (it draws the share cards). Run ./scripts/setup_dev.sh"
+    uv run --no-project --with matplotlib python "$QR_DIR/scripts/og_cards.py" \
+        "$QR_DIR" --site-url "$SITE_URL" "${rendered[@]}"
+
+    # Canonical URL, Open Graph, JSON-LD and the sitemap. Must run after pandoc:
+    # --embed-resources inlines the target of any <link href> it is handed, which
+    # strips the href off a canonical added via --include-in-header. Sweeps every
+    # rendered page so the sitemap stays complete when only one doc was rendered;
+    # it is idempotent, so untouched pages come out byte-identical. Only the docs
+    # rendered in this run are required to carry metadata — an older page missing
+    # it warns rather than failing a partial render.
+    required=()
+    for doc in "${rendered[@]}"; do
+        required+=(--require "$doc")
+    done
     python3 "$QR_DIR/scripts/inject_seo.py" "$OUT_DIR" \
-        --site-url "$SITE_URL" --repo-root "$RENDER_ROOT" "${rendered[@]}"
+        --site-url "$SITE_URL" --repo-root "$RENDER_ROOT" "${required[@]}"
 fi

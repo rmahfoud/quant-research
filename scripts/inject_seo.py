@@ -9,7 +9,8 @@ render untouched, but the canonical has to be added here.
 
 Page title and description are read back out of the rendered HTML — pandoc
 writes them from each document's YAML front matter — so this script holds no
-per-document metadata of its own to drift out of sync.
+per-document metadata of its own to drift out of sync. The share card it links
+as og:image is drawn beforehand by og_cards.py.
 
 Usage:
     python3 inject_seo.py <docs-dir> --site-url <url> [--repo-root <path>]
@@ -18,10 +19,12 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import html
 import json
 import pathlib
 import re
+import struct
 import subprocess
 import sys
 from datetime import date
@@ -82,6 +85,21 @@ def attr(value: str) -> str:
     return html.escape(value, quote=True)
 
 
+def share_card(docs_dir: pathlib.Path, site_url: str, slug: str) -> tuple[str, int, int] | None:
+    """(URL, width, height) of the page's share card from og_cards.py, if drawn.
+
+    The URL carries a content hash: platforms cache images by URL, so a card
+    redrawn after a title change would otherwise keep showing the old one.
+    """
+    for candidate in (f"og/{slug}.png", "og/default.png"):
+        path = docs_dir / candidate
+        if path.exists():
+            data = path.read_bytes()
+            width, height = struct.unpack(">II", data[16:24])  # PNG IHDR
+            return f"{site_url}{candidate}?v={hashlib.sha256(data).hexdigest()[:10]}", width, height
+    return None
+
+
 def build_block(
     *,
     slug: str,
@@ -94,12 +112,7 @@ def build_block(
 ) -> str:
     canonical = f"{site_url}{slug}.html"
     headline = strip_site_suffix(title)
-
-    image = None
-    for candidate in (f"og/{slug}.png", "og/default.png"):
-        if (docs_dir / candidate).exists():
-            image = f"{site_url}{candidate}"
-            break
+    image = share_card(docs_dir, site_url, slug)
 
     lines = [
         SENTINEL_BEGIN,
@@ -122,8 +135,16 @@ def build_block(
         f'<meta name="twitter:description" content="{attr(description)}" />',
     ]
     if image:
-        lines.append(f'<meta property="og:image" content="{attr(image)}" />')
-        lines.append(f'<meta name="twitter:image" content="{attr(image)}" />')
+        image_url, width, height = image
+        lines += [
+            f'<meta property="og:image" content="{attr(image_url)}" />',
+            '<meta property="og:image:type" content="image/png" />',
+            f'<meta property="og:image:width" content="{width}" />',
+            f'<meta property="og:image:height" content="{height}" />',
+            f'<meta property="og:image:alt" content="{attr(headline)}" />',
+            f'<meta name="twitter:image" content="{attr(image_url)}" />',
+            f'<meta name="twitter:image:alt" content="{attr(headline)}" />',
+        ]
 
     article = {
         "@context": "https://schema.org",
@@ -141,7 +162,8 @@ def build_block(
         "isPartOf": {"@type": "CollectionPage", "name": SITE_NAME, "url": site_url},
     }
     if image:
-        article["image"] = image
+        image_url, width, height = image
+        article["image"] = {"@type": "ImageObject", "url": image_url, "width": width, "height": height}
 
     breadcrumbs = {
         "@context": "https://schema.org",

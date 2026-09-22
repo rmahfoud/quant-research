@@ -10,7 +10,7 @@ From this directory (independent of the Phoenix parent project):
 ./scripts/setup_dev.sh
 ```
 
-That installs pandoc, Node (`mermaid-filter`), librsvg (`rsvg-convert`), BasicTeX / texlive, and `uv` (for figure generators).
+That installs pandoc, Node (`mermaid-filter`), librsvg (`rsvg-convert`), BasicTeX / texlive, and `uv` (for figure generators and the share cards every HTML render draws).
 
 On macOS after BasicTeX, ensure `/Library/TeX/texbin` is on your `PATH` (or open a new shell — `scripts/render_docs.sh` also adds it when needed).
 
@@ -31,7 +31,7 @@ Output lands in `docs/` (gitignored).
 
 `--figures` regenerates plots under `figures/` before rendering. Those outputs are committed, so this is only needed after editing a generator.
 
-Each document opens with a YAML front-matter block (`pagetitle`, `description`, `keywords`, `author`, `lang`). Pandoc turns it into the page title, meta description and PDF document properties; `scripts/inject_seo.py` then adds the canonical URL, Open Graph tags, JSON-LD and `docs/sitemap.xml`.
+Each document opens with a YAML front-matter block (`pagetitle`, `description`, `keywords`, `author`, `lang`). Pandoc turns it into the page title, meta description and PDF document properties. `scripts/og_cards.py` then draws the document's share card (`docs/og/<doc>.png`, the image a pasted link previews with) from its title and subtitle, and `scripts/inject_seo.py` adds the canonical URL, Open Graph tags, JSON-LD and `docs/sitemap.xml`.
 
 ## Documents
 

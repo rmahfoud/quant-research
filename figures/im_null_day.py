@@ -199,8 +199,14 @@ def main() -> None:
     axL.plot(x, np.exp(-x / 2) / np.sqrt(2 * np.pi * x), color=INK, lw=1.6, label="χ² with 1 d.o.f.")
     axL.axvline(3.84, color=RUST, lw=1.2, ls="--")
     share = (vr5 > 3.84).mean()
-    axL.text(4.2, 0.55, f"{100 * share:.1f}% of pure-noise days\nexceed 3.84, the 5% critical\nvalue: about 12 'trend days'\na year from noise alone",
-             fontsize=9, color=RUST, va="top")
+    axL.text(
+        4.2,
+        0.55,
+        f"{100 * share:.1f}% of pure-noise days\nexceed 3.84, the 5% critical\nvalue: about 12 'trend days'\na year from noise alone",
+        fontsize=9,
+        color=RUST,
+        va="top",
+    )
     axL.set_xlim(0, 12)
     axL.set_ylim(0, 1.2)
     axL.set_xlabel("per-day variance ratio, 5-minute bars", fontsize=10, color=MUTED)
@@ -232,8 +238,10 @@ def main() -> None:
 
     print("Per-day variance ratio on null days")
     for name, vr in (("5-minute bars", vr5), ("1-minute bars", vr1)):
-        print(f"  {name}: mean {vr.mean():.3f}, P(>2.71) {(vr > 2.71).mean():.3f}, "
-              f"P(>3.84) {(vr > 3.84).mean():.3f}, P(>6.63) {(vr > 6.63).mean():.4f}")
+        print(
+            f"  {name}: mean {vr.mean():.3f}, P(>2.71) {(vr > 2.71).mean():.3f}, "
+            f"P(>3.84) {(vr > 3.84).mean():.3f}, P(>6.63) {(vr > 6.63).mean():.4f}"
+        )
     print("  chi-squared(1): P(>2.71) 0.100, P(>3.84) 0.050, P(>6.63) 0.010")
     for bar in (5, 1):
         er = efficiency_ratio(days, bar)
@@ -249,8 +257,10 @@ def main() -> None:
             roll = -half2 / ((0.02**2) * b / MINUTES + 2 * half2)
             row.append(f"{b}m {bnc[(s, b)]:+.3f}/{roll:+.3f}")
         print(f"  spread {s:g} bp: " + ", ".join(row))
-        print(f"    one-minute reversal rule, mean P&L per bar: last-trade {bnc[(s, 'last')]:+.3f} bp, "
-              f"midquote {bnc[(s, 'mid')]:+.3f} bp, half-spread {s / 2:.2f} bp")
+        print(
+            f"    one-minute reversal rule, mean P&L per bar: last-trade {bnc[(s, 'last')]:+.3f} bp, "
+            f"midquote {bnc[(s, 'mid')]:+.3f} bp, half-spread {s / 2:.2f} bp"
+        )
     print("Stale cash index at the open")
     for k, v in stale_index(rng).items():
         print(f"  {k}: {v:.3f}")

@@ -86,15 +86,24 @@ def main() -> None:
         ax.scatter([30.0], [ic], s=34, color=INK, zorder=5, edgecolor="white", linewidth=0.6)
         ax.text(26.0, ic, tag, fontsize=9, color=INK, ha="right", va="center", fontweight="bold")
         key.append(f"{tag}  {label}  (IC {ic:.2f})")
-    ax.text(330.0, 0.62, "published intraday effects at 30 minutes:\n" + "\n".join(key),
-            fontsize=8.5, color=INK, va="center", linespacing=1.5)
+    ax.text(
+        330.0,
+        0.62,
+        "published intraday effects at 30 minutes:\n" + "\n".join(key),
+        fontsize=8.5,
+        color=INK,
+        va="center",
+        linespacing=1.5,
+    )
 
     ticks = [1, 5, 30, H, 5 * H, MONTH]
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.set_xticks(ticks, labels=["1 min", "5 min", "30 min", "1 day", "1 week", "1 month"])
-    ax.set_yticks([0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0],
-                  labels=["0.005", "0.01", "0.02", "0.05", "0.1", "0.2", "0.5", "1"])
+    ax.set_yticks(
+        [0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0],
+        labels=["0.005", "0.01", "0.02", "0.05", "0.1", "0.2", "0.5", "1"],
+    )
     ax.minorticks_off()
     ax.set_xlim(1.0, MONTH * 1.05)
     ax.set_ylim(0.004, 1.2)

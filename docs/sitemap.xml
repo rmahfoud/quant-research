@@ -2,46 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rmahfoud.github.io/quant-research/</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-23</lastmod>
   </url>
   <url>
     <loc>https://rmahfoud.github.io/quant-research/bond_markets.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://rmahfoud.github.io/quant-research/dealer_hedging.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://rmahfoud.github.io/quant-research/econometrics_foundations.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://rmahfoud.github.io/quant-research/implied_volatility.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-21</lastmod>
+  </url>
+  <url>
+    <loc>https://rmahfoud.github.io/quant-research/intraday_momentum.html</loc>
+    <lastmod>2026-09-23</lastmod>
   </url>
   <url>
     <loc>https://rmahfoud.github.io/quant-research/log_returns.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://rmahfoud.github.io/quant-research/market_regimes.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://rmahfoud.github.io/quant-research/momentum_deep_dive.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://rmahfoud.github.io/quant-research/portfolio_construction.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://rmahfoud.github.io/quant-research/stochastic_processes.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://rmahfoud.github.io/quant-research/trend_following.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-21</lastmod>
   </url>
 </urlset>

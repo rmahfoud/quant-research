@@ -46,6 +46,7 @@ Styling is shared across documents in `assets/eli5.html` (web) and
 | `econometrics_foundations.md` | Mermaid diagrams; LaTeX math; ASCII figures; matplotlib-generated SVG figures (`figures/em_*.py`, which also print the simulated numbers quoted in the text) |
 | `bond_markets.md` | Mermaid diagrams; LaTeX math; ASCII figures; matplotlib-generated SVG figures (`figures/bd_*.py`, which also print the worked and simulated numbers quoted in the text; `bd_worked_numbers.py` prints the tables that have no figure) |
 | `momentum_deep_dive.md` | Mermaid diagrams; hand-authored SVG figures (`figures/*.svg`) |
+| `intraday_momentum.md` | Follow-up chapter to `momentum_deep_dive.md`. Mermaid diagrams; LaTeX math; matplotlib-generated SVG figures (`figures/im_*.py`, which also print the simulated and worked numbers quoted in §3.4, §3.6, §4.8, §6.2 and §7.7) |
 | `stochastic_processes.md` | LaTeX math; HTML gets an interactive canvas figure, PDF a static plot |
 | `trend_following.md` | Mermaid diagrams; LaTeX math; matplotlib-generated SVG figures (`figures/trend_*.py`) plus the shared `kernel_weights.svg` |
 | `market_regimes.md` | Mermaid diagrams; LaTeX math; ASCII figures; matplotlib-generated SVG figures (`figures/regime_*.py`, which also print the simulated tables quoted in the text) plus the shared `purged_split.svg` |

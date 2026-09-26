@@ -304,7 +304,7 @@ def main():
     cols = [GREY, RUST, TEAL, GREY, INK]
     ypos = np.arange(len(vals))
     ax.barh(ypos, vals, color=cols, alpha=0.75, height=0.62, edgecolor="none")
-    for y_, v in zip(ypos, vals):
+    for y_, v in zip(ypos, vals, strict=True):
         ax.text(v + 0.012, y_, f"{v:.2f}", va="center", fontsize=9.3, color=MUTED)
     ax.set_yticks(ypos)
     ax.set_yticklabels(names, fontsize=9.3, color=INK)
@@ -339,7 +339,7 @@ def main():
             f"{m['filt']:>7.2f}{m['pred']:>7.2f}{m['size']:>7.2f}{m['both']:>7.2f}"
             f"{m['acc']:>8.3f}{m['lag']:>6.1f}"
         )
-    print(f"\n  Turnover and strategy volatility (mild vol calibration, the realistic one):")
+    print("\n  Turnover and strategy volatility (mild vol calibration, the realistic one):")
     mv = ladder(*CALIBRATIONS[2][1:])
     print(
         f"    gate: mean |change in position| per day  {mv['turn_gate']:.4f}"

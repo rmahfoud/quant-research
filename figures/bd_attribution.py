@@ -73,7 +73,7 @@ def waterfall(ax, parts: dict[str, float], title: str) -> None:
     labels = [k for k in parts if k != "_total"]
     vals = [parts[k] for k in labels]
     running = np.concatenate([[0.0], np.cumsum(vals)])
-    for i, (lab, v) in enumerate(zip(labels, vals)):
+    for i, (_lab, v) in enumerate(zip(labels, vals, strict=True)):
         colour = TEAL if v >= 0 else RUST
         ax.bar(i, v, bottom=running[i], color=colour, width=0.62, edgecolor="white", lw=0.8)
         off = 0.9 if v >= 0 else -0.9
@@ -111,7 +111,7 @@ def waterfall(ax, parts: dict[str, float], title: str) -> None:
 def main() -> None:
     cases = [(0.025, "Yields rise 250bp"), (-0.015, "Yields fall 150bp")]
     fig, axes = plt.subplots(1, 2, figsize=(11.0, 4.5), sharey=True)
-    for ax, (dy, title) in zip(axes, cases):
+    for ax, (dy, title) in zip(axes, cases, strict=True):
         waterfall(ax, attribute(dy), title)
 
     fig.text(

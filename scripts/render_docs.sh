@@ -17,7 +17,7 @@ set -euo pipefail
 #
 # Paths in the markdown (quant-research/figures/..., quant-research/assets/...)
 # are resolved from the parent of this directory, so this folder must be named
-# quant-research (nested under Phoenix or as ~/src/quant-research).
+# quant-research.
 
 RED='\033[31m'
 GREEN='\033[32m'

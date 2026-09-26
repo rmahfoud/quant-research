@@ -266,7 +266,7 @@ def appendix_numbers() -> None:
     s_e, s_b = 0.16, 0.06
     for rho in (-0.3, 0.0, 0.3):
         w = np.array([0.6, 0.4])
-        vol = np.array([s_e, s_b])
+        np.array([s_e, s_b])
         cov = np.array([[s_e**2, rho * s_e * s_b], [rho * s_e * s_b, s_b**2]])
         var = float(w @ cov @ w)
         rc = w * (cov @ w) / var

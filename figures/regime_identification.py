@@ -129,7 +129,7 @@ def report(est, label):
 
 def panel(ax, samples, truths, labels, colors, places, xlabel, xlim):
     """places: (x-offset in points, y in axes fraction, horizontal alignment)."""
-    for v, truth, lab, col, (dx, yf, ha) in zip(samples, truths, labels, colors, places):
+    for v, truth, lab, col, (dx, yf, ha) in zip(samples, truths, labels, colors, places, strict=True):
         ax.hist(v, bins=44, range=xlim, color=col, alpha=0.55, edgecolor="none")
         ax.axvline(truth, color=col, linewidth=1.6, linestyle="--")
         ax.annotate(

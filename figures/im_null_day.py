@@ -216,7 +216,7 @@ def main() -> None:
     style(axL)
 
     grid = np.geomspace(1, 30, 200)
-    for s, color in zip(spreads, (TEAL, GOLD, RUST)):
+    for s, color in zip(spreads, (TEAL, GOLD, RUST), strict=True):
         var = (0.02**2) * grid / MINUTES
         half2 = (0.5 * s * 1e-4) ** 2
         axR.plot(grid, -half2 / (var + 2 * half2), color=color, lw=1.8, label=f"spread {s:g} bp")

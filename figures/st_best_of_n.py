@@ -64,7 +64,7 @@ def main() -> None:
         ax.plot(grid, theory, color=colour, lw=2.0, label=f"{years}-year backtest")
         sims = [simulate(n, years, 400 if n <= 200 else 120, rng) for n in marks]
         ax.scatter(marks, sims, s=24, color=colour, zorder=5, edgecolor="white", linewidth=0.6)
-        table[years] = [(n, se * expected_max_z(n), s) for n, s in zip(marks, sims)]
+        table[years] = [(n, se * expected_max_z(n), s) for n, s in zip(marks, sims, strict=True)]
 
     for level, text in (
         (0.5, "0.5: a respectable long-run equity Sharpe ratio"),

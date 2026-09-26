@@ -79,7 +79,7 @@ def main() -> None:
         "local volatility": float(smile(np.array(S1), S0)) + shift,
     }
     axL.plot([S0], [100 * atm0], "o", color=GREY, ms=5)
-    for (name, v), color in zip(atms.items(), (TEAL, GOLD, RUST)):
+    for (name, v), color in zip(atms.items(), (TEAL, GOLD, RUST), strict=True):
         axL.plot([S1], [100 * v], "o", color=color, ms=5)
     axL.axvline(S1, color=GREY, lw=0.8, ls=":")
     axL.set_xlim(82, 112)

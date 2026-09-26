@@ -229,7 +229,7 @@ def figure(d: dict[str, np.ndarray], series: list[tuple[str, np.ndarray]]) -> No
     x = months // 100 + (months % 100 - 0.5) / 12
     fig, axes = plt.subplots(4, 1, figsize=(7.8, 7.6), sharex=True)
     colours = [INK, GREY, TEAL, RUST]
-    for ax, (name, r), c in zip(axes, series, colours):
+    for ax, (name, r), c in zip(axes, series, colours, strict=True):
         under, mdd, longest, a, b = drawdown(r)
         ax.fill_between(x, under * 100, 0, color=c, alpha=0.28, lw=0)
         ax.plot(x, under * 100, color=c, lw=0.9)

@@ -1,7 +1,8 @@
-"""Static snapshot of the random-walk ensemble figure, for PDF output.
+"""
+Static snapshot of the random-walk ensemble figure, for PDF output.
 
 The HTML build uses an interactive canvas version of the same picture; this
-renders the equivalent still for LaTeX. Run from the repo root:
+renders the equivalent still for LaTeX. Run from the parent of this directory:
 
     uv run --no-project --with matplotlib python quant-research/figures/random_walk_ensemble.py
 """

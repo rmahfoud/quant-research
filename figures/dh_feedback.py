@@ -117,7 +117,7 @@ def main() -> None:
     print(
         f"{'kappa':>6} {'daily vol ratio':>16} {'theory':>8} {'bar vol ratio':>14} {'lag-1 autocorr':>15} {'VR theory':>10}"
     )
-    for k, ratio, bar, ac in zip(kappas, ratios, bar_ratios, acs):
+    for k, ratio, bar, ac in zip(kappas, ratios, bar_ratios, acs, strict=True):
         print(f"{k:6.2f} {ratio:16.3f} {1 / (1 + k):8.3f} {bar:14.3f} {ac:15.3f} {(1 - k) / (1 + k):10.3f}")
 
 

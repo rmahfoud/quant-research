@@ -743,4 +743,7 @@ go for the proofs, ordered roughly by how much measure theory they assume.
 
 ---
 
+These documents were generated in whole or in part with the help of a large language model.
+Dedicated to the public domain under the [CC0 1.0 Universal Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/).
+
 [Index](index.html) · [Source](https://github.com/rmahfoud/quant-research)

@@ -131,14 +131,14 @@ def main() -> None:
     grid = np.array([7, 30, 60, 91, 182, 365], dtype=float)
     for name, v0 in (("calm", 0.11**2), ("stressed", 0.45**2)):
         w = total_variance_index(grid, v0)
-        print(f"{name}: " + ", ".join(f"{int(d)}d {100 * v:.1f}%" for d, v in zip(grid, iv(w, grid))))
+        print(f"{name}: " + ", ".join(f"{int(d)}d {100 * v:.1f}%" for d, v in zip(grid, iv(w, grid), strict=True)))
     print(f"calm forward vol 30->91: {100 * fwd:.2f}%")
     w = total_variance_stock(np.array([19.0, 21.0, 30.0, 60.0, 91.0]))
     print(
         "stock: "
         + ", ".join(
             f"{int(d)}d {100 * v:.2f}%"
-            for d, v in zip((19, 21, 30, 60, 91), iv(w, np.array([19.0, 21.0, 30.0, 60.0, 91.0])))
+            for d, v in zip((19, 21, 30, 60, 91), iv(w, np.array([19.0, 21.0, 30.0, 60.0, 91.0])), strict=True)
         )
     )
 

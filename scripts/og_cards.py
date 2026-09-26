@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Draws the 1200×630 share card (Open Graph image) for documents, plus a site default.
+"""
+Draws the 1200×630 share card (Open Graph image) for documents, plus a site default.
 
 The card is what Slack, LinkedIn, X and iMessage show when a document's URL is
 pasted. Crawlers fetch it as a separate request and ignore data: URIs, so it is a
@@ -130,7 +131,7 @@ def balance(renderer: RendererAgg, text: str, prop: FontProperties, n_lines: int
     best, best_score = [text], float("inf")
     for cuts in combinations(range(1, len(words)), n_lines - 1):
         bounds = (0, *cuts, len(words))
-        lines = [" ".join(words[a:b]) for a, b in zip(bounds, bounds[1:])]
+        lines = [" ".join(words[a:b]) for a, b in zip(bounds, bounds[1:], strict=False)]
         widths = [measure(renderer, line, prop) for line in lines]
         if max(widths) > TEXT_WIDTH:
             continue

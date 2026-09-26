@@ -59,7 +59,7 @@ def main() -> None:
         ax.barh(y, data[:, i], left=left, color=colour, height=0.62, label=label, edgecolor="white", lw=0.7)
         left += data[:, i]
 
-    for yi, tot in zip(y, totals):
+    for yi, tot in zip(y, totals, strict=True):
         ax.text(tot + 0.12, yi, f"{tot:.2f}%", va="center", fontsize=9, color=INK, fontweight="bold")
 
     ax.set_yticks(y)

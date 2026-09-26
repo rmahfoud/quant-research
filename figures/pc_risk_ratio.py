@@ -126,7 +126,7 @@ def main() -> None:
         fig.savefig(f"{out}.{ext}", transparent=True, bbox_inches="tight")
 
     print(f"{'q':>6} {'pred/opt':>10} {'real/opt':>10} {'real/pred':>10} {'theory':>8}")
-    for q, p, r in zip(qs, pred_sim, real_sim):
+    for q, p, r in zip(qs, pred_sim, real_sim, strict=True):
         print(f"{q:6.2f} {p:10.3f} {r:10.3f} {r / p:10.3f} {1 / (1 - q):8.3f}")
 
 

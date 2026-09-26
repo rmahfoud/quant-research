@@ -95,7 +95,7 @@ def main() -> None:
     ax.axvline(0.0, color=GREY, lw=0.8, ls=":")
 
     print(f"{'scenario':40s} {'mean':>7} {'p5':>7} {'p95':>7}")
-    for (label, colour), yv in zip(order, ypos):
+    for (label, colour), yv in zip(order, ypos, strict=True):
         vals = np.array(rows[label])
         lo, hi = np.percentile(vals, [5, 95])
         ax.plot([lo, hi], [yv, yv], color=colour, lw=2.4, solid_capstyle="round")

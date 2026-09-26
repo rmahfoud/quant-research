@@ -60,7 +60,7 @@ def main() -> None:
 
     fig, (ax, bx) = plt.subplots(1, 2, figsize=(11.0, 4.3))
 
-    for (mat, label), c in zip(bonds, colours):
+    for (mat, label), c in zip(bonds, colours, strict=True):
         ax.plot(ys * 100, price(ys, mat, Y0), color=c, lw=1.9, label=label)
     p30, d30, c30 = risk(30.0, Y0)
     tangent = p30 * (1 - d30 * (ys - Y0))

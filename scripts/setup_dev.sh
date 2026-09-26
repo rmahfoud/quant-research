@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
 set -euo pipefail
 
-# Independent of the Phoenix parent project. Installs tools needed to render
-# quant-research docs (pandoc, mermaid-filter, rsvg-convert, TeX, uv).
+# Installs tools needed to render these docs
+# (pandoc, mermaid-filter, rsvg-convert, TeX, uv).
 
 QR_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$QR_DIR"

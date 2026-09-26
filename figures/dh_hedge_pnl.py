@@ -140,7 +140,7 @@ def main() -> None:
         )
     for vol in (0.10, 0.20, 0.30):
         print(f"expected pnl at realised {vol:.2f}: {premium - float(call_price(S0, T, vol)):+.4f}")
-    for steps, sd, approx in zip(steps_list, stds, dk):
+    for steps, sd, approx in zip(steps_list, stds, dk, strict=True):
         print(f"N={steps:4d}: sd {sd:.4f} ({100 * sd / premium:5.1f}% of premium), Derman-Kamal {approx:.4f}")
 
 

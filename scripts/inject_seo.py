@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Adds search metadata to rendered HTML documents and writes docs/sitemap.xml.
+"""
+Adds search metadata to rendered HTML documents and writes docs/sitemap.xml.
 
 Runs *after* pandoc, never as an --include-in-header: pandoc's
 --embed-resources fetches and inlines the target of any <link href> it finds, so
@@ -86,7 +87,8 @@ def attr(value: str) -> str:
 
 
 def share_card(docs_dir: pathlib.Path, site_url: str, slug: str) -> tuple[str, int, int] | None:
-    """(URL, width, height) of the page's share card from og_cards.py, if drawn.
+    """
+    (URL, width, height) of the page's share card from og_cards.py, if drawn.
 
     The URL carries a content hash: platforms cache images by URL, so a card
     redrawn after a title change would otherwise keep showing the old one.

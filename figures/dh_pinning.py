@@ -109,7 +109,7 @@ def main() -> None:
             f"{name:>5}: P(|close-K| < 0.10) = {np.mean(np.abs(x) < 0.10):.3f}, "
             f"P(< 0.25) = {np.mean(np.abs(x) < 0.25):.3f}, sd = {x.std():.3f}"
         )
-    s = np.array([K])
+    np.array([K])
     gamma_open = POSITION * math.exp(0) / (K * VOL * math.sqrt(DAY_YEARS)) / math.sqrt(2 * math.pi)
     print(
         f"dealer gamma at the strike at the open: {gamma_open:,.0f} shares per $1; "

@@ -2,6 +2,8 @@
 
 Markdown notes on quantitative topics, renderable to HTML and PDF.
 
+Published site: [rmahfoud.github.io/quant-research](https://rmahfoud.github.io/quant-research/)
+
 ## License
 
 These notes are dedicated to the public domain under the [CC0 1.0 Universal Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/). The legal text is in [LICENSE](LICENSE).
@@ -33,7 +35,7 @@ Examples:
 ./scripts/render_docs.sh all --figures
 ```
 
-Output lands in `docs/` (gitignored).
+Output lands in `docs/`.
 
 `--figures` regenerates plots under `figures/` before rendering. Those outputs are committed, so this is only needed after editing a generator.
 
@@ -60,7 +62,6 @@ Styling is shared across documents in `assets/eli5.html` (web) and
 | `dealer_hedging.md` | Mermaid diagrams; LaTeX math; matplotlib-generated SVG figures (`figures/dh_*.py`, which also print the worked and simulated numbers quoted in the text) |
 | `implied_volatility.md` | Mermaid diagrams; LaTeX math; matplotlib-generated SVG figures (`figures/iv_*.py`, which also print the worked and simulated numbers quoted in the text) |
 | `portfolio_construction.md` | Mermaid diagrams; LaTeX math; matplotlib-generated SVG figures (`figures/pc_*.py`, which also print the simulated numbers quoted in §2.1, §5.5 and §9.8) |
+| `value_at_risk.md` | Mermaid diagrams; LaTeX math; matplotlib-generated SVG figures (`figures/var_*.py`, which download daily data from the Kenneth French data library, pinned to data ending December 2025, and leave their committed outputs in place when offline; `figures/var_common.py` holds the shared estimators and, run directly, prints every backtest, simulation and worked-account number quoted in the text, including the output of the §14 recipe) |
 
 HTML output is a single self-contained file (offline-usable). PDF and HTML may diverge where a document uses format-specific figures.
-
-Published site: [rmahfoud.github.io/quant-research](https://rmahfoud.github.io/quant-research/)

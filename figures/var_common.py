@@ -148,8 +148,9 @@ def t_pdf(x: np.ndarray, nu: float) -> np.ndarray:
 
 
 def t_quantile(p: float, nu: float) -> float:
-    x = np.linspace(-200, 0, 2_000_001)
-    cdf = np.cumsum(t_pdf(x, nu)) * (x[1] - x[0])
+    x = np.linspace(-400, 0, 4_000_001)
+    f = t_pdf(x, nu)
+    cdf = np.concatenate([[0.0], np.cumsum((f[1:] + f[:-1]) / 2) * (x[1] - x[0])])
     cdf += 0.5 - cdf[-1]
     return float(-np.interp(1 - p, cdf, x)) if p > 0.5 else float(np.interp(p, cdf, x))
 
@@ -207,8 +208,8 @@ def binom_cdf(k: int, n: int, p: float) -> float:
 
 def ewma_cov(R: np.ndarray, lam: float = LAMBDA) -> np.ndarray:
     S = np.cov(R[:60], rowvar=False)
-    for x in R[60:]:
-        S = lam * S + (1 - lam) * np.outer(x, x)
+    for r in R[60:]:
+        S = lam * S + (1 - lam) * np.outer(r, r)
     return S
 
 

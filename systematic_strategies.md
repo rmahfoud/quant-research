@@ -154,7 +154,7 @@ retail implementation details — taxes, margin rules, account types — are for
 the United States as of September 2026; they change, and other jurisdictions
 differ materially. Numbers labelled *my calculation* come either from the
 Kenneth French data library or from simulations, with the generators in
-`figures/`; they illustrate mechanisms and are not recommendations of anything
+[`figures/`](https://github.com/rmahfoud/quant-research/tree/master/figures){target="_blank"}; they illustrate mechanisms and are not recommendations of anything
 tradeable. Where a source has a commercial interest in its own conclusion, I
 say so.
 
@@ -432,7 +432,7 @@ otherwise. Here it is applied to the US market and split with §1.5's identity.
 The data are the Kenneth French library's monthly total returns; the signal is
 computed at each month-end on the total-return index and held for the following
 month; cash earns the T-bill rate; there are no costs. This is my calculation,
-and the generator is `figures/st_factor_history.py`.
+and the generator is [`figures/st_factor_history.py`](https://github.com/rmahfoud/quant-research/blob/master/figures/st_factor_history.py){target="_blank"}.
 
 What the rule earned, split into its static and timing parts:
 

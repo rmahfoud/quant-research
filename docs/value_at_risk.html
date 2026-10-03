@@ -1603,12 +1603,11 @@ studies, and I say so where it matters. They use daily US equity returns
 from the Kenneth R. French data library: the value-weighted market from
 July 1926 to December 2025, and five of its value-weighted industry
 portfolios standing in for sector funds in a worked $100,000 account.
-The script that produces every such number and figure is
-<code>figures/var_common.py</code> in the source repository, with one
-<code>figures/var_*.py</code> per figure. One market and one century is
-not the world: the same exercise on currencies, rates or single stocks
-would move the numbers, though not, in my experience of the literature,
-the conclusions.</p>
+The script that produces every such number and figure is <a href="https://github.com/rmahfoud/quant-research/blob/master/figures/var_common.py" target="_blank"><code>figures/var_common.py</code></a> in the source
+repository, with one <a href="https://github.com/rmahfoud/quant-research/tree/master/figures" target="_blank"><code>figures/var_*.py</code></a> per figure. One market
+and one century is not the world: the same exercise on currencies, rates
+or single stocks would move the numbers, though not, in my experience of
+the literature, the conclusions.</p>
 <p><strong>A warning about scope.</strong> [Practice] Nothing here is
 investment advice. The worked account is an illustration chosen to make
 the arithmetic visible, not a recommended portfolio.</p>
@@ -6583,8 +6582,8 @@ pricing model, or exclude them and cover them with stress limits
 row per day, oldest first, and one column per holding; <code>pos</code>
 is the dollar value of each holding today, the vector <span class="math inline">\(x\)</span> of the notation. These are the
 functions <code>minimal_report</code> and <code>minimal_backtest</code>
-in <code>figures/var_common.py</code>, which produced every number in
-§14.3 and all but the replays in §10.7.</p>
+in <a href="https://github.com/rmahfoud/quant-research/blob/master/figures/var_common.py" target="_blank"><code>figures/var_common.py</code></a>, which produced
+every number in §14.3 and all but the replays in §10.7.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>LAM, Z95 <span class="op">=</span> <span class="fl">0.94</span>, <span class="fl">1.645</span></span>

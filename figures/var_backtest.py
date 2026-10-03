@@ -20,7 +20,20 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
-from var_common import GREY, INK, MUTED, RUST, TEAL, Z99, ewma_vol, fhs_var, hs_var, load_market, load_or_exit, year_fraction
+from var_common import (
+    GREY,
+    INK,
+    MUTED,
+    RUST,
+    TEAL,
+    Z99,
+    ewma_vol,
+    fhs_var,
+    hs_var,
+    load_market,
+    load_or_exit,
+    year_fraction,
+)
 
 OUT = Path(__file__).with_suffix("")
 

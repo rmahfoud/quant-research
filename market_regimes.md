@@ -105,7 +105,7 @@ stands alone.
 Untagged sentences are definitions, derivations, or arithmetic. Several results
 below come from simulations I ran while writing; those are labelled
 **[Simulated]** and the generating code is committed alongside this document in
-`figures/`, so you can disagree with my parameters and rerun.
+[`figures/`](https://github.com/rmahfoud/quant-research/tree/master/figures){target="_blank"}, so you can disagree with my parameters and rerun.
 
 ---
 
@@ -2125,7 +2125,7 @@ the right emission family, and the right state dynamics. Nothing is misspecified
 ```
 
 **[Simulated]** The numbers, with a 30-year arm added for scale. Both arms are
-printed by `figures/regime_identification.py`.
+printed by [`figures/regime_identification.py`](https://github.com/rmahfoud/quant-research/blob/master/figures/regime_identification.py){target="_blank"}.
 
 | Quantity | True | 10 years: mean (sd) | 30 years: mean (sd) |
 |---|---|---|---|
@@ -3609,7 +3609,7 @@ volatility and beats buy-and-hold by 0.50 − 0.42 = 0.08 Sharpe, which is
 $0.08 \times 0.150 \approx$ **118 basis points a year** gross — 118 rather than
 the 120 the rounded factors suggest, because the underlying Sharpe gap is 0.0785,
 not exactly 0.08. All four numbers are printed by
-`figures/regime_filtration.py`.
+[`figures/regime_filtration.py`](https://github.com/rmahfoud/quant-research/blob/master/figures/regime_filtration.py){target="_blank"}.
 
 | One-way cost | Annual cost | Net of 118 bp gross |
 |---|---|---|

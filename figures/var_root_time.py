@@ -44,7 +44,10 @@ def main() -> None:
     ax.text(4.42, 6.2, "dashed line: the 1% a correct ten-day 99% VaR delivers", fontsize=8.8, color=INK, ha="right")
     ax.set_xticks(range(5))
     ax.set_xticklabels(
-        [f"{label}\n(daily vol {v:.2f}%)" for label, v in zip(("calmest fifth", "2nd", "3rd", "4th", "most turbulent fifth"), vols, strict=True)]
+        [
+            f"{label}\n(daily vol {v:.2f}%)"
+            for label, v in zip(("calmest fifth", "2nd", "3rd", "4th", "most turbulent fifth"), vols, strict=True)
+        ]
     )
     ax.set_ylim(0, 6.8)
     ax.set_ylabel("ten-day breach rate, %", fontsize=9.5, color=MUTED)

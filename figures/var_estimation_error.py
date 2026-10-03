@@ -41,7 +41,16 @@ def main() -> None:
             lo, mid, hi = np.quantile(results[n][key], [0.05, 0.5, 0.95])
             xpos = i + (j - 1.5) * 0.19
             ax.plot([xpos, xpos], [lo, hi], color=colour, lw=5, alpha=0.75, solid_capstyle="butt")
-            ax.scatter([xpos], [mid], s=22, color="white", edgecolor=colour, linewidth=1.3, zorder=5, label=label if i == 0 else None)
+            ax.scatter(
+                [xpos],
+                [mid],
+                s=22,
+                color="white",
+                edgecolor=colour,
+                linewidth=1.3,
+                zorder=5,
+                label=label if i == 0 else None,
+            )
     ax.set_xticks(range(len(windows)))
     ax.set_xticklabels([f"{n} days\n({n / 250:g} yr)" for n in windows])
     ax.set_ylim(0.6, 1.4)

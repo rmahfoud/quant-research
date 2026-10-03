@@ -40,7 +40,13 @@ LAMBDA = 0.94
 # The worked account: five sector funds, dollars held.
 ACCOUNT = 100_000.0
 POSITIONS = {"HiTec": 40_000.0, "Hlth": 20_000.0, "Enrgy": 15_000.0, "Utils": 15_000.0, "Durbl": 10_000.0}
-LABELS = {"HiTec": "Technology", "Hlth": "Health care", "Enrgy": "Energy", "Utils": "Utilities", "Durbl": "Autos and durables"}
+LABELS = {
+    "HiTec": "Technology",
+    "Hlth": "Health care",
+    "Enrgy": "Energy",
+    "Utils": "Utilities",
+    "Durbl": "Autos and durables",
+}
 
 
 def fetch(name: str) -> str:
@@ -286,8 +292,10 @@ def unconditional(dates: np.ndarray, r: np.ndarray) -> None:
     for i in np.argsort(r)[:8]:
         print(f"    {dates[i]}: {r[i]:7.2%}  {z[i]:6.1f} sd  {r[i] / ew[i]:6.1f} conditional  (vol {ew[i]:.2%})")
     zc = r[1000:] / ew[1000:]
-    print(f"  EWMA-standardised returns from {dates[1000]}: sd {zc.std():.3f}  kurtosis {np.mean(((zc - zc.mean()) / zc.std()) ** 4):.1f}"
-          f"  95% {-np.quantile(zc, 0.05):.2f}  99% {-np.quantile(zc, 0.01):.2f}  99.9% {-np.quantile(zc, 0.001):.2f}")
+    print(
+        f"  EWMA-standardised returns from {dates[1000]}: sd {zc.std():.3f}  kurtosis {np.mean(((zc - zc.mean()) / zc.std()) ** 4):.1f}"
+        f"  95% {-np.quantile(zc, 0.05):.2f}  99% {-np.quantile(zc, 0.01):.2f}  99.9% {-np.quantile(zc, 0.001):.2f}"
+    )
     i = int(np.argmin(r))
     print(f"  worst day {dates[i]}: {r[i]:.2%} = {z[i]:.1f} sd")
     last = r[-500:]
@@ -319,7 +327,9 @@ def backtests(dates: np.ndarray, r: np.ndarray) -> None:
     start = 1000
     for level in (0.95, 0.99):
         p = 1 - level
-        print(f"\nOne-day {level:.0%} VaR backtest, {dates[start]}..{dates[-1]}, n={len(r) - start}, expected rate {p:.1%}")
+        print(
+            f"\nOne-day {level:.0%} VaR backtest, {dates[start]}..{dates[-1]}, n={len(r) - start}, expected rate {p:.1%}"
+        )
         print(
             f"{'method':<34}{'hits':>6}{'rate':>7}{'Kupiec p':>10}{'P(hit|hit)':>11}{'indep p':>9}"
             f"{'mean VaR':>10}{'VaR sd':>8}{'loss/VaR':>9}{'pinball':>9}"
@@ -337,7 +347,9 @@ def backtests(dates: np.ndarray, r: np.ndarray) -> None:
         m = (dates >= a) & (dates <= b)
         print(f"\n99% exceedances in {label} ({m.sum()} days, expected {0.01 * m.sum():.1f}):")
         for name, var in method_forecasts(r, 0.99).items():
-            print(f"  {name:<34}{int(np.sum(r[m] < -var[m])):4d}   95%: {int(np.sum(r[m] < -method_forecasts(r, 0.95)[name][m])):4d}")
+            print(
+                f"  {name:<34}{int(np.sum(r[m] < -var[m])):4d}   95%: {int(np.sum(r[m] < -method_forecasts(r, 0.95)[name][m])):4d}"
+            )
 
 
 def procyclicality(dates: np.ndarray, r: np.ndarray) -> None:
@@ -369,7 +381,9 @@ def root_time(dates: np.ndarray, r: np.ndarray) -> None:
     scaled = rh / (ew[idx] * math.sqrt(h))
     q1 = -np.quantile(r[start:], 0.01)
     print(f"\nSquare-root-of-time, {h}-day horizon, overlapping windows from {dates[start]}")
-    print(f"  unconditional: 1-day 99% {q1:.2%} x sqrt({h}) = {q1 * math.sqrt(h):.2%}; empirical {h}-day 99% {-np.quantile(rh, 0.01):.2%}")
+    print(
+        f"  unconditional: 1-day 99% {q1:.2%} x sqrt({h}) = {q1 * math.sqrt(h):.2%}; empirical {h}-day 99% {-np.quantile(rh, 0.01):.2%}"
+    )
     edges = np.quantile(ew[idx], [0.2, 0.4, 0.6, 0.8])
     bucket = np.searchsorted(edges, ew[idx])
     print("  10-day loss / (today's EWMA vol x sqrt(10)), by today's volatility quintile; normal says 1.64 and 2.33")
@@ -379,13 +393,17 @@ def root_time(dates: np.ndarray, r: np.ndarray) -> None:
             f"    quintile {b + 1}: mean vol {ew[idx][bucket == b].mean():.2%}   95%: {-np.quantile(s, 0.05):.2f}"
             f"   99%: {-np.quantile(s, 0.01):.2f}   breach rate of scaled 99% VaR: {np.mean(s < -Z99):.2%}"
         )
-    print(f"    all: 95%: {-np.quantile(scaled, 0.05):.2f}   99%: {-np.quantile(scaled, 0.01):.2f}   breach rate {np.mean(scaled < -Z99):.2%}")
+    print(
+        f"    all: 95%: {-np.quantile(scaled, 0.05):.2f}   99%: {-np.quantile(scaled, 0.01):.2f}   breach rate {np.mean(scaled < -Z99):.2%}"
+    )
 
 
 def tail_ratios() -> None:
     print("\nExpected shortfall against VaR, in units of the standard deviation")
     es_n = norm_pdf(1.95996) / 0.025
-    print(f"  normal: VaR99 {Z99:.3f}  ES97.5 {es_n:.3f}  ES99 {norm_pdf(Z99) / 0.01:.3f}  ES95 {norm_pdf(Z95) / 0.05:.3f}")
+    print(
+        f"  normal: VaR99 {Z99:.3f}  ES97.5 {es_n:.3f}  ES99 {norm_pdf(Z99) / 0.01:.3f}  ES95 {norm_pdf(Z95) / 0.05:.3f}"
+    )
     for nu in (3.0, 4.0, 5.0, 6.0, 10.0):
         s = math.sqrt((nu - 2) / nu)
         print(
@@ -399,14 +417,20 @@ def traffic_light() -> None:
     print("\nBasel traffic light, 250 days at 99%")
     for p in (0.01, 0.02, 0.03, 0.04):
         green, red = binom_cdf(4, 250, p), 1 - binom_cdf(9, 250, p)
-        print(f"  true breach rate {p:.0%}: P(green, <=4) {green:.1%}   P(yellow, 5-9) {1 - green - red:.1%}   P(red, >=10) {red:.2%}")
+        print(
+            f"  true breach rate {p:.0%}: P(green, <=4) {green:.1%}   P(yellow, 5-9) {1 - green - red:.1%}   P(red, >=10) {red:.2%}"
+        )
     for n in (250, 500):
         k = next(k for k in range(n) if 1 - binom_cdf(k - 1, n, 0.05) <= 0.05)
-        print(f"  95% model, n={n}: reject if hits >= {k}; power against a true 7.5%: {1 - binom_cdf(k - 1, n, 0.075):.0%}, against 10%: {1 - binom_cdf(k - 1, n, 0.10):.0%}")
+        print(
+            f"  95% model, n={n}: reject if hits >= {k}; power against a true 7.5%: {1 - binom_cdf(k - 1, n, 0.075):.0%}, against 10%: {1 - binom_cdf(k - 1, n, 0.10):.0%}"
+        )
     for n in (250, 500, 1000, 2500):
         for p1 in (0.02,):
             k = next(k for k in range(n) if 1 - binom_cdf(k - 1, n, 0.01) <= 0.05)
-            print(f"  n={n}: reject a 99% model at 5% if hits >= {k}; power against a true {p1:.0%}: {1 - binom_cdf(k - 1, n, p1):.0%}")
+            print(
+                f"  n={n}: reject a 99% model at 5% if hits >= {k}; power against a true {p1:.0%}: {1 - binom_cdf(k - 1, n, p1):.0%}"
+            )
 
 
 def estimation_error(trials: int = 20_000) -> dict[int, dict[str, np.ndarray]]:
@@ -449,9 +473,15 @@ def portfolio(names: list[str], dates: np.ndarray, rows: np.ndarray) -> None:
     print(f"  one-day sd ${rep['sigma']:,.0f}  normal VaR 95% ${rep['normal95']:,.0f}  99% ${rep['normal99']:,.0f}")
     print(f"  HS(500) VaR 95% ${rep['hs95']:,.0f}  99% ${rep['hs99']:,.0f}  ES 97.5% ${rep['es975']:,.0f}")
     print(f"  FHS(500) VaR 95% ${rep['fhs95']:,.0f}  99% ${rep['fhs99']:,.0f}")
-    print(f"  10-day 99% by root-time: ${rep['normal99'] * math.sqrt(10):,.0f} (normal)  ${rep['fhs99'] * math.sqrt(10):,.0f} (FHS)")
-    print(f"  sum of stand-alone 95% VaRs ${rep['standalone'].sum():,.0f}; diversification benefit ${rep['standalone'].sum() - rep['normal95']:,.0f}")
-    print(f"{'position':<22}{'dollars':>10}{'weight':>8}{'daily vol':>10}{'standalone':>12}{'component':>11}{'risk share':>11}{'tail-day loss':>14}{'tail share':>11}")
+    print(
+        f"  10-day 99% by root-time: ${rep['normal99'] * math.sqrt(10):,.0f} (normal)  ${rep['fhs99'] * math.sqrt(10):,.0f} (FHS)"
+    )
+    print(
+        f"  sum of stand-alone 95% VaRs ${rep['standalone'].sum():,.0f}; diversification benefit ${rep['standalone'].sum() - rep['normal95']:,.0f}"
+    )
+    print(
+        f"{'position':<22}{'dollars':>10}{'weight':>8}{'daily vol':>10}{'standalone':>12}{'component':>11}{'risk share':>11}{'tail-day loss':>14}{'tail share':>11}"
+    )
     S = ewma_cov(R)
     for i, k in enumerate(POSITIONS):
         print(
@@ -466,7 +496,9 @@ def portfolio(names: list[str], dates: np.ndarray, rows: np.ndarray) -> None:
     for i, k in enumerate(POSITIONS):
         p2 = pos.copy()
         p2[i] = 0
-        print(f"    without {LABELS[k]:<20} VaR ${Z95 * math.sqrt(p2 @ S @ p2):,.0f}  change ${Z95 * math.sqrt(p2 @ S @ p2) - rep['normal95']:,.0f}")
+        print(
+            f"    without {LABELS[k]:<20} VaR ${Z95 * math.sqrt(p2 @ S @ p2):,.0f}  change ${Z95 * math.sqrt(p2 @ S @ p2) - rep['normal95']:,.0f}"
+        )
 
     pnl = R @ pos
     print("  historical replays on today's dollar positions (one-day):")
@@ -474,18 +506,29 @@ def portfolio(names: list[str], dates: np.ndarray, rows: np.ndarray) -> None:
         i = int(np.where(dates == d)[0][0])
         print(f"    {d}: ${pnl[i]:,.0f} ({pnl[i] / pos.sum():.1%}) = {-pnl[i] / rep['normal95']:.1f}x today's 95% VaR")
     c = np.concatenate([[0.0], np.cumsum(pnl)])
-    for label, a, b in (("2000-03..2002-10", 20000324, 20021009), ("2007-10..2009-03", 20071009, 20090309), ("2020-02..2020-03", 20200219, 20200323), ("2022-01..2022-10", 20220103, 20221012)):
+    for label, a, b in (
+        ("2000-03..2002-10", 20000324, 20021009),
+        ("2007-10..2009-03", 20071009, 20090309),
+        ("2020-02..2020-03", 20200219, 20200323),
+        ("2022-01..2022-10", 20220103, 20221012),
+    ):
         ia, ib = int(np.searchsorted(dates, a)), int(np.searchsorted(dates, b))
         print(f"    {label}: ${c[ib + 1] - c[ia]:,.0f} (sum of daily P&L on constant dollar positions)")
     w20 = c[20:] - c[:-20]
     j = int(np.argmin(w20))
-    print(f"    worst 20-day window ever: ${w20[j]:,.0f} ending {dates[j + 19]}; worst since 2000: ${w20[np.searchsorted(dates, 20000101):].min():,.0f}")
+    print(
+        f"    worst 20-day window ever: ${w20[j]:,.0f} ending {dates[j + 19]}; worst since 2000: ${w20[np.searchsorted(dates, 20000101) :].min():,.0f}"
+    )
 
     sigma, v95, v99, es, comp = minimal_report(R, pos)
-    print(f"  minimal recipe: sd ${sigma:,.0f}  FHS VaR 95% ${v95:,.0f}  99% ${v99:,.0f}  ES 97.5% ${es:,.0f}  components {np.round(comp).astype(int).tolist()}")
+    print(
+        f"  minimal recipe: sd ${sigma:,.0f}  FHS VaR 95% ${v95:,.0f}  99% ${v99:,.0f}  ES 97.5% ${es:,.0f}  components {np.round(comp).astype(int).tolist()}"
+    )
     print(f"  ...as multiples of sd: {v95 / sigma:.2f} / {v99 / sigma:.2f} / {es / sigma:.2f}")
     for level, days in ((0.95, 500), (0.99, 500), (0.95, 2500), (0.99, 2500)):
-        print(f"  minimal backtest {level:.0%}, last {days} days: {minimal_backtest(R, pos, level, days)} hits (expected {days * (1 - level):.1f})")
+        print(
+            f"  minimal backtest {level:.0%}, last {days} days: {minimal_backtest(R, pos, level, days)} hits (expected {days * (1 - level):.1f})"
+        )
     print("  walk-forward backtest of the recipe on these positions, last 2500 days:")
     n = 2500
     port = R @ pos
@@ -502,7 +545,9 @@ def portfolio(names: list[str], dates: np.ndarray, rows: np.ndarray) -> None:
         hits = port[-n:] < -var[-n:]
         _, pk = kupiec(hits, 1 - level)
         p11, _, pi = christoffersen(hits)
-        print(f"    {name:<18} hits {hits.sum():4d} (expected {n * (1 - level):.0f})  Kupiec p {pk:.2g}  P(hit|hit) {p11:.1%}  indep p {pi:.2g}")
+        print(
+            f"    {name:<18} hits {hits.sum():4d} (expected {n * (1 - level):.0f})  Kupiec p {pk:.2g}  P(hit|hit) {p11:.1%}  indep p {pi:.2g}"
+        )
 
 
 def norm_cdf(x: float) -> float:
@@ -518,7 +563,9 @@ def bs_put(s: float, k: float, t: float, vol: float) -> tuple[float, float]:
 def option_example() -> None:
     s0, vol, t, shares = 100.0, 0.20, 30 / 365, 1000
     daily = vol / math.sqrt(252)
-    print(f"\nShort 10 put contracts ({shares} shares), spot {s0:.0f}, implied vol {vol:.0%}, 30 days; underlying daily vol {daily:.2%}")
+    print(
+        f"\nShort 10 put contracts ({shares} shares), spot {s0:.0f}, implied vol {vol:.0%}, 30 days; underlying daily vol {daily:.2%}"
+    )
     for k in (100.0, 90.0):
         price, delta = bs_put(s0, k, t, vol)
         dn = -delta * shares * s0 * Z99 * daily
@@ -549,9 +596,15 @@ def drawdown_multiple(dates: np.ndarray, r: np.ndarray) -> None:
         mdd_ratio.append(mdd / var95)
         worst_ratio.append(-r[m].min() / var95)
     q = np.quantile(mdd_ratio, [0.1, 0.25, 0.5, 0.75, 0.9])
-    print("\nWithin-calendar-year maximum drawdown of the US market as a multiple of that year's average one-day 95% VaR, 1930-2025")
-    print(f"  10/25/50/75/90th percentiles: {q[0]:.1f} / {q[1]:.1f} / {q[2]:.1f} / {q[3]:.1f} / {q[4]:.1f};  max {max(mdd_ratio):.1f}")
-    print(f"  median drawdown {np.median(mdds):.1%}; worst single day as a multiple of average VaR: median {np.median(worst_ratio):.1f}, 90th pct {np.quantile(worst_ratio, 0.9):.1f}")
+    print(
+        "\nWithin-calendar-year maximum drawdown of the US market as a multiple of that year's average one-day 95% VaR, 1930-2025"
+    )
+    print(
+        f"  10/25/50/75/90th percentiles: {q[0]:.1f} / {q[1]:.1f} / {q[2]:.1f} / {q[3]:.1f} / {q[4]:.1f};  max {max(mdd_ratio):.1f}"
+    )
+    print(
+        f"  median drawdown {np.median(mdds):.1%}; worst single day as a multiple of average VaR: median {np.median(worst_ratio):.1f}, 90th pct {np.quantile(worst_ratio, 0.9):.1f}"
+    )
 
 
 def cornish_fisher(r: np.ndarray) -> None:
@@ -588,13 +641,18 @@ def disclosure(names: list[str], dates: np.ndarray, rows: np.ndarray) -> None:
     pnl = R[start:] @ pos
     var_path = np.array(total)
     hits = pnl < -var_path
-    print(f"  2025 exceedances of this 95% VaR: {hits.sum()} of {len(pnl)} (expected {0.05 * len(pnl):.1f}); worst day {pnl.min():,.0f} on {dates[start + int(np.argmin(pnl))]}")
+    print(
+        f"  2025 exceedances of this 95% VaR: {hits.sum()} of {len(pnl)} (expected {0.05 * len(pnl):.1f}); worst day {pnl.min():,.0f} on {dates[start + int(np.argmin(pnl))]}"
+    )
 
     print("\nScenario matrix: one-day P&L by position under replayed days")
     days = (19871019, 20081015, 20200316, 20250404, 20220913)
     print(f"{'':<22}" + "".join(f"{d:>11}" for d in days))
     for i, k in enumerate(POSITIONS):
-        print(f"{LABELS[k]:<22}" + "".join(f"{pos[i] * rows[int(np.where(dates == d)[0][0]), cols[i]]:11,.0f}" for d in days))
+        print(
+            f"{LABELS[k]:<22}"
+            + "".join(f"{pos[i] * rows[int(np.where(dates == d)[0][0]), cols[i]]:11,.0f}" for d in days)
+        )
     print(f"{'total':<22}" + "".join(f"{R[int(np.where(dates == d)[0][0])] @ pos:11,.0f}" for d in days))
 
 

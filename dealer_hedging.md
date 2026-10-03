@@ -123,7 +123,7 @@ you should do:
 
 Untagged sentences are definitions, derivations, or arithmetic. Results from
 simulations I ran while writing are labelled **[Simulated]**; the generating code
-is committed alongside this document in `figures/dh_*.py`, and each script prints
+is committed alongside this document in [`figures/dh_*.py`](https://github.com/rmahfoud/quant-research/tree/master/figures){target="_blank"}, and each script prints
 the numbers quoted in the text, so you can change my parameters and rerun.
 
 ---
@@ -2511,7 +2511,7 @@ away. The figure simulates an expiry day with a stock starting near a strike car
 
 With no hedging dealers, 4.6% of simulated days close within 10 cents of the strike. With dealers
 long the strike, 12.2% do; with dealers short it, 0.9%. **[Simulated]**, with liquidity-limited
-hedging and parameters set out in `dh_pinning.py`.
+hedging and parameters set out in [`figures/dh_pinning.py`](https://github.com/rmahfoud/quant-research/blob/master/figures/dh_pinning.py){target="_blank"}.
 
 The theory is due to [Krishnan and Nelken (2001)](https://www.risk.net/infrastructure/1530420/effect-stock-pinning-upon-option-prices){target="_blank"} and [Avellaneda and Lipkin (2003)](https://www.cis.upenn.edu/~mkearns/finread/PinningPaper.pdf){target="_blank"}, who wrote down the
 price dynamics with a drift towards the strike that becomes singular as expiry approaches; [Jeannin,

@@ -56,74 +56,74 @@
     {
       "@type": "ListItem",
       "position": 2,
+      "name": "Stochastic Processes",
+      "url": "https://rmahfoud.github.io/quant-research/stochastic_processes.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
       "name": "Foundations of Econometrics",
       "url": "https://rmahfoud.github.io/quant-research/econometrics_foundations.html"
     },
     {
       "@type": "ListItem",
-      "position": 3,
-      "name": "Bonds and Bond Markets",
-      "url": "https://rmahfoud.github.io/quant-research/bond_markets.html"
-    },
-    {
-      "@type": "ListItem",
       "position": 4,
-      "name": "Systematic Trading Strategies",
-      "url": "https://rmahfoud.github.io/quant-research/systematic_strategies.html"
-    },
-    {
-      "@type": "ListItem",
-      "position": 5,
       "name": "Momentum in Financial Markets",
       "url": "https://rmahfoud.github.io/quant-research/momentum_deep_dive.html"
     },
     {
       "@type": "ListItem",
-      "position": 6,
-      "name": "Intraday Momentum",
-      "url": "https://rmahfoud.github.io/quant-research/intraday_momentum.html"
-    },
-    {
-      "@type": "ListItem",
-      "position": 7,
+      "position": 5,
       "name": "Trend-Following in Financial Markets",
       "url": "https://rmahfoud.github.io/quant-research/trend_following.html"
     },
     {
       "@type": "ListItem",
-      "position": 8,
+      "position": 6,
       "name": "Market Regimes and Machine Learning",
       "url": "https://rmahfoud.github.io/quant-research/market_regimes.html"
     },
     {
       "@type": "ListItem",
-      "position": 9,
+      "position": 7,
       "name": "Dealer Hedging and Gamma Exposure",
       "url": "https://rmahfoud.github.io/quant-research/dealer_hedging.html"
     },
     {
       "@type": "ListItem",
-      "position": 10,
+      "position": 8,
       "name": "Implied Volatility",
       "url": "https://rmahfoud.github.io/quant-research/implied_volatility.html"
     },
     {
       "@type": "ListItem",
-      "position": 11,
+      "position": 9,
+      "name": "Intraday Momentum",
+      "url": "https://rmahfoud.github.io/quant-research/intraday_momentum.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 10,
       "name": "Portfolio Construction and the Covariance Matrix",
       "url": "https://rmahfoud.github.io/quant-research/portfolio_construction.html"
     },
     {
       "@type": "ListItem",
-      "position": 12,
+      "position": 11,
       "name": "Value at Risk",
       "url": "https://rmahfoud.github.io/quant-research/value_at_risk.html"
     },
     {
       "@type": "ListItem",
+      "position": 12,
+      "name": "Bonds and Bond Markets",
+      "url": "https://rmahfoud.github.io/quant-research/bond_markets.html"
+    },
+    {
+      "@type": "ListItem",
       "position": 13,
-      "name": "Stochastic Processes",
-      "url": "https://rmahfoud.github.io/quant-research/stochastic_processes.html"
+      "name": "Systematic Trading Strategies",
+      "url": "https://rmahfoud.github.io/quant-research/systematic_strategies.html"
     }
   ]
 }
@@ -193,6 +193,14 @@
       border-bottom: 1px solid var(--line);
     }
 
+    .chapter {
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.1rem;
+    }
+
     .title {
       font-family: "Instrument Serif", Georgia, serif;
       font-size: 1.55rem;
@@ -259,10 +267,10 @@
     <header>
       <h1>Quant Research</h1>
       <p>
-        Notes on quantitative topics — econometrics, returns, bond markets,
-        systematic trading strategies, momentum, intraday momentum, trend-following,
-        market regimes, options dealer hedging, portfolio construction, value at
-        risk, stochastic processes, and related foundations — written
+        Notes on quantitative topics — returns, stochastic processes,
+        econometrics, momentum, trend-following, market regimes, options dealer
+        hedging, implied volatility, intraday momentum, portfolio construction,
+        value at risk, bond markets, and systematic trading strategies — written
         for practitioners who want the math and the evidence in one place.
         Each one opens with a plain-language summary, so you can see what it
         argues before deciding to read it.
@@ -271,6 +279,7 @@
 
     <nav aria-label="Documents">
       <article class="doc">
+        <div class="chapter">Chapter 1</div>
         <div class="title">Simple and Log Returns</div>
         <p class="desc">
           Why two return conventions exist, what each one is exactly right
@@ -283,6 +292,19 @@
         </div>
       </article>
       <article class="doc">
+        <div class="chapter">Chapter 2</div>
+        <div class="title">Stochastic Processes</div>
+        <p class="desc">
+          The formal definition unpacked ingredient by ingredient, with a
+          measure-theoretic appendix from σ-algebras up.
+        </p>
+        <div class="formats">
+          <a href="stochastic_processes.html">HTML</a>
+          <a href="stochastic_processes.pdf">PDF</a>
+        </div>
+      </article>
+      <article class="doc">
+        <div class="chapter">Chapter 3</div>
         <div class="title">Foundations of Econometrics</div>
         <p class="desc">
           Estimands, identification, and inference as one framework: what a
@@ -295,30 +317,7 @@
         </div>
       </article>
       <article class="doc">
-        <div class="title">Bonds and Bond Markets</div>
-        <p class="desc">
-          How bonds are priced, why they sell off and rally, and what they do to
-          a portfolio — Treasuries to defaulted credit, organised around one
-          decomposition of the yield.
-        </p>
-        <div class="formats">
-          <a href="bond_markets.html">HTML</a>
-          <a href="bond_markets.pdf">PDF</a>
-        </div>
-      </article>
-      <article class="doc">
-        <div class="title">Systematic Trading Strategies</div>
-        <p class="desc">
-          Why some strategy returns survive being widely known and most do not,
-          how an individual can run the durable ones after costs and taxes, and
-          how to tell an edge from a lucky backtest.
-        </p>
-        <div class="formats">
-          <a href="systematic_strategies.html">HTML</a>
-          <a href="systematic_strategies.pdf">PDF</a>
-        </div>
-      </article>
-      <article class="doc">
+        <div class="chapter">Chapter 4</div>
         <div class="title">Momentum in Financial Markets</div>
         <p class="desc">
           A first-principles tutorial covering measurement, taxonomy,
@@ -330,19 +329,7 @@
         </div>
       </article>
       <article class="doc">
-        <div class="title">Intraday Momentum</div>
-        <p class="desc">
-          A follow-up to the momentum tutorial: which of its ideas survive
-          inside a single trading session, the scheduled flows behind the
-          effects that do, and the costs and artefacts that sink most
-          intraday strategies.
-        </p>
-        <div class="formats">
-          <a href="intraday_momentum.html">HTML</a>
-          <a href="intraday_momentum.pdf">PDF</a>
-        </div>
-      </article>
-      <article class="doc">
+        <div class="chapter">Chapter 5</div>
         <div class="title">Trend-Following in Financial Markets</div>
         <p class="desc">
           What a trend rule actually earns, derived as an exact identity, and
@@ -355,6 +342,7 @@
         </div>
       </article>
       <article class="doc">
+        <div class="chapter">Chapter 6</div>
         <div class="title">Market Regimes and Machine Learning</div>
         <p class="desc">
           Why regime models identify volatility and never returns, and what
@@ -367,6 +355,7 @@
         </div>
       </article>
       <article class="doc">
+        <div class="chapter">Chapter 7</div>
         <div class="title">Dealer Hedging and Gamma Exposure</div>
         <p class="desc">
           How options dealers hedge and when their hedging moves prices, built
@@ -379,6 +368,7 @@
         </div>
       </article>
       <article class="doc">
+        <div class="chapter">Chapter 8</div>
         <div class="title">Implied Volatility</div>
         <p class="desc">
           What the number actually is — a price in volatility units, the
@@ -392,6 +382,21 @@
         </div>
       </article>
       <article class="doc">
+        <div class="chapter">Chapter 9</div>
+        <div class="title">Intraday Momentum</div>
+        <p class="desc">
+          A follow-up to the momentum tutorial: which of its ideas survive
+          inside a single trading session, the scheduled flows behind the
+          effects that do, and the costs and artefacts that sink most
+          intraday strategies.
+        </p>
+        <div class="formats">
+          <a href="intraday_momentum.html">HTML</a>
+          <a href="intraday_momentum.pdf">PDF</a>
+        </div>
+      </article>
+      <article class="doc">
+        <div class="chapter">Chapter 10</div>
         <div class="title">Portfolio Construction and the Covariance Matrix</div>
         <p class="desc">
           Why mean-variance optimisation destroys itself when fed sample
@@ -404,6 +409,7 @@
         </div>
       </article>
       <article class="doc">
+        <div class="chapter">Chapter 11</div>
         <div class="title">Value at Risk</div>
         <p class="desc">
           What a loss quantile can and cannot tell you: the methods compared
@@ -416,14 +422,29 @@
         </div>
       </article>
       <article class="doc">
-        <div class="title">Stochastic Processes</div>
+        <div class="chapter">Chapter 12</div>
+        <div class="title">Bonds and Bond Markets</div>
         <p class="desc">
-          The formal definition unpacked ingredient by ingredient, with a
-          measure-theoretic appendix from σ-algebras up.
+          How bonds are priced, why they sell off and rally, and what they do to
+          a portfolio — Treasuries to defaulted credit, organised around one
+          decomposition of the yield.
         </p>
         <div class="formats">
-          <a href="stochastic_processes.html">HTML</a>
-          <a href="stochastic_processes.pdf">PDF</a>
+          <a href="bond_markets.html">HTML</a>
+          <a href="bond_markets.pdf">PDF</a>
+        </div>
+      </article>
+      <article class="doc">
+        <div class="chapter">Chapter 13</div>
+        <div class="title">Systematic Trading Strategies</div>
+        <p class="desc">
+          Why some strategy returns survive being widely known and most do not,
+          how an individual can run the durable ones after costs and taxes, and
+          how to tell an edge from a lucky backtest.
+        </p>
+        <div class="formats">
+          <a href="systematic_strategies.html">HTML</a>
+          <a href="systematic_strategies.pdf">PDF</a>
         </div>
       </article>
     </nav>

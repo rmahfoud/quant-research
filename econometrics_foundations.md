@@ -138,7 +138,7 @@ should do:
 Untagged sentences are definitions, derivations, or arithmetic, true by construction
 rather than by evidence. Results from simulations I ran while writing are labelled
 **[Simulated]**. The generating code is committed alongside this document in
-`figures/em_*.py`, and each script prints the numbers quoted in the text, so you can
+[`figures/em_*.py`](https://github.com/rmahfoud/quant-research/tree/master/figures){target="_blank"}, and each script prints the numbers quoted in the text, so you can
 change the parameters and rerun.
 
 ---

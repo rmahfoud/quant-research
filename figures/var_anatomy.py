@@ -42,7 +42,9 @@ def main() -> None:
     ax.bar(centres[tail], counts[tail], width=230, color=RUST, alpha=0.85, lw=0)
 
     x = np.linspace(-6500, 6500, 600)
-    ax.plot(x, 500 * 250 * np.exp(-((x - pnl.mean()) ** 2) / (2 * sd**2)) / (sd * np.sqrt(2 * np.pi)), color=INK, lw=1.3)
+    ax.plot(
+        x, 500 * 250 * np.exp(-((x - pnl.mean()) ** 2) / (2 * sd**2)) / (sd * np.sqrt(2 * np.pi)), color=INK, lw=1.3
+    )
     ax.text(1500, 44, "normal curve with\nthe same standard deviation", fontsize=8.5, color=INK, va="center")
 
     top = counts.max() * 1.18

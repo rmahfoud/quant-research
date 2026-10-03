@@ -131,7 +131,7 @@ should do:
 Untagged sentences are definitions, derivations, or arithmetic. Numbers that come
 from simulations or stylised surfaces I built while writing are labelled
 **[Simulated]**; the generating code is committed alongside this document in
-`figures/iv_*.py`, and each script prints the numbers quoted in the text, so you can
+[`figures/iv_*.py`](https://github.com/rmahfoud/quant-research/tree/master/figures){target="_blank"}, and each script prints the numbers quoted in the text, so you can
 change the parameters and rerun.
 
 ---

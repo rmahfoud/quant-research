@@ -134,7 +134,7 @@ Hedging and Gamma Exposure](dealer_hedging.html) explains the option machinery t
 
 Untagged sentences are definitions, arithmetic, or institutional description.
 Numbers computed from the models in this document are labelled **[Computed]**; the
-generating code is committed alongside as `figures/bd_*.py`, and each script prints
+generating code is committed alongside as [`figures/bd_*.py`](https://github.com/rmahfoud/quant-research/tree/master/figures){target="_blank"}, and each script prints
 the numbers quoted in the text, so you can change the assumptions and rerun.
 
 ---

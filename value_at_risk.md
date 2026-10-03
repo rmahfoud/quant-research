@@ -98,7 +98,7 @@ it matters. They use daily US equity returns from the Kenneth R. French data
 library: the value-weighted market from July 1926 to December 2025, and five of
 its value-weighted industry portfolios standing in for sector funds in a worked
 \$100,000 account. The script that produces every such number and figure is
-`figures/var_common.py` in the source repository, with one `figures/var_*.py`
+[`figures/var_common.py`](https://github.com/rmahfoud/quant-research/blob/master/figures/var_common.py){target="_blank"} in the source repository, with one [`figures/var_*.py`](https://github.com/rmahfoud/quant-research/tree/master/figures){target="_blank"}
 per figure. One market and one century is not the world: the same exercise on
 currencies, rates or single stocks would move the numbers, though not, in my
 experience of the literature, the conclusions.
@@ -3896,7 +3896,7 @@ cover them with stress limits (§13.6). And anything illiquid.
 Pure numpy. `R` is an array of daily simple returns, one row per day, oldest
 first, and one column per holding; `pos` is the dollar value of each holding
 today, the vector $x$ of the notation. These are the functions
-`minimal_report` and `minimal_backtest` in `figures/var_common.py`, which
+`minimal_report` and `minimal_backtest` in [`figures/var_common.py`](https://github.com/rmahfoud/quant-research/blob/master/figures/var_common.py){target="_blank"}, which
 produced every number in §14.3 and all but the replays in §10.7.
 
 ```{=latex}

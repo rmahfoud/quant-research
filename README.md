@@ -50,9 +50,9 @@ Styling is shared across documents in [`assets/eli5.html`](https://github.com/rm
 
 | Chapter | Source | Notes |
 |---|---|---|
-| 1 | `log_returns.md` | Mermaid diagrams; LaTeX math; ASCII figures |
-| 2 | `stochastic_processes.md` | LaTeX math; HTML gets an interactive canvas figure, PDF a static plot |
-| 3 | `econometrics_foundations.md` | Mermaid diagrams; LaTeX math; ASCII figures; matplotlib-generated SVG figures ([`figures/em_*.py`](https://github.com/rmahfoud/quant-research/tree/master/figures), which also print the simulated numbers quoted in the text) |
+| 1 | `stochastic_processes.md` | LaTeX math; HTML gets an interactive canvas figure, PDF a static plot |
+| 2 | `econometrics_foundations.md` | Mermaid diagrams; LaTeX math; ASCII figures; matplotlib-generated SVG figures ([`figures/em_*.py`](https://github.com/rmahfoud/quant-research/tree/master/figures), which also print the simulated numbers quoted in the text) |
+| 3 | `log_returns.md` | Mermaid diagrams; LaTeX math; ASCII figures |
 | 4 | `momentum_deep_dive.md` | Mermaid diagrams; hand-authored SVG figures ([`figures/*.svg`](https://github.com/rmahfoud/quant-research/tree/master/figures)) |
 | 5 | `trend_following.md` | Mermaid diagrams; LaTeX math; matplotlib-generated SVG figures ([`figures/trend_*.py`](https://github.com/rmahfoud/quant-research/tree/master/figures)) plus the shared [`figures/kernel_weights.svg`](https://github.com/rmahfoud/quant-research/blob/master/figures/kernel_weights.svg) |
 | 6 | `market_regimes.md` | Mermaid diagrams; LaTeX math; ASCII figures; matplotlib-generated SVG figures ([`figures/regime_*.py`](https://github.com/rmahfoud/quant-research/tree/master/figures), which also print the simulated tables quoted in the text) plus the shared [`figures/purged_split.svg`](https://github.com/rmahfoud/quant-research/blob/master/figures/purged_split.svg) |

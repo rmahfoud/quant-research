@@ -1,8 +1,9 @@
 """
-Static snapshot of the random-walk ensemble figure, for PDF output.
+Static snapshot of the random-walk ensemble figure, for PDF and EPUB output.
 
 The HTML build uses an interactive canvas version of the same picture; this
-renders the equivalent still for LaTeX. Run from the parent of this directory:
+renders the equivalent still for the PDF and the e-book. Run from the parent of
+this directory:
 
     uv run --no-project --with matplotlib python quant-research/figures/random_walk_ensemble.py
 """
@@ -17,6 +18,8 @@ import numpy as np
 os.environ.setdefault("SOURCE_DATE_EPOCH", "1735689600")
 
 matplotlib.use("Agg")
+matplotlib.rcParams["svg.fonttype"] = "path"
+matplotlib.rcParams["svg.hashsalt"] = "random_walk_ensemble"
 import matplotlib.pyplot as plt  # noqa: E402
 
 INK = "#10171B"
@@ -38,7 +41,7 @@ def build_paths(seed: int = 20260801) -> np.ndarray:
     return walks
 
 
-def render(out_path: pathlib.Path) -> None:
+def render(out_stem: pathlib.Path) -> None:
     walks = build_paths()
     t = np.arange(STEPS + 1)
 
@@ -92,11 +95,12 @@ def render(out_path: pathlib.Path) -> None:
     )
 
     fig.tight_layout(pad=0.4)
-    fig.savefig(out_path, format="pdf", transparent=True)
+    for ext in ("pdf", "svg"):
+        out = out_stem.with_suffix(f".{ext}")
+        fig.savefig(out, transparent=True)
+        print(f"wrote {out}")
     plt.close(fig)
 
 
 if __name__ == "__main__":
-    out = pathlib.Path(__file__).parent / "random_walk_ensemble.pdf"
-    render(out)
-    print(f"wrote {out}")
+    render(pathlib.Path(__file__).with_suffix(""))

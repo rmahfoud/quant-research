@@ -22,31 +22,31 @@ lang: en
 \begin{eli5}
 ```
 
-**In one sentence.** A regression tells you how two things move together; turning that into "this causes that" needs an assumption the data can never check for you, and this document is about which assumption, how to argue for it, and how sure you are then allowed to be.
+**In one sentence.** A regression measures how two things move together; reading the result as "this causes that" requires an assumption that the data can never check, and this chapter is about which assumption that is, how to argue for it, and how much confidence the result then deserves.
 
-**1. A coefficient is not an effect** ([§1](#1-what-econometrics-is), [§3](#3-regression)). What a regression computes is a ratio: how much two things vary together, divided by how much one of them varies. That number always exists and always means something. Calling it "the effect of X on Y" is a separate claim about *why* X differs from row to row. If the firms that advertise more are also better run, the advertising coefficient is carrying both.
+**1. A coefficient is not an effect** ([§1](#1-what-econometrics-is), [§3](#3-regression)). A regression computes a ratio: how much two things vary together, divided by how much one of them varies. That number always exists and always means something. Calling it "the effect of advertising on sales" is a separate claim about *why* advertising differs from one firm to the next. If the firms that advertise more are also better run, the coefficient mixes the effect of advertising with the effect of good management.
 
-**2. Three questions, strictly in order** ([§1](#1-what-econometrics-is)). What exactly am I trying to measure? Can it be recovered at all from this data? How precisely has it been estimated? Errors flow downward and never upward: flawless statistics cannot rescue a quantity the data cannot identify, and no amount of data fixes the wrong target. Nearly all real disputes are about the first two questions, and nearly all the effort goes into the third.
+**2. Three questions, strictly in order** ([§1](#1-what-econometrics-is)). What exactly is being measured? Can it be recovered from this data at all? How precisely has it been estimated? Errors flow downward and never upward. Flawless statistics cannot rescue a quantity that the data cannot reveal, and no amount of data fixes the wrong target. Nearly all real disputes are about the first two questions, while nearly all the effort goes into the third.
 
-**3. Your residuals cannot warn you** ([§3](#3-regression)). This is the fact that surprises people most. The leftovers from a regression are *mathematically guaranteed* to be uncorrelated with the variables you regressed on — that is how the fitting works. So no residual plot and no diagnostic computed from the output can detect the problem that matters most. The evidence for it has to come from outside the regression entirely.
+**3. The leftovers cannot give a warning** ([§3](#3-regression)). This fact surprises people most. The leftovers from a regression are *mathematically guaranteed* to be unrelated to the variables in the regression, because that is how the fitting works. No plot and no diagnostic computed from the output can therefore detect the problem that matters most. The evidence about it has to come from outside the regression.
 
-**4. Two unrelated ways to be wrong** ([§1](#1-what-econometrics-is), [§4](#4-inference)). Being wrong about *why* the variation exists gives you a wrong answer. Being wrong about *how dependent* your observations are gives you a right answer with a fake error bar. Every standard-error correction you have heard of addresses the second, and none of them touches the first.
+**4. Two unrelated ways to be wrong** ([§1](#1-what-econometrics-is), [§4](#4-inference)). Being wrong about *why* the variation exists gives a wrong answer. Being wrong about *how closely* the observations depend on one another gives a right answer with a false error bar. Every standard correction to error bars addresses the second problem, and none of them touches the first.
 
-**5. Rows are not information** ([§2](#2-probability), [§4](#4-inference)). Precision depends on the number of genuinely independent pieces of information. A highly persistent series of 1,000 observations can be worth about 53 of them; forty years of overlapping twelve-month returns can be worth about forty. Grouped data are worse than they look: with fifty groups of a hundred and a within-group correlation of just 0.05, the naive standard error is 2.4 times too small.
+**5. Rows are not information** ([§2](#2-probability), [§4](#4-inference)). Precision depends on the number of truly independent pieces of information, not on the number of rows. A highly persistent series of 1,000 observations can be worth about 53 independent ones. Forty years of overlapping twelve-month returns are worth about forty. Grouped data are worse than they look. With fifty groups of a hundred and a within-group correlation of just 0.05, the naive error bar is 2.4 times too narrow.
 
-**6. An underpowered study does not merely miss things — it misleads** ([§4](#4-inference)). If your design can only detect effects much larger than the truth, then the only findings that clear the significance bar are the overestimates. Work out the smallest effect you *could* detect — roughly 2.8 standard errors — before you look at the result.
+**6. A weak study does more than miss things: it misleads** ([§4](#4-inference)). Suppose a study can detect only effects much larger than the truth. Then the only findings that clear the significance bar are the overestimates. Before looking at the result, work out the smallest effect the study *could* detect, which is roughly 2.8 times the typical size of its sampling error.
 
-**7. Controls create bias as easily as they remove it** ([§6](#6-endogeneity)). Control for a genuine common cause and you remove bias. Control for something sitting *between* cause and effect and you subtract away part of what you were measuring. Control for something that both variables influence and you can reverse the sign outright. Survivorship, database inclusion and any filter based on what happened later belong to that third category, and they are everywhere in financial data.
+**7. Controls create bias as easily as they remove it** ([§6](#6-endogeneity)). Controlling for a true common cause removes bias. Controlling for something that sits *between* the cause and the effect subtracts part of what was being measured. Controlling for something that both variables influence can reverse the sign outright. Survivorship, inclusion in a database, and any filter based on what happened later belong to that third category, and they are everywhere in financial data.
 
-**8. Two traps specific to time** ([§8](#8-time-series)). Regress one aimless wandering series on a completely unrelated one and you will usually find a "significant" relationship — and collecting more data makes this worse rather than better. And "Granger causality" is not causality: it says one series helps predict another, which is a statement about precedence.
+**8. Two traps specific to time** ([§8](#8-time-series)). Regress one aimlessly wandering series on a completely unrelated one, and the result usually shows a "significant" relationship. Collecting more data makes the problem worse, not better. And "Granger causality" is not causality. It says only that one series helps predict another, which is a statement about timing.
 
-**9. What machine learning does and does not change** ([§10](#10-prediction)). It is very good at "what happens next" and it is not a research design — it estimates things, it does not identify them, and feature importances describe the model rather than the world. Ordinary cross-validation also leaks badly here: walk forward, drop the overlapping labels, group by date, and treat a hyperparameter search as the pile of multiple tests it is.
+**9. What machine learning does and does not change** ([§10](#10-prediction)). Machine learning is very good at predicting what happens next. It is not a research design. It estimates things without establishing causes, and its feature importances describe the model, not the world. Ordinary cross-validation also leaks badly on financial data. Test only on data later than the training data, drop the overlapping labels, split by date, and treat a search over tuning settings as the pile of multiple tests it is.
 
-**10. Where results actually go wrong** ([§9](#9-financial-econometrics), [§11](#11-practice)). Mostly in the data: joins, units, timing, corporate actions, delistings. Plot everything before estimating anything. Published return predictors lose about a quarter of their edge out of sample and more than half after publication, and published test statistics bunch suspiciously just above the significance threshold — most of all in the designs that give the researcher the most freedom. The remedies are procedural: keep a log of everything you tried, and report the range of estimates across all the reasonable choices instead of a curated table of the flattering ones.
+**10. Where results actually go wrong** ([§9](#9-financial-econometrics), [§11](#11-practice)). Mostly in the data: joins, units, timing, corporate actions, and delistings. Plot everything before estimating anything. Published return predictors lose about a quarter of their edge out of sample, and more than half after publication. Published test statistics bunch suspiciously just above the significance threshold, most of all in the designs that give the researcher the most freedom. The remedies are procedural. Keep a log of everything tried, and report the range of estimates across all reasonable choices instead of a curated table of the flattering ones.
 
 ---
 
-**If you do only three things:** state what you are trying to measure before estimating anything, argue for identification from outside the regression rather than from its output, and count independent observations rather than rows.
+**If you do only three things:** state what is being measured before estimating anything; argue for the causal reading from outside the regression, not from its output; and count independent observations, not rows.
 
 ```{=latex}
 \end{eli5}
@@ -58,149 +58,91 @@ lang: en
 
 ---
 
-**What this is.** A first-principles tutorial on econometrics, meaning the methods for
-learning about economic and financial relationships from data that nobody designed
-as an experiment. It covers the foundations (what a regression actually estimates,
-and what probability theory contributes), the methods (the estimator family, the
-inference machinery, the research designs that turn correlations into causal
-claims, and time-series econometrics), and the practice (how empirical work goes
-wrong, and the working habits that stop it). The emphasis throughout is on
-intuition and use. Every formula is preceded by what it means and followed by a
-number, and every method is described by how it breaks as well as by how it works.
 
-**Who it is for.** A reader who is mathematically comfortable and technically
-strong but has not been trained as an econometrician, and who wants to *do*
-something with this material: run a regression and know what it means, evaluate an
-empirical claim, build a forecasting or signal-research pipeline that does not fool
-its builder, or read the empirical finance literature critically. Nothing is
-assumed beyond calculus, linear algebra, and the vocabulary of probability. Where a
-concept is used before it is fully explained, Appendix A builds it from the ground
-up.
+**What this is.** This chapter is a first-principles tutorial on econometrics: the methods for learning about economic and financial relationships from data that nobody designed as an experiment. It covers the foundations, meaning what a regression actually estimates and what probability theory contributes. It covers the methods: the estimator family, the inference machinery, the research designs that turn correlations into causal claims, and time-series econometrics. And it covers the practice: how empirical work goes wrong, and the working habits that prevent it. The emphasis throughout is on intuition and use. Each formula is preceded by what it means and followed by a number, and each method is described by how it breaks as well as by how it works.
 
-**How to read it.** The document has six parts.
+**Who it is for.** The chapter is for a reader who is mathematically comfortable and technically strong but has not been trained as an econometrician, and who wants to *do* something with the material. That might mean running a regression and knowing what it means, evaluating an empirical claim, building a forecasting or signal-research pipeline that does not fool its builder, or reading the empirical finance literature critically. Nothing is assumed beyond calculus, linear algebra, and the vocabulary of probability. Where a concept is used before it is fully explained, Appendix A builds it from the ground up.
 
-- **Part I (§1–§3): what econometrics is for.** §1 states the idea that organises
-  everything else, and nobody should skip it. §2 is the minimum probability you need;
-  skim it if you know the material, but read §2.2 and §2.5. §3 builds regression from
-  the conditional expectation function, and its §3.4 and §3.5 are the two results the
-  rest of the document leans on most.
-- **Part II (§4–§5): estimation and inference.** §4 is about standard errors, tests,
-  and the ways they mislead. It is the most practically important section for someone
-  who already runs regressions. §5 shows that OLS, instrumental variables, GMM, and
-  maximum likelihood are one estimator with different inputs.
-- **Part III (§6–§7): identification.** §6 is the anatomy of endogeneity, the reason
-  a regression coefficient differs from a causal effect. §7 surveys the research
-  designs that address it: experiments, instruments, panels, difference-in-differences,
-  regression discontinuity, synthetic control, and structural models.
-- **Part IV (§8): time series.** What changes when observations are ordered in time,
-  from autoregressions to unit roots, cointegration, VARs, volatility models, breaks,
-  and forecast evaluation.
-- **Part V (§9–§11): practice.** §9 covers the econometrics specific to finance:
-  predictive regressions, event studies, asset-pricing tests, panel standard errors,
-  and the replication debate. §10 is prediction, model selection, and machine
-  learning. §11 is workflow, reporting, and a catalogue of failure modes.
-- **Part VI (§12–§15): synthesis.** §12 collects the taxonomy and the equivalences, §13
-  is the history, §14 the synthesis and a decision tree, and §15 the references.
+**How to read it.** The chapter has six parts.
 
-If you read four things, read **§1.5–§1.6** (the master form and the sandwich),
-**§3.4–§3.5** (what "controlling for" does and what leaving something out costs),
-**§4.4** (why 5,000 observations can carry the information of 840), and **§6.5** (the
-controls that create bias rather than remove it). If you work on return prediction,
-add §2.5, §8.3, §9.2, and §10.6.
+- **Part I (§1–§3): what econometrics is for.** §1 states the idea that organises everything else, and no reader should skip it. §2 is the minimum probability needed. Readers who know the material can skim it, but should read §2.2 and §2.5. §3 builds regression from the conditional expectation function, and its §3.4 and §3.5 are the two results the rest of the chapter relies on most.
+- **Part II (§4–§5): estimation and inference.** §4 is about standard errors, tests, and the ways they mislead. For someone who already runs regressions, it is the most practically important section. §5 shows that OLS, instrumental variables, GMM, and maximum likelihood are one estimator with different inputs.
+- **Part III (§6–§7): identification.** §6 is the anatomy of endogeneity, the reason a regression coefficient differs from a causal effect. §7 surveys the research designs that address it: experiments, instruments, panels, difference-in-differences, regression discontinuity, synthetic control, and structural models.
+- **Part IV (§8): time series.** §8 covers what changes when observations are ordered in time, from autoregressions to unit roots, cointegration, VARs, volatility models, breaks, and forecast evaluation.
+- **Part V (§9–§11): practice.** §9 covers the econometrics specific to finance: predictive regressions, event studies, asset-pricing tests, panel standard errors, and the replication debate. §10 covers prediction, model selection, and machine learning. §11 covers workflow, reporting, and a catalogue of failure modes.
+- **Part VI (§12–§15): synthesis.** §12 collects the taxonomy and the equivalences, §13 is the history, §14 gives the synthesis and a decision tree, and §15 lists the references.
 
-**Relationship to the other notes.** [Simple and Log Returns](log_returns.html) §6
-treats the time-series econometrics of returns (unit roots, volatility models,
-cointegration, long-horizon predictive regressions) from the side of the return
-convention. This document supplies the general machinery behind it.
-[Market Regimes and Machine Learning](market_regimes.html) goes deep on structural
-breaks, regime-switching models, and time-series validation, which appear here only
-in outline (§8.7, §10.6). [Portfolio Construction and the Covariance
-Matrix](portfolio_construction.html) covers covariance estimation, shrinkage, and the
-statistics of Sharpe ratios. The momentum and trend-following notes apply the tools
-here to specific signals. Each note stands alone.
+Readers short of time should read four things: **§1.5–§1.6** (the master form and the sandwich), **§3.4–§3.5** (what "controlling for" does, and what leaving something out costs), **§4.4** (why 5,000 observations can carry the information of 840), and **§6.5** (the controls that create bias instead of removing it). Readers who work on return prediction should add §2.5, §8.3, §9.2, and §10.6.
 
-**A warning about scope.** [Practice] Nothing here is investment advice. The
-numerical illustrations are simulations built to isolate one mechanism at a time,
-not evidence about any market. Where a number comes from my own simulation rather
-than a published study, I say so.
+**Objectives.** After this chapter, you should be able to:
 
-**Epistemic tags.** Claims are flagged by status where the status changes what you
-should do:
+- ask the three questions of any empirical claim (what is the estimand, is it identified, how precisely is it estimated) and answer them in order;
+- write an estimator as a moment condition, and derive its standard error from the sandwich formula;
+- explain what "controlling for" a variable does, and compute the bias from omitting one;
+- choose a standard error that matches the dependence in the data, and count the independent observations behind it;
+- pick a research design for a causal question, and name the way that design characteristically fails;
+- recognise the traps specific to time series and financial data: spurious regression, persistent predictors, overlapping horizons, and multiple testing.
 
-- **[Fact]**: a mathematical result, or an empirical finding that has been replicated or
-  independently reanalysed, with broad agreement among people who have looked.
-- **[Contested]**: documented, but with live disagreement about magnitude,
-  robustness, or cause.
-- **[Hypothesis]**: a proposed mechanism, not decisively tested.
-- **[Practice]**: practitioner or professional convention. It may well be right, but
-  the evidence for it is informal or absent.
+**Relationship to the other notes.** [Simple and Log Returns](log_returns.html) §6 treats the time-series econometrics of returns (unit roots, volatility models, cointegration, and long-horizon predictive regressions) from the side of the return convention. This chapter supplies the general machinery behind it. [Market Regimes and Machine Learning](market_regimes.html) goes deep on structural breaks, regime-switching models, and time-series validation, which appear here only in outline (§8.7, §10.6). [Portfolio Construction and the Covariance Matrix](portfolio_construction.html) covers covariance estimation, shrinkage, and the statistics of Sharpe ratios. The momentum and trend-following notes apply the tools of this chapter to specific signals. Each note stands alone.
 
-Untagged sentences are definitions, derivations, or arithmetic, true by construction
-rather than by evidence. Results from simulations I ran while writing are labelled
-**[Simulated]**. The generating code is committed alongside this document in
-[`figures/em_*.py`](https://github.com/rmahfoud/quant-research/tree/master/figures){target="_blank"}, and each script prints the numbers quoted in the text, so you can
-change the parameters and rerun.
+**A warning about scope.** Nothing here is investment advice. The numerical illustrations are simulations built to isolate one mechanism at a time, not evidence about any market. Where a number comes from a simulation run for this chapter rather than from a published study, the text says so.
+
+**Epistemic tags.** The chapters in this collection flag claims by status where the status changes what a reader should do:
+
+- **[Fact]** — a mathematical result, or an empirical finding that has been replicated or independently reanalysed, with broad agreement among those who have examined it.
+- **[Contested]** — documented, but with live disagreement about magnitude, robustness, or cause.
+- **[Hypothesis]** — a proposed mechanism, not decisively tested.
+- **[Practice]** — practitioner or professional convention; the evidence may be informal or absent. A [Practice] claim is not a debunked one.
+
+A tag governs the sentence or clause it opens. Untagged sentences are definitions, derivations, or arithmetic, true by construction rather than by evidence. A fifth label, **[Simulated]**, marks results from simulations run for this chapter. It records provenance, not epistemic status. The generating code is committed alongside this chapter in [`figures/em_*.py`](https://github.com/rmahfoud/quant-research/tree/master/figures){target="_blank"}, and each script prints the numbers quoted in the text, so the parameters can be changed and the scripts rerun.
 
 ---
 
-**Notation.** Units of observation are indexed by $i = 1, \dots, n$ in a
-cross-section and by $t = 1, \dots, T$ in a time series. A panel has $N$ units observed
-over $T$ periods. Data can be grouped into $G$ **clusters** indexed by $g$, with $n_g$
-observations in cluster $g$.
+**Notation.** The table lists the symbols that recur in the chapter, with the section that defines or first uses each. Symbols used in a single derivation or appendix entry are defined where they appear.
 
-$Y_i$ is an outcome. $X_i \in \mathbb{R}^k$ is a column vector of $k$ regressors,
-usually including a constant, so $X_i'\beta$ is a scalar (a prime denotes transpose).
-Bold capitals stack observations: $\mathbf{X}$ is the $n \times k$ matrix whose rows
-are $X_i'$, and $\mathbf{Y}$ is the $n$-vector of outcomes. The one exception is §8.5, where bold lowercase letters are
-vectors of several time series at one date and plain capitals are coefficient matrices, as is
-standard for vector autoregressions. $Z_i \in \mathbb{R}^\ell$
-is a vector of $\ell \ge k$ **instruments**, and $C_i$ is a control variable. A hat
-denotes an estimate ($\hat\beta$), a bar a sample average ($\bar Y$), and a subscript
-zero the true value of a generic parameter vector $\theta$ ($\theta_0$).
+| Symbol | Meaning | Defined in |
+|---|---|---|
+| $i = 1, \dots, n$; $t = 1, \dots, T$ | Units in a cross-section; dates in a time series | §1.5, §2.5 |
+| $N$; $T$ | In a panel, the number of units and of periods | §7.4 |
+| $G$; $g$; $n_g$, $\bar n_g$ | Number of **clusters**; cluster index; observations in cluster $g$, and the average cluster size | §2.5, §4.4 |
+| $Y_i$ | Outcome | §1.5 |
+| $X_i \in \mathbb{R}^k$ | Column vector of $k$ regressors, usually including a constant, so $X_i'\beta$ is a scalar; a prime denotes transpose | §1.5 |
+| $\mathbf{X}$; $\mathbf{Y}$ | The $n \times k$ matrix whose rows are $X_i'$; the $n$-vector of outcomes | §3.3 |
+| $Z_i \in \mathbb{R}^\ell$ | Vector of $\ell \ge k$ **instruments** | §1.5, §5.2 |
+| $C_i$ | A control variable | §3.5 |
+| $\theta$; $\theta_0$ | Generic parameter vector; its true value | §1.5 |
+| $\hat{\ }$; $\bar{\ }$ | Estimate ($\hat\beta$); sample average ($\bar Y$) | — |
+| $\beta$; $\beta_s$ | Linear projection coefficient; structural (causal) coefficient | §3.2 |
+| $e_i$; $\hat e_i$ | **Projection error**, uncorrelated with $X_i$ by construction; regression residual | §3.2, §3.3 |
+| $u_i$ | **Structural error**: the unobserved part of an equation meant to describe how $Y_i$ is generated | §3.2 |
+| $\varepsilon_t$ | White-noise innovation in a time-series model | §8.2 |
+| $m(x)$; $\epsilon_i$ | **Conditional expectation function** (CEF) $\mathbb{E}[Y_i \mid X_i = x]$; CEF error $Y_i - m(X_i)$, mean-independent of $X_i$ by construction | §3.1 |
+| $D_i$; $Y_i(1)$, $Y_i(0)$; $\tau_i$ | Binary treatment; **potential outcomes** with and without treatment; unit-level effect $Y_i(1) - Y_i(0)$ | §6.1 |
+| $\psi_i(\theta)$ | Moment function: $\mathbb{E}[\psi_i(\theta_0)] = 0$ defines the estimator | §1.5 |
+| $Q$; $\Omega$ | **Bread**, $\mathbb{E}[\partial\psi_i(\theta_0)/\partial\theta']$; **meat**, the long-run variance of $n^{-1/2}\sum_i\psi_i(\theta_0)$ | §1.6 |
+| $Q_{XX}$ | $\mathbb{E}[X_iX_i']$ | §1.6 |
+| $W$ | GMM weighting matrix | §5.3 |
+| $\mathcal{F}_t$ | Information available at time $t$ | §1.4 |
+| $\alpha$; $\alpha_i$; $\lambda_t$ | Intercept; unit fixed effect; time fixed effect | §3.5, §7.4 |
+| $\gamma$; $\delta$ | In the omitted-variable formula: effect of the omitted variable; its projection coefficient on the included regressor | §3.5 |
+| $\pi$; $F$ | First-stage coefficient in IV; first-stage $F$-statistic | §7.3 |
+| $\kappa$ | Regularisation penalty | §5.6, §10.4 |
+| $\phi$; $\rho_j$ | Autoregressive coefficient; autocorrelation at lag $j$ | §2.3, §2.5 |
+| $h$; $L$ | Forecast or return horizon; HAC bandwidth (number of lags) | §2.5, §4.5 |
+| $\rho_u$; $\rho_x$ | **Intra-cluster** correlations of the error and of the regressor | §4.4 |
+| $n_{\text{eff}}$ | Effective sample size | §2.5 |
+| $\sigma^2$; $\sigma_t^2$ | Error variance; conditional variance | §2.4, §8.6 |
+| $\omega$, $a$, $b$ | GARCH parameters | §8.6 |
+| $R^2$; $R^2_{\text{OS}}$ | In-sample fit; out-of-sample $R^2$ against the historical mean | §3.8 |
+| $\Phi$; $\varphi$ | Standard normal distribution function; standard normal density | §12.2, [A.11](#a11) |
+| $\mathbb{1}\{\cdot\}$ | Indicator of the condition in braces | §1.5 |
+| $\xrightarrow{p}$; $\xrightarrow{d}$; $\operatorname{plim}$ | Convergence in probability; convergence in distribution; probability limit | §2.3, §3.5 |
+| $\operatorname{Avar}$; $\operatorname{se}(\cdot)$ | Asymptotic variance; standard error | §1.6, §4.1 |
+| $\mathrm{SR}$ | Sharpe ratio | §2.6 |
 
-Two error terms are kept strictly apart, because the distinction between them carries
-much of §1 and §3. $e_i$ is the **projection error**, defined as whatever is left of
-$Y_i$ after the best linear prediction from $X_i$. It is uncorrelated with $X_i$ *by
-construction* (§3.2). $u_i$ is a **structural error**, the unobserved part of an
-equation that is meant to describe how $Y_i$ is actually generated, such as a causal
-or behavioural relationship. Whether $u_i$ is uncorrelated with $X_i$ is an
-*assumption*. $\hat e_i$ is a regression residual. $\varepsilon_t$ is a
-white-noise innovation in a time-series model.
+Two error terms are kept strictly apart, because the distinction between them carries much of §1 and §3. The projection error $e_i$ is whatever is left of $Y_i$ after the best linear prediction from $X_i$, and it is uncorrelated with $X_i$ *by construction* (§3.2). Whether the structural error $u_i$ is uncorrelated with $X_i$ is an *assumption*. The CEF error $\epsilon_i$ has a stronger property than $e_i$: it is mean-independent of $X_i$, not merely uncorrelated with it, per the hierarchy of §2.2.
 
-$m(x) = \mathbb{E}[Y_i \mid X_i = x]$ is the **conditional expectation function**
-(CEF), and $\epsilon_i = Y_i - m(X_i)$ its **CEF error**: mean-independent of $X_i$ by
-construction (§3.1), a stronger property than $e_i$'s mere uncorrelatedness above, per
-the hierarchy of §2.2. In causal settings $D_i \in \{0, 1\}$ is a treatment indicator, $Y_i(1)$ and
-$Y_i(0)$ are **potential outcomes** with and without treatment, and $\tau_i = Y_i(1) -
-Y_i(0)$ is the unit-level treatment effect (§6.1).
-
-The master form of §1.5 writes an estimator as the solution of a **moment condition**
-$\mathbb{E}[\psi_i(\theta_0)] = 0$, where $\psi_i(\theta)$ is a function of unit $i$'s
-data and the parameter. $Q = \mathbb{E}[\partial\psi_i(\theta_0)/\partial\theta']$ is its
-**Jacobian** (the "bread"), and $\Omega$ is the long-run variance of the scaled moment
-sum $n^{-1/2}\sum_i\psi_i(\theta_0)$ (the "meat"). $W$ is a GMM weighting
-matrix. $Q_{XX} = \mathbb{E}[X_iX_i']$.
-
-In regressions, $\alpha$ is an intercept, $\alpha_i$ a unit fixed effect, and
-$\lambda_t$ a time fixed effect. In the omitted-variable formula of §3.5, $\gamma$ is
-the effect of the omitted variable and $\delta$ its projection coefficient on the
-included regressor. $\pi$ is a first-stage coefficient in instrumental variables and
-$F$ the first-stage $F$-statistic. $\kappa$ is a regularisation penalty (§5.6, §10.4).
-
-In time series, $\phi$ is an autoregressive coefficient, $\rho_j$ the autocorrelation
-at lag $j$, and $h$ a forecast or return horizon. $\rho_u$ and $\rho_x$, with letter
-subscripts, are **intra-cluster** correlations of the error and the regressor (§4.4).
-$\sigma^2$ is an error variance and $\sigma_t^2$ a conditional variance. The GARCH
-parameters of §8.6 are written $\omega, a, b$ rather than the literature's $\omega,
-\alpha, \beta$, so that $\alpha$ and $\beta$ keep their regression meanings.
-$n_{\text{eff}}$ is an effective sample size.
-
-$\Phi$ and $\varphi$ are the standard normal distribution and density functions.
-$\mathbb{1}\{\cdot\}$ is an indicator. $\xrightarrow{p}$ and $\xrightarrow{d}$ denote
-convergence in probability and in distribution, $\operatorname{plim}$ a probability
-limit, and $\operatorname{Avar}$ an asymptotic variance. $\operatorname{se}(\cdot)$ is a
-standard error and $\mathrm{SR}$ a Sharpe ratio. Significance levels are written as
-percentages and have no symbol.
+Three notational conventions need a warning. In §8.5 only, bold lowercase letters are vectors of several time series at one date and plain capitals are coefficient matrices, as is standard for vector autoregressions. The GARCH parameters of §8.6 are written $\omega, a, b$ instead of the literature's $\omega, \alpha, \beta$, so that $\alpha$ and $\beta$ keep their regression meanings. And significance levels are written as percentages, with no symbol.
 
 ---
 
@@ -255,141 +197,53 @@ percentages and have no symbol.
 
 ## 1.1 The wrong intuition
 
-Here is the picture most people arrive with:
+Most readers arrive with a picture like this one:
 
 > *Econometrics is statistics applied to economic data. You regress an outcome on the
 > variables you think matter, check which coefficients are significant, and read each
 > significant coefficient as the effect of its variable.*
 
-Every clause is defensible on its own, and the sentence as a whole is badly wrong in
-three specific ways. Each one corresponds to a part of this document.
+Each clause is defensible on its own, but the sentence as a whole is wrong in three specific ways. Each way corresponds to a part of this chapter.
 
-**A regression coefficient is not an effect.** A coefficient summarises how the
-average outcome differs between units whose regressor differs, after a linear
-adjustment for the other regressors. It becomes an *effect*, meaning what would happen
-if you changed the regressor, only under an assumption about *why* the regressor
-differs across units. Take firms that buy back their own shares. A regression of
-subsequent returns on a buyback indicator compares firms that chose to repurchase with
-firms that did not. Managers tend to repurchase when they believe their stock is cheap,
-so the coefficient mixes any effect of the buyback itself with the private information
-that prompted it. Both components are economically interesting, and they call for
-opposite conclusions. Separating them is the subject of Part III.
+**A regression coefficient is not an effect.** A coefficient summarises how the average outcome differs between units whose regressor differs, after a linear adjustment for the other regressors. It becomes an *effect*, meaning what would happen if the regressor were changed, only under an assumption about *why* the regressor differs across units. Consider firms that buy back their own shares. A regression of subsequent returns on a buyback indicator compares firms that chose to repurchase with firms that did not. Managers tend to repurchase when they believe their stock is cheap. The coefficient therefore mixes any effect of the buyback itself with the private information that prompted it. Both components are economically interesting, and they call for opposite conclusions. Part III is about separating them.
 
-**Significance is neither truth nor importance.** A $t$-statistic is an estimate
-divided by its standard error, and the standard error is computed under an assumed
-model of how the sample could have come out differently. Get that model wrong, for
-instance by ignoring that observations share shocks, that returns overlap, or that
-twenty specifications were tried before this one, and the $t$-statistic is off by
-*factors*, not decimals (§4). Separately, a precisely estimated effect can be
-economically trivial, and an important effect can be imprecisely estimated.
+**Significance is neither truth nor importance.** A $t$-statistic is an estimate divided by its standard error. The standard error is computed under an assumed model of how the sample could have come out differently. If that model is wrong, the $t$-statistic is off by *factors*, not decimals (§4). Common ways to get the model wrong are to ignore that observations share shocks, that returns overlap, or that twenty specifications were tried before this one. Separately, a precisely estimated effect can be economically trivial, and an important effect can be imprecisely estimated.
 
-**The hard part is not the fitting.** A regression takes microseconds to compute. The
-intellectual content of econometrics is the argument connecting the number the
-computer produces to the question being asked, and that argument is about the process
-that *generated* the data, not about the data themselves. This is why two competent
-econometricians can run the same regression on the same data and disagree completely
-about what it means. They are not disagreeing about arithmetic. They disagree about the
-data-generating process.
+**The hard part is not the fitting.** A regression takes microseconds to compute. The intellectual content of econometrics is the argument that connects the computed number to the question being asked. That argument concerns the process that *generated* the data, not the data themselves. This is why two competent econometricians can run the same regression on the same data and disagree completely about what it means. They agree about the arithmetic and disagree about the data-generating process.
 
-The profession's own reckoning with the naive picture came from a clean test. In the
-1970s the National Supported Work Demonstration randomly assigned disadvantaged workers
-to a job-training programme, so its true effect on earnings was known from the
-experiment. [LaLonde (1986)](https://ideas.repec.org/a/aea/aecrev/v76y1986i4p604-20.html){target="_blank"} set aside the experimental control group, substituted
-comparison samples drawn from standard household surveys, and applied the
-non-experimental estimators that economists were then using to evaluate training
-programmes. **[Fact]** The resulting estimates were scattered widely around the
-experimental benchmark, many of them far off and some with the wrong sign, and the
-specification tests of the day did not reliably separate the good estimates from the
-bad. That paper is a large part of why the field now talks about research design
-before it talks about estimators (§13).
+The profession's own reckoning with the naive picture came from a clean test. In the 1970s the National Supported Work Demonstration randomly assigned disadvantaged workers to a job-training programme, so the experiment revealed the programme's true effect on earnings. [LaLonde (1986)](https://ideas.repec.org/a/aea/aecrev/v76y1986i4p604-20.html){target="_blank"} set aside the experimental control group and substituted comparison samples drawn from standard household surveys. LaLonde then applied the non-experimental estimators that economists were using at the time to evaluate training programmes. [Fact] The resulting estimates scattered widely around the experimental benchmark. Many were far off, and some had the wrong sign. The specification tests of the day did not reliably separate the good estimates from the bad ones. That paper is a large part of why the field now discusses research design before it discusses estimators (§13).
 
-The better mental model:
+A better mental model:
 
-> **Econometrics is the discipline of stating, and defending, the conditions under
-> which a number computed from data answers a question about the world. The
-> computation is easy and is almost always a valid answer to *some* question. The work
-> is making it an answer to yours.**
+> **Econometrics is the discipline of stating, and defending, the conditions under which a number computed from data answers a question about the world. The computation is easy, and it is almost always a valid answer to *some* question. The work lies in making it an answer to the question actually asked.**
 
 ## 1.2 The problem: data that nobody randomised
 
-A physicist who wants to know how a spring responds to force can apply the force. An
-economist who wants to know how earnings respond to schooling cannot assign schooling,
-and a financial economist who wants to know how prices respond to index inclusion
-cannot assign stocks to indices. Almost all economic and financial data are
-**observational**: they record the outcomes of decisions made by people and firms
-pursuing their own ends.
+A physicist who wants to know how a spring responds to force can apply the force. An economist who wants to know how earnings respond to schooling cannot assign schooling. A financial economist who wants to know how prices respond to index inclusion cannot assign stocks to indices. Almost all economic and financial data are **observational**: they record the outcomes of decisions made by people and firms pursuing their own ends.
 
-That single structural fact is what makes econometrics a discipline rather than a
-branch of statistics. **The variation in the data was generated by agents optimising
-with information the econometrician does not see.** People choose schooling partly on
-ability, which also affects earnings. Firms choose leverage partly on the stability
-of their cash flows, which also affects their risk. Investors buy funds after good
-performance, and the resulting inflows affect subsequent performance. Central banks
-raise rates when they expect inflation, so a naive regression can make rate rises
-appear to cause the inflation they were responding to.
+That structural fact makes econometrics a discipline rather than a branch of statistics. **The variation in the data was generated by agents who optimise with information the econometrician does not see.** People choose schooling partly on ability, which also affects earnings. Firms choose leverage partly on the stability of their cash flows, which also affects their risk. Investors buy funds after good performance, and the resulting inflows affect subsequent performance. Central banks raise rates when they expect inflation, so a naive regression can make rate rises appear to cause the inflation they were responding to.
 
-Trygve Haavelmo gave the field its framing in 1944. Treat observed economic data as a
-single draw from a joint probability distribution. That distribution is generated by
-a system of behavioural relationships, such as demand curves, decision rules, and
-pricing equations. The relationships are what you want to learn. The distribution is
-all you can see. Whether the former can be recovered from the latter is the question
-of **identification**, and it has to be answered before any estimation starts.
+Trygve Haavelmo gave the field its framing in 1944. Observed economic data are treated as a single draw from a joint probability distribution. A system of behavioural relationships, such as demand curves, decision rules, and pricing equations, generates that distribution. The relationships are what the analyst wants to learn, and the distribution is all the analyst can see. Whether the relationships can be recovered from the distribution is the question of **identification**, and it must be answered before any estimation starts.
 
-Three consequences recur throughout the document:
+Three consequences recur throughout the chapter:
 
-1. **Correlation mixes effects with selection.** When a regressor is a choice, it is
-   correlated with the reasons for the choice, and those reasons usually affect the
-   outcome too (§6).
-2. **Jointly determined variables cannot be regressed on each other and interpreted.**
-   Price and quantity are set together by supply and demand, so a scatter of the two
-   traces out neither curve ([Working, 1927](https://doi.org/10.2307/1883501){target="_blank"}). The same holds for returns and order flow,
-   volume and volatility, and fund flows and fund performance (§6.4).
-3. **Relationships estimated under one regime can break when the regime changes.**
-   Agents re-optimise when policy or market structure changes, so a relationship that
-   was stable in the past need not survive an intervention ([Lucas, 1976](<https://doi.org/10.1016/s0167-2231(76)80003-6>){target="_blank"}). This is the
-   econometric root of models that work in backtests and fail when deployed (§7.8, §8.7).
+1. **Correlation mixes effects with selection.** When a regressor is a choice, it is correlated with the reasons for the choice, and those reasons usually affect the outcome too (§6).
+2. **Jointly determined variables cannot be regressed on each other and interpreted.** Supply and demand set price and quantity together, so a scatter of the two traces out neither curve ([Working, 1927](https://doi.org/10.2307/1883501){target="_blank"}). The same holds for returns and order flow, volume and volatility, and fund flows and fund performance (§6.4).
+3. **Relationships estimated under one regime can break when the regime changes.** Agents re-optimise when policy or market structure changes, so a relationship that was stable in the past need not survive an intervention ([Lucas, 1976](<https://doi.org/10.1016/s0167-2231(76)80003-6>){target="_blank"}). This is the econometric root of models that work in backtests and fail in deployment (§7.8, §8.7).
 
-Finance deserves a remark here, because much of it looks like it escapes these
-problems. A trader who wants tomorrow's expected return is asking a *prediction*
-question, not a causal one, and prediction does not need identification (§1.4). But
-two things keep finance inside the tent. First, a great deal of finance *is* causal:
-whether index inclusion moves prices, whether buybacks create value, whether a
-regulation changes liquidity. Second, prediction has its own version of the problem.
-A predictive relationship is only useful if it holds in data the model has not seen,
-and the forces that make it unstable are exactly the re-optimisation and selection
-above. The inference problems of §4 (dependent data, overlapping horizons, many tested
-hypotheses) apply everywhere with full force.
+Finance deserves a remark here, because much of it appears to escape these problems. A trader who wants tomorrow's expected return is asking a *prediction* question, not a causal one, and prediction does not need identification (§1.4). Two facts keep finance inside the scope of the problem. First, a great deal of finance *is* causal: whether index inclusion moves prices, whether buybacks create value, whether a regulation changes liquidity. Second, prediction has its own version of the problem. A predictive relationship is useful only if it holds in data the model has not seen, and the forces that make it unstable are the re-optimisation and selection described above. The inference problems of §4 (dependent data, overlapping horizons, many tested hypotheses) apply everywhere with full force.
 
 ## 1.3 Three questions, in order
 
-Every empirical claim, whether a published paper, a backtest, or a regression in a
-notebook, is an answer to three questions. They have to be answered in order.
+Every empirical claim answers three questions, whether the claim is a published paper, a backtest, or a regression in a notebook. The questions must be answered in order.
 
-**1. What is the estimand?** The estimand is the precise population quantity you want
-to know. "The effect of index inclusion on prices" is not an estimand. "The average
-change in a stock's price over the month after it is added to the S&P 500, relative to
-what its price would have been had it not been added, among stocks of the kind that get
-added" is one. The estimand is defined by a thought experiment, not by the data. The
-data will never tell you which question to ask.
+**1. What is the estimand?** The estimand is the precise population quantity to be learned. "The effect of index inclusion on prices" is not an estimand. "The average change in a stock's price over the month after it is added to the S&P 500, relative to what its price would have been had it not been added, among stocks of the kind that get added" is one. A thought experiment defines the estimand, not the data. The data never say which question to ask.
 
-**2. Is it identified?** Could the estimand be recovered from the population
-distribution of the observable variables, that is, from an infinite amount of data?
-Identification is a property of the assumptions and the data-generating process, not of
-the sample. If the estimand is not identified, more data only give you a more precise
-estimate of the wrong thing. This is where the economics lives. Every identifying
-assumption is a claim about behaviour, such as "the lottery number affected earnings
-only through military service" or "firms just above and just below the index cutoff are
-otherwise comparable."
+**2. Is it identified?** The question is whether the estimand could be recovered from the population distribution of the observable variables, that is, from an infinite amount of data. Identification is a property of the assumptions and the data-generating process, not of the sample. If the estimand is not identified, more data only give a more precise estimate of the wrong thing. This is where the economics lives. Every identifying assumption is a claim about behaviour, such as "the lottery number affected earnings only through military service" or "firms just above and just below the index cutoff are otherwise comparable."
 
-**3. How precisely is it estimated?** Given identification and an estimator, how much
-would the estimate vary across the samples you could have drawn instead? This is
-**inference**, and its central object is the standard error (§4).
+**3. How precisely is it estimated?** Given identification and an estimator, the question is how much the estimate would vary across the other samples that could have been drawn. This is **inference**, and its central object is the standard error (§4).
 
-The ordering matters because errors propagate downwards and never upwards. A perfect
-standard error around an unidentified parameter is worthless, and an elegant estimator
-cannot rescue a badly chosen estimand. Yet practice routinely inverts the order. People
-choose the estimator first (because the software offers it), worry about standard errors
-second, and state the identifying assumption last or not at all.
+The order matters because errors propagate downwards, never upwards. A perfect standard error around an unidentified parameter is worthless, and an elegant estimator cannot rescue a badly chosen estimand. Practice nonetheless routinely inverts the order. The estimator is chosen first, because the software offers it. Standard errors come second, and the identifying assumption is stated last or not at all. The diagram shows the correct order, with the characteristic failure at each step.
 
 ```mermaid
 flowchart TD
@@ -413,9 +267,7 @@ flowchart TD
 
 ## 1.4 Four kinds of question
 
-"What does the data say about $X$ and $Y$?" hides four different questions. They need
-different assumptions and different evaluation, and confusing them is one of the most
-common errors in empirical work.
+The question "what does the data say about $X$ and $Y$?" hides four different questions. They need different assumptions and different evaluation, and confusing them is one of the most common errors in empirical work. The table sets them side by side.
 
 | Question | Estimand | What must be true | How it is checked | Typical tools |
 |---|---|---|---|---|
@@ -426,39 +278,25 @@ common errors in empirical work.
 
 $\mathcal{F}_t$ in the table is the information available at time $t$.
 
-The same regression can be read as any of the four, and the reading is determined by
-what you are willing to assume, not by the output. A regression of next month's return
-on this month's book-to-market ratio is a perfectly valid *description* and a possibly
-useful *prediction*. It is not an estimate of what would happen to a firm's return if
-you changed its book value, and nothing in the output warns you against reading it that
-way. §10.1 returns to this as the distinction between problems about $\hat Y$ and
-problems about $\hat\beta$.
+The same regression can be read as any of the four. The analyst's assumptions determine the reading, not the output. A regression of next month's return on this month's book-to-market ratio is a valid *description*, and possibly a useful *prediction*. It is not an estimate of what would happen to a firm's return if its book value were changed, and nothing in the output warns against that reading. §10.1 returns to this point as the distinction between problems about $\hat Y$ and problems about $\hat\beta$.
 
-Most machine learning in finance is prediction. Most empirical corporate finance is
-causal. Asset-pricing tests sit closer to the structural end, because the moment
-conditions come from an economic model of prices. Knowing which one you are doing
-tells you which of the later sections are your problem.
+Most machine learning in finance is prediction, and most empirical corporate finance is causal. Asset-pricing tests sit closer to the structural end, because the moment conditions come from an economic model of prices. Knowing which kind of question a project asks shows which of the later sections apply to it.
 
 ## 1.5 The master form: one equation behind every estimator
 
-Here is the idea that organises the rest of the document. Almost every estimator in
-econometrics is defined by a **moment condition**: a function of the data and the
-parameters whose population expectation is zero at the true parameter value,
+This subsection states the idea that organises the rest of the chapter. Almost every estimator in econometrics is defined by a **moment condition**: a function of the data and the parameters whose population expectation is zero at the true parameter value,
 
 $$
 \mathbb{E}\big[\psi_i(\theta_0)\big] = 0 .
 $$
 
-The estimator is the **sample analogue**. Choose $\hat\theta$ so that the sample average
-of $\psi_i$ is zero, or as close to zero as possible when there are more equations than
-unknowns:
+The estimator is the **sample analogue**. It chooses $\hat\theta$ so that the sample average of $\psi_i$ is zero, or as close to zero as possible when there are more equations than unknowns:
 
 $$
 \frac{1}{n}\sum_{i=1}^{n} \psi_i(\hat\theta) = 0 .
 $$
 
-That is all an estimator is. What distinguishes one method from another is only the
-choice of $\psi$.
+Methods differ only in the choice of $\psi$. The table lists the common choices, with the assumption each one hides in "$=0$".
 
 | Estimator | Moment function $\psi_i(\theta)$ | The assumption hidden in "$=0$" |
 |---|---|---|
@@ -475,37 +313,17 @@ asset return, and $M_{t+1}(\theta)$ a **stochastic discount factor**, the model'
 valuation of a unit payoff at $t+1$ (§5.3). In the fixed-effects row, $\bar X_i$ and
 $\bar Y_i$ are unit $i$'s averages over time (§7.4).
 
-Three facts follow from writing estimators this way, and each one is used repeatedly
-later on.
+Writing estimators this way yields three facts, and the chapter uses each of them repeatedly.
 
-**Identification is uniqueness of the solution.** A parameter is identified when the
-population moment condition holds at $\theta_0$ and nowhere else. For linear moment
-conditions this reduces to a rank condition. Instrumental variables, for example, needs
-$\mathbb{E}[Z_iX_i']$ to have full column rank, which is the formal version of "the
-instruments must actually move the regressors" (§7.3).
+**Identification is uniqueness of the solution.** A parameter is identified when the population moment condition holds at $\theta_0$ and nowhere else. For linear moment conditions this reduces to a rank condition. Instrumental variables, for example, needs $\mathbb{E}[Z_iX_i']$ to have full column rank, which is the formal version of "the instruments must actually move the regressors" (§7.3).
 
-**The substantive assumption is always an orthogonality condition.** Some observed
-variable is uncorrelated with some unobserved one. And in the just-identified case,
-where there are exactly as many equations as unknowns, *the data cannot check it*,
-because the estimator forces the sample analogue to hold exactly. OLS residuals are
-orthogonal to the regressors by construction, so no plot of residuals against $X$ can
-ever reveal that $X$ is correlated with the structural error. **[Fact]** Endogeneity is
-invisible in the residuals of the regression it contaminates. Over-identified models
-permit a partial check, and only of whether the instruments agree with each other
-(§5.3).
+**The substantive assumption is always an orthogonality condition.** Some observed variable is uncorrelated with some unobserved one. In the just-identified case, where there are exactly as many equations as unknowns, *the data cannot check this assumption*, because the estimator forces the sample analogue to hold exactly. OLS residuals are orthogonal to the regressors by construction, so no plot of residuals against $X$ can reveal that $X$ is correlated with the structural error. [Fact] Endogeneity is invisible in the residuals of the regression it contaminates. Over-identified models permit a partial check, and only of whether the instruments agree with each other (§5.3).
 
-**A new method changes only what is required to be orthogonal to the error.** Adding
-controls asks for orthogonality conditional on the controls. Fixed effects ask for
-orthogonality with within-unit variation only. Instrumental variables ask for
-orthogonality with the instrument rather than the regressor. Regression discontinuity
-asks for it only in a small window around a cutoff. When you meet a new design, the
-first question to ask is *which orthogonality condition it buys, and at what price*.
+**A new method changes only what must be orthogonal to the error.** Adding controls asks for orthogonality conditional on the controls. Fixed effects ask for orthogonality with within-unit variation only. Instrumental variables ask for orthogonality with the instrument instead of the regressor. Regression discontinuity asks for it only in a small window around a cutoff. The first question to ask of a new design is therefore *which orthogonality condition it buys, and at what price*.
 
 ## 1.6 The sandwich: one formula behind every standard error
 
-The master form also gives every standard error in econometrics, through one
-derivation. Start from the sample moment condition at the estimate and expand it
-around the truth. To first order,
+The master form also gives every standard error in econometrics, through a single derivation. Start from the sample moment condition at the estimate and expand it around the truth. To first order,
 
 $$
 0 = \frac{1}{n}\sum_{i=1}^{n} \psi_i(\hat\theta)
@@ -514,15 +332,13 @@ $$
 \,(\hat\theta - \theta_0) .
 $$
 
-Solve for the estimation error and scale by $\sqrt n$:
+Solving for the estimation error and scaling by $\sqrt n$ gives
 
 $$
 \sqrt{n}\,(\hat\theta - \theta_0) \;\approx\; -\,Q^{-1}\,\frac{1}{\sqrt n}\sum_{i=1}^{n}\psi_i(\theta_0) .
 $$
 
-The estimation error is a fixed matrix times a scaled sum of the moment contributions.
-A central limit theorem (§2.4) makes that sum approximately normal, with variance
-$\Omega$. So
+The estimation error is a fixed matrix times a scaled sum of the moment contributions. A central limit theorem (§2.4) makes that sum approximately normal, with variance $\Omega$. So
 
 $$
 \operatorname{Avar}\big(\sqrt n\,(\hat\theta - \theta_0)\big)
@@ -531,23 +347,14 @@ $$
 \Omega = \lim_{n\to\infty}\operatorname{Var}\Big(\frac{1}{\sqrt n}\sum_{i=1}^{n}\psi_i(\theta_0)\Big).
 $$
 
-Dividing by $n$ gives the approximate variance of $\hat\theta$ itself, and the square
-roots of its diagonal are the standard errors.
+Dividing by $n$ gives the approximate variance of $\hat\theta$ itself, and the square roots of its diagonal are the standard errors.
 
-The two ingredients do different jobs, and it is worth holding them apart.
+The two ingredients do different jobs, and they should be kept apart.
 
-- **The bread, $Q$, is set by the model.** It measures how sharply the moment condition
-  responds when the parameter moves. For OLS, $\psi_i = X_i(Y_i - X_i'\beta)$, so $Q =
-  -\mathbb{E}[X_iX_i'] = -Q_{XX}$. More variation in the regressors gives a larger
-  bread and a smaller variance, which is why an experiment with a wide spread of
-  treatment doses is more informative than one with a narrow spread.
-- **The meat, $\Omega$, is set by the dependence in the data.** It is the variance of a
-  sum. If the moment contributions are independent across observations, it is the sum
-  of their variances. If they are correlated, the covariances enter too, and with many
-  positively correlated pairs they come to dominate.
+- **The model sets the bread, $Q$.** The bread measures how sharply the moment condition responds when the parameter moves. For OLS, $\psi_i = X_i(Y_i - X_i'\beta)$, so $Q = -\mathbb{E}[X_iX_i'] = -Q_{XX}$. More variation in the regressors gives a larger bread and a smaller variance. That is why an experiment with a wide spread of treatment doses is more informative than one with a narrow spread.
+- **The dependence in the data sets the meat, $\Omega$.** The meat is the variance of a sum. If the moment contributions are independent across observations, it is the sum of their variances. If they are correlated, the covariances enter too, and with many positively correlated pairs the covariances come to dominate.
 
-Every standard-error "correction" in applied work is a different estimate of the meat.
-Each makes a different assumption about which observations are independent of which.
+Every standard-error "correction" in applied work is a different estimate of the meat, and each makes a different assumption about which observations are independent of which. The table lists the common estimates.
 
 | Name | Estimate of the meat $\Omega$ | Independence it assumes |
 |---|---|---|
@@ -559,38 +366,23 @@ Each makes a different assumption about which observations are independent of wh
 | Fama–MacBeth | Variance of the period-by-period estimates | Independence over time; arbitrary within a period |
 | Two-way clustered | Firm-clustered + time-clustered − heteroskedasticity-robust | Independence across both firms and dates, except through those two groupings |
 
-All of them use the same bread. §4 derives the table's entries and says when each is
-right, and the equivalence between the rows is exact in a few cases (§12.2).
+All of them use the same bread. §4 derives the entries and says when each is right, and in a few cases the equivalence between rows is exact (§12.2).
 
-The table implies the most important practical fact about inference, and the second
-idea that organises this document:
+The table implies the most important practical fact about inference, which is the second idea that organises this chapter:
 
-> **The precision of an estimate is set by the number of independent pieces of
-> information in the meat, not by the number of rows in the data.**
+> **The precision of an estimate is set by the number of independent pieces of information in the meat, not by the number of rows in the data.**
 
-Two numbers make the point. Take 5,000 observations in 50 groups of 100, where the
-regressor is set at the group level and 5% of the error variance is shared within a
-group. The effective sample size is about 840, and classical standard errors reject a
-true null hypothesis 42% of the time at a nominal 5% (§4.4). **[Simulated]** Or take 40
-years of monthly data on 12-month returns. It has 480 rows, but when estimating an
-average 12-month return it carries roughly 40 non-overlapping observations' worth of
-information (§4.5).
+Two numbers make the point. Take 5,000 observations in 50 groups of 100, where the regressor is set at the group level and 5% of the error variance is shared within a group. [Simulated] The effective sample size is about 840, and classical standard errors reject a true null hypothesis 42% of the time at a nominal 5% (§4.4). Or take 40 years of monthly data on 12-month returns. The data have 480 rows, but for estimating an average 12-month return they carry roughly 40 non-overlapping observations' worth of information (§4.5).
 
-**The spine, stated once.** Every estimate can go wrong in two ways, and they come from
-different places:
+**The spine, stated once.** Every estimate can go wrong in two ways, and the two come from different places:
 
-> **Bias comes from a false orthogonality condition. False precision comes from a
-> wrong meat.**
+> **Bias comes from a false orthogonality condition. False precision comes from a wrong meat.**
 
-Almost every method in the rest of this document does one of three things. It makes an
-orthogonality condition more credible (Part III), it estimates the meat honestly (§4,
-§8, §9), or it trades a little bias for a large reduction in variance (§5.6, §10). When
-a new technique appears, placing it in one of those three bins tells you most of what
-you need to know about it.
+Almost every method in the rest of this chapter does one of three things. It makes an orthogonality condition more credible (Part III), it estimates the meat honestly (§4, §8, §9), or it trades a little bias for a large reduction in variance (§5.6, §10). Placing a new technique in one of these three bins says most of what matters about it.
 
 ## 1.7 What econometrics is not
 
-Several distinctions come up so often that they are worth fixing at the start.
+Several distinctions come up so often that they are worth fixing at the start. The table lists the pairs most often conflated.
 
 | Often conflated | The difference |
 |---|---|
@@ -605,23 +397,13 @@ Several distinctions come up so often that they are worth fixing at the start.
 
 > ### §1 Key takeaways
 >
-> 1. A regression coefficient is a ratio of covariance to variance, not an effect. It becomes an
->    effect only under an assumption about why the regressor varies across units.
-> 2. Econometrics exists because economic data are generated by agents who choose their
->    regressors with information the analyst does not have.
-> 3. Answer three questions in order: what is the estimand, is it identified, and how
->    precisely is it estimated. Errors propagate downwards, never upwards.
-> 4. Description, prediction, causal effects, and structural parameters are four
->    different questions. The same regression can serve any of them, and the output never
->    tells you which.
-> 5. Almost every estimator solves a sample moment condition. The substantive
->    assumption is always an orthogonality condition, and in the just-identified case the
->    data cannot test it.
-> 6. Every standard error is a sandwich: bread from the model, meat from the dependence in
->    the data. Every standard-error correction is a different estimate of the meat.
-> 7. Bias comes from a false orthogonality condition; false precision comes from a wrong
->    meat. Precision is governed by the number of independent pieces of information, not
->    the number of rows.
+> 1. A regression coefficient is a ratio of covariance to variance, not an effect. It becomes an effect only under an assumption about why the regressor varies across units.
+> 2. Econometrics exists because economic data are generated by agents who choose their regressors with information the analyst does not have.
+> 3. Answer three questions in order: what is the estimand, is it identified, and how precisely is it estimated. Errors propagate downwards, never upwards.
+> 4. Description, prediction, causal effects, and structural parameters are four different questions. The same regression can serve any of them, and the output never says which.
+> 5. Almost every estimator solves a sample moment condition. The substantive assumption is always an orthogonality condition, and in the just-identified case the data cannot test it.
+> 6. Every standard error is a sandwich: bread from the model, meat from the dependence in the data. Every standard-error correction is a different estimate of the meat.
+> 7. Bias comes from a false orthogonality condition, and false precision comes from a wrong meat. The number of independent pieces of information governs precision, not the number of rows.
 
 ```{=latex}
 \newpage
@@ -629,48 +411,22 @@ Several distinctions come up so often that they are worth fixing at the start.
 
 # 2. The probability you actually need {#2-probability}
 
-This section is the minimum probability theory that the rest of the document leans on.
-It is written to be read quickly by someone who has seen the definitions before. The
-two subsections that are not standard textbook fare, and that nobody should skip, are
-§2.2 (three different strengths of "unrelated") and §2.5 (how dependence spends
-observations).
+This section covers the minimum probability theory that the rest of the chapter relies on. It is written to be read quickly by someone who has seen the definitions before. Two subsections go beyond standard textbook material, and no reader should skip them: §2.2, on three different strengths of "unrelated," and §2.5, on how dependence spends observations.
 
 ## 2.1 Populations, samples, and the data-generating process
 
-A random variable is a model of what the data *could have been*. The
-**data-generating process** (DGP) is the joint probability distribution from which the
-observed data are one draw. In a cross-section it is the distribution of $(Y_i, X_i,
-Z_i, \dots)$ for a randomly drawn unit. In a time series it is the stochastic process
-that produced the whole path.
+A random variable is a model of what the data *could have been*. The **data-generating process** (DGP) is the joint probability distribution from which the observed data are one draw. In a cross-section, it is the distribution of $(Y_i, X_i, Z_i, \dots)$ for a randomly drawn unit. In a time series, it is the stochastic process that produced the whole path.
 
-An estimate is uncertain because a different draw would have produced a different
-estimate, and a standard error quantifies that variation. It is therefore only
-meaningful once you have said *what is being redrawn*. There are two standard answers.
+An estimate is uncertain because a different draw would have produced a different estimate, and a standard error quantifies that variation. A standard error is therefore meaningful only once it is clear *what is being redrawn*. There are two standard answers.
 
-- **Sampling-based uncertainty.** The data are a random sample from a larger
-  population, and the uncertainty is about which units happened to be sampled. This is
-  the textbook picture, and it fits survey data.
-- **Design-based uncertainty.** The data cover the entire population of interest, such
-  as all fifty US states or every stock in an index, so no sampling variation exists in
-  the usual sense. What is random is which units received the treatment, and so which
-  potential outcome of each unit you get to see. [Abadie, Athey, Imbens & Wooldridge
-  (2020)](https://arxiv.org/abs/1706.01778){target="_blank"} show that
-  conventional standard errors remain sensible for causal questions under this reading,
-  but can be conservative, and that for purely descriptive questions about a fully
-  observed population they answer a question nobody asked.
+- **Sampling-based uncertainty.** The data are a random sample from a larger population, and the uncertainty is about which units happened to be sampled. This is the textbook picture, and it fits survey data.
+- **Design-based uncertainty.** The data cover the entire population of interest, such as all fifty US states or every stock in an index, so there is no sampling variation in the usual sense. What is random is which units received the treatment, and therefore which potential outcome of each unit is observed. [Abadie, Athey, Imbens & Wooldridge (2020)](https://arxiv.org/abs/1706.01778){target="_blank"} show that conventional standard errors remain sensible for causal questions under this reading, though they can be conservative. For purely descriptive questions about a fully observed population, conventional standard errors answer a question nobody asked.
 
-Finance has a third answer, and it matters for everything that follows. When you study
-every listed stock, the cross-section is not a sample. **The sample is the history.**
-The relevant thought experiment is that the same economy could have produced a
-different sequence of shocks, and the uncertainty is over which history occurred. That
-is why the number of independent time periods, not the number of stocks, usually
-governs precision in empirical finance (§2.5, §9.1).
+Finance has a third answer, and it matters for everything that follows. A study of every listed stock does not sample the cross-section. **The sample is the history.** The relevant thought experiment is that the same economy could have produced a different sequence of shocks, and the uncertainty is about which history occurred. That is why the number of independent time periods, not the number of stocks, usually governs precision in empirical finance (§2.5, §9.1).
 
 ## 2.2 Conditional expectation, and three strengths of "unrelated"
 
-**Conditional expectation.** $\mathbb{E}[Y \mid X]$ is the average of $Y$ among units
-with a given value of $X$, viewed as a function of $X$. Three properties make it the
-central object of the field.
+**Conditional expectation.** $\mathbb{E}[Y \mid X]$ is the average of $Y$ among units with a given value of $X$, viewed as a function of $X$. Three properties make it the central object of the field.
 
 1. **It is the best predictor.** Among all functions $g(X)$, the one that minimises the
    mean squared error $\mathbb{E}[(Y - g(X))^2]$ is $g(X) = \mathbb{E}[Y \mid X]$. To see
@@ -689,9 +445,7 @@ central object of the field.
    into the part explained by $X$ and the part left over. $R^2$ is a sample version of
    the first share (§3.8).
 
-**Three strengths of "unrelated."** Econometric assumptions constantly require an
-unobserved $U$ (with $\mathbb{E}[U] = 0$) to be "unrelated" to an observed $X$. There
-are three distinct ways to say this, in increasing strength:
+**Three strengths of "unrelated."** Econometric assumptions constantly require an unobserved $U$ (with $\mathbb{E}[U] = 0$) to be "unrelated" to an observed $X$. The table gives three distinct ways to state this, in increasing strength.
 
 | Condition | Statement | What it rules out | What needs it |
 |---|---|---|---|
@@ -699,26 +453,13 @@ are three distinct ways to say this, in increasing strength:
 | **Mean-independent** | $\mathbb{E}[U \mid X] = 0$ | *Any* relationship between $X$ and the average of $U$ | Unbiasedness; treating any function of $X$ as a valid regressor or instrument |
 | **Independent** | $U \perp X$ | Any relationship between $X$ and the whole distribution of $U$ | Quantile and distributional claims; randomisation |
 
-Each implies the one above it, and neither converse holds. The standard
-counterexample takes $X \sim N(0,1)$ and $U = X^2 - 1$. Then $\mathbb{E}[XU] =
-\mathbb{E}[X^3] - \mathbb{E}[X] = 0$, so the two are uncorrelated and a regression of $U$
-on $X$ has a slope of exactly zero, even though $U$ is a deterministic function of $X$.
+Each condition implies the one above it, and neither converse holds. The standard counterexample takes $X \sim N(0,1)$ and $U = X^2 - 1$. Then $\mathbb{E}[XU] = \mathbb{E}[X^3] - \mathbb{E}[X] = 0$. The two are uncorrelated, and a regression of $U$ on $X$ has a slope of exactly zero, even though $U$ is a deterministic function of $X$.
 
-Financial returns are the practical version of the same gap. **[Fact]** Daily returns on
-broad equity indices are close to uncorrelated over time, but they are far from
-independent, because large moves cluster: squared returns are strongly autocorrelated.
-Between the two sits the **martingale difference** property, $\mathbb{E}[r_{t+1} \mid
-\mathcal{F}_t] = 0$ for a demeaned return $r_{t+1}$, which says the past cannot predict
-the *level* of future returns while leaving their variance free to be predictable. The
-distinction has consequences. A test of "no autocorrelation" whose standard errors
-assume independence is mis-sized on returns, because independence is false even when
-the hypothesis being tested is true (§8.1).
+Financial returns are the practical version of the same gap. [Fact] Daily returns on broad equity indices are close to uncorrelated over time, but they are far from independent, because large moves cluster: squared returns are strongly autocorrelated. Between the two conditions sits the **martingale difference** property, $\mathbb{E}[r_{t+1} \mid \mathcal{F}_t] = 0$ for a demeaned return $r_{t+1}$. It says that the past cannot predict the *level* of future returns, and it leaves their variance free to be predictable. The distinction has consequences. A test of "no autocorrelation" whose standard errors assume independence is mis-sized on returns, because independence is false even when the hypothesis under test is true (§8.1).
 
 ## 2.3 Estimators are random variables
 
-An estimator $\hat\theta$ is a function of the sample, so it has a distribution: the
-**sampling distribution**, meaning the distribution of $\hat\theta$ across all the
-samples the DGP could have produced. Three summaries of it matter.
+An estimator $\hat\theta$ is a function of the sample, so it has a distribution. This **sampling distribution** is the distribution of $\hat\theta$ across all the samples the DGP could have produced. Three summaries of it matter.
 
 - **Bias:** $\mathbb{E}[\hat\theta] - \theta_0$, whether the estimator is right on
   average.
@@ -727,71 +468,39 @@ samples the DGP could have produced. Three summaries of it matter.
 - **Consistency:** whether $\hat\theta \xrightarrow{p} \theta_0$ as the sample grows,
   that is, whether the estimator converges to the truth.
 
-Unbiasedness and consistency are logically independent. Using only the first
-observation, $\hat\mu = Y_1$, is an unbiased estimator of a mean, but its variance never
-shrinks, so it is inconsistent. The OLS estimate of an autoregressive coefficient $\phi$
-is biased downward in finite samples, by roughly $-(1+3\phi)/T$ ([Kendall, 1954](https://doi.org/10.2307/2332720){target="_blank"}), but it is
-consistent. The bias matters when $T$ is small and $\phi$ is near one, as §9.2 shows.
+Unbiasedness and consistency are logically independent. Using only the first observation, $\hat\mu = Y_1$, gives an unbiased estimator of a mean, but its variance never shrinks, so it is inconsistent. The OLS estimate of an autoregressive coefficient $\phi$ is biased downward in finite samples, by roughly $-(1+3\phi)/T$ ([Kendall, 1954](https://doi.org/10.2307/2332720){target="_blank"}), but it is consistent. The bias matters when $T$ is small and $\phi$ is near one, as §9.2 shows.
 
-Econometrics mostly cares about consistency rather than unbiasedness, for a practical
-reason: almost no estimator used in practice is unbiased. Instrumental variables,
-maximum likelihood, and every nonlinear estimator are biased in finite samples. The
-working questions are whether the estimator converges to the right thing, and whether
-the sample is large enough that the remaining bias is small relative to the standard
-error.
+Econometrics mostly cares about consistency rather than unbiasedness, for a practical reason: almost no estimator used in practice is unbiased. Instrumental variables, maximum likelihood, and every nonlinear estimator are biased in finite samples. The working questions are whether the estimator converges to the right quantity, and whether the sample is large enough that the remaining bias is small relative to the standard error.
 
-The MSE decomposition also foreshadows a theme of §5.6 and §10. **An estimator with some
-bias can have a lower mean squared error than an unbiased one**, if the bias buys a large
-enough reduction in variance. Shrinkage estimators exploit this deliberately.
+The MSE decomposition also anticipates a theme of §5.6 and §10. **An estimator with some bias can have a lower mean squared error than an unbiased one**, if the bias buys a large enough reduction in variance. Shrinkage estimators exploit this deliberately.
 
 ## 2.4 The two limit theorems, and what they quietly require
 
-**The law of large numbers (LLN)** says that sample averages converge to population
-means. It needs a finite mean and either independence or dependence that fades with
-distance. For time series the relevant condition is **ergodicity**, which says that
-averaging along one long path is equivalent to averaging across many independent paths.
+**The law of large numbers (LLN)** says that sample averages converge to population means. It needs a finite mean and either independence or dependence that fades with distance. For time series the relevant condition is **ergodicity**: averaging along one long path is equivalent to averaging across many independent paths.
 
-**The central limit theorem (CLT)** says that sample averages are approximately normal,
-with a spread that shrinks at rate $\sqrt n$:
+**The central limit theorem (CLT)** says that sample averages are approximately normal, with a spread that shrinks at rate $\sqrt n$:
 
 $$
 \sqrt{n}\,(\bar Y - \mu) \xrightarrow{d} N(0, \sigma^2).
 $$
 
-It needs a finite variance and, again, independence or fading dependence. Under
-dependence, $\sigma^2$ becomes the *long-run* variance of §2.5.
+It needs a finite variance and, again, independence or fading dependence. Under dependence, $\sigma^2$ becomes the *long-run* variance of §2.5.
 
-Three consequences for practice:
+The theorems have three consequences for practice:
 
-1. **The $\sqrt n$ rule.** Standard errors fall like $1/\sqrt n$, so halving a standard
-   error takes four times the data. Equivalently, detecting an effect half as large
-   requires a sample four times as big. Precision is expensive, and it gets more
-   expensive quickly.
-2. **The approximation is to the average, not to the data.** The CLT says nothing about
-   whether individual observations are normal. It justifies $t$-tests on regression
-   coefficients, which are weighted averages, with non-normal data. It does not justify
-   treating tail probabilities of the data themselves as normal.
-3. **Heavy tails slow the approximation down.** When the variance exists but higher
-   moments are large or infinite, the CLT still holds eventually, but the sample size
-   needed for it can be very large. **[Fact]** Daily equity returns have tails heavy
-   enough that the fourth moment may not exist ([Cont, 2001](https://doi.org/10.1080/713665670){target="_blank"}). Their means and variances
-   behave tolerably, but any statistic that depends on fourth moments, such as sample
-   kurtosis, the standard error of a variance estimate, or the non-normal standard error
-   of a Sharpe ratio, is far less precise than its formula suggests.
+1. **The $\sqrt n$ rule.** Standard errors fall like $1/\sqrt n$, so halving a standard error takes four times the data. Equivalently, detecting an effect half as large requires a sample four times as big. Precision is expensive, and its cost rises quickly.
+2. **The approximation applies to the average, not to the data.** The CLT says nothing about whether individual observations are normal. It justifies $t$-tests on regression coefficients, which are weighted averages, with non-normal data. It does not justify treating tail probabilities of the data themselves as normal.
+3. **Heavy tails slow the approximation down.** When the variance exists but higher moments are large or infinite, the CLT still holds eventually, but the sample size it needs can be very large. [Fact] Daily equity returns have tails heavy enough that the fourth moment may not exist ([Cont, 2001](https://doi.org/10.1080/713665670){target="_blank"}). Their means and variances behave tolerably. But any statistic that depends on fourth moments is far less precise than its formula suggests. Examples are sample kurtosis, the standard error of a variance estimate, and the non-normal standard error of a Sharpe ratio.
 
 ## 2.5 Effective sample size: dependence spends observations
 
-The CLT's variance for the mean of a stationary series is not $\sigma^2$ but the
-**long-run variance**, which includes all the autocovariances. The variance of a sample
-mean of $T$ observations is approximately
+For the mean of a stationary series, the variance in the CLT is not $\sigma^2$ but the **long-run variance**, which includes all the autocovariances. The variance of a sample mean of $T$ observations is approximately
 
 $$
 \operatorname{Var}(\bar Y) \approx \frac{\sigma^2}{T}\Big(1 + 2\sum_{j=1}^{\infty}\rho_j\Big),
 $$
 
-where $\rho_j$ is the autocorrelation at lag $j$. Positive autocorrelation inflates the
-variance, because neighbouring observations repeat part of the same information.
-Comparing this with the independent case defines the **effective sample size**:
+where $\rho_j$ is the autocorrelation at lag $j$. Positive autocorrelation inflates the variance, because neighbouring observations repeat part of the same information. Comparing this variance with the independent case defines the **effective sample size**:
 
 $$
 n_{\text{eff}} = \frac{T}{1 + 2\sum_{j\ge1}\rho_j}.
@@ -803,6 +512,8 @@ $$
 n_{\text{eff}} = T\,\frac{1-\phi}{1+\phi}.
 $$
 
+The table shows how quickly persistence spends observations.
+
 | Persistence $\phi$ | $n_{\text{eff}}/T$ | 1,000 observations are worth |
 |---|---|---|
 | 0 | 1.000 | 1,000 |
@@ -810,34 +521,15 @@ $$
 | 0.9 | 0.053 | 53 |
 | 0.99 | 0.005 | 5 |
 
-The same arithmetic holds across clusters. If $n$ observations fall into groups of size
-$\bar n_g$ and every pair within a group has correlation $\rho$, the effective sample size
-for a mean is $n / (1 + (\bar n_g - 1)\rho)$. For a regression coefficient the formula
-picks up the within-group correlation of the regressor as well, which gives the Moulton
-factor of §4.4.
+The same arithmetic holds across clusters. Suppose $n$ observations fall into groups of size $\bar n_g$, and every pair within a group has correlation $\rho$. The effective sample size for a mean is then $n / (1 + (\bar n_g - 1)\rho)$. For a regression coefficient the formula also picks up the within-group correlation of the regressor, which gives the Moulton factor of §4.4.
 
-**Overlapping observations** are the case finance meets most. A series of overlapping
-$h$-period returns built from $T$ one-period returns carries roughly the information of
-$T/h$ non-overlapping ones when estimating a mean. Forty years of monthly data on
-12-month returns have 480 rows and about 40 independent observations.
+**Overlapping observations** are the case finance meets most often. A series of overlapping $h$-period returns built from $T$ one-period returns carries roughly the information of $T/h$ non-overlapping ones, for the purpose of estimating a mean. Forty years of monthly data on 12-month returns have 480 rows and about 40 independent observations.
 
-**Merton's asymmetry.** The precision of an estimated *mean* return depends on the
-calendar span of the data, not on how finely it is sampled. The mean return over forty
-years is the total log price change divided by forty, and sampling daily instead of
-monthly does not change the endpoints. With annual volatility of 16%, the standard
-error of a mean annual return estimated from 40 years is $16\%/\sqrt{40} = 2.5\%$, so a
-6% equity premium is known only to within about $\pm 5$ percentage points at 95%
-confidence. *Variances* behave oppositely: summing squared high-frequency returns
-estimates variance more and more precisely as the sampling interval shrinks ([Merton,
-1980](https://www.nber.org/papers/w0444){target="_blank"}). This single asymmetry explains
-a great deal of empirical finance: why risk models work far better than return forecasts,
-why the covariance matrix is estimable and the mean vector is not, and why the evidence
-for any return anomaly is always weaker than its $t$-statistic makes it look.
+**Merton's asymmetry.** The precision of an estimated *mean* return depends on the calendar span of the data, not on how finely the data are sampled. The mean return over forty years is the total log price change divided by forty, and sampling daily instead of monthly does not change the endpoints. With an annual volatility of 16%, the standard error of a mean annual return estimated from 40 years is $16\%/\sqrt{40} = 2.5\%$. A 6% equity premium is therefore known only to within about $\pm 5$ percentage points at 95% confidence. *Variances* behave the opposite way. Summing squared high-frequency returns estimates the variance more and more precisely as the sampling interval shrinks ([Merton, 1980](https://www.nber.org/papers/w0444){target="_blank"}). This asymmetry explains a great deal of empirical finance. It explains why risk models work far better than return forecasts, why the covariance matrix is estimable while the mean vector is not, and why the evidence for any return anomaly is always weaker than its $t$-statistic suggests.
 
 ## 2.6 The delta method, and other tools for approximations
 
-Three results let you manipulate estimates the way you would manipulate the numbers
-they estimate.
+Three results allow estimates to be manipulated in the same way as the numbers they estimate.
 
 - **The continuous mapping theorem.** If $\hat\theta \xrightarrow{p} \theta_0$ and $g$ is
   continuous, then $g(\hat\theta) \xrightarrow{p} g(\theta_0)$.
@@ -853,33 +545,15 @@ they estimate.
   The standard error of a smooth function of an estimate is the standard error of the
   estimate times the slope of the function.
 
-**A worked example, and its failure.** A shock to an AR(1) process decays like
-$\phi^h$, so its **half-life**, the horizon at which half of it is gone, is $\ln(0.5) /
-\ln(\phi)$. Suppose $\hat\phi = 0.95$ with a standard error of 0.02. The point estimate
-of the half-life is $0.693/0.0513 = 13.5$ periods. Its derivative with respect to $\phi$
-is $\ln(2) / (\phi\,(\ln\phi)^2) = 0.693/(0.95 \times 0.00263) = 277$, so the
-delta-method standard error is $277 \times 0.02 = 5.5$ periods, giving an interval of
-roughly $13.5 \pm 11$.
+**A worked example, and its failure.** A shock to an AR(1) process decays like $\phi^h$, so its **half-life**, the horizon at which half of the shock is gone, is $\ln(0.5) / \ln(\phi)$. Suppose $\hat\phi = 0.95$ with a standard error of 0.02. The point estimate of the half-life is $0.693/0.0513 = 13.5$ periods. Its derivative with respect to $\phi$ is $\ln(2) / (\phi\,(\ln\phi)^2) = 0.693/(0.95 \times 0.00263) = 277$, so the delta-method standard error is $277 \times 0.02 = 5.5$ periods. The resulting interval is roughly $13.5 \pm 11$.
 
-That interval is badly wrong, and the way it is wrong generalises. Two standard errors
-above the estimate, $\phi = 0.99$ implies a half-life of 69 periods, not $13.5 + 11 = 24.5$.
-The half-life is so nonlinear near $\phi = 1$ that a linear approximation across the
-confidence region is meaningless. Whenever a parameter sits near a boundary, whether a
-unit root, a variance near zero, or a correlation near one, delta-method intervals mislead.
-Transform the endpoints of an interval for $\phi$ instead, or bootstrap (§4.9).
+That interval is badly wrong, and the way it is wrong generalises. Two standard errors above the estimate, $\phi = 0.99$ implies a half-life of 69 periods, not $13.5 + 11 = 24.5$. The half-life is so nonlinear near $\phi = 1$ that a linear approximation across the confidence region is meaningless. Delta-method intervals mislead whenever a parameter sits near a boundary, whether a unit root, a variance near zero, or a correlation near one. Transform the endpoints of an interval for $\phi$ instead, or bootstrap (§4.9).
 
-A second example is the one quants use most. For independent, normally distributed
-returns, the delta method gives the standard error of an estimated per-period Sharpe
-ratio as approximately $\sqrt{(1 + \mathrm{SR}^2/2)/T}$ ([Lo,
-2002](https://www.tandfonline.com/doi/abs/10.2469/faj.v58.n4.2453){target="_blank"}). In
-annual units, with a true Sharpe ratio of 0.5, that is about $1.06/\sqrt{\text{years}}$. It
-takes around 18 years of data for the estimate to sit two standard errors from zero.
+A second example is the one quants use most. For independent, normally distributed returns, the delta method gives the standard error of an estimated per-period Sharpe ratio as approximately $\sqrt{(1 + \mathrm{SR}^2/2)/T}$ ([Lo, 2002](https://www.tandfonline.com/doi/abs/10.2469/faj.v58.n4.2453){target="_blank"}). In annual units, with a true Sharpe ratio of 0.5, that is about $1.06/\sqrt{\text{years}}$. The estimate needs around 18 years of data to sit two standard errors from zero.
 
 ## 2.7 When asymptotics lie
 
-Asymptotic approximations are statements about what happens as some quantity goes to
-infinity. Trouble starts when the quantity that actually governs the approximation is
-not the one you think is large.
+Asymptotic approximations describe what happens as some quantity goes to infinity. Trouble starts when the quantity that actually governs the approximation is not the one the analyst assumes is large. The table lists the common cases.
 
 | Situation | What is really small | Symptom | Where |
 |---|---|---|---|
@@ -894,24 +568,14 @@ not the one you think is large.
 
 > ### §2 Key takeaways
 >
-> 1. A standard error is meaningless until you say what is being redrawn. In finance the
->    sample is usually the history, not the cross-section.
-> 2. "Uncorrelated," "mean-independent," and "independent" are different assumptions.
->    Returns are close to uncorrelated and far from independent, and tests that confuse the
->    two are mis-sized.
-> 3. Consistency matters more than unbiasedness in practice, because almost no estimator
->    in use is unbiased. A little bias can buy a large reduction in variance.
+> 1. A standard error is meaningless until it is clear what is being redrawn. In finance, the sample is usually the history, not the cross-section.
+> 2. "Uncorrelated," "mean-independent," and "independent" are different assumptions. Returns are close to uncorrelated and far from independent, and tests that confuse the two are mis-sized.
+> 3. Consistency matters more than unbiasedness in practice, because almost no estimator in use is unbiased. A little bias can buy a large reduction in variance.
 > 4. Precision grows like $\sqrt n$: four times the data halves the standard error.
-> 5. Dependence spends observations. An AR(1) with $\phi = 0.9$ turns 1,000 observations
->    into about 53, and 40 years of overlapping 12-month returns into about 40.
-> 6. The precision of a mean return depends on calendar span, not sampling frequency;
->    the precision of a variance improves with frequency. This asymmetry shapes most of
->    empirical finance.
-> 7. The delta method fails near boundaries such as unit roots. When a parameter is near
->    a boundary, transform interval endpoints or bootstrap.
-> 8. Asymptotic approximations fail when the quantity that governs them (clusters,
->    instrument strength, distance from a unit root, independent periods) is small, however
->    many rows the data have.
+> 5. Dependence spends observations. An AR(1) with $\phi = 0.9$ turns 1,000 observations into about 53, and 40 years of overlapping 12-month returns are worth about 40.
+> 6. The precision of a mean return depends on calendar span, not on sampling frequency, while the precision of a variance improves with frequency. This asymmetry shapes most of empirical finance.
+> 7. The delta method fails near boundaries such as unit roots. Near a boundary, transform the interval endpoints or bootstrap.
+> 8. Asymptotic approximations fail when the quantity that governs them (clusters, instrument strength, distance from a unit root, independent periods) is small, however many rows the data have.
 
 ```{=latex}
 \newpage
@@ -919,90 +583,57 @@ not the one you think is large.
 
 # 3. Regression from first principles {#3-regression}
 
-Regression is usually taught as a model: assume $Y = X'\beta + u$ with some list of
-properties for $u$, then estimate $\beta$. This section builds it the other way round,
-starting from objects that exist whether or not any model is true. The payoff is a clean
-answer to the question the rest of the document keeps asking: when does a regression
-coefficient mean what you want it to mean?
+Regression is usually taught as a model. Assume $Y = X'\beta + u$ with some list of properties for $u$, then estimate $\beta$. This section builds regression the other way round, starting from objects that exist whether or not any model is true. The payoff is a clean answer to the question the rest of the chapter keeps asking: when does a regression coefficient mean what the analyst wants it to mean?
 
 ## 3.1 The conditional expectation function
 
-The **conditional expectation function** (CEF) $m(x) = \mathbb{E}[Y_i \mid X_i = x]$ gives
-the average outcome at each value of the regressors. Define the CEF error as whatever is
-left over:
+The **conditional expectation function** (CEF) $m(x) = \mathbb{E}[Y_i \mid X_i = x]$ gives the average outcome at each value of the regressors. Define the CEF error as whatever is left over:
 
 $$
 Y_i = m(X_i) + \epsilon_i, \qquad \epsilon_i = Y_i - \mathbb{E}[Y_i \mid X_i].
 $$
 
-By the law of iterated expectations, $\mathbb{E}[\epsilon_i \mid X_i] = 0$
-automatically. **This is a definition, not an assumption.** Every outcome can be split
-into its conditional mean and a mean-independent remainder, whatever the data are and
-whatever caused them. So a statement like "the error has mean zero given $X$" has no
-content until the error is given some meaning *beyond* "whatever is left over." That
-meaning is exactly what §3.2 separates out.
+By the law of iterated expectations, $\mathbb{E}[\epsilon_i \mid X_i] = 0$ automatically. **This is a definition, not an assumption.** Every outcome can be split into its conditional mean and a mean-independent remainder, whatever the data are and whatever caused them. A statement such as "the error has mean zero given $X$" therefore has no content until the error is given some meaning *beyond* "whatever is left over." §3.2 separates out that meaning.
 
-By §2.2, the CEF is the best predictor of $Y$ given $X$. The average log wage at each
-level of schooling, or the average next-month return at each level of the dividend yield,
-is a CEF. It describes the data. It does not, by itself, say what would happen to a
-person's wage if they stayed in school longer, or to a market's return if its dividend
-yield were changed.
+By §2.2, the CEF is the best predictor of $Y$ given $X$. The average log wage at each level of schooling is a CEF, and so is the average next-month return at each level of the dividend yield. A CEF describes the data. On its own, it does not say what would happen to a person's wage after more schooling, or to a market's return if its dividend yield were changed.
 
 ## 3.2 Linear projection: the regression that always exists
 
-The CEF can be any shape. The **linear projection** of $Y$ on $X$ is the best *linear*
-predictor, the vector $\beta$ that minimises the mean squared error of $X'\beta$:
+The CEF can have any shape. The **linear projection** of $Y$ on $X$ is the best *linear* predictor: the vector $\beta$ that minimises the mean squared error of $X'\beta$,
 
 $$
 \beta = \arg\min_b \mathbb{E}\big[(Y_i - X_i'b)^2\big] = \mathbb{E}[X_iX_i']^{-1}\,\mathbb{E}[X_iY_i].
 $$
 
-It exists whenever second moments are finite and no regressor is an exact linear
-combination of the others. Its error $e_i = Y_i - X_i'\beta$ satisfies the first-order
-condition
+The projection exists whenever second moments are finite and no regressor is an exact linear combination of the others. Its error $e_i = Y_i - X_i'\beta$ satisfies the first-order condition
 
 $$
 \mathbb{E}[X_i e_i] = 0
 $$
 
-**by construction**. With a single regressor and an intercept, the slope reduces to the
-familiar $\operatorname{Cov}(X, Y)/\operatorname{Var}(X)$.
+**by construction**. With a single regressor and an intercept, the slope reduces to the familiar $\operatorname{Cov}(X, Y)/\operatorname{Var}(X)$.
 
-Two facts connect the projection to the CEF. If the CEF happens to be linear, the two
-coincide. If it is not, the projection is still the best linear *approximation* to the
-CEF, in the sense of minimising $\mathbb{E}[(m(X_i) - X_i'b)^2]$. So a regression is always
-a valid summary of how the average outcome varies with the regressors, to the extent a
-straight line can summarise it.
+Two facts connect the projection to the CEF. If the CEF happens to be linear, the two coincide. If it is not, the projection is still the best linear *approximation* to the CEF, in the sense that it minimises $\mathbb{E}[(m(X_i) - X_i'b)^2]$. A regression is therefore always a valid summary of how the average outcome varies with the regressors, to the extent that a straight line can summarise it.
 
 That is the first half of the central point of this section:
 
 > **A regression is never wrong. It always estimates the linear projection, a well-defined
 > population object. What can be wrong is the claim about what the projection measures.**
 
-Now bring in the second half. Suppose that $Y$ is actually generated by a **structural
-equation**, one meant to describe cause and effect:
+The second half concerns causation. Suppose that $Y$ is actually generated by a **structural equation**, one meant to describe cause and effect:
 
 $$
 Y_i = X_i'\beta_s + u_i,
 $$
 
-where $\beta_s$ is defined by a thought experiment (change $X$, hold everything else
-fixed, watch $Y$) and $u_i$ collects everything else that affects $Y$. Nothing
-guarantees $\mathbb{E}[X_iu_i] = 0$. Substitute the structural equation into the projection
-formula:
+Here a thought experiment defines $\beta_s$: change $X$, hold everything else fixed, and watch $Y$. The error $u_i$ collects everything else that affects $Y$. Nothing guarantees $\mathbb{E}[X_iu_i] = 0$. Substituting the structural equation into the projection formula gives
 
 $$
 \beta = \mathbb{E}[X_iX_i']^{-1}\,\mathbb{E}\big[X_i(X_i'\beta_s + u_i)\big]
 = \beta_s + \underbrace{\mathbb{E}[X_iX_i']^{-1}\,\mathbb{E}[X_iu_i]}_{\text{endogeneity bias}} .
 $$
 
-This one line is the whole problem of Part III. **The regression estimates $\beta$. You
-want $\beta_s$. They differ by the projection of the structural error on the
-regressors**, and that term is zero exactly when the regressors are uncorrelated with
-everything else that moves the outcome. No amount of data shrinks it, because it is a
-difference between two population quantities. The projection error $e_i$ is uncorrelated
-with $X_i$ by definition. The structural error $u_i$ is uncorrelated with $X_i$ only if
-the world cooperates.
+This one line contains the whole problem of Part III. **The regression estimates $\beta$, while the question usually concerns $\beta_s$. The two differ by the projection of the structural error on the regressors.** That term is zero exactly when the regressors are uncorrelated with everything else that moves the outcome. No amount of data shrinks it, because it is a difference between two population quantities. The projection error $e_i$ is uncorrelated with $X_i$ by definition. The structural error $u_i$ is uncorrelated with $X_i$ only if the world cooperates.
 
 ## 3.3 OLS: the sample moment condition, and its geometry
 
@@ -1012,21 +643,16 @@ $$
 \hat\beta = \Big(\sum_{i=1}^n X_iX_i'\Big)^{-1}\sum_{i=1}^n X_iY_i = (\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{Y}.
 $$
 
-Its defining property is the **normal equations** $\mathbf{X}'(\mathbf{Y} -
-\mathbf{X}\hat\beta) = 0$, the sample analogue of $\mathbb{E}[X_ie_i] = 0$. This is the
-master form of §1.5 with $\psi_i(\beta) = X_i(Y_i - X_i'\beta)$.
+Its defining property is the **normal equations** $\mathbf{X}'(\mathbf{Y} - \mathbf{X}\hat\beta) = 0$, the sample analogue of $\mathbb{E}[X_ie_i] = 0$. This is the master form of §1.5 with $\psi_i(\beta) = X_i(Y_i - X_i'\beta)$.
 
-**The geometry.** Think of $\mathbf{Y}$ as a point in $n$-dimensional space and the $k$
-columns of $\mathbf{X}$ as spanning a $k$-dimensional flat subspace. OLS finds the
-point of that subspace closest to $\mathbf{Y}$, which is its orthogonal projection:
+**The geometry.** Think of $\mathbf{Y}$ as a point in $n$-dimensional space, and of the $k$ columns of $\mathbf{X}$ as spanning a $k$-dimensional flat subspace. OLS finds the point of that subspace closest to $\mathbf{Y}$, which is the orthogonal projection of $\mathbf{Y}$:
 
 $$
 \hat{\mathbf{Y}} = \mathbf{P}\mathbf{Y}, \quad \mathbf{P} = \mathbf{X}(\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}', \qquad
 \hat{\mathbf{e}} = \mathbf{M}\mathbf{Y}, \quad \mathbf{M} = \mathbf{I} - \mathbf{P}.
 $$
 
-The residual vector is perpendicular to every column of $\mathbf{X}$, and therefore to the
-fitted values.
+The residual vector is perpendicular to every column of $\mathbf{X}$, and therefore to the fitted values. The diagram shows the picture.
 
 ```
                           Y (the data: a point in n dimensions)
@@ -1045,7 +671,7 @@ fitted values.
 ───────────────────────────────────────────────
 ```
 
-Two consequences of the picture are worth fixing.
+The picture has two consequences worth fixing.
 
 - **Pythagoras gives $R^2$.** With an intercept, the total sum of squares of $Y$ around its
   mean splits exactly into the explained part, $\|\hat{\mathbf{Y}} - \bar Y\|^2$, and the
@@ -1053,28 +679,17 @@ Two consequences of the picture are worth fixing.
 - **Residuals cannot reveal endogeneity.** $\mathbf{X}'\hat{\mathbf{e}} = 0$ holds in every
   sample by construction, whatever the true relationship between $X$ and $u$ (§1.5).
 
-**Leverage and influence.** The diagonal element $\mathbf{P}_{ii}$ is observation $i$'s
-**leverage**, a number between 0 and 1 that measures how far its regressors lie from
-the bulk of the data. The leverages sum to $k$. High-leverage observations pull the
-fitted plane toward themselves, so their residuals are *shrunk*: under homoskedasticity
-$\operatorname{Var}(\hat e_i) = \sigma^2(1 - \mathbf{P}_{ii})$. Dropping observation
-$i$ changes the estimate by
+**Leverage and influence.** The diagonal element $\mathbf{P}_{ii}$ is observation $i$'s **leverage**, a number between 0 and 1 that measures how far its regressors lie from the bulk of the data. The leverages sum to $k$. High-leverage observations pull the fitted plane toward themselves, so their residuals are *shrunk*: under homoskedasticity, $\operatorname{Var}(\hat e_i) = \sigma^2(1 - \mathbf{P}_{ii})$. Dropping observation $i$ changes the estimate by
 
 $$
 \hat\beta - \hat\beta_{(-i)} = (\mathbf{X}'\mathbf{X})^{-1}X_i\,\frac{\hat e_i}{1 - \mathbf{P}_{ii}},
 $$
 
-so an observation is influential when it has both high leverage and a large residual.
-Financial data are full of such points: crash months, microcap stocks, and firms with
-extreme accounting ratios. **[Practice]** Before believing a coefficient, compute how much
-it moves when the most influential 1% of observations are dropped. If the answer is
-"most of the way to zero," the finding belongs to those observations, not to the sample.
+so an observation is influential when it has both high leverage and a large residual. Financial data are full of such points: crash months, microcap stocks, and firms with extreme accounting ratios. [Practice] **Recommendation: before believing a coefficient, compute how much it moves when the most influential 1% of observations are dropped.** If the answer is "most of the way to zero," the finding belongs to those observations, not to the sample.
 
 ## 3.4 Frisch–Waugh–Lovell: what "controlling for" means
 
-Split the regressors into two groups, $\mathbf{Y} = \mathbf{X}_1\beta_1 + \mathbf{X}_2\beta_2 +
-\mathbf{e}$. The **Frisch–Waugh–Lovell (FWL) theorem** says that the multiple-regression
-coefficient $\hat\beta_1$ can be computed in two steps:
+Split the regressors into two groups, $\mathbf{Y} = \mathbf{X}_1\beta_1 + \mathbf{X}_2\beta_2 + \mathbf{e}$. The **Frisch–Waugh–Lovell (FWL) theorem** says that the multiple-regression coefficient $\hat\beta_1$ can be computed in two steps:
 
 1. Regress $\mathbf{X}_1$ on $\mathbf{X}_2$ and keep the residuals $\tilde{\mathbf{X}}_1 =
    \mathbf{M}_2\mathbf{X}_1$, the part of $\mathbf{X}_1$ that $\mathbf{X}_2$ cannot
@@ -1082,112 +697,63 @@ coefficient $\hat\beta_1$ can be computed in two steps:
 2. Regress $\mathbf{Y}$ on $\tilde{\mathbf{X}}_1$:
    $\hat\beta_1 = (\tilde{\mathbf{X}}_1'\tilde{\mathbf{X}}_1)^{-1}\tilde{\mathbf{X}}_1'\mathbf{Y}$.
 
-Residualising $\mathbf{Y}$ on $\mathbf{X}_2$ as well gives the same coefficient. The
-theorem follows from the geometry of §3.3: the component of $\mathbf{X}_1$ lying inside
-the space of $\mathbf{X}_2$ is already accounted for by $\mathbf{X}_2$'s coefficients, so
-only the orthogonal component can identify $\beta_1$.
+Residualising $\mathbf{Y}$ on $\mathbf{X}_2$ as well gives the same coefficient. The theorem follows from the geometry of §3.3. The component of $\mathbf{X}_1$ that lies inside the space of $\mathbf{X}_2$ is already accounted for by $\mathbf{X}_2$'s coefficients, so only the orthogonal component can identify $\beta_1$.
 
 The interpretation is the most useful single idea in applied regression:
 
 > **"Controlling for $X_2$" means using only the variation in $X_1$ that $X_2$ cannot
 > predict.** The coefficient is estimated entirely from that residual variation.
 
-Four consequences follow, and each one comes back later.
+Four consequences follow, and each one returns later in the chapter.
 
-**1. Controls consume identifying variation.** The precision of $\hat\beta_1$ depends on
-how much residual variation remains. If $R^2_{1\cdot2}$ is the $R^2$ from regressing
-$X_1$ on the controls, the variance of $\hat\beta_1$ is inflated by the **variance inflation
-factor** $1/(1 - R^2_{1\cdot 2})$ relative to a regression with no controls. With
-$R^2_{1\cdot2} = 0.9$, the standard error is $\sqrt{10} = 3.2$ times larger, as if the sample
-were ten times smaller. "Multicollinearity" is not a violation of any assumption. It is a
-shortage of independent variation, which is why Goldberger (1991) suggested renaming it
-"micronumerosity."
+**1. Controls consume identifying variation.** The precision of $\hat\beta_1$ depends on how much residual variation remains. Let $R^2_{1\cdot2}$ be the $R^2$ from regressing $X_1$ on the controls. Relative to a regression with no controls, the variance of $\hat\beta_1$ is inflated by the **variance inflation factor** $1/(1 - R^2_{1\cdot 2})$. With $R^2_{1\cdot2} = 0.9$, the standard error is $\sqrt{10} = 3.2$ times larger, as if the sample were ten times smaller. "Multicollinearity" is not a violation of any assumption. It is a shortage of independent variation, which is why Goldberger (1991) suggested renaming it "micronumerosity."
 
-**2. The estimate is local to the residual variation.** Suppose you regress stock
-returns on analyst coverage, controlling for firm size. Size explains most of the
-cross-sectional variation in coverage, so the coefficient is identified from firms with
-*unusually* high or low coverage for their size. Those firms are unusual in other ways too,
-such as recent listings, controversy, or index membership. The estimate describes them, and
-extrapolating it to a typical firm is an additional assumption.
+**2. The estimate is local to the residual variation.** Consider a regression of stock returns on analyst coverage that controls for firm size. Size explains most of the cross-sectional variation in coverage, so the coefficient is identified from firms with *unusually* high or low coverage for their size. Those firms are unusual in other ways too, such as recent listings, controversy, or index membership. The estimate describes them, and extrapolating it to a typical firm is an additional assumption.
 
-**3. Regression weights observations by the conditional variance of the regressor.**
-With a binary treatment and a set of discrete controls, the OLS coefficient is a weighted
-average of the treatment–control differences within each cell of the controls, with each
-cell weighted by its size times $p(1-p)$, where $p$ is the share treated in that cell
-([Angrist, 1998](https://www.nber.org/papers/w5192){target="_blank"}). Cells where almost everyone or almost no one is treated get almost no
-weight. If the effect differs across cells, the regression coefficient is neither the
-average effect in the population nor the average effect on the treated. It is a
-variance-weighted average that can be dominated by an unrepresentative subset ([Aronow &
-Samii, 2016](https://doi.org/10.1111/ajps.12185){target="_blank"}; [Słoczyński,
-2022](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3619680){target="_blank"}).
+**3. Regression weights observations by the conditional variance of the regressor.** With a binary treatment and a set of discrete controls, the OLS coefficient is a weighted average of the treatment–control differences within each cell of the controls. Each cell is weighted by its size times $p(1-p)$, where $p$ is the share treated in that cell ([Angrist, 1998](https://www.nber.org/papers/w5192){target="_blank"}). Cells where almost everyone or almost no one is treated get almost no weight. If the effect differs across cells, the regression coefficient is neither the average effect in the population nor the average effect on the treated. It is a variance-weighted average that an unrepresentative subset can dominate ([Aronow & Samii, 2016](https://doi.org/10.1111/ajps.12185){target="_blank"}; [Słoczyński, 2022](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3619680){target="_blank"}).
 
-**4. Fixed effects and "partialling out" are FWL.** Adding a dummy for every firm is
-algebraically identical to subtracting each firm's mean from both sides (§7.4). The
-double machine learning estimator of §10.5 is FWL with the linear first-step regressions
-replaced by flexible predictions.
+**4. Fixed effects and "partialling out" are FWL.** Adding a dummy for every firm is algebraically identical to subtracting each firm's mean from both sides (§7.4). The double machine learning estimator of §10.5 is FWL with the linear first-step regressions replaced by flexible predictions.
 
 ## 3.5 The omitted variable bias formula
 
-FWL says what including a control does. The **omitted variable bias** (OVB) formula says
-what leaving one out costs. Suppose the regression you would like to run is
+FWL says what including a control does. The **omitted variable bias** (OVB) formula says what leaving one out costs. Suppose the desired regression is
 
 $$
 Y_i = \alpha + \beta X_i + \gamma C_i + u_i ,
 $$
 
-and the one you can run omits $C_i$. Write the projection of the omitted variable on the
-included one as $C_i = \delta_0 + \delta X_i + v_i$. Substituting,
+and the feasible one omits $C_i$. Write the projection of the omitted variable on the included one as $C_i = \delta_0 + \delta X_i + v_i$. Substituting gives
 
 $$
 Y_i = (\alpha + \gamma\delta_0) + (\beta + \gamma\delta)\,X_i + (\gamma v_i + u_i),
 $$
 
-and because $v_i$ is uncorrelated with $X_i$ by construction, the short regression's
-slope converges to
+Because $v_i$ is uncorrelated with $X_i$ by construction, the short regression's slope converges to
 
 $$
 \operatorname{plim}\hat\beta_{\text{short}} = \beta + \gamma\,\delta .
 $$
 
-In words: **the bias equals the effect of the omitted variable on the outcome, times the
-coefficient of the omitted variable on the included one.** Both links must be present.
-An omitted variable that affects $Y$ but is uncorrelated with $X$ costs precision, not
-bias. One that is correlated with $X$ but does not affect $Y$ costs nothing.
+In words: **the bias equals the effect of the omitted variable on the outcome, times the coefficient of the omitted variable on the included one.** Both links must be present. An omitted variable that affects $Y$ but is uncorrelated with $X$ costs precision, not bias. One that is correlated with $X$ but does not affect $Y$ costs nothing. The table gives the sign of the bias in each case.
 
 | | Omitted variable correlated positively with $X$ ($\delta > 0$) | Correlated negatively ($\delta < 0$) |
 |---|---|---|
 | **Omitted variable raises $Y$** ($\gamma > 0$) | Upward bias | Downward bias |
 | **Omitted variable lowers $Y$** ($\gamma < 0$) | Downward bias | Upward bias |
 
-**A worked example, with illustrative numbers.** Suppose a regression of log earnings on
-years of schooling gives $\hat\beta_{\text{short}} = 0.10$, a 10% earnings gain per year.
-Ability is unobserved. Suppose one standard deviation of ability raises log earnings by
-$\gamma = 0.05$ holding schooling fixed, and each year of schooling is associated with
-$\delta = 0.4$ standard deviations more ability. The bias is $0.05 \times 0.4 = 0.02$, so the
-causal return would be about 0.08. A fifth of the naive estimate is selection. The formula
-does not tell you $\gamma$ and $\delta$, but it tells you exactly what you would need to
-believe about them to defend the estimate, and that turns a vague worry into a specific
-argument.
+**A worked example, with illustrative numbers.** Suppose a regression of log earnings on years of schooling gives $\hat\beta_{\text{short}} = 0.10$, a 10% earnings gain per year. Ability is unobserved. Suppose one standard deviation of ability raises log earnings by $\gamma = 0.05$ with schooling held fixed, and that each year of schooling is associated with $\delta = 0.4$ standard deviations more ability. The bias is $0.05 \times 0.4 = 0.02$, so the causal return is about 0.08. A fifth of the naive estimate is selection. The formula does not supply $\gamma$ and $\delta$. It does state exactly what an analyst must believe about them to defend the estimate, which turns a vague worry into a specific argument.
 
 The formula has three further uses.
 
-- **Signing the bias without data.** If you can argue the direction of both links, you know
-  whether the estimate is an upper or a lower bound.
-- **Coefficient stability as evidence.** If adding a set of observed controls barely moves
-  the coefficient, and those controls are informative about the unobserved ones, the
-  remaining bias may be small. §6.7 makes this argument formal, and shows its limits.
-- **Noisy controls control only partly.** A control measured with error is only
-  partially correlated with the true confounder, so including it removes only part of the
-  bias. In the simulation of §6.5, controlling for a proxy with a reliability of 0.5 removes
-  under 40% of the bias. **[Simulated]** "We controlled for it" often means "we controlled for
-  a noisy version of it."
+- **Signing the bias without data.** An argument for the direction of both links shows whether the estimate is an upper or a lower bound.
+- **Coefficient stability as evidence.** Suppose adding a set of observed controls barely moves the coefficient, and those controls are informative about the unobserved ones. Then the remaining bias may be small. §6.7 makes this argument formal and shows its limits.
+- **Noisy controls control only partly.** A control measured with error is only partially correlated with the true confounder, so including it removes only part of the bias. [Simulated] In the simulation of §6.5, controlling for a proxy with a reliability of 0.5 removes under 40% of the bias. A claim to have "controlled for" a confounder often means that a noisy version of it was controlled for.
 
-The multivariate generalisation is the endogeneity-bias formula at the end of §3.2. OVB
-is its most common special case.
+The multivariate generalisation is the endogeneity-bias formula at the end of §3.2, and OVB is its most common special case.
 
 ## 3.6 Reading coefficients
 
-A coefficient is only interpretable in the units of the model it came from.
+A coefficient can be interpreted only in the units of the model it came from. The table gives the interpretation of the slope in the common specifications.
 
 | Specification | Interpretation of the slope |
 |---|---|
@@ -1201,123 +767,64 @@ A coefficient is only interpretable in the units of the model it came from.
 
 Four traps are common enough to name.
 
-- **Log approximations fail for large coefficients.** A dummy coefficient of 0.3 in a log
-  regression is a 35% difference, not 30%, and $-0.3$ is $-26\%$, not $-30\%$.
-- **Main effects in interaction models are evaluated at zero.** If $Z$ is firm size in
-  dollars, $\beta_1$ is the effect of $X$ for a firm of size zero, which does not exist.
-  Centre $Z$ at a meaningful value before interacting.
-- **Logs of variables with zeros are not unit-free.** Transforms like $\log(1 + Y)$ or
-  $\operatorname{arcsinh}(Y)$, often applied to trading volume, counts, or R&D spending, give
-  coefficients that change when $Y$ is rescaled, so the "percentage" reading is not
-  well-defined ([Chen & Roth, 2024](https://doi.org/10.1093/qje/qjad054){target="_blank"}).
-- **Predicting $\log Y$ is not predicting $Y$.** $\exp(\mathbb{E}[\log Y \mid X])$ is the
-  conditional *geometric* mean, which is below $\mathbb{E}[Y \mid X]$. Retransforming a
-  log-scale forecast needs a correction ([Simple and Log Returns](log_returns.html) §11.5).
+- **Log approximations fail for large coefficients.** In a log regression, a dummy coefficient of 0.3 is a 35% difference, not 30%, and $-0.3$ is $-26\%$, not $-30\%$.
+- **Main effects in interaction models are evaluated at zero.** If $Z$ is firm size in dollars, $\beta_1$ is the effect of $X$ for a firm of size zero, which does not exist. Centre $Z$ at a meaningful value before interacting.
+- **Logs of variables with zeros are not unit-free.** Transforms such as $\log(1 + Y)$ or $\operatorname{arcsinh}(Y)$ are often applied to trading volume, counts, or R&D spending. They give coefficients that change when $Y$ is rescaled, so the "percentage" reading is not well defined ([Chen & Roth, 2024](https://doi.org/10.1093/qje/qjad054){target="_blank"}).
+- **Predicting $\log Y$ is not predicting $Y$.** $\exp(\mathbb{E}[\log Y \mid X])$ is the conditional *geometric* mean, which is below $\mathbb{E}[Y \mid X]$. Retransforming a log-scale forecast needs a correction ([Simple and Log Returns](log_returns.html) §11.5).
 
-"Holding other variables constant" deserves a warning of its own. It describes the
-arithmetic of the linear projection, a partial derivative of $X'\beta$. It is *not* a
-description of a feasible change in the world. If analyst coverage causes firms to grow,
-then "the effect of coverage holding size constant" asks what coverage does through every
-channel *except* size, which may not be the question anyone wanted answered (§6.5).
+"Holding other variables constant" deserves a warning of its own. The phrase describes the arithmetic of the linear projection, a partial derivative of $X'\beta$. It does *not* describe a feasible change in the world. If analyst coverage causes firms to grow, then "the effect of coverage holding size constant" asks what coverage does through every channel *except* size, which may not be the question anyone wanted answered (§6.5).
 
 ## 3.7 The classical assumptions, ranked by what breaks
 
-Textbooks list the assumptions of the linear model as if they were equally important. They
-are not. What matters is what goes wrong when each one fails.
+Textbooks list the assumptions of the linear model as if they were equally important. They are not. What matters is what goes wrong when each one fails, and the table ranks them by that consequence.
 
 | Assumption | What it buys | If it fails | The modern response |
 |---|---|---|---|
 | **Exogeneity:** $\mathbb{E}[u_i \mid X_i] = 0$ | $\hat\beta$ estimates the structural $\beta_s$ | **Wrong answer**, and more data do not help | Research design (Part III) |
 | **Independence across observations** | The simple meat | **Wrong precision**, often by large factors | Cluster-robust or HAC standard errors (§4) |
 | **Homoskedasticity** | Classical standard errors; OLS is efficient | Wrong precision, usually too small; some efficiency lost | Heteroskedasticity-robust standard errors (§4.3) |
-| **Linearity** of the interpreted model | The coefficient has the meaning assigned to it | You estimate the best linear approximation, which may mislead | Flexible specifications; binned scatter plots (§11.4) |
+| **Linearity** of the interpreted model | The coefficient has the meaning assigned to it | The regression estimates the best linear approximation, which may mislead | Flexible specifications; binned scatter plots (§11.4) |
 | **No perfect collinearity** | A unique $\hat\beta$ | Not identified | Reparametrise. Near-collinearity costs precision, not bias |
 | **Normal errors** | Exact finite-sample $t$ and $F$ distributions | Almost nothing in moderate samples, by the CLT | Asymptotic inference; the bootstrap in small samples |
 
-The ranking is the point. **[Fact]** A failure of exogeneity gives the wrong answer. A
-failure of independence or homoskedasticity gives the wrong confidence in an answer. A
-failure of normality in a sample of reasonable size gives almost nothing.
+The ranking is the point. [Fact] A failure of exogeneity gives the wrong answer. A failure of independence or homoskedasticity gives the wrong confidence in an answer. A failure of normality in a sample of reasonable size costs almost nothing.
 
-The **Gauss–Markov theorem** says that under the first five assumptions OLS has the
-smallest variance among linear unbiased estimators. It gets more attention than it earns.
-The class of "linear unbiased" estimators is narrow, efficiency is a second-order concern
-next to bias, and since [White (1980)](https://doi.org/10.2307/1912934){target="_blank"} valid inference has not needed homoskedasticity at all.
-Its main modern use is as a reminder of what is lost by *not* weighting when the error
-variance is known.
+The **Gauss–Markov theorem** says that under the first five assumptions, OLS has the smallest variance among linear unbiased estimators. The theorem gets more attention than it earns. The class of "linear unbiased" estimators is narrow, efficiency is a second-order concern next to bias, and since [White (1980)](https://doi.org/10.2307/1912934){target="_blank"} valid inference has not needed homoskedasticity at all. The theorem's main modern use is as a reminder of what is lost by *not* weighting when the error variance is known.
 
 ## 3.8 R-squared, and what it is not
 
-$R^2 = 1 - \sum_i \hat e_i^2 / \sum_i (Y_i - \bar Y)^2$ is the share of the sample variance of
-$Y$ captured by the linear projection. It also equals the squared correlation between $Y$ and
-the fitted values $\hat Y$. It measures fit, and nothing else.
+$R^2 = 1 - \sum_i \hat e_i^2 / \sum_i (Y_i - \bar Y)^2$ is the share of the sample variance of $Y$ captured by the linear projection. It also equals the squared correlation between $Y$ and the fitted values $\hat Y$. It measures fit, and nothing else.
 
-- **It is not a test of causal validity.** A randomised experiment with a noisy outcome can
-  estimate a treatment effect precisely with an $R^2$ of 0.02. Two unrelated trending series
-  can produce an $R^2$ above 0.3 about a third of the time, from nothing but shared drift
-  (§8.3).
-- **It is not a measure of out-of-sample performance.** In-sample $R^2$ never falls when a
-  regressor is added, whatever the regressor is (§10.2).
+- **It is not a test of causal validity.** A randomised experiment with a noisy outcome can estimate a treatment effect precisely with an $R^2$ of 0.02. Two unrelated trending series produce an $R^2$ above 0.3 about a third of the time, from nothing but shared drift (§8.3).
+- **It is not a measure of out-of-sample performance.** In-sample $R^2$ never falls when a regressor is added, whatever the regressor is (§10.2).
 - **A small $R^2$ can be economically large.** This is the version that matters in finance.
 
-The last point deserves its derivation, because it recalibrates intuition about return
-predictability. Consider an investor with mean-variance preferences and risk aversion
-$\gamma_r$ who holds a risky asset with excess return mean $\mu$, volatility $\sigma$, and
-Sharpe ratio $S = \mu/\sigma$. Without a forecast, the optimal weight is $\mu/(\gamma_r\sigma^2)$
-and the expected excess return on the investor's portfolio is $S^2/\gamma_r$. Now give the
-investor a predictor that explains a fraction $R^2$ of the variance of the asset's return.
-The conditional mean $\mu_t$ then has variance $R^2\sigma^2$ around $\mu$, and the unexplained
-variance is $(1 - R^2)\sigma^2$. The optimal weight becomes $\mu_t/(\gamma_r(1-R^2)\sigma^2)$,
-and the expected portfolio excess return is this weight times $\mu_t$, averaged over its
-distribution: $\mathbb{E}[\mu_t^2]/(\gamma_r(1-R^2)\sigma^2)$. Since $\mu_t$ has mean $\mu$
-and variance $R^2\sigma^2$, $\mathbb{E}[\mu_t^2] = \mu^2 + R^2\sigma^2$, so the expected
-portfolio excess return becomes
+The last point deserves its derivation, because it recalibrates intuition about return predictability. Consider an investor with mean-variance preferences and risk aversion $\gamma_r$ who holds a risky asset with excess-return mean $\mu$, volatility $\sigma$, and Sharpe ratio $S = \mu/\sigma$. Without a forecast, the optimal weight is $\mu/(\gamma_r\sigma^2)$, and the expected excess return on the investor's portfolio is $S^2/\gamma_r$. Now give the investor a predictor that explains a fraction $R^2$ of the variance of the asset's return. The conditional mean $\mu_t$ then has variance $R^2\sigma^2$ around $\mu$, and the unexplained variance is $(1 - R^2)\sigma^2$. The optimal weight becomes $\mu_t/(\gamma_r(1-R^2)\sigma^2)$. The expected portfolio excess return is this weight times $\mu_t$, averaged over the distribution of $\mu_t$: $\mathbb{E}[\mu_t^2]/(\gamma_r(1-R^2)\sigma^2)$. Since $\mu_t$ has mean $\mu$ and variance $R^2\sigma^2$, $\mathbb{E}[\mu_t^2] = \mu^2 + R^2\sigma^2$. The expected portfolio excess return is therefore
 
 $$
 \frac{\mathbb{E}[\mu_t^2]}{\gamma_r(1-R^2)\sigma^2} = \frac{\mu^2 + R^2\sigma^2}{\gamma_r(1-R^2)\sigma^2} = \frac{S^2 + R^2}{\gamma_r(1-R^2)} .
 $$
 
-Relative to no forecast, expected return rises by a factor of $(1 + R^2/S^2)/(1 - R^2)$,
-which is approximately $1 + R^2/S^2$. **The right benchmark for a predictive $R^2$ is the
-squared Sharpe ratio, not 1.** A monthly Sharpe ratio of 0.12 (about 0.42 annualised) gives
-$S^2 = 0.0144$. A monthly $R^2$ of 0.5% would then raise expected return by about 35%. This
-is the logic of [Campbell & Thompson (2008)](https://www.nber.org/papers/w11468){target="_blank"},
-and it is why an out-of-sample $R^2$ that looks negligible can be worth money.
+Relative to no forecast, the expected return rises by a factor of $(1 + R^2/S^2)/(1 - R^2)$, which is approximately $1 + R^2/S^2$. **The right benchmark for a predictive $R^2$ is the squared Sharpe ratio, not 1.** A monthly Sharpe ratio of 0.12 (about 0.42 annualised) gives $S^2 = 0.0144$. A monthly $R^2$ of 0.5% would then raise the expected return by about 35%. This is the logic of [Campbell & Thompson (2008)](https://www.nber.org/papers/w11468){target="_blank"}, and it is why an out-of-sample $R^2$ that looks negligible can be worth money.
 
-The same logic cuts the other way. Because the benchmark is so small, an in-sample $R^2$ of
-that size is also easy to produce by accident, through a search over predictors, overlapping
-observations, or a persistent regressor (§9.2). The relevant statistic for prediction is the
-**out-of-sample** $R^2$,
+The same logic cuts the other way. Because the benchmark is so small, an in-sample $R^2$ of that size is also easy to produce by accident, through a search over predictors, overlapping observations, or a persistent regressor (§9.2). The relevant statistic for prediction is the **out-of-sample** $R^2$,
 
 $$
 R^2_{\text{OS}} = 1 - \frac{\sum_t (r_t - \hat r_t)^2}{\sum_t (r_t - \bar r_t)^2},
 $$
 
-where $\hat r_t$ is the forecast made with information available before $t$ and $\bar r_t$ is
-the historical average at that date. It can be, and often is, negative (§8.8).
+where $\hat r_t$ is the forecast made with information available before $t$, and $\bar r_t$ is the historical average at that date. It can be negative, and often is (§8.8).
 
 > ### §3 Key takeaways
 >
-> 1. The error of the conditional expectation function is mean-independent of the
->    regressors by definition. "The error has mean zero" says nothing until the error is
->    given a structural meaning.
-> 2. A regression always estimates the linear projection, a valid population object. It
->    equals the causal coefficient only when the structural error is uncorrelated with the
->    regressors, and the gap does not shrink with sample size.
-> 3. Residuals are orthogonal to regressors by construction, so no residual diagnostic can
->    detect endogeneity.
-> 4. Controlling for a variable means using only the variation it cannot predict. Controls
->    consume identifying variation and make the estimate local to the observations that
->    retain it.
-> 5. Omitted variable bias is the omitted variable's effect times its coefficient on the
->    included regressor. Use the formula to sign biases, and remember that a noisy control
->    removes only part of one.
-> 6. With heterogeneous effects, regression reports a variance-weighted average that can
->    be dominated by an unrepresentative subset of the data.
-> 7. Rank the classical assumptions by consequence: exogeneity failures give wrong answers,
->    dependence and heteroskedasticity give wrong precision, and non-normality rarely
->    matters.
-> 8. Judge a predictive $R^2$ against the squared Sharpe ratio. A monthly $R^2$ of 0.5% can
->    be economically large, and is also easy to manufacture in-sample.
+> 1. The error of the conditional expectation function is mean-independent of the regressors by definition. "The error has mean zero" says nothing until the error is given a structural meaning.
+> 2. A regression always estimates the linear projection, a valid population object. The projection equals the causal coefficient only when the structural error is uncorrelated with the regressors, and the gap does not shrink with sample size.
+> 3. Residuals are orthogonal to the regressors by construction, so no residual diagnostic can detect endogeneity.
+> 4. Controlling for a variable means using only the variation it cannot predict. Controls consume identifying variation and make the estimate local to the observations that retain it.
+> 5. Omitted variable bias is the omitted variable's effect times its coefficient on the included regressor. Use the formula to sign biases, and remember that a noisy control removes only part of a bias.
+> 6. With heterogeneous effects, regression reports a variance-weighted average that an unrepresentative subset of the data can dominate.
+> 7. Rank the classical assumptions by consequence. Exogeneity failures give wrong answers, dependence and heteroskedasticity give wrong precision, and non-normality rarely matters.
+> 8. Judge a predictive $R^2$ against the squared Sharpe ratio. A monthly $R^2$ of 0.5% can be economically large, and it is also easy to manufacture in-sample.
 
 ```{=latex}
 \newpage
@@ -1327,31 +834,15 @@ the historical average at that date. It can be, and often is, negative (§8.8).
 
 # 4. Inference: how sure should you be? {#4-inference}
 
-Identification decides whether an estimate is aimed at the right target. Inference
-decides how far from the target it is likely to land. This section is about the second
-question, and its central message is the one from §1.6: every standard error rests on an
-assumption about which observations are independent of which, and when that assumption is
-wrong the error is measured in factors, not decimals.
+Identification decides whether an estimate is aimed at the right target. Inference decides how far from the target it is likely to land. This section is about the second question. Its central message is the one from §1.6. Every standard error rests on an assumption about which observations are independent of which, and when that assumption is wrong, the error is measured in factors, not decimals.
 
 ## 4.1 What a standard error measures
 
-A **standard error** is an estimate of the standard deviation of an estimator's sampling
-distribution: how much the estimate would vary across the samples the data-generating
-process could have produced. A **$t$-statistic** divides the distance between the estimate
-and a hypothesised value by the standard error. A **95% confidence interval**, roughly the
-estimate plus or minus two standard errors, is a procedure that covers the true value in
-95% of repeated samples.
+A **standard error** is an estimate of the standard deviation of an estimator's sampling distribution: how much the estimate would vary across the samples the data-generating process could have produced. A **$t$-statistic** divides the distance between the estimate and a hypothesised value by the standard error. A **95% confidence interval**, roughly the estimate plus or minus two standard errors, is a procedure that covers the true value in 95% of repeated samples.
 
-That last sentence is easy to misread. A computed interval either contains the true value
-or it does not, so it is not "95% likely" to contain it in any frequentist sense. The
-reading that is both correct and useful is this: **the confidence interval is the set of
-parameter values that the data do not reject at the 5% level.** Values inside it are
-compatible with the data, and values outside it are not. Read that way, an interval of
-$[-0.1, 3.0]$ and one of $[-0.01, 0.02]$ are both "not significant," and they say completely
-different things.
+That last sentence is easy to misread. A computed interval either contains the true value or does not, so in the frequentist sense it is not "95% likely" to contain it. The reading that is both correct and useful is this: **the confidence interval is the set of parameter values that the data do not reject at the 5% level.** Values inside it are compatible with the data, and values outside it are not. On that reading, an interval of $[-0.1, 3.0]$ and one of $[-0.01, 0.02]$ are both "not significant," yet they say completely different things.
 
-Every standard error is conditional on the model of how the sample could have come out
-differently. §4.2–§4.5 are four versions of that model.
+Every standard error is conditional on a model of how the sample could have come out differently. §4.2–§4.5 present four versions of that model.
 
 ## 4.2 The sandwich, derived for OLS
 
@@ -1361,16 +852,13 @@ $$
 \sqrt n\,(\hat\beta - \beta) = \Big(\frac1n\sum_{i=1}^n X_iX_i'\Big)^{-1}\,\frac{1}{\sqrt n}\sum_{i=1}^n X_ie_i .
 $$
 
-The first factor converges to $Q_{XX}^{-1}$. The second is a scaled sum of the moment
-contributions $X_ie_i$, and a central limit theorem makes it approximately normal with
-variance $\Omega = \operatorname{Var}\big(n^{-1/2}\sum_i X_ie_i\big)$. So
+The first factor converges to $Q_{XX}^{-1}$. The second is a scaled sum of the moment contributions $X_ie_i$, and a central limit theorem makes it approximately normal with variance $\Omega = \operatorname{Var}\big(n^{-1/2}\sum_i X_ie_i\big)$. So
 
 $$
 \operatorname{Avar}\big(\sqrt n(\hat\beta - \beta)\big) = Q_{XX}^{-1}\,\Omega\,Q_{XX}^{-1}.
 $$
 
-This is §1.6 with the OLS bread. Everything in the rest of this section is a statement
-about $\Omega$.
+This is §1.6 with the OLS bread. Everything in the rest of this section is a statement about $\Omega$.
 
 - **If the observations are independent**, the cross-products between different
   observations have expectation zero and $\Omega = \mathbb{E}[e_i^2X_iX_i']$.
@@ -1378,53 +866,29 @@ about $\Omega$.
   ($\mathbb{E}[e_i^2 \mid X_i] = \sigma^2$), then $\Omega = \sigma^2 Q_{XX}$, and the sandwich
   collapses to the classical formula $\sigma^2 Q_{XX}^{-1}$.
 
-The classical standard error is therefore the *most* restrictive special case, not the
-neutral default. It assumes both independence and constant variance, and it is correct only
-when both hold.
+The classical standard error is therefore the *most* restrictive special case, not the neutral default. It assumes both independence and constant variance, and it is correct only when both hold.
 
 ## 4.3 Heteroskedasticity
 
-Replace the population meat with its sample analogue and you get the
-**heteroskedasticity-robust** or **White** variance estimator ([White,
-1980](https://doi.org/10.2307/1912934){target="_blank"}):
+Replacing the population meat with its sample analogue gives the **heteroskedasticity-robust**, or **White**, variance estimator ([White, 1980](https://doi.org/10.2307/1912934){target="_blank"}):
 
 $$
 \hat V_{\text{HC}} = (\mathbf{X}'\mathbf{X})^{-1}\Big(\sum_{i=1}^n \hat e_i^2 X_iX_i'\Big)(\mathbf{X}'\mathbf{X})^{-1}.
 $$
 
-It is consistent whatever form the heteroskedasticity takes. Several small-sample variants
-exist. HC1 rescales by $n/(n-k)$. HC2 and HC3 divide each squared residual by $(1 -
-\mathbf{P}_{ii})$ and $(1 - \mathbf{P}_{ii})^2$ respectively, which undoes the shrinkage of
-high-leverage residuals noted in §3.3. HC3 is close to a jackknife and performs best in small
-samples with influential points ([MacKinnon & White,
-1985](https://doi.org/10.1016/0304-4076(85)90158-7){target="_blank"}).
+It is consistent whatever form the heteroskedasticity takes. Several small-sample variants exist. HC1 rescales by $n/(n-k)$. HC2 and HC3 divide each squared residual by $(1 - \mathbf{P}_{ii})$ and $(1 - \mathbf{P}_{ii})^2$ respectively, which undoes the shrinkage of high-leverage residuals noted in §3.3. HC3 is close to a jackknife, and it performs best in small samples with influential points ([MacKinnon & White, 1985](https://doi.org/10.1016/0304-4076(85)90158-7){target="_blank"}).
 
-Three practical points:
+Three practical points follow:
 
-- **Heteroskedasticity does not bias $\hat\beta$.** It only corrupts the classical standard
-  error, and usually makes it too small. That happens whenever the error variance is larger
-  where the regressor is far from its mean, which is typical: small firms have both extreme
-  characteristics and volatile returns.
-- **[Practice] Use robust standard errors by default.** In samples of reasonable size they
-  cost almost nothing when the errors happen to be homoskedastic, and they protect you when
-  they are not.
-- **Weighting recovers efficiency when the variance is predictable.** Weighted least
-  squares divides each observation by its error standard deviation. Scaling returns by a
-  volatility forecast before regressing is exactly this, and it is often a larger
-  improvement than any change of estimator. A large gap between classical and robust
-  standard errors is also a useful signal that the model is misspecified in some other way
-  ([King & Roberts, 2015](https://doi.org/10.1093/pan/mpu015){target="_blank"}).
+- **Heteroskedasticity does not bias $\hat\beta$.** It corrupts only the classical standard error, and it usually makes that standard error too small. This happens whenever the error variance is larger where the regressor is far from its mean, which is typical: small firms have both extreme characteristics and volatile returns.
+- [Practice] **Recommendation: use robust standard errors by default.** In samples of reasonable size they cost almost nothing when the errors happen to be homoskedastic, and they protect the analysis when the errors are not.
+- **Weighting recovers efficiency when the variance is predictable.** Weighted least squares divides each observation by its error standard deviation. Scaling returns by a volatility forecast before regressing is exactly this, and it is often a larger improvement than any change of estimator. A large gap between classical and robust standard errors is also a useful signal that the model is misspecified in some other way ([King & Roberts, 2015](https://doi.org/10.1093/pan/mpu015){target="_blank"}).
 
 ## 4.4 Clustering
 
-Now drop independence. Suppose observations come in $G$ groups (states, industries, trading
-days, firms), and errors are correlated within a group but independent across groups. How
-wrong is the classical standard error?
+Now drop independence. Suppose observations come in $G$ groups, such as states, industries, trading days, or firms, and errors are correlated within a group but independent across groups. The question is how wrong the classical standard error becomes.
 
-**The Moulton factor.** With equal group sizes $\bar n_g$, an intra-cluster correlation of
-the error $\rho_u$, and an intra-cluster correlation of the regressor $\rho_x$, the true
-variance of the OLS slope exceeds the classical formula by approximately ([Moulton,
-1990](https://doi.org/10.2307/2109724){target="_blank"})
+**The Moulton factor.** Take equal group sizes $\bar n_g$, an intra-cluster correlation of the error $\rho_u$, and an intra-cluster correlation of the regressor $\rho_x$. The true variance of the OLS slope then exceeds the classical formula by approximately ([Moulton, 1990](https://doi.org/10.2307/2109724){target="_blank"})
 
 $$
 \frac{\operatorname{Var}_{\text{true}}(\hat\beta)}{\operatorname{Var}_{\text{classical}}(\hat\beta)} \approx 1 + (\bar n_g - 1)\,\rho_x\,\rho_u .
@@ -1432,22 +896,10 @@ $$
 
 The formula is worth reading term by term.
 
-- **Both correlations must be present.** If the regressor varies independently within
-  groups ($\rho_x = 0$), correlated errors cost nothing. Clustering matters most when the
-  regressor is *constant* within groups ($\rho_x = 1$), as with a state law, an industry
-  shock, or a date-level event.
-- **Large groups amplify small correlations.** The factor multiplies $\rho_u$ by
-  $\bar n_g - 1$. An error correlation of 0.05 is negligible with groups of 3 and enormous
-  with groups of 1,000.
+- **Both correlations must be present.** If the regressor varies independently within groups ($\rho_x = 0$), correlated errors cost nothing. Clustering matters most when the regressor is *constant* within groups ($\rho_x = 1$), as with a state law, an industry shock, or a date-level event.
+- **Large groups amplify small correlations.** The factor multiplies $\rho_u$ by $\bar n_g - 1$. An error correlation of 0.05 is negligible with groups of three and enormous with groups of 1,000.
 
-Take 50 groups of 100 observations, a group-level regressor, and $\rho_u = 0.05$. The
-factor is $1 + 99 \times 0.05 = 5.95$, so the true standard error is $\sqrt{5.95} = 2.44$ times
-the classical one, and the 5,000 observations carry the information of about 840 independent
-ones. A classical $t$-statistic of 2.4 is really about 1.0. With groups of 1,000 instead, the same
-correlation gives a factor of $1 + 999 \times 0.05 = 51$: standard errors 7.1 times too small. The simulation in the left panel
-below confirms it: classical standard errors reject a true null 42% of the time at a
-nominal 5%, and 57% of the time when $\rho_u = 0.1$. Heteroskedasticity-robust errors are no
-better, because the problem is not heteroskedasticity. **[Simulated]**
+Take 50 groups of 100 observations, a group-level regressor, and $\rho_u = 0.05$. The factor is $1 + 99 \times 0.05 = 5.95$. The true standard error is therefore $\sqrt{5.95} = 2.44$ times the classical one, and the 5,000 observations carry the information of about 840 independent ones. A classical $t$-statistic of 2.4 is really about 1.0. With groups of 1,000 instead, the same correlation gives a factor of $1 + 999 \times 0.05 = 51$, so standard errors are 7.1 times too small. [Simulated] The simulation in the left panel below confirms the arithmetic. Classical standard errors reject a true null 42% of the time at a nominal 5%, and 57% of the time when $\rho_u = 0.1$. Heteroskedasticity-robust errors are no better, because the problem is not heteroskedasticity.
 
 ```{=latex}
 \begin{center}
@@ -1477,144 +929,63 @@ better, because the problem is not heteroskedasticity. **[Simulated]**
      alt="False rejection rates of classical and cluster-robust standard errors against intra-cluster correlation, and against the number of treated clusters">
 ```
 
-**The cluster-robust estimator** lets the errors within each group be correlated
-arbitrarily and sums the moment contributions group by group before squaring:
+**The cluster-robust estimator** lets the errors within each group be correlated arbitrarily. It sums the moment contributions group by group before squaring:
 
 $$
 \hat V_{\text{CR}} = (\mathbf{X}'\mathbf{X})^{-1}\Big(\sum_{g=1}^{G} \mathbf{X}_g'\hat{\mathbf{e}}_g\hat{\mathbf{e}}_g'\mathbf{X}_g\Big)(\mathbf{X}'\mathbf{X})^{-1},
 $$
 
-where $\mathbf{X}_g$ and $\hat{\mathbf{e}}_g$ stack the observations in group $g$. The usual
-small-sample adjustment multiplies by $\frac{G}{G-1}\cdot\frac{n-1}{n-k}$, and tests use the
-$t$ distribution with $G - 1$ degrees of freedom. The meat is now estimated from $G$
-group sums. **The effective number of observations for inference is the number of clusters,
-not the number of rows.**
+where $\mathbf{X}_g$ and $\hat{\mathbf{e}}_g$ stack the observations in group $g$. The usual small-sample adjustment multiplies by $\frac{G}{G-1}\cdot\frac{n-1}{n-k}$, and tests use the $t$ distribution with $G - 1$ degrees of freedom. The meat is now estimated from $G$ group sums. **The effective number of observations for inference is the number of clusters, not the number of rows.**
 
 **Where to cluster.** Two rules are in use, and they usually agree.
 
-- **The design rule.** Cluster at the level at which the treatment or regressor was
-  assigned, or at which the sample was drawn. If a policy varies by state, cluster by state.
-  [Abadie, Athey, Imbens & Wooldridge (2023)](https://arxiv.org/abs/1710.02926){target="_blank"}
-  show that this, rather than the presence of within-group residual correlation, is what
-  justifies clustering, and that clustering at a coarser level than the design requires can be
-  unnecessarily conservative.
-- **The conservative rule.** Cluster at the broadest level at which errors might be
-  correlated, provided there are enough clusters ([Cameron & Miller,
-  2015](https://doi.org/10.3368/jhr.50.2.317){target="_blank"}). Coarser clusters remove more
-  dependence, and leave fewer clusters to estimate the meat from.
+- **The design rule.** Cluster at the level at which the treatment or regressor was assigned, or at which the sample was drawn. If a policy varies by state, cluster by state. [Abadie, Athey, Imbens & Wooldridge (2023)](https://arxiv.org/abs/1710.02926){target="_blank"} show that the design, not the presence of within-group residual correlation, is what justifies clustering. They also show that clustering at a coarser level than the design requires can be unnecessarily conservative.
+- **The conservative rule.** Cluster at the broadest level at which errors might be correlated, provided there are enough clusters ([Cameron & Miller, 2015](https://doi.org/10.3368/jhr.50.2.317){target="_blank"}). Coarser clusters remove more dependence, and leave fewer clusters from which to estimate the meat.
 
-**Few clusters, and few treated clusters.** Cluster-robust inference is an asymptotic
-approximation in $G$, and it degrades when clusters are few (a common rule of thumb is fewer
-than 40 to 50), unequal in size, or, worst of all, when only a few of them are treated. The
-right panel above holds $G = 50$ and varies the number of treated clusters. With one treated
-cluster the cluster-robust $t$-test rejects a true null 77% of the time, with two 33%, with
-five 12%, and with ten 8%. **[Simulated]** The reason is mechanical: a treated cluster's
-own dummy-like variation lets OLS fit that cluster's mean almost exactly, so its residual sum,
-which is precisely the piece of the meat that measures the treatment's noise, is forced toward
-zero. The **wild cluster bootstrap**, which flips the signs of whole clusters' residuals at
-random and re-estimates, is the standard remedy ([Cameron, Gelbach & Miller,
-2008](https://www.nber.org/papers/t0344){target="_blank"}). As the panel shows, it errs the
-other way with one or two treated clusters, where it almost never rejects, and becomes
-reliable from about five ([MacKinnon & Webb, 2017](https://doi.org/10.1002/jae.2508){target="_blank"};
-[MacKinnon, Nielsen & Webb, 2023](https://arxiv.org/abs/2205.03285){target="_blank"}). With a
-single treated unit, cluster-based inference is not available at all, and the design has to
-change: randomisation inference (§7.2), synthetic control (§7.7), or the approach of [Conley &
-Taber (2011)](https://doi.org/10.1162/rest_a_00049){target="_blank"}.
+**Few clusters, and few treated clusters.** Cluster-robust inference is an asymptotic approximation in $G$. It degrades when clusters are few (a common rule of thumb is fewer than 40 to 50), when they are unequal in size, and above all when only a few of them are treated. The right panel above holds $G = 50$ and varies the number of treated clusters. [Simulated] With one treated cluster, the cluster-robust $t$-test rejects a true null 77% of the time. With two it rejects 33% of the time, with five 12%, and with ten 8%. The reason is mechanical. A treated cluster's own dummy-like variation lets OLS fit that cluster's mean almost exactly. Its residual sum, which is precisely the piece of the meat that measures the treatment's noise, is therefore forced toward zero. The **wild cluster bootstrap** is the standard remedy: it flips the signs of whole clusters' residuals at random and re-estimates ([Cameron, Gelbach & Miller, 2008](https://www.nber.org/papers/t0344){target="_blank"}). As the panel shows, it errs the other way with one or two treated clusters, where it almost never rejects, and it becomes reliable from about five ([MacKinnon & Webb, 2017](https://doi.org/10.1002/jae.2508){target="_blank"}; [MacKinnon, Nielsen & Webb, 2023](https://arxiv.org/abs/2205.03285){target="_blank"}). With a single treated unit, cluster-based inference is not available at all, and the design has to change. The alternatives are randomisation inference (§7.2), synthetic control (§7.7), or the approach of [Conley & Taber (2011)](https://doi.org/10.1162/rest_a_00049){target="_blank"}.
 
-**Two dimensions at once.** Finance panels are often correlated both within firms over
-time and across firms at a date. **Two-way clustering** adds the firm-clustered and
-date-clustered meats and subtracts the heteroskedasticity-robust one that both double-count
-([Cameron, Gelbach & Miller, 2011](https://www.nber.org/papers/t0327){target="_blank"};
-[Thompson, 2011](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=914002){target="_blank"}).
-It needs many clusters in *both* dimensions, which is why §9.5 recommends it for panels
-of thousands of firms over decades and not for ten years of annual data.
+**Two dimensions at once.** Finance panels are often correlated both within firms over time and across firms at a date. **Two-way clustering** adds the firm-clustered and date-clustered meats, and subtracts the heteroskedasticity-robust meat that both double-count ([Cameron, Gelbach & Miller, 2011](https://www.nber.org/papers/t0327){target="_blank"}; [Thompson, 2011](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=914002){target="_blank"}). It needs many clusters in *both* dimensions. That is why §9.5 recommends it for panels of thousands of firms over decades, and not for ten years of annual data.
 
-**The canonical warning.** **[Fact]** [Bertrand, Duflo & Mullainathan
-(2004)](https://www.nber.org/papers/w8841){target="_blank"} took about 20 years of state-level
-data on women's wages from the Current Population Survey, assigned fake "laws" to randomly chosen
-states and years, and ran the standard difference-in-differences regression with conventional
-standard errors. The placebo laws
-were significant at 5% in up to 45% of simulations. Outcomes that are serially correlated
-within a state make the effective sample the number of states, not the number of
-state-years. Clustering by state repairs it, when there are enough states.
+**The canonical warning.** [Fact] [Bertrand, Duflo & Mullainathan (2004)](https://www.nber.org/papers/w8841){target="_blank"} took about 20 years of state-level data on women's wages from the Current Population Survey. They assigned fake "laws" to randomly chosen states and years, and ran the standard difference-in-differences regression with conventional standard errors. The placebo laws were significant at 5% in up to 45% of simulations. Outcomes that are serially correlated within a state make the effective sample the number of states, not the number of state-years. Clustering by state repairs the problem, when there are enough states.
 
 ## 4.5 Serial correlation and HAC standard errors
 
-Time series are one cluster, ordered. The moment contributions $\psi_t = X_te_t$ are
-correlated with their neighbours, and the meat is the **long-run variance**
+A time series is one cluster, ordered. The moment contributions $\psi_t = X_te_t$ are correlated with their neighbours, and the meat is the **long-run variance**
 
 $$
 \Omega = \sum_{j=-\infty}^{\infty}\Gamma_j, \qquad \Gamma_j = \mathbb{E}\big[\psi_t\psi_{t-j}'\big],
 $$
 
-the sum of all the autocovariances of the moment contributions. It is the multivariate
-version of the variance inflation in §2.5.
+the sum of all the autocovariances of the moment contributions. It is the multivariate version of the variance inflation in §2.5.
 
-**The Newey–West estimator** truncates the sum at a lag $L$ and down-weights distant lags
-linearly:
+**The Newey–West estimator** truncates the sum at a lag $L$ and down-weights distant lags linearly:
 
 $$
 \hat\Omega_{\text{NW}} = \hat\Gamma_0 + \sum_{j=1}^{L}\Big(1 - \frac{j}{L+1}\Big)\big(\hat\Gamma_j + \hat\Gamma_j'\big).
 $$
 
-The linear **Bartlett weights** are not decoration. They guarantee that the estimate is
-positive semi-definite, so that no variance comes out negative, which the unweighted sum does
-not ([Newey & West, 1987](https://www.nber.org/papers/t0055){target="_blank"}). Such estimators
-are called **HAC**, for heteroskedasticity and autocorrelation consistent.
+The linear **Bartlett weights** serve a purpose. They guarantee that the estimate is positive semi-definite, so that no variance comes out negative, which the unweighted sum does not guarantee ([Newey & West, 1987](https://www.nber.org/papers/t0055){target="_blank"}). Such estimators are called **HAC**, for heteroskedasticity and autocorrelation consistent.
 
-**The bandwidth is a bias–variance choice.** Too small an $L$ misses autocorrelation and
-understates the variance. Too large an $L$ makes the variance estimate noisy, which fattens the
-tails of the $t$-statistic. The textbook rule $L = 0.75\,T^{1/3}$ errs toward the first failure.
-[Lazarus, Lewis, Stock & Watson (2018)](https://doi.org/10.1080/07350015.2018.1506926){target="_blank"}
-simulate a regression with $T = 200$ and moderately persistent regressor and error, and find
-that this rule with normal critical values rejects a true null 9% to 18% of the time at a
-nominal 5%, depending on the persistence. **[Fact]** Their recommendation is a much larger
-bandwidth, $L = 1.3\,T^{1/2}$, combined with **fixed-$b$** critical values that account for the
-noise in the variance estimate, or an equal-weighted cosine estimator with $\nu = 0.4\,T^{2/3}$
-terms and Student-$t$ critical values with $\nu$ degrees of freedom. Both cut the distortions
-roughly in half.
+**The bandwidth is a bias–variance choice.** Too small an $L$ misses autocorrelation and understates the variance. Too large an $L$ makes the variance estimate noisy, which fattens the tails of the $t$-statistic. The textbook rule $L = 0.75\,T^{1/3}$ errs toward the first failure. [Lazarus, Lewis, Stock & Watson (2018)](https://doi.org/10.1080/07350015.2018.1506926){target="_blank"} simulate a regression with $T = 200$ and a moderately persistent regressor and error. [Fact] They find that this rule with normal critical values rejects a true null 9% to 18% of the time at a nominal 5%, depending on the persistence. Their recommendation is a much larger bandwidth, $L = 1.3\,T^{1/2}$, combined with **fixed-$b$** critical values that account for the noise in the variance estimate. An alternative is an equal-weighted cosine estimator with $\nu = 0.4\,T^{2/3}$ terms and Student-$t$ critical values with $\nu$ degrees of freedom. Both cut the distortions roughly in half.
 
-**Overlapping observations** are where HAC inference fails most often in finance. Regress
-$h$-month returns on a predictor using monthly data, and consecutive dependent variables share
-$h - 1$ months. Under the null of no predictability the error is a moving average of order
-$h - 1$, so Newey–West with at least $h - 1$ lags is consistent in principle. In a sample of
-realistic length it is not close. With 40 years of monthly data and an exogenous, persistent
-predictor, Newey–West with $h$ lags rejects a true null 15% of the time at $h = 12$ and 28% at
-$h = 60$. Classical standard errors reject 57% and 78%. **[Simulated]** Standard errors that
-impose the null of no predictability when estimating the meat, due to [Hodrick
-(1992)](https://www.nber.org/papers/t0108){target="_blank"}, hold the 5% line (§9.2).
+**Overlapping observations** are where HAC inference fails most often in finance. In a regression of $h$-month returns on a predictor using monthly data, consecutive dependent variables share $h - 1$ months. Under the null of no predictability, the error is a moving average of order $h - 1$, so Newey–West with at least $h - 1$ lags is consistent in principle. In a sample of realistic length it is not close. [Simulated] With 40 years of monthly data and an exogenous, persistent predictor, Newey–West with $h$ lags rejects a true null 15% of the time at $h = 12$ and 28% of the time at $h = 60$. Classical standard errors reject 57% and 78% of the time. Standard errors that impose the null of no predictability when estimating the meat, due to [Hodrick (1992)](https://www.nber.org/papers/t0108){target="_blank"}, hold the 5% line (§9.2).
 
-The underlying rule is the one from §2.5: **a long-horizon regression has about $T/h$
-independent observations, and no standard-error formula can manufacture information the data do
-not contain.** A formula can only fail to notice that it is missing.
+The underlying rule is the one from §2.5: **a long-horizon regression has about $T/h$ independent observations, and no standard-error formula can manufacture information the data do not contain.** A formula can only fail to notice that the information is missing.
 
 ## 4.6 Tests, p-values, and confidence intervals
 
-A **hypothesis test** is a rule for rejecting a null hypothesis. Its **size** is the probability
-of rejecting when the null is true, its **power** the probability of rejecting when a given
-alternative is true. Every section so far has been about keeping the actual size close to the
-nominal one.
+A **hypothesis test** is a rule for rejecting a null hypothesis. Its **size** is the probability of rejecting when the null is true, and its **power** is the probability of rejecting when a given alternative is true. Every section so far has been about keeping the actual size close to the nominal one.
 
-The **p-value** is the probability, computed as if the null hypothesis were true, of a test
-statistic at least as extreme as the one observed. Implicit in that computation are the model
-assumptions and the premise that this was the only test that was going to be run. The American
-Statistical Association's statement on p-values ([Wasserstein & Lazar,
-2016](https://doi.org/10.1080/00031305.2016.1154108){target="_blank"}) lists the misreadings
-worth avoiding:
+The **p-value** is the probability, computed as if the null hypothesis were true, of a test statistic at least as extreme as the one observed. The computation implicitly assumes the model and the premise that this was the only test that would be run. The American Statistical Association's statement on p-values ([Wasserstein & Lazar, 2016](https://doi.org/10.1080/00031305.2016.1154108){target="_blank"}) lists the misreadings to avoid:
 
 - A p-value is **not** the probability that the null hypothesis is true.
 - It is **not** the probability that the result "is due to chance."
 - It does **not** measure the size or importance of an effect.
 - A threshold such as 0.05 does **not** separate real effects from spurious ones.
 
-**Confidence intervals invert tests.** The 95% interval is the set of null values that a 5%
-test would not reject (§4.1). Reporting the interval rather than the p-value keeps the magnitude
-in view.
+**Confidence intervals invert tests.** The 95% interval is the set of null values that a 5% test would not reject (§4.1). Reporting the interval instead of the p-value keeps the magnitude in view.
 
-**Three ways to test a restriction.** When a model is estimated by maximum likelihood, there
-are three classical ways to test a restriction such as $\theta = \theta_{\text{null}}$. They
-measure the same discrepancy along different axes of the log-likelihood curve, written $LL(\theta)$
-in the diagram.
+**Three ways to test a restriction.** For a model estimated by maximum likelihood, there are three classical ways to test a restriction such as $\theta = \theta_{\text{null}}$. They measure the same discrepancy along different axes of the log-likelihood curve, written $LL(\theta)$ in the diagram.
 
 ```
    log-likelihood LL(θ)
@@ -1639,53 +1010,23 @@ LL(θ_null)  ┤ ─ ─ ─ ●                      .      LM: the slope of LL
 - The **Lagrange multiplier (LM)** or **score** test estimates only the restricted model and
   asks whether the log-likelihood is still rising there.
 
-Under the null and a correctly specified likelihood, the three are asymptotically equivalent.
-In finite samples they differ, and the Wald test has one known weakness: it is not invariant to
-how the restriction is written, so testing $\beta = 1$ and testing $1/\beta = 1$ can give different
-answers. The LM form is convenient when the unrestricted model is hard to estimate, which is why
-many specification tests are LM tests. With one restriction, the $F$-statistic is the square of
-the $t$-statistic.
+Under the null and a correctly specified likelihood, the three tests are asymptotically equivalent. In finite samples they differ, and the Wald test has one known weakness. It is not invariant to how the restriction is written, so testing $\beta = 1$ and testing $1/\beta = 1$ can give different answers. The LM form is convenient when the unrestricted model is hard to estimate, which is why many specification tests are LM tests. With one restriction, the $F$-statistic is the square of the $t$-statistic.
 
 ## 4.7 Power, and the winner's curse
 
-A test with low power does not just miss real effects. **When it does find one, it exaggerates
-it.** The estimates that clear a significance bar are disproportionately the ones that overshot.
+A test with low power does more than miss real effects. **When it does find one, it exaggerates it.** The estimates that clear a significance bar are disproportionately the ones that overshot.
 
-Two numbers make power concrete. For a two-sided 5% test to have 80% power, the true effect
-must be about $1.96 + 0.84 = 2.8$ standard errors. That is the **minimum detectable effect**,
-and it should be computed *before* an analysis rather than after. The right panel of the figure
-in §4.8 plots the exaggeration of statistically significant estimates against power. At 80%
-power, significant estimates overstate the true effect by 12% on average. At 50% power they
-overstate it by 41%, and at 18% power by a factor of 2.4. At very low power a meaningful share of
-significant estimates even have the wrong sign: about one in five at 6% power. **[Simulated]** The
-framework, "Type M" (magnitude) and "Type S" (sign) errors, is from [Gelman & Carlin
-(2014)](https://doi.org/10.1177/1745691614551642){target="_blank"}.
+Two numbers make power concrete. For a two-sided 5% test to have 80% power, the true effect must be about $1.96 + 0.84 = 2.8$ standard errors. That is the **minimum detectable effect**, and it should be computed *before* an analysis, not after. The right panel of the figure in §4.8 plots the exaggeration of statistically significant estimates against power. [Simulated] At 80% power, significant estimates overstate the true effect by 12% on average. At 50% power they overstate it by 41%, and at 18% power by a factor of 2.4. At very low power, a meaningful share of significant estimates even have the wrong sign: about one in five at 6% power. The framework of "Type M" (magnitude) and "Type S" (sign) errors is from [Gelman & Carlin (2014)](https://doi.org/10.1177/1745691614551642){target="_blank"}.
 
-This matters because low power is normal. [Ioannidis, Stanley & Doucouliagos
-(2017)](https://doi.org/10.1111/ecoj.12461){target="_blank"} surveyed 159 empirical economics
-literatures containing about 64,000 estimates. They put median statistical power at 18% or less,
-and estimate that nearly 80% of reported effects are exaggerated, typically by a factor of two.
-**[Contested]** The magnitudes depend on their meta-analytic estimate of each literature's true
-effect, which is itself uncertain, but the direction of the conclusion is not in serious dispute.
+This matters because low power is normal. [Ioannidis, Stanley & Doucouliagos (2017)](https://doi.org/10.1111/ecoj.12461){target="_blank"} surveyed 159 empirical economics literatures containing about 64,000 estimates. They put median statistical power at 18% or less, and estimate that nearly 80% of reported effects are exaggerated, typically by a factor of two. [Contested] The magnitudes depend on their meta-analytic estimate of each literature's true effect, which is itself uncertain. The direction of the conclusion is not in serious dispute.
 
-**The finance version.** Suppose a strategy has a true annual Sharpe ratio of 0.3 and you
-backtest it over ten years. Its expected $t$-statistic is $0.3 \times \sqrt{10} = 0.95$, and the
-power of a 5% test is about 16%. If the backtest nonetheless comes out significant, the Sharpe
-ratio it reports is about 0.8 on average, roughly 2.6 times the truth. The strategies that
-look good enough to deploy are systematically the ones whose backtests got lucky, which is one
-reason live performance disappoints even when nothing is wrong with the strategy.
+**The finance version.** Suppose a strategy has a true annual Sharpe ratio of 0.3 and is backtested over ten years. Its expected $t$-statistic is $0.3 \times \sqrt{10} = 0.95$, and the power of a 5% test is about 16%. If the backtest nonetheless comes out significant, the Sharpe ratio it reports is about 0.8 on average, roughly 2.6 times the truth. The strategies whose backtests look good enough to deploy are systematically the lucky ones. That is one reason live performance disappoints even when nothing is wrong with the strategy.
 
 ## 4.8 Multiple testing and the garden of forking paths
 
-A 5% test rejects a true null 5% of the time. Run 20 independent tests of true nulls and the
-chance that at least one rejects is $1 - 0.95^{20} = 64\%$.
+A 5% test rejects a true null 5% of the time. Across 20 independent tests of true nulls, the chance that at least one rejects is $1 - 0.95^{20} = 64\%$.
 
-Real specification searches are not independent. Specifications that share data and differ in
-a control or a sample period produce correlated test statistics. Correlation slows the problem
-down but does not stop it. With a correlation of 0.5 between every pair of specifications,
-20 tries find "significance" 42% of the time and 100 tries 78% of the time. With a correlation
-of 0.9, the figures are 16% and 22%. The expected largest $|t|$ among $K$ independent null
-statistics is about 1.9 for $K = 10$, 2.8 for $K = 100$, and 3.4 for $K = 1{,}000$. **[Simulated]**
+Real specification searches are not independent. Specifications that share data and differ in a control or a sample period produce correlated test statistics. Correlation slows the problem down but does not stop it. [Simulated] With a correlation of 0.5 between every pair of specifications, 20 tries find "significance" 42% of the time, and 100 tries 78% of the time. With a correlation of 0.9, the figures are 16% and 22%. The expected largest $|t|$ among $K$ independent null statistics is about 1.9 for $K = 10$, 2.8 for $K = 100$, and 3.4 for $K = 1{,}000$.
 
 ```{=latex}
 \begin{center}
@@ -1698,7 +1039,7 @@ statistics is about 1.9 for $K = 10$, 2.8 for $K = 100$, and 3.4 for $K = 1{,}00
      alt="Probability of at least one significant result against number of specifications tried, and exaggeration of significant estimates against statistical power">
 ```
 
-**Explicit multiplicity has standard corrections.** They control different error rates.
+**Explicit multiplicity has standard corrections.** They control different error rates, as the table shows.
 
 | Target | What it controls | Standard procedure | When it fits |
 |---|---|---|---|
@@ -1706,20 +1047,11 @@ statistics is about 1.9 for $K = 10$, 2.8 for $K = 100$, and 3.4 for $K = 1{,}00
 | False discovery rate | The expected *share* of rejections that are false | [Benjamini & Hochberg (1995)](https://doi.org/10.1111/j.2517-6161.1995.tb02031.x){target="_blank"} | Screening many candidates, where some false positives are tolerable |
 | Best of many strategies | Whether the best performer beats a benchmark by more than luck | White's reality check; Hansen's SPA test; Romano–Wolf stepdown | Backtests and forecast comparisons (§9.6) |
 
-For the cross-section of stock returns, [Harvey, Liu & Zhu
-(2016)](https://www.nber.org/papers/w20592){target="_blank"} catalogue several hundred
-published return predictors and argue that, given the search that produced them, a new one
-should clear a $t$-statistic of about 3.0 rather than 2.0.
+For the cross-section of stock returns, [Harvey, Liu & Zhu (2016)](https://www.nber.org/papers/w20592){target="_blank"} catalogue several hundred published return predictors. They argue that, given the search that produced them, a new predictor should clear a $t$-statistic of about 3.0 rather than 2.0.
 
-**Implicit multiplicity is the harder problem.** [Gelman & Loken
-(2014)](https://doi.org/10.1511/2014.111.460){target="_blank"} call it the **garden of forking
-paths**. A researcher who never runs more than one regression can still face a multiple-testing
-problem, because the choices of sample period, outlier rule, control set, horizon, and
-functional form were made after seeing the data, and would have been made differently had the
-data been different. A p-value is only valid under the premise that the analysis would have been
-the same for any data set, and that premise is almost never true.
+**Implicit multiplicity is the harder problem.** [Gelman & Loken (2014)](https://doi.org/10.1511/2014.111.460){target="_blank"} call it the **garden of forking paths**. A researcher who never runs more than one regression can still face a multiple-testing problem. The choices of sample period, outlier rule, control set, horizon, and functional form were made after seeing the data, and they would have been made differently had the data been different. A p-value is valid only under the premise that the analysis would have been the same for any data set, and that premise is almost never true.
 
-The remedies share one idea, which is to separate the choices from the data that judge them:
+The remedies share one idea: separate the choices from the data that judge them.
 
 - **Pre-specify** the analysis before seeing the outcome data, formally in a pre-analysis plan
   or informally in a dated note.
@@ -1732,15 +1064,9 @@ The remedies share one idea, which is to separate the choices from the data that
 
 ## 4.9 The bootstrap
 
-The **bootstrap** approximates an estimator's sampling distribution by treating the sample as if
-it were the population: draw many samples from the data with replacement, recompute the
-estimate in each, and use the spread of the recomputed estimates ([Efron,
-1979](https://doi.org/10.1214/aos/1176344552){target="_blank"}). It replaces analytical
-derivations with computation, and for complicated estimators it is often the only practical
-route to a standard error.
+The **bootstrap** approximates an estimator's sampling distribution by treating the sample as if it were the population. It draws many samples from the data with replacement, recomputes the estimate in each, and uses the spread of the recomputed estimates ([Efron, 1979](https://doi.org/10.1214/aos/1176344552){target="_blank"}). It replaces analytical derivations with computation, and for complicated estimators it is often the only practical route to a standard error.
 
-**The one rule: resample the independent units.** The bootstrap is only as good as its
-assumption about what is independent, which is the same assumption the meat makes.
+**The one rule: resample the independent units.** The bootstrap is only as good as its assumption about what is independent, which is the same assumption the meat makes. The table matches the resampling scheme to the dependence.
 
 | Dependence | Resample | Name |
 |---|---|---|
@@ -1750,13 +1076,9 @@ assumption about what is independent, which is the same assumption the meat make
 | Few clusters | Flip the signs of whole clusters' residuals | Wild cluster bootstrap (§4.4) |
 | Time series | Contiguous blocks of observations | Moving block ([Künsch, 1989](https://doi.org/10.1214/aos/1176347265){target="_blank"}) or stationary bootstrap ([Politis & Romano, 1994](https://doi.org/10.1080/01621459.1994.10476870){target="_blank"}) |
 
-Two refinements matter in practice. Bootstrapping the $t$-statistic (the **percentile-$t$**
-method) is more accurate than bootstrapping the estimate itself, because the $t$-statistic's
-distribution depends less on unknown parameters. And for time series, a block has to be longer
-than the dependence it is meant to preserve. Volatility clustering in daily returns decays over
-weeks to months, so blocks of a few days destroy it.
+Two refinements matter in practice. Bootstrapping the $t$-statistic (the **percentile-$t$** method) is more accurate than bootstrapping the estimate itself, because the distribution of the $t$-statistic depends less on unknown parameters. For time series, a block has to be longer than the dependence it is meant to preserve. Volatility clustering in daily returns decays over weeks to months, so blocks of a few days destroy it.
 
-**When the bootstrap fails.** It is not a universal solvent.
+**When the bootstrap fails.** The bootstrap does not solve every problem. It fails in four situations.
 
 - **The resampling scheme destroys the relevant dependence.** An independent bootstrap of
   autocorrelated or volatility-clustered returns understates uncertainty in the same way
@@ -1770,48 +1092,25 @@ weeks to months, so blocks of a few days destroy it.
 
 ## 4.10 Statistical significance and economic significance
 
-Statistical significance measures how clearly an estimate is distinguished from zero relative to
-its noise. Economic significance measures whether the effect is large enough to matter. The two
-are independent. [McCloskey & Ziliak
-(1996)](https://econpapers.repec.org/RePEc:aea:jeclit:v:34:y:1996:i:1:p:97-114){target="_blank"}
-found that 70% of the full-length empirical papers in the *American Economic Review* in the
-1980s did not distinguish between them.
+Statistical significance measures how clearly an estimate is distinguished from zero relative to its noise. Economic significance measures whether the effect is large enough to matter. The two are independent. [McCloskey & Ziliak (1996)](https://econpapers.repec.org/RePEc:aea:jeclit:v:34:y:1996:i:1:p:97-114){target="_blank"} found that 70% of the full-length empirical papers in the *American Economic Review* in the 1980s did not distinguish between them.
 
 The practical consequences:
 
-- **Report magnitudes in meaningful units**: the effect of a one-standard-deviation change,
-  annualised returns, basis points, dollars. Put the confidence interval next to the point
-  estimate.
-- **A precisely estimated zero is a finding.** An interval of $[-0.02, 0.01]$ rules out every
-  economically meaningful effect. An interval of $[-3, 5]$ rules out nothing, and "not significant"
-  hides that difference.
-- **With enough data everything is significant.** With ten million observations, standard errors
-  are tiny and trivial effects clear any threshold. The question becomes whether the effect is large
-  enough to act on, and whether it survives the biases that no sample size removes (§3.2).
+- **Report magnitudes in meaningful units**: the effect of a one-standard-deviation change, annualised returns, basis points, or dollars. Put the confidence interval next to the point estimate.
+- **A precisely estimated zero is a finding.** An interval of $[-0.02, 0.01]$ rules out every economically meaningful effect. An interval of $[-3, 5]$ rules out nothing, and the label "not significant" hides that difference.
+- **With enough data, everything is significant.** With ten million observations, standard errors are tiny, and trivial effects clear any threshold. The questions become whether the effect is large enough to act on, and whether it survives the biases that no sample size removes (§3.2).
 
 > ### §4 Key takeaways
 >
-> 1. A confidence interval is the set of values the data do not reject. Read it, not the p-value.
-> 2. The classical standard error is the most restrictive special case of the sandwich. It
->    assumes independence and constant variance, and it is correct only when both hold.
-> 3. Heteroskedasticity does not bias coefficients; it corrupts classical standard errors. Use
->    robust standard errors by default.
-> 4. Clustering matters when both the regressor and the error are correlated within groups, and
->    large groups amplify small correlations. With 50 groups of 100 and an error correlation of
->    0.05, classical standard errors are 2.4 times too small.
-> 5. The effective sample size for inference is the number of clusters, and with a binary
->    treatment the number of treated clusters. With one or two treated clusters, conventional
->    cluster-robust inference fails outright.
-> 6. Newey–West with textbook bandwidths is oversized in realistic samples. Use larger bandwidths
->    with fixed-$b$ critical values, and do not trust any HAC correction to rescue long overlapping
->    horizons.
-> 7. Low power does not just miss effects, it exaggerates the ones it finds. Compute the minimum
->    detectable effect, about 2.8 standard errors, before looking at results.
-> 8. Specification search inflates false positives even when the specifications are correlated
->    and even when no one runs more than one regression. Separate analysis choices from the data
->    that judge them.
-> 9. Bootstrap the independent units. Resampling observations from dependent data reproduces the
->    classical mistake.
+> 1. A confidence interval is the set of values the data do not reject. Read the interval, not the p-value.
+> 2. The classical standard error is the most restrictive special case of the sandwich. It assumes independence and constant variance, and it is correct only when both hold.
+> 3. Heteroskedasticity does not bias coefficients; it corrupts classical standard errors. Use robust standard errors by default.
+> 4. Clustering matters when both the regressor and the error are correlated within groups, and large groups amplify small correlations. With 50 groups of 100 and an error correlation of 0.05, classical standard errors are 2.4 times too small.
+> 5. The effective sample size for inference is the number of clusters, and with a binary treatment it is the number of treated clusters. With one or two treated clusters, conventional cluster-robust inference fails outright.
+> 6. Newey–West with textbook bandwidths is oversized in realistic samples. Use larger bandwidths with fixed-$b$ critical values, and do not trust any HAC correction to rescue long overlapping horizons.
+> 7. Low power does more than miss effects: it exaggerates the ones it finds. Compute the minimum detectable effect, about 2.8 standard errors, before looking at results.
+> 8. Specification search inflates false positives even when the specifications are correlated, and even when no one runs more than one regression. Separate analysis choices from the data that judge them.
+> 9. Bootstrap the independent units. Resampling observations from dependent data reproduces the classical mistake.
 
 ```{=latex}
 \newpage
@@ -1819,33 +1118,19 @@ The practical consequences:
 
 # 5. One estimator family {#5-estimators}
 
-Textbooks present OLS, instrumental variables, GMM, and maximum likelihood as four
-separate techniques, each with its own chapter. This section presents them as one
-technique, the master form of §1.5, with four ways of choosing the moment function. Seeing
-them this way makes the relationships between them obvious, gives every standard error
-from one formula, and makes clear which choice actually matters. That choice is the moment
-condition, not the estimator.
+Textbooks present OLS, instrumental variables, GMM, and maximum likelihood as four separate techniques, each with its own chapter. This section presents them as one technique, the master form of §1.5, with four ways of choosing the moment function. The unified view makes the relationships between the estimators obvious, gives every standard error from one formula, and shows which choice actually matters. That choice is the moment condition, not the estimator.
 
 ## 5.1 The method of moments
 
-The oldest estimation idea is also the most general. A model implies that certain
-population averages take certain values. Replace population averages with sample averages
-and solve for the parameters.
+The oldest estimation idea is also the most general. A model implies that certain population averages take certain values. The method of moments replaces population averages with sample averages and solves for the parameters.
 
-The simplest case is a mean and a variance. The model says $\mathbb{E}[Y_i - \mu] = 0$
-and $\mathbb{E}[(Y_i - \mu)^2 - \sigma^2] = 0$. Setting the sample versions to zero gives
-$\hat\mu = \bar Y$ and $\hat\sigma^2 = \frac1n\sum_i (Y_i - \bar Y)^2$.
+The simplest case is a mean and a variance. The model says $\mathbb{E}[Y_i - \mu] = 0$ and $\mathbb{E}[(Y_i - \mu)^2 - \sigma^2] = 0$. Setting the sample versions to zero gives $\hat\mu = \bar Y$ and $\hat\sigma^2 = \frac1n\sum_i (Y_i - \bar Y)^2$.
 
-OLS is the same move applied to the projection's first-order condition $\mathbb{E}[X_i(Y_i -
-X_i'\beta)] = 0$. When there are as many moment conditions as parameters, the model is
-**just-identified**: the sample equations can be solved exactly, and the asymptotic variance
-is the sandwich $Q^{-1}\Omega Q^{-1\prime}$ from §1.6.
+OLS applies the same step to the projection's first-order condition, $\mathbb{E}[X_i(Y_i - X_i'\beta)] = 0$. When there are as many moment conditions as parameters, the model is **just-identified**. The sample equations can then be solved exactly, and the asymptotic variance is the sandwich $Q^{-1}\Omega Q^{-1\prime}$ from §1.6.
 
 ## 5.2 Instrumental variables as a moment condition
 
-Suppose the structural equation is $Y_i = X_i'\beta + u_i$ and some regressors are
-correlated with $u_i$, so that OLS converges to the wrong thing (§3.2). Suppose also that a
-vector of **instruments** $Z_i$ satisfies two conditions.
+Suppose the structural equation is $Y_i = X_i'\beta + u_i$, and some regressors are correlated with $u_i$, so that OLS converges to the wrong quantity (§3.2). Suppose also that a vector of **instruments** $Z_i$ satisfies two conditions.
 
 - **Relevance:** $\mathbb{E}[Z_iX_i']$ has full column rank. The instruments move the
   endogenous regressors.
@@ -1853,15 +1138,13 @@ vector of **instruments** $Z_i$ satisfies two conditions.
   else that affects the outcome. This includes the **exclusion restriction**, the requirement
   that $Z$ affects $Y$ only through $X$.
 
-The second condition is a moment condition, $\mathbb{E}[Z_i(Y_i - X_i'\beta)] = 0$. With as many
-instruments as regressors, its sample analogue solves to
+The second condition is a moment condition, $\mathbb{E}[Z_i(Y_i - X_i'\beta)] = 0$. With as many instruments as regressors, its sample analogue solves to
 
 $$
 \hat\beta_{\text{IV}} = (\mathbf{Z}'\mathbf{X})^{-1}\mathbf{Z}'\mathbf{Y}.
 $$
 
-With one regressor, one instrument, and an intercept, this is a ratio of two regression
-slopes:
+With one regressor, one instrument, and an intercept, this is a ratio of two regression slopes:
 
 $$
 \hat\beta_{\text{IV}} = \frac{\widehat{\operatorname{Cov}}(Z, Y)}{\widehat{\operatorname{Cov}}(Z, X)}
@@ -1869,73 +1152,45 @@ $$
 = \frac{\text{reduced form: effect of } Z \text{ on } Y}{\text{first stage: effect of } Z \text{ on } X}.
 $$
 
-**The intuition in one sentence:** IV uses only the part of the variation in $X$ that is
-driven by $Z$, and converts the effect of $Z$ on $Y$ into an effect of $X$ on $Y$ by dividing
-by how much $Z$ moved $X$.
+**The intuition in one sentence:** IV uses only the part of the variation in $X$ that $Z$ drives, and it converts the effect of $Z$ on $Y$ into an effect of $X$ on $Y$ by dividing by how much $Z$ moved $X$.
 
-When $Z$ is binary this is the **Wald estimator**, the difference in average outcomes between
-the $Z = 1$ and $Z = 0$ groups divided by the difference in their average treatment. The
-canonical example is [Angrist (1990)](https://economics.mit.edu/sites/default/files/publications/Angrist%201990%20-%20Lifetime%20Earnings%20and%20the%20Vietname%20.pdf){target="_blank"}.
-The Vietnam-era draft lottery assigned men eligibility for conscription at random by birth date.
-Eligibility raised the probability of military service, and eligible men later earned less. The
-ratio of the earnings gap to the service gap estimates the effect of service itself: in the early
-1980s, white veterans earned roughly 15% less than comparable non-veterans. Nobody chose their
-lottery number, which is the whole argument for exogeneity, and the lottery affected earnings,
-it is assumed, only by changing who served.
+When $Z$ is binary, this is the **Wald estimator**: the difference in average outcomes between the $Z = 1$ and $Z = 0$ groups, divided by the difference in their average treatment. The canonical example is [Angrist (1990)](https://economics.mit.edu/sites/default/files/publications/Angrist%201990%20-%20Lifetime%20Earnings%20and%20the%20Vietname%20.pdf){target="_blank"}. The Vietnam-era draft lottery assigned men eligibility for conscription at random by birth date. Eligibility raised the probability of military service, and eligible men later earned less. The ratio of the earnings gap to the service gap estimates the effect of service itself. In the early 1980s, white veterans earned roughly 15% less than comparable non-veterans. Nobody chose a lottery number, and that is the whole argument for exogeneity. The exclusion restriction is the assumption that the lottery affected earnings only by changing who served.
 
-**Two-stage least squares.** With more instruments than endogenous regressors, the
-instruments are combined optimally under homoskedasticity by projecting $X$ on $Z$ and using
-the fitted values:
+**Two-stage least squares.** With more instruments than endogenous regressors, the instruments are combined optimally under homoskedasticity, by projecting $X$ on $Z$ and using the fitted values:
 
 $$
 \hat\beta_{\text{2SLS}} = (\mathbf{X}'\mathbf{P}_Z\mathbf{X})^{-1}\mathbf{X}'\mathbf{P}_Z\mathbf{Y},
 \qquad \mathbf{P}_Z = \mathbf{Z}(\mathbf{Z}'\mathbf{Z})^{-1}\mathbf{Z}'.
 $$
 
-The name describes a computation, and the computation hides a trap. **[Practice]** Never run the
-second stage by hand as an OLS regression of $Y$ on $\hat X$ and report its standard errors. The
-point estimate is right, but the residuals are computed using $\hat X$ instead of $X$, so the
-standard errors are wrong. Use a routine that computes 2SLS as one estimator.
+The name describes a computation, and the computation hides a trap. [Practice] **Never run the second stage by hand as an OLS regression of $Y$ on $\hat X$ and report its standard errors.** The point estimate is right, but the residuals are computed with $\hat X$ instead of $X$, so the standard errors are wrong. Use a routine that computes 2SLS as one estimator.
 
-IV is consistent but biased in finite samples, with the bias pointing toward OLS and growing
-as the first stage weakens. §7.3 covers what happens when instruments are weak or invalid, which
-is where most of the practical difficulty lies.
+IV is consistent but biased in finite samples. The bias points toward OLS, and it grows as the first stage weakens. §7.3 covers what happens when instruments are weak or invalid, which is where most of the practical difficulty lies.
 
 ## 5.3 GMM: more moments than parameters
 
-With $\ell$ moment conditions and $k < \ell$ parameters, the model is **over-identified**. The
-sample moments cannot all be set to zero at once, so the **generalised method of moments**
-(GMM) makes them jointly as small as possible in a weighted sense ([Hansen,
-1982](https://doi.org/10.2307/1912775){target="_blank"}):
+With $\ell$ moment conditions and $k < \ell$ parameters, the model is **over-identified**. The sample moments cannot all be set to zero at once. The **generalised method of moments** (GMM) instead makes them jointly as small as possible in a weighted sense ([Hansen, 1982](https://doi.org/10.2307/1912775){target="_blank"}):
 
 $$
 \hat\theta_{\text{GMM}} = \arg\min_\theta\; \bar\psi(\theta)'\,W\,\bar\psi(\theta),
 \qquad \bar\psi(\theta) = \frac1n\sum_{i=1}^n\psi_i(\theta).
 $$
 
-Any positive definite weighting matrix $W$ gives a consistent estimator. The general
-asymptotic variance is
+Any positive definite weighting matrix $W$ gives a consistent estimator. The general asymptotic variance is
 
 $$
 \operatorname{Avar}\big(\sqrt n(\hat\theta - \theta_0)\big) = (Q'WQ)^{-1}\,Q'W\,\Omega\,WQ\,(Q'WQ)^{-1},
 $$
 
-the same sandwich with the weighting matrix folded into the bread. It is smallest when
-$W = \Omega^{-1}$, which gives $(Q'\Omega^{-1}Q)^{-1}$. **The efficient weighting
-matrix puts more weight on the moments that are estimated more precisely.** In practice this
-takes two steps: estimate with a simple $W$, use the residuals to estimate $\Omega$,
-and re-estimate with $\hat\Omega^{-1}$. 2SLS is GMM with $W = (\mathbf{Z}'\mathbf{Z}/n)^{-1}$,
-which is the efficient choice when the errors are homoskedastic.
+the same sandwich with the weighting matrix folded into the bread. It is smallest when $W = \Omega^{-1}$, which gives $(Q'\Omega^{-1}Q)^{-1}$. **The efficient weighting matrix puts more weight on the moments that are estimated more precisely.** In practice, efficient GMM takes two steps. Estimate with a simple $W$, use the residuals to estimate $\Omega$, and re-estimate with $\hat\Omega^{-1}$. 2SLS is GMM with $W = (\mathbf{Z}'\mathbf{Z}/n)^{-1}$, which is the efficient choice when the errors are homoskedastic.
 
-**The $J$-test.** Over-identification buys a test. If all $\ell$ moment conditions are valid,
-the minimised objective, scaled by $n$ and computed with the efficient weighting matrix,
+**The $J$-test.** Over-identification buys a test. If all $\ell$ moment conditions are valid, the minimised objective, scaled by $n$ and computed with the efficient weighting matrix,
 
 $$
 J = n\,\bar\psi(\hat\theta)'\,\hat\Omega^{-1}\,\bar\psi(\hat\theta) \xrightarrow{d} \chi^2_{\ell - k},
 $$
 
-is chi-squared with $\ell - k$ degrees of freedom. A large $J$ says the moment conditions cannot
-all hold at once. Be precise about what that does and does not establish.
+is chi-squared with $\ell - k$ degrees of freedom. A large $J$ says that the moment conditions cannot all hold at once. It is important to be precise about what that does and does not establish.
 
 - **It can detect instruments that disagree with each other.** If one instrument implies
   $\beta = 0.1$ and another implies $\beta = 0.5$, they cannot both be valid.
@@ -1947,119 +1202,58 @@ all hold at once. Be precise about what that does and does not establish.
 
 A passed $J$-test is weak evidence of validity. A failed one is strong evidence of a problem.
 
-**GMM in asset pricing.** GMM was built for moment conditions that come from economic theory,
-and asset pricing is its native habitat. An investor's first-order condition says that for any
-gross return $R_{t+1}$,
+**GMM in asset pricing.** GMM was built for moment conditions that come from economic theory, and asset pricing is its native habitat. An investor's first-order condition says that, for any gross return $R_{t+1}$,
 
 $$
 \mathbb{E}\big[M_{t+1}(\theta)\,R_{t+1} - 1 \,\big|\, \mathcal{F}_t\big] = 0,
 \qquad M_{t+1}(\theta) = d\,\Big(\frac{C_{t+1}}{C_t}\Big)^{-\eta},
 $$
 
-where the **stochastic discount factor** $M_{t+1}$ in the power-utility example is built from
-consumption growth, a subjective discount factor $d$, and relative risk aversion $\eta$. Because
-the condition holds conditional on information at $t$, any variable $Z_t$ known at $t$ gives an
-unconditional moment condition $\mathbb{E}[Z_t(M_{t+1}(\theta)R_{t+1} - 1)] = 0$. [Hansen &
-Singleton (1982)](https://doi.org/10.2307/1911873){target="_blank"} estimated $d$ and $\eta$
-this way. Almost all of empirical asset pricing can be written in this form, which is the
-organising theme of Cochrane's *Asset Pricing* (2005).
+where the **stochastic discount factor** $M_{t+1}$ in the power-utility example is built from consumption growth, a subjective discount factor $d$, and relative risk aversion $\eta$. The condition holds conditional on information at $t$. Any variable $Z_t$ known at $t$ therefore gives an unconditional moment condition $\mathbb{E}[Z_t(M_{t+1}(\theta)R_{t+1} - 1)] = 0$. [Hansen & Singleton (1982)](https://doi.org/10.2307/1911873){target="_blank"} estimated $d$ and $\eta$ this way. Almost all of empirical asset pricing can be written in this form, which is the organising theme of Cochrane's *Asset Pricing* (2005).
 
 **Two practical warnings.**
 
-- **[Fact] Efficient GMM with many moments behaves badly in finite samples.** The estimated
-  weighting matrix is noisy, and its inverse overweights moments that happen to look precise in
-  the sample. [Altonji & Segal (1996)](https://www.nber.org/papers/t0156){target="_blank"} found
-  large small-sample biases in efficient GMM for covariance structures, with equally weighted
-  moments performing better. Iterated and continuously updated GMM help somewhat ([Hansen, Heaton
-  & Yaron, 1996](https://doi.org/10.1080/07350015.1996.10524656){target="_blank"}).
-- **[Practice] Statistical efficiency is not economic relevance.** The efficient weighting matrix
-  may concentrate on portfolio combinations that are estimated precisely but are economically
-  uninteresting, such as extreme long–short positions. Asset-pricing tests often deliberately use
-  a pre-specified weighting matrix, such as equal weights on test portfolios, so that the model is
-  judged on the returns an investor actually cares about ([Hansen & Jagannathan,
-  1997](https://doi.org/10.1111/j.1540-6261.1997.tb04813.x){target="_blank"}).
+- [Fact] **Efficient GMM with many moments behaves badly in finite samples.** The estimated weighting matrix is noisy, and its inverse overweights moments that happen to look precise in the sample. [Altonji & Segal (1996)](https://www.nber.org/papers/t0156){target="_blank"} found large small-sample biases in efficient GMM for covariance structures, with equally weighted moments performing better. Iterated and continuously updated GMM help somewhat ([Hansen, Heaton & Yaron, 1996](https://doi.org/10.1080/07350015.1996.10524656){target="_blank"}).
+- [Practice] **Statistical efficiency is not economic relevance.** The efficient weighting matrix may concentrate on portfolio combinations that are estimated precisely but are economically uninteresting, such as extreme long–short positions. Asset-pricing tests therefore often use a pre-specified weighting matrix, such as equal weights on test portfolios, so that the model is judged on the returns an investor actually cares about ([Hansen & Jagannathan, 1997](https://doi.org/10.1111/j.1540-6261.1997.tb04813.x){target="_blank"}).
 
 ## 5.4 Maximum likelihood, and quasi-likelihood
 
-If the model specifies the full conditional distribution of the data, $f(Y_i \mid X_i; \theta)$,
-the **maximum likelihood estimator** (MLE) chooses the parameter under which the observed data
-were most probable:
+If the model specifies the full conditional distribution of the data, $f(Y_i \mid X_i; \theta)$, the **maximum likelihood estimator** (MLE) chooses the parameter under which the observed data were most probable:
 
 $$
 \hat\theta_{\text{ML}} = \arg\max_\theta \sum_{i=1}^n \log f(Y_i \mid X_i;\theta).
 $$
 
-Its first-order condition sets the sample average of the **score** $s_i(\theta) = \partial\log
-f(Y_i \mid X_i;\theta)/\partial\theta$ to zero, so MLE is a method-of-moments estimator with
-$\psi_i = s_i$. The population moment condition $\mathbb{E}[s_i(\theta_0)] = 0$ holds whenever
-the model is correct, because differentiating $\int f(y \mid x;\theta)\,dy = 1$ with respect to
-$\theta$ gives $\int \partial f/\partial\theta\,dy = 0$, which is the expected score.
+Its first-order condition sets the sample average of the **score** $s_i(\theta) = \partial\log f(Y_i \mid X_i;\theta)/\partial\theta$ to zero, so MLE is a method-of-moments estimator with $\psi_i = s_i$. The population moment condition $\mathbb{E}[s_i(\theta_0)] = 0$ holds whenever the model is correct. Differentiating $\int f(y \mid x;\theta)\,dy = 1$ with respect to $\theta$ gives $\int \partial f/\partial\theta\,dy = 0$, which is the expected score.
 
-**Why MLE is efficient, and when that stops being true.** Under correct specification the
-**information matrix equality** holds: the variance of the score equals minus the expected
-Hessian of the log-likelihood,
+**Why MLE is efficient, and when that stops being true.** Under correct specification, the **information matrix equality** holds: the variance of the score equals minus the expected Hessian of the log-likelihood,
 
 $$
 \mathbb{E}\big[s_i(\theta_0)s_i(\theta_0)'\big] = -\,\mathbb{E}\Big[\frac{\partial s_i(\theta_0)}{\partial\theta'}\Big] \equiv \mathcal{I}(\theta_0).
 $$
 
-In sandwich terms, the meat equals minus the bread, and $Q^{-1}\Omega Q^{-1\prime}$ collapses to
-$\mathcal{I}(\theta_0)^{-1}$, the inverse **Fisher information**. That is the Cramér–Rao lower
-bound, so no regular consistent estimator is more precise. For the linear model with normal
-errors, the MLE of $\beta$ is exactly OLS.
+In sandwich terms, the meat equals minus the bread, and $Q^{-1}\Omega Q^{-1\prime}$ collapses to $\mathcal{I}(\theta_0)^{-1}$, the inverse **Fisher information**. That is the Cramér–Rao lower bound, so no regular consistent estimator is more precise. For the linear model with normal errors, the MLE of $\beta$ is exactly OLS.
 
-The equality is a consequence of the model being right. When the density is misspecified, the
-MLE converges to a **pseudo-true** value, the parameter whose implied distribution is closest to
-the truth in Kullback–Leibler divergence, and the two sides of the equality no longer match
-([White, 1982](https://doi.org/10.2307/1912526){target="_blank"}). The estimator is then a
-**quasi-maximum likelihood estimator** (QMLE), and its standard errors must use the full sandwich:
-the Hessian for the bread, the outer product of the scores for the meat.
+The equality is a consequence of the model being right. When the density is misspecified, the MLE converges to a **pseudo-true** value: the parameter whose implied distribution is closest to the truth in Kullback–Leibler divergence. The two sides of the equality then no longer match ([White, 1982](https://doi.org/10.2307/1912526){target="_blank"}). The estimator is a **quasi-maximum likelihood estimator** (QMLE), and its standard errors must use the full sandwich, with the Hessian for the bread and the outer product of the scores for the meat.
 
-**Some quasi-likelihoods are robust, and some are not.** This is the practical content of QMLE
-theory.
+**Some quasi-likelihoods are robust, and some are not.** This is the practical content of QMLE theory.
 
-- **Robust.** A Gaussian likelihood for a GARCH model gives consistent estimates of the mean and
-  variance parameters even when returns are fat-tailed, provided the conditional mean and variance
-  equations are right ([Bollerslev & Wooldridge,
-  1992](https://doi.org/10.1080/07474939208800229){target="_blank"}). The Poisson likelihood gives
-  consistent estimates of an exponential conditional mean for any non-negative outcome, count or
-  not, and handles zeros that a log-linear regression cannot ([Santos Silva & Tenreyro,
-  2006](https://doi.org/10.1162/rest.88.4.641){target="_blank"}).
-- **Not robust.** Probit and logit coefficients are inconsistent when the latent error is
-  heteroskedastic or has the wrong distribution, although average marginal effects are often
-  approximately right. Censored-regression (Tobit) estimates depend heavily on normality.
+- **Robust.** A Gaussian likelihood for a GARCH model gives consistent estimates of the mean and variance parameters even when returns are fat-tailed, provided the conditional mean and variance equations are right ([Bollerslev & Wooldridge, 1992](https://doi.org/10.1080/07474939208800229){target="_blank"}). The Poisson likelihood gives consistent estimates of an exponential conditional mean for any non-negative outcome, count or not, and it handles zeros that a log-linear regression cannot ([Santos Silva & Tenreyro, 2006](https://doi.org/10.1162/rest.88.4.641){target="_blank"}).
+- **Not robust.** Probit and logit coefficients are inconsistent when the latent error is heteroskedastic or has the wrong distribution, although average marginal effects are often approximately right. Censored-regression (Tobit) estimates depend heavily on normality.
 
-**When to reach for likelihood.** Use it when the distribution itself is the object of interest,
-as with volatility, tail risk, durations, and default probabilities; when latent states must be
-filtered, as in the regime-switching models of [Market Regimes and Machine
-Learning](market_regimes.html); or when efficiency in a small sample is worth the risk of
-misspecification.
+**When to reach for likelihood.** Likelihood is the right tool in three situations. The first is when the distribution itself is the object of interest, as with volatility, tail risk, durations, and default probabilities. The second is when latent states must be filtered, as in the regime-switching models of [Market Regimes and Machine Learning](market_regimes.html). The third is when efficiency in a small sample is worth the risk of misspecification.
 
 ## 5.5 M-estimators beyond the mean
 
-Everything so far targets conditional *means*. The same machinery handles any estimator defined
-by minimising a sum, known collectively as **M-estimators**.
+Everything so far targets conditional *means*. The same machinery handles any estimator defined by minimising a sum, and such estimators are known collectively as **M-estimators**.
 
-**Quantile regression** ([Koenker & Bassett, 1978](https://doi.org/10.2307/1913643){target="_blank"})
-estimates how the conditional $q$-quantile of $Y$ depends on $X$, by minimising $\sum_i
-\rho_q(Y_i - X_i'\beta)$ with the asymmetric "check" loss $\rho_q(v) = v\,(q - \mathbb{1}\{v <
-0\})$. The median regression $q = 0.5$ is least absolute deviations. It is the natural tool for
-questions about tails: the conditional 5% quantile of a portfolio's return is a value-at-risk
-model ([Engle & Manganelli, 2004](https://doi.org/10.1198/073500104000000370){target="_blank"}). It
-is also robust to outliers in $Y$, though not in $X$. One interpretive caution: a quantile
-coefficient describes how a quantile of the *distribution* shifts. It is not the effect on the
-particular unit that happened to sit at that quantile, unless units keep their ranks.
+**Quantile regression** ([Koenker & Bassett, 1978](https://doi.org/10.2307/1913643){target="_blank"}) estimates how the conditional $q$-quantile of $Y$ depends on $X$. It minimises $\sum_i \rho_q(Y_i - X_i'\beta)$ with the asymmetric "check" loss $\rho_q(v) = v\,(q - \mathbb{1}\{v < 0\})$. The median regression, $q = 0.5$, is least absolute deviations. Quantile regression is the natural tool for questions about tails: the conditional 5% quantile of a portfolio's return is a value-at-risk model ([Engle & Manganelli, 2004](https://doi.org/10.1198/073500104000000370){target="_blank"}). It is also robust to outliers in $Y$, though not in $X$. One interpretive caution applies. A quantile coefficient describes how a quantile of the *distribution* shifts. It is not the effect on the particular unit that happened to sit at that quantile, unless units keep their ranks.
 
-**Robust regression** ([Huber, 1964](https://doi.org/10.1214/aoms/1177703732){target="_blank"})
-replaces squared loss with a loss that grows only linearly for large residuals, so a few extreme
-observations cannot dominate the fit. It changes the estimand as well as the estimator. In finance
-the extreme observations are often the economically important ones, so "robust to the crash" is a
-modelling decision rather than a technical fix.
+**Robust regression** ([Huber, 1964](https://doi.org/10.1214/aoms/1177703732){target="_blank"}) replaces squared loss with a loss that grows only linearly for large residuals, so a few extreme observations cannot dominate the fit. It changes the estimand as well as the estimator. In finance the extreme observations are often the economically important ones, so being "robust to the crash" is a modelling decision, not a technical fix.
 
 ## 5.6 Shrinkage and the Bayesian reading
 
-Every estimator so far is unbiased or consistent. §2.3 noted that a biased estimator can have a
-lower mean squared error. Shrinkage estimators exploit that trade deliberately.
+Every estimator so far is unbiased or consistent. §2.3 noted that a biased estimator can have a lower mean squared error, and shrinkage estimators exploit that trade deliberately.
 
 **Ridge regression** adds a penalty on the size of the coefficients:
 
@@ -2067,23 +1261,11 @@ $$
 \hat\beta_{\text{ridge}} = \arg\min_b \sum_{i=1}^n (Y_i - X_i'b)^2 + \kappa\,\|b\|^2 = (\mathbf{X}'\mathbf{X} + \kappa \mathbf{I})^{-1}\mathbf{X}'\mathbf{Y}.
 $$
 
-The penalty pulls the coefficients toward zero, adds bias, and reduces variance. It helps most
-when there are many regressors, each with a small effect, and the regressors are correlated.
-Replacing $\|b\|^2$ with $\sum_j|b_j|$ gives the **LASSO**, which also sets some coefficients
-exactly to zero (§10.4).
+The penalty pulls the coefficients toward zero, adds bias, and reduces variance. It helps most when there are many regressors, each with a small effect, and the regressors are correlated. Replacing $\|b\|^2$ with $\sum_j|b_j|$ gives the **LASSO**, which also sets some coefficients exactly to zero (§10.4).
 
-**The Bayesian reading.** With normal errors of variance $\sigma^2$ and a prior belief that each
-coefficient is normal around zero with variance $\tau^2$, the posterior mean of $\beta$ is exactly
-the ridge estimator with $\kappa = \sigma^2/\tau^2$. The LASSO is the posterior mode under a
-Laplace (double-exponential) prior. **A penalty is a prior, and a prior is a penalty.** Choosing
-$\kappa$ by cross-validation is choosing how strongly to believe that effects are small.
+**The Bayesian reading.** Suppose the errors are normal with variance $\sigma^2$, and the prior belief is that each coefficient is normal around zero with variance $\tau^2$. The posterior mean of $\beta$ is then exactly the ridge estimator with $\kappa = \sigma^2/\tau^2$. The LASSO is the posterior mode under a Laplace (double-exponential) prior. **A penalty is a prior, and a prior is a penalty.** Choosing $\kappa$ by cross-validation amounts to choosing how strongly to believe that effects are small.
 
-That shrinkage can dominate the obvious estimator is not a heuristic. **[Fact]** When estimating
-three or more means at once, shrinking all the sample means toward a common value gives a lower
-total mean squared error than the sample means themselves, whatever the true means are. This is
-Stein's paradox, explained accessibly by [Efron & Morris
-(1977)](https://doi.org/10.1038/scientificamerican0577-119){target="_blank"}. Unbiasedness, in
-that setting, is not a virtue.
+Shrinkage can provably dominate the obvious estimator. [Fact] When three or more means are estimated at once, shrinking all the sample means toward a common value gives a lower total mean squared error than the sample means themselves, whatever the true means are. This is Stein's paradox, explained accessibly by [Efron & Morris (1977)](https://doi.org/10.1038/scientificamerican0577-119){target="_blank"}. In that setting, unbiasedness is not a virtue.
 
 Shrinkage earns its keep in econometrics in three recurring places.
 
@@ -2096,13 +1278,11 @@ Shrinkage earns its keep in econometrics in three recurring places.
 - **Covariance matrices.** The shrinkage estimators of [Portfolio
   Construction](portfolio_construction.html) are the same idea applied to $\Sigma$.
 
-When the data are informative, Bayesian and frequentist answers converge: in regular models with
-large samples the posterior is approximately normal around the MLE with the sandwich-free variance
-$\mathcal{I}^{-1}/n$. They diverge exactly where the data are weak, with small samples, weak
-identification, or many parameters. That is where the prior is doing the work, and where it
-should be reported and defended like any other assumption.
+When the data are informative, Bayesian and frequentist answers converge. In regular models with large samples, the posterior is approximately normal around the MLE, with the sandwich-free variance $\mathcal{I}^{-1}/n$. The answers diverge exactly where the data are weak: in small samples, under weak identification, or with many parameters. There the prior is doing the work, and it should be reported and defended like any other assumption.
 
 ## 5.7 Choosing among them
+
+The table compares the estimators of this section on the same attributes.
 
 | Estimator | Key assumption | Robust to | Typical use | Typical failure |
 |---|---|---|---|---|
@@ -2114,29 +1294,18 @@ should be reported and defended like any other assumption.
 | Quantile regression | A linear conditional quantile | Outliers in $Y$ | Tails, value-at-risk, heterogeneity | Misreading distributional shifts as individual effects |
 | Ridge, LASSO, Bayes | The prior or penalty is sensible | Overfitting | Prediction with many regressors | Biased coefficients; invalid naive inference (§10.3) |
 
-The table should not obscure the ordering from §1.3. **[Practice]** Among the three things you
-choose, the orthogonality condition, the meat, and the estimator, the estimator is usually the least
-consequential. A well-identified parameter estimated by plain OLS with the right standard errors
-beats a badly identified one estimated by an elegant method. The exact algebraic relationships among
-the estimators in this section are collected in §12.2.
+The table should not obscure the ordering from §1.3. [Practice] Of the three choices an analyst makes (the orthogonality condition, the meat, and the estimator), the estimator is usually the least consequential. A well-identified parameter estimated by plain OLS with the right standard errors beats a badly identified one estimated by an elegant method. §12.2 collects the exact algebraic relationships among the estimators in this section.
 
 > ### §5 Key takeaways
 >
-> 1. OLS, IV, GMM, and maximum likelihood are one estimator: each sets a sample average of a
->    moment function to zero, and each gets its standard error from the same sandwich.
-> 2. IV is a ratio: the effect of the instrument on the outcome divided by its effect on the
->    regressor. It uses only the variation in the regressor that the instrument drives.
+> 1. OLS, IV, GMM, and maximum likelihood are one estimator. Each sets a sample average of a moment function to zero, and each gets its standard error from the same sandwich.
+> 2. IV is a ratio: the effect of the instrument on the outcome divided by its effect on the regressor. It uses only the variation in the regressor that the instrument drives.
 > 3. Never compute 2SLS standard errors by running the second stage by hand.
-> 4. Over-identification buys a $J$-test, which can catch instruments that disagree and cannot
->    catch instruments that are wrong in the same way.
-> 5. Efficient GMM is fragile in finite samples with many moments; pre-specified weights are often
->    more reliable and more economically meaningful.
-> 6. MLE is efficient because, under correct specification, the meat equals minus the bread.
->    Under misspecification, use the sandwich and know which quasi-likelihoods remain consistent.
-> 7. A penalty is a prior. Shrinkage trades bias for variance, and when many related quantities are
->    estimated at once it provably beats the unbiased estimates.
-> 8. The estimator is the least consequential of the three choices. Get the orthogonality condition
->    and the meat right first.
+> 4. Over-identification buys a $J$-test. The test can catch instruments that disagree, and it cannot catch instruments that are wrong in the same way.
+> 5. Efficient GMM is fragile in finite samples with many moments. Pre-specified weights are often more reliable and more economically meaningful.
+> 6. MLE is efficient because, under correct specification, the meat equals minus the bread. Under misspecification, use the sandwich, and know which quasi-likelihoods remain consistent.
+> 7. A penalty is a prior. Shrinkage trades bias for variance, and when many related quantities are estimated at once, it provably beats the unbiased estimates.
+> 8. The estimator is the least consequential of the three choices. Get the orthogonality condition and the meat right first.
 
 ```{=latex}
 \newpage
@@ -2146,30 +1315,17 @@ the estimators in this section are collected in §12.2.
 
 # 6. Endogeneity: why a coefficient is not an effect {#6-endogeneity}
 
-§3.2 reduced the central problem of the field to one line: a regression estimates $\beta_s$
-plus a bias term that is zero only when the regressors are uncorrelated with the structural
-error. This section is the anatomy of that bias term: what it means in causal language, the
-five mechanisms that produce it, and the one idea (randomisation) that removes it by
-construction. §7 then surveys the designs that try to approximate randomisation when nobody
-randomised.
+§3.2 reduced the central problem of the field to one line. A regression estimates $\beta_s$ plus a bias term, and the bias term is zero only when the regressors are uncorrelated with the structural error. This section is the anatomy of that bias term: what it means in causal language, the five mechanisms that produce it, and the one idea, randomisation, that removes it by construction. §7 then surveys the designs that try to approximate randomisation when nobody randomised.
 
 ## 6.1 Potential outcomes
 
-The cleanest language for causal questions is the **potential outcomes** framework, due to
-Neyman and developed by [Rubin (1974)](https://doi.org/10.1037/h0037350){target="_blank"}. For
-each unit $i$ and a binary treatment $D_i$, imagine two outcomes: $Y_i(1)$, what would happen if
-the unit were treated, and $Y_i(0)$, what would happen if it were not. The unit's causal effect
-is the difference, $\tau_i = Y_i(1) - Y_i(0)$. The observed outcome is whichever potential
-outcome the treatment selected:
+The cleanest language for causal questions is the **potential outcomes** framework, due to Neyman and developed by [Rubin (1974)](https://doi.org/10.1037/h0037350){target="_blank"}. For each unit $i$ and a binary treatment $D_i$, imagine two outcomes: $Y_i(1)$, what would happen if the unit were treated, and $Y_i(0)$, what would happen if it were not. The unit's causal effect is the difference, $\tau_i = Y_i(1) - Y_i(0)$. The observed outcome is whichever potential outcome the treatment selected:
 
 $$
 Y_i = D_i\,Y_i(1) + (1 - D_i)\,Y_i(0).
 $$
 
-**The fundamental problem of causal inference** is that $\tau_i$ is never observed, because no
-unit is both treated and untreated at the same moment ([Holland,
-1986](https://doi.org/10.1080/01621459.1986.10478354){target="_blank"}). Every causal estimate is
-therefore a statement about *averages*, and the average has to be chosen.
+**The fundamental problem of causal inference** is that $\tau_i$ is never observed, because no unit is both treated and untreated at the same moment ([Holland, 1986](https://doi.org/10.1080/01621459.1986.10478354){target="_blank"}). Every causal estimate is therefore a statement about *averages*, and the average has to be chosen. The table lists the standard choices.
 
 | Estimand | Definition | Answers |
 |---|---|---|
@@ -2179,28 +1335,15 @@ therefore a statement about *averages*, and the average has to be chosen.
 | Conditional average effect (CATE) | $\mathbb{E}[\tau_i \mid X_i = x]$ | How does the effect vary with characteristics? |
 | Local average effect (LATE) | The effect for units whose treatment an instrument changes | What does IV actually estimate? (§7.3) |
 
-When effects are the same for everyone, these coincide. When they differ, which is the normal
-case, they differ, and a method that is unbiased for one is generally biased for another. The
-estimand has to be stated before the design is chosen (§1.3).
+When effects are the same for everyone, these averages coincide. When effects differ, which is the normal case, the averages differ too, and a method that is unbiased for one is generally biased for another. The estimand has to be stated before the design is chosen (§1.3).
 
-Take index inclusion as an example. For a stock added to the S&P 500, $Y_i(1)$ is its return
-over the following month and $Y_i(0)$ is the return it would have had if it had not been added.
-The ATT is the average inclusion effect on stocks that were added. It is the natural estimand,
-and it is not the effect that adding a randomly chosen stock would have.
+Take index inclusion as an example. For a stock added to the S&P 500, $Y_i(1)$ is its return over the following month, and $Y_i(0)$ is the return it would have had if it had not been added. The ATT is the average inclusion effect on stocks that were added. It is the natural estimand, and it is not the effect that adding a randomly chosen stock would have.
 
-**SUTVA.** The framework assumes the **stable unit treatment value assumption**: a unit's
-potential outcomes do not depend on other units' treatments, and there is only one version of the
-treatment. The first half fails constantly in finance. The return to a trading strategy depends
-on how many others trade it. Adding one stock to an index moves the prices of its close
-substitutes. A regulation that constrains some banks pushes activity toward the others, which
-contaminates exactly the control group used to measure its effect. When interference is present,
-the "effect" a design estimates is a contrast between treated and control units *in the presence
-of spillovers*, which may be very different from the effect of treating everyone.
+**SUTVA.** The framework assumes the **stable unit treatment value assumption**: a unit's potential outcomes do not depend on other units' treatments, and there is only one version of the treatment. The first half fails constantly in finance. The return to a trading strategy depends on how many others trade it. Adding one stock to an index moves the prices of its close substitutes. A regulation that constrains some banks pushes activity toward the others, which contaminates exactly the control group used to measure the regulation's effect. When interference is present, a design estimates a contrast between treated and control units *in the presence of spillovers*. That contrast may be very different from the effect of treating everyone.
 
 ## 6.2 The selection bias decomposition
 
-What does the simple comparison of treated and untreated units estimate? Add and subtract the
-treated units' untreated potential outcome:
+The question is what a simple comparison of treated and untreated units estimates. Adding and subtracting the treated units' untreated potential outcome gives
 
 $$
 \underbrace{\mathbb{E}[Y_i \mid D_i = 1] - \mathbb{E}[Y_i \mid D_i = 0]}_{\text{observed difference}}
@@ -2208,114 +1351,47 @@ $$
 + \underbrace{\mathbb{E}[Y_i(0) \mid D_i = 1] - \mathbb{E}[Y_i(0) \mid D_i = 0]}_{\text{selection bias}} .
 $$
 
-The selection-bias term compares the *untreated* outcomes of the two groups. It asks whether the
-units that got treated would have done differently from the others even without treatment. It is
-the potential-outcomes version of the omitted-variable term of §3.5.
+The selection-bias term compares the *untreated* outcomes of the two groups. It asks whether the units that got treated would have done differently from the others even without treatment. It is the potential-outcomes version of the omitted-variable term of §3.5.
 
-Back to share repurchases. If managers buy back stock when they believe it is undervalued, then
-repurchasing firms would have earned higher returns than other firms *even had they not
-repurchased*, so $\mathbb{E}[Y_i(0) \mid D_i = 1] > \mathbb{E}[Y_i(0) \mid D_i = 0]$. The
-selection bias is positive, and the naive return difference overstates whatever the buyback
-itself contributes. Selection can also run the other way. People who go to hospital are less
-healthy afterwards than people who do not, because the untreated health of those who seek treatment
-is worse, which can overwhelm any benefit of the treatment in a naive comparison.
+Return to share repurchases. If managers buy back stock when they believe it is undervalued, then repurchasing firms would have earned higher returns than other firms *even had they not repurchased*, so $\mathbb{E}[Y_i(0) \mid D_i = 1] > \mathbb{E}[Y_i(0) \mid D_i = 0]$. The selection bias is positive, and the naive return difference overstates whatever the buyback itself contributes. Selection can also run the other way. People who go to hospital are less healthy afterwards than people who do not, because the untreated health of those who seek treatment is worse. In a naive comparison, that difference can overwhelm any benefit of the treatment.
 
 ## 6.3 Why randomisation works
 
-If treatment is assigned at random, it is independent of the potential outcomes: $D_i \perp
-(Y_i(1), Y_i(0))$. Then the untreated potential outcome has the same distribution in both groups,
-the selection-bias term is exactly zero, and the simple difference in means estimates the ATT,
-which equals the ATE. In regression language, a randomly assigned regressor is uncorrelated with
-the structural error by construction, so the endogeneity term of §3.2 vanishes.
+If treatment is assigned at random, it is independent of the potential outcomes: $D_i \perp (Y_i(1), Y_i(0))$. The untreated potential outcome then has the same distribution in both groups, and the selection-bias term is exactly zero. The simple difference in means estimates the ATT, which equals the ATE. In regression language, a randomly assigned regressor is uncorrelated with the structural error by construction, so the endogeneity term of §3.2 vanishes.
 
-Randomisation balances *unobserved* characteristics as well as observed ones, in expectation. No
-other device does. That is why the randomised experiment is the reference point for every design
-in §7, each of which is an argument that some feature of the world assigned treatment "as good as
-randomly" for some units. **[Practice]** The most useful question to ask about any observational
-study is: *what experiment is this trying to approximate, and where does the approximation break?*
+Randomisation balances *unobserved* characteristics as well as observed ones, in expectation, and no other device does. That is why the randomised experiment is the reference point for every design in §7. Each design is an argument that some feature of the world assigned treatment "as good as randomly" for some units. [Practice] **The most useful question to ask of any observational study is: *what experiment is this trying to approximate, and where does the approximation break?***
 
-Finance has a few genuine experiments. The best known is the SEC's **Regulation SHO pilot**. The
-SEC sorted the stocks in the 2004 Russell 3000 by listing market and trading volume and designated
-every third one a pilot stock, exempt from short-sale price tests from May 2005 to August 2007
-([SEC, 2007](https://www.sec.gov/news/studies/2007/regshopilot020607.pdf){target="_blank"}). Dozens
-of papers have used it to estimate the effects of short-selling constraints on outcomes from
-liquidity to earnings management ([Fang, Huang & Karpoff,
-2016](https://doi.org/10.1111/jofi.12369){target="_blank"}). Its heavy reuse became a lesson of its
-own: [Heath, Ringgenberg, Samadi & Werner (2023)](https://www.federalreserve.gov/econres/ifdp/files/ifdp1339.pdf){target="_blank"}
-show that when many outcomes are tested against the same experiment, many results that were
-significant in isolation do not survive a correction for multiple testing (§4.8). A clean experiment
-does not protect against the garden of forking paths.
+Finance has a few genuine experiments. The best known is the SEC's **Regulation SHO pilot**. The SEC sorted the stocks in the 2004 Russell 3000 by listing market and trading volume, and designated every third one a pilot stock, exempt from short-sale price tests from May 2005 to August 2007 ([SEC, 2007](https://www.sec.gov/news/studies/2007/regshopilot020607.pdf){target="_blank"}). Dozens of papers have used the pilot to estimate the effects of short-selling constraints on outcomes from liquidity to earnings management ([Fang, Huang & Karpoff, 2016](https://doi.org/10.1111/jofi.12369){target="_blank"}). Its heavy reuse became a lesson of its own. [Heath, Ringgenberg, Samadi & Werner (2023)](https://www.federalreserve.gov/econres/ifdp/files/ifdp1339.pdf){target="_blank"} show that when many outcomes are tested against the same experiment, many results that were significant in isolation do not survive a correction for multiple testing (§4.8). A clean experiment does not protect against the garden of forking paths.
 
 ## 6.4 Five routes to a correlated error
 
-Every failure of exogeneity comes from one of five mechanisms. Naming the mechanism tells you
-the likely direction of the bias and what could fix it.
+Every failure of exogeneity comes from one of five mechanisms. Naming the mechanism indicates the likely direction of the bias and what could fix it.
 
-**1. Omitted variables (confounding).** Something that affects the outcome also affects the
-regressor. The bias is the OVB formula of §3.5. For example, a regression of fund returns on fund
-size that omits manager skill is biased if skill attracts inflows (raising size) and also raises
-returns.
+**1. Omitted variables (confounding).** Something that affects the outcome also affects the regressor, and the bias is the OVB formula of §3.5. For example, a regression of fund returns on fund size that omits manager skill is biased if skill attracts inflows, raising size, and also raises returns.
 
-**2. Measurement error.** The regressor is measured with noise, $X_i = X_i^* + v_i$, where $v_i$
-is independent of everything else. Then the error in the regression on the observed $X_i$
-includes $-\beta v_i$, which is correlated with $X_i$, and
+**2. Measurement error.** The regressor is measured with noise, $X_i = X_i^* + v_i$, where $v_i$ is independent of everything else. The error in the regression on the observed $X_i$ then includes $-\beta v_i$, which is correlated with $X_i$, and
 
 $$
 \operatorname{plim}\hat\beta = \beta\,\lambda, \qquad \lambda = \frac{\operatorname{Var}(X^*)}{\operatorname{Var}(X^*) + \operatorname{Var}(v)} .
 $$
 
-The **reliability ratio** $\lambda$ is between 0 and 1, so classical measurement error
-**attenuates** the coefficient toward zero. A reliability of 0.5 halves it. Measurement error in the
-*outcome* adds noise without bias. With several regressors, measurement error in one biases the
-others too, in directions that are hard to sign.
+The **reliability ratio** $\lambda$ lies between 0 and 1, so classical measurement error **attenuates** the coefficient toward zero. A reliability of 0.5 halves it. Measurement error in the *outcome* adds noise without bias. With several regressors, measurement error in one regressor biases the others too, in directions that are hard to sign.
 
-The consequence people most often miss concerns panels. **Fixed effects and differencing
-remove signal and keep noise.** Suppose the true regressor is persistent, with a correlation of 0.9
-between adjacent periods, and the measurement error is independent over time with a levels
-reliability of 0.8. First-differencing cuts the variance of the true regressor to $2(1 - 0.9) = 0.2$
-of its level, but doubles the noise variance to $2 \times 0.25 = 0.5$ in the same units. The reliability
-of the differenced regressor is $0.2/(0.2 + 0.5) = 0.29$, down from 0.8 ([Griliches & Hausman,
-1986](https://www.nber.org/papers/t0037){target="_blank"}). A "within-firm" estimate that is much
-smaller than the pooled one may reflect attenuation rather than confounding in the pooled regression.
+The most often missed consequence concerns panels. **Fixed effects and differencing remove signal and keep noise.** Suppose the true regressor is persistent, with a correlation of 0.9 between adjacent periods, and the measurement error is independent over time, with a reliability in levels of 0.8. First-differencing cuts the variance of the true regressor to $2(1 - 0.9) = 0.2$ of its level, and doubles the noise variance to $2 \times 0.25 = 0.5$ in the same units. The reliability of the differenced regressor is $0.2/(0.2 + 0.5) = 0.29$, down from 0.8 ([Griliches & Hausman, 1986](https://www.nber.org/papers/t0037){target="_blank"}). A "within-firm" estimate that is much smaller than the pooled one may therefore reflect attenuation, not confounding in the pooled regression.
 
-Finance is full of regressors estimated with error: betas from a first-pass time-series regression
-(§9.4), expected returns proxied by characteristics, expectations proxied by analyst forecasts,
-liquidity proxied by spreads.
+Finance is full of regressors estimated with error: betas from a first-pass time-series regression (§9.4), expected returns proxied by characteristics, expectations proxied by analyst forecasts, and liquidity proxied by spreads.
 
-**3. Simultaneity.** The outcome also affects the regressor, because both are determined together.
-The founding example is supply and demand. Quantity and price are set jointly by two equations, and a
-regression of quantity on price traces out a mixture of the two curves, weighted by which curve's
-shocks happen to be larger. If demand shocks dominate, the regression recovers something close to
-the *supply* curve ([Working, 1927](https://doi.org/10.2307/1883501){target="_blank"}). Instrumental
-variables were invented to solve exactly this problem (§7.3; [Stock & Trebbi,
-2003](https://doi.org/10.1257/089533003769204416){target="_blank"}). Finance equivalents include
-order flow and returns (informed traders buy because they expect returns, and returns attract
-momentum traders), fund flows and performance, and trading volume and volatility.
+**3. Simultaneity.** The outcome also affects the regressor, because the two are determined together. The founding example is supply and demand. Two equations set quantity and price jointly, and a regression of quantity on price traces out a mixture of the two curves, weighted by which curve's shocks happen to be larger. If demand shocks dominate, the regression recovers something close to the *supply* curve ([Working, 1927](https://doi.org/10.2307/1883501){target="_blank"}). Instrumental variables were invented to solve exactly this problem (§7.3; [Stock & Trebbi, 2003](https://doi.org/10.1257/089533003769204416){target="_blank"}). Finance equivalents include order flow and returns (informed traders buy because they expect returns, and returns attract momentum traders), fund flows and performance, and trading volume and volatility.
 
-**4. Sample selection.** The outcome is observed only for a subsample chosen in a way related to the
-outcome. Wages are observed only for people who work, and fund returns only for funds that survive.
-[Heckman (1979)](https://doi.org/10.2307/1912352){target="_blank"} showed that selection is an
-omitted variable: within the selected sample, the expected error depends on the regressors through
-the probability of selection. Correcting it credibly requires a variable that affects selection but not
-the outcome, which is an exclusion restriction by another name.
+**4. Sample selection.** The outcome is observed only for a subsample chosen in a way related to the outcome. Wages are observed only for people who work, and fund returns only for funds that survive. [Heckman (1979)](https://doi.org/10.2307/1912352){target="_blank"} showed that selection is an omitted variable: within the selected sample, the expected error depends on the regressors through the probability of selection. Correcting it credibly requires a variable that affects selection but not the outcome, which is an exclusion restriction by another name.
 
-The finance case is **survivorship bias**. [Brown, Goetzmann, Ibbotson & Ross
-(1992)](https://terpconnect.umd.edu/~wermers/ftpsite/FAME/Brown_Goetzmann_Ibbotson_Ross.pdf){target="_blank"}
-showed that because poorly performing funds disappear from the data, a sample truncated by survival
-can display apparent persistence in performance even when none exists. **[Fact]** Its sibling is
-look-ahead bias in sample construction, such as backtesting on today's index constituents, which
-guarantees that every stock in the sample survived to today.
+The finance case is **survivorship bias**. [Fact] [Brown, Goetzmann, Ibbotson & Ross (1992)](https://terpconnect.umd.edu/~wermers/ftpsite/FAME/Brown_Goetzmann_Ibbotson_Ross.pdf){target="_blank"} showed that poorly performing funds disappear from the data, so a sample truncated by survival can display apparent persistence in performance even when none exists. Its sibling is look-ahead bias in sample construction. Backtesting on today's index constituents, for example, guarantees that every stock in the sample survived to today.
 
-**5. Bad controls.** Conditioning on the wrong variable *creates* a correlation between the
-regressor and the error where none existed. This mechanism is the least intuitive of the five,
-because it is caused by an action normally taken to reduce bias. It gets its own subsection.
+**5. Bad controls.** Conditioning on the wrong variable *creates* a correlation between the regressor and the error where none existed. This mechanism is the least intuitive of the five, because an action normally taken to reduce bias causes it. It gets its own subsection.
 
 ## 6.5 Causal graphs: confounders, mediators, colliders
 
-A **directed acyclic graph** (DAG) draws variables as nodes and direct causal effects as arrows
-([Pearl, 2009](https://doi.org/10.1017/CBO9780511803161){target="_blank"}). Its value for applied work
-is one question it answers mechanically: *which variables should I control for?* Three elementary
-structures cover almost every case.
+A **directed acyclic graph** (DAG) draws variables as nodes and direct causal effects as arrows ([Pearl, 2009](https://doi.org/10.1017/CBO9780511803161){target="_blank"}). Its value for applied work is that it answers one question mechanically: *which variables should be controlled for?* Three elementary structures cover almost every case, and the diagram shows them.
 
 ```mermaid
 flowchart TB
@@ -2325,7 +1401,7 @@ flowchart TB
         D1 --> Y1["Y"]
         C1 --> Y1
     end
-    subgraph M["Mediator: do not control for it<br/>when you want the total effect"]
+    subgraph M["Mediator: do not control for it<br/>when the target is the total effect"]
         direction LR
         D2["D"] --> M2["M"]
         M2 --> Y2["Y"]
@@ -2352,17 +1428,9 @@ flowchart TB
   Conditioning on $K$ opens it, manufacturing an association between $D$ and $Y$ that has nothing to
   do with the effect of $D$.
 
-The formal rule is the **back-door criterion**. A set of controls identifies the effect of $D$ on $Y$
-if it blocks every path from $D$ to $Y$ that begins with an arrow *into* $D$, and contains no variable
-caused by $D$.
+The formal rule is the **back-door criterion**. A set of controls identifies the effect of $D$ on $Y$ if it blocks every path from $D$ to $Y$ that begins with an arrow *into* $D$, and if it contains no variable caused by $D$.
 
-The simulation below makes the three cases concrete. In every scenario the true effect of $D$ on $Y$
-is 1. Omitting a confounder gives 1.49, and controlling for it gives 1.00, but controlling for a noisy
-proxy of it (reliability 0.5) gives 1.30, removing less than 40% of the bias. Omitting a mediator
-correctly gives the total effect of 1.00, and controlling for it gives only the direct part, 0.20.
-Omitting a collider correctly gives 1.00. Controlling for it gives $-0.60$, flipping the sign, and
-merely restricting the sample to units with a positive value of the collider gives 0.53.
-**[Simulated]**
+The simulation below makes the three cases concrete. In every scenario the true effect of $D$ on $Y$ is 1. [Simulated] Omitting a confounder gives 1.49, and controlling for it gives 1.00. Controlling for a noisy proxy of it, with a reliability of 0.5, gives 1.30, which removes less than 40% of the bias. Omitting a mediator correctly gives the total effect of 1.00, and controlling for it gives only the direct part, 0.20. Omitting a collider correctly gives 1.00. Controlling for it gives $-0.60$, which flips the sign, and merely restricting the sample to units with a positive value of the collider gives 0.53.
 
 ```{=latex}
 \begin{center}
@@ -2375,11 +1443,7 @@ merely restricting the sample to units with a positive value of the collider giv
      alt="Estimated effect of D on Y when omitting or controlling for a confounder, a mediator, and a collider">
 ```
 
-The collider mechanism is easy to see with an example. Suppose that among all managers, skill and
-personal connections are independent, and a firm hires anyone whose skill *plus* connections clears a
-bar. Among hired managers, those with weak connections must have strong skill to have been hired, so
-skill and connections are negatively correlated in the hired sample, although they are unrelated in
-the population. Conditioning on having been hired, the collider, created the correlation.
+An example makes the collider mechanism easy to see. Suppose that among all managers, skill and personal connections are independent, and a firm hires anyone whose skill *plus* connections clears a bar. Among hired managers, those with weak connections must have strong skill to have been hired. Skill and connections are therefore negatively correlated in the hired sample, although they are unrelated in the population. Conditioning on having been hired, the collider, created the correlation.
 
 Finance supplies colliders in quantity:
 
@@ -2391,31 +1455,20 @@ Finance supplies colliders in quantity:
 - **Selecting on outcomes.** Studying "stocks that hit a 52-week high" or "funds that raised a second
   fund" conditions on a variable that depends on past returns.
 
-Two further lessons. First, **"only control for pre-treatment variables" is necessary but not
-sufficient.** A pre-treatment variable can still be a collider on a path between unobserved causes of
-treatment and outcome, although such cases usually produce small biases ([Cinelli, Forney & Pearl,
-2024](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3689437){target="_blank"}). Second, graphs
-and potential outcomes are complements rather than rivals. Graphs are best at deciding what to control
-for, and potential outcomes are best at defining estimands, handling heterogeneous effects, and
-connecting to design-based inference ([Imbens, 2020](https://www.nber.org/papers/w26104){target="_blank"}).
+Two further lessons follow. First, **"only control for pre-treatment variables" is necessary but not sufficient.** A pre-treatment variable can still be a collider on a path between unobserved causes of treatment and outcome, although such cases usually produce small biases ([Cinelli, Forney & Pearl, 2024](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3689437){target="_blank"}). Second, graphs and potential outcomes are complements, not rivals. Graphs are best at deciding what to control for. Potential outcomes are best at defining estimands, handling heterogeneous effects, and connecting to design-based inference ([Imbens, 2020](https://www.nber.org/papers/w26104){target="_blank"}).
 
 ## 6.6 Selection on observables: regression, matching, and weighting
 
-When no natural experiment is available, the fallback is to assume that the observed covariates
-capture everything that jointly drives treatment and outcomes. Formally, two conditions:
+When no natural experiment is available, the fallback is to assume that the observed covariates capture everything that jointly drives treatment and outcomes. Formally, the assumption has two conditions:
 
 - **Unconfoundedness** (conditional independence): $(Y_i(1), Y_i(0)) \perp D_i \mid X_i$. Among units
   with the same covariates, treatment is as good as random.
 - **Overlap:** $0 < p(X_i) < 1$, where $p(x) = \Pr(D_i = 1 \mid X_i = x)$ is the **propensity score**.
   Every kind of unit has some chance of being in either group.
 
-Under both, the ATE is identified by comparing treated and untreated units with the same covariates and
-averaging: $\text{ATE} = \mathbb{E}\big[\mathbb{E}[Y_i \mid D_i = 1, X_i] - \mathbb{E}[Y_i \mid D_i = 0,
-X_i]\big]$. [Rosenbaum & Rubin (1983)](https://doi.org/10.1093/biomet/70.1.41){target="_blank"} showed
-that if unconfoundedness holds given $X$, it holds given the scalar $p(X)$ alone, which turns matching
-on many covariates into matching on one number.
+Under both conditions, the ATE is identified by comparing treated and untreated units with the same covariates and averaging: $\text{ATE} = \mathbb{E}\big[\mathbb{E}[Y_i \mid D_i = 1, X_i] - \mathbb{E}[Y_i \mid D_i = 0, X_i]\big]$. [Rosenbaum & Rubin (1983)](https://doi.org/10.1093/biomet/70.1.41){target="_blank"} showed that if unconfoundedness holds given $X$, it holds given the scalar $p(X)$ alone. That result turns matching on many covariates into matching on one number.
 
-There are four families of estimator:
+The table lists the four families of estimator.
 
 | Estimator | What it models | Idea |
 |---|---|---|
@@ -2424,74 +1477,32 @@ There are four families of estimator:
 | Inverse probability weighting | The treatment, $p(X)$ | Reweight so that both groups resemble the full population: $\mathbb{E}\big[\tfrac{D_iY_i}{p(X_i)} - \tfrac{(1-D_i)Y_i}{1 - p(X_i)}\big]$ |
 | Doubly robust (augmented IPW) | Both | Consistent if *either* the outcome model or the propensity model is right; the basis of §10.5 |
 
-**The point that matters most:** none of these estimators relaxes unconfoundedness. They differ only in
-how they use $X$, and the choice among them is second-order compared with whether $X$ contains the
-confounders. **[Practice]** Matching is not a research design. It is a way of doing covariate
-adjustment, and it inherits the adjustment's assumption.
+**The point that matters most:** none of these estimators relaxes unconfoundedness. They differ only in how they use $X$, and the choice among them is second-order compared with whether $X$ contains the confounders. [Practice] Matching is not a research design. It is a way of doing covariate adjustment, and it inherits the adjustment's assumption.
 
-**Overlap is the check you can actually run.** Plot the estimated propensity score separately for
-treated and untreated units. Where the distributions do not overlap, the effect is being extrapolated
-from functional form, and inverse probability weights explode as $p(X)$ approaches 0 or 1. Trimming the
-sample to the region of common support changes the estimand, but honestly.
+**Overlap is the one condition that can be checked.** Plot the estimated propensity score separately for treated and untreated units. Where the distributions do not overlap, the effect is being extrapolated from functional form, and inverse probability weights explode as $p(X)$ approaches 0 or 1. Trimming the sample to the region of common support changes the estimand, but it does so honestly.
 
-**The LaLonde question, forty years on.** [Dehejia & Wahba
-(1999)](https://www.nber.org/papers/w6586){target="_blank"} revisited LaLonde's data and found that
-propensity score methods, on a subsample with two years of pre-programme earnings, came close to the
-experimental benchmark. [Smith & Todd (2005)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=286297){target="_blank"}
-showed that the result was sensitive to the sample and the specification. **[Contested]** The most
-recent reassessment, by [Imbens & Xu (2025)](https://arxiv.org/abs/2406.00827){target="_blank"}, finds
-that modern methods give robust estimates once covariate overlap is ensured, but that robustness is not
-credibility: whether the estimates can be read causally has to be judged by validation exercises, such as
-placebo tests, not by goodness of fit. My reading is that modern methods cannot recover the benchmark
-merely by being modern. The ingredient that separates good
-estimates from bad is the validation, not the estimator.
+**The LaLonde question, forty years on.** [Dehejia & Wahba (1999)](https://www.nber.org/papers/w6586){target="_blank"} revisited LaLonde's data. They found that propensity score methods, on a subsample with two years of pre-programme earnings, came close to the experimental benchmark. [Smith & Todd (2005)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=286297){target="_blank"} showed that the result was sensitive to the sample and the specification. [Contested] The most recent reassessment, by [Imbens & Xu (2025)](https://arxiv.org/abs/2406.00827){target="_blank"}, finds that modern methods give robust estimates once covariate overlap is ensured. It also finds that robustness is not credibility: whether the estimates can be read causally has to be judged by validation exercises, such as placebo tests, not by goodness of fit. The view taken here is that modern methods do not recover the benchmark merely by being modern. The validation, not the estimator, separates good estimates from bad ones.
 
 ## 6.7 Sensitivity analysis: how much confounding would it take?
 
-Unconfoundedness cannot be tested, because the confounders it worries about are unobserved. What can
-be done is to ask how strong an unobserved confounder would have to be to overturn the result, and then
-argue about whether one that strong is plausible.
+Unconfoundedness cannot be tested, because the confounders it worries about are unobserved. What can be done is to ask how strong an unobserved confounder would have to be to overturn the result, and then to argue about whether a confounder that strong is plausible. Three approaches are in use.
 
-- **Selection on observables as a guide.** [Altonji, Elder & Taber
-  (2005)](https://doi.org/10.1086/426036){target="_blank"} proposed using the degree of selection on
-  observed characteristics to bound selection on unobserved ones.
-- **Coefficient stability, done properly.** [Oster (2019)](https://doi.org/10.1080/07350015.2016.1227711){target="_blank"}
-  formalised the common practice of watching how a coefficient moves when controls are added. Movement
-  is only informative relative to how much explanatory power the controls add, so the method uses the
-  change in both the coefficient and the $R^2$. It reports $\delta$, the ratio of selection on
-  unobservables to selection on observables that would drive the effect to zero, given an assumed
-  maximum attainable $R^2$. Her suggested defaults are a maximum $R^2$ of 1.3 times the $R^2$ with
-  controls, and $|\delta| > 1$ as the robustness threshold. **[Contested]** Both the default and the
-  premise that observed controls are representative of unobserved ones are debated.
-- **Partial $R^2$ benchmarks.** [Cinelli & Hazlett (2020)](https://doi.org/10.1111/rssb.12348){target="_blank"}
-  extend the OVB formula to report a **robustness value**: the minimum share of the residual variance of
-  both the treatment and the outcome that a confounder would have to explain to eliminate the estimate.
-  The number can be benchmarked against observed covariates, as in "a confounder would need to be three
-  times as strongly related to treatment as firm size is."
+- **Selection on observables as a guide.** [Altonji, Elder & Taber (2005)](https://doi.org/10.1086/426036){target="_blank"} proposed using the degree of selection on observed characteristics to bound selection on unobserved ones.
+- **Coefficient stability, done properly.** [Oster (2019)](https://doi.org/10.1080/07350015.2016.1227711){target="_blank"} formalised the common practice of watching how a coefficient moves when controls are added. Movement is informative only relative to how much explanatory power the controls add, so the method uses the change in both the coefficient and the $R^2$. It reports $\delta$, the ratio of selection on unobservables to selection on observables that would drive the effect to zero, given an assumed maximum attainable $R^2$. Oster's suggested defaults are a maximum $R^2$ of 1.3 times the $R^2$ with controls, and $|\delta| > 1$ as the robustness threshold. [Contested] Both the default and the premise that observed controls are representative of unobserved ones are debated.
+- **Partial $R^2$ benchmarks.** [Cinelli & Hazlett (2020)](https://doi.org/10.1111/rssb.12348){target="_blank"} extend the OVB formula to report a **robustness value**: the minimum share of the residual variance of both the treatment and the outcome that a confounder would have to explain to eliminate the estimate. The number can be benchmarked against observed covariates, as in "a confounder would need to be three times as strongly related to treatment as firm size is."
 
-**[Practice]** Any estimate that rests on selection on observables should be reported with a
-sensitivity statistic. An effect that a confounder half as strong as firm size would erase is a
-hypothesis. One that would need a confounder ten times as strong is evidence.
+[Practice] **Recommendation: report any estimate that rests on selection on observables with a sensitivity statistic.** An effect that a confounder half as strong as firm size would erase is a hypothesis. An effect that would need a confounder ten times as strong is evidence.
 
 > ### §6 Key takeaways
 >
-> 1. Causal effects are defined by potential outcomes, and no unit's effect is ever observed.
->    Choose the average (ATE, ATT, LATE, CATE) before choosing the method.
-> 2. A naive comparison equals the effect on the treated plus selection bias: the difference in
->    what the two groups would have experienced without treatment.
-> 3. Randomisation removes selection bias by construction, including bias from unobserved
->    characteristics. Every observational design is an argument that something mimicked it.
-> 4. Endogeneity has five sources: omitted variables, measurement error, simultaneity, sample
->    selection, and bad controls. Naming the source tells you the direction of the bias.
-> 5. Measurement error attenuates, and fixed effects make it worse: differencing a persistent
->    regressor can cut its reliability from 0.8 to about 0.3.
-> 6. Control for confounders; do not control for mediators when you want the total effect; never
->    control for colliders. Controlling for a collider can reverse the sign of an estimate.
-> 7. Survivorship, database inclusion, and selection on outcomes are colliders, and they are
->    everywhere in financial data.
-> 8. Regression, matching, weighting, and doubly robust estimators all rest on the same untestable
->    assumption. What you can check is overlap, and what you should report is a sensitivity
->    statistic.
+> 1. Potential outcomes define causal effects, and no unit's effect is ever observed. Choose the average (ATE, ATT, LATE, CATE) before choosing the method.
+> 2. A naive comparison equals the effect on the treated plus selection bias: the difference in what the two groups would have experienced without treatment.
+> 3. Randomisation removes selection bias by construction, including bias from unobserved characteristics. Every observational design is an argument that something mimicked it.
+> 4. Endogeneity has five sources: omitted variables, measurement error, simultaneity, sample selection, and bad controls. Naming the source indicates the direction of the bias.
+> 5. Measurement error attenuates, and fixed effects make it worse. Differencing a persistent regressor can cut its reliability from 0.8 to about 0.3.
+> 6. Control for confounders. Do not control for mediators when the target is the total effect. Never control for colliders: controlling for a collider can reverse the sign of an estimate.
+> 7. Survivorship, database inclusion, and selection on outcomes are colliders, and they are everywhere in financial data.
+> 8. Regression, matching, weighting, and doubly robust estimators all rest on the same untestable assumption. Overlap can be checked, and a sensitivity statistic should be reported.
 
 ```{=latex}
 \newpage
@@ -2501,9 +1512,7 @@ hypothesis. One that would need a confounder ten times as strong is evidence.
 
 ## 7.1 How to read this section
 
-A **research design** is an argument that some source of variation in the regressor is as good as
-random, together with an estimator that uses only that variation. Each design in this section buys a
-particular orthogonality condition, the master form of §1.5, at a particular price.
+A **research design** is an argument that some source of variation in the regressor is as good as random, together with an estimator that uses only that variation. In terms of the master form of §1.5, each design buys a particular orthogonality condition at a particular price. The table summarises the condition and the price for each design.
 
 | Design | The orthogonality condition it buys | The price |
 |---|---|---|
@@ -2515,38 +1524,21 @@ particular orthogonality condition, the master form of §1.5, at a particular pr
 | Synthetic control (§7.7) | A weighted donor pool tracks the treated unit's untreated path | Long pre-periods, and good pre-treatment fit |
 | Structural estimation (§7.8) | Whatever the economic model implies | The model has to be right |
 
-Selection on observables, the fallback design, was covered in §6.6. Every design below is described
-with the same fields, so that failure modes can be compared directly across designs: **intuition**,
-**estimand**, **identifying assumption**, **estimation**, **inference**, **diagnostics**, **failure
-modes**, **in finance**, and **when preferred**. The failure modes carry the most practical value and
-get the most room.
+Selection on observables, the fallback design, was covered in §6.6. Every design below is described with the same fields, so that failure modes can be compared directly across designs: **intuition**, **estimand**, **identifying assumption**, **estimation**, **inference**, **diagnostics**, **failure modes**, **in finance**, and **when preferred**. The failure modes carry the most practical value, so they get the most room.
 
 ## 7.2 Randomised experiments
 
-**Intuition.** Assign treatment by coin flip, so that nothing about a unit can influence whether it is
-treated, and compare average outcomes.
+**Intuition.** Assign treatment by coin flip, so that nothing about a unit can influence whether it is treated, and compare average outcomes.
 
-**Estimand.** The ATE, which equals the ATT. If some units do not comply with their assignment, the
-comparison by *assignment* estimates the **intention-to-treat** effect, the effect of being offered
-treatment. The effect of treatment itself on those who comply is then an instrumental-variables
-problem, with assignment as the instrument (§7.3).
+**Estimand.** The ATE, which equals the ATT. If some units do not comply with their assignment, the comparison by *assignment* estimates the **intention-to-treat** effect, the effect of being offered treatment. The effect of treatment itself on those who comply is then an instrumental-variables problem, with assignment as the instrument (§7.3).
 
-**Identifying assumption.** Random assignment, SUTVA (§6.1), and no attrition that differs by
-treatment arm.
+**Identifying assumption.** Random assignment, SUTVA (§6.1), and no attrition that differs by treatment arm.
 
-**Estimation.** The difference in means. Adding pre-treatment covariates in a regression does not
-affect unbiasedness but can sharpen precision considerably. Interacting the treatment indicator with
-demeaned covariates guarantees that adjustment does not hurt precision in large samples ([Lin,
-2013](https://doi.org/10.1214/12-aoas583){target="_blank"}). Covariates measured *after* treatment
-must never be added (§6.5).
+**Estimation.** The difference in means. Adding pre-treatment covariates in a regression does not affect unbiasedness, but it can sharpen precision considerably. Interacting the treatment indicator with demeaned covariates guarantees that adjustment does not hurt precision in large samples ([Lin, 2013](https://doi.org/10.1214/12-aoas583){target="_blank"}). Covariates measured *after* treatment must never be added (§6.5).
 
-**Inference.** Robust standard errors, clustered at the unit of randomisation. In small experiments,
-**randomisation inference** is exact: recompute the statistic under every reassignment that could have
-happened, and see where the actual one falls.
+**Inference.** Robust standard errors, clustered at the unit of randomisation. In small experiments, **randomisation inference** is exact: recompute the statistic under every reassignment that could have happened, and see where the actual statistic falls.
 
-**Diagnostics.** A balance table of pre-treatment covariates across arms tests the randomisation
-*procedure*. With many covariates a few will differ by chance, which is not evidence of a problem.
-Also check attrition by arm and compliance rates.
+**Diagnostics.** A balance table of pre-treatment covariates across arms tests the randomisation *procedure*. With many covariates, a few will differ by chance, and that is not evidence of a problem. Also check attrition by arm and compliance rates.
 
 **Failure modes.**
 
@@ -2562,30 +1554,17 @@ Also check attrition by arm and compliance rates.
 - **External validity.** An experiment identifies an effect for its population, its context, and its
   scale. General-equilibrium effects that appear only when the treatment is scaled up are invisible in it.
 
-**In finance.** Genuine experiments are rare but valuable: the Regulation SHO pilot (§6.3), the SEC's
-Tick Size Pilot, and field experiments in household finance. The most common experiment a quant runs is
-an **A/B test of an execution algorithm**. Randomise at the level of the order or the day, cluster
-inference by day, because every order on a given day shares the same market conditions, and be alert to
-interference, because two algorithms trading the same names can move each other's prices.
+**In finance.** Genuine experiments are rare but valuable: the Regulation SHO pilot (§6.3), the SEC's Tick Size Pilot, and field experiments in household finance. The most common experiment a quant runs is an **A/B test of an execution algorithm**. Randomise at the level of the order or the day. Cluster inference by day, because every order on a given day shares the same market conditions. Watch for interference, because two algorithms trading the same names can move each other's prices.
 
-**When preferred.** Whenever it is feasible. Every other design in this section is a substitute for
-it.
+**When preferred.** Whenever an experiment is feasible. Every other design in this section is a substitute for it.
 
 ## 7.3 Instrumental variables
 
-**Intuition.** Find something that moves the regressor for reasons unrelated to the outcome's other
-causes, and use only the variation it creates (§5.2).
+**Intuition.** Find something that moves the regressor for reasons unrelated to the outcome's other causes, and use only the variation it creates (§5.2).
 
-**Estimand.** With a constant effect, the structural coefficient. With effects that differ across units,
-IV estimates a **local average treatment effect** (LATE): the average effect among **compliers**, the
-units whose treatment status the instrument actually changes ([Imbens & Angrist,
-1994](https://www.nber.org/papers/t0118){target="_blank"}; [Angrist, Imbens & Rubin,
-1996](https://www.nber.org/papers/t0136){target="_blank"}). Units that would be treated whatever the
-instrument says, or untreated whatever it says, contribute nothing. Two consequences follow. Different
-valid instruments can legitimately give different answers, because they shift different compliers. And
-a failed over-identification test may reflect heterogeneous effects rather than invalid instruments.
+**Estimand.** With a constant effect, IV estimates the structural coefficient. With effects that differ across units, IV estimates a **local average treatment effect** (LATE): the average effect among **compliers**, the units whose treatment status the instrument actually changes ([Imbens & Angrist, 1994](https://www.nber.org/papers/t0118){target="_blank"}; [Angrist, Imbens & Rubin, 1996](https://www.nber.org/papers/t0136){target="_blank"}). Units that would be treated whatever the instrument says, or untreated whatever it says, contribute nothing. Two consequences follow. Different valid instruments can legitimately give different answers, because they shift different compliers. And a failed over-identification test may reflect heterogeneous effects rather than invalid instruments.
 
-**Identifying assumptions.** Four, and the last two are untestable.
+**Identifying assumptions.** There are four, and the last two are untestable.
 
 1. **Relevance.** The instrument moves the treatment. This one is testable.
 2. **Independence.** The instrument is as good as randomly assigned.
@@ -2595,34 +1574,17 @@ a failed over-identification test may reflect heterogeneous effects rather than 
 
 **Estimation.** 2SLS. With many instruments, limited-information maximum likelihood (LIML) is less biased.
 
-**Inference.** Robust or clustered standard errors when the instrument is strong. When it may be weak,
-use tests whose size does not depend on instrument strength. The **Anderson–Rubin test** ([Anderson &
-Rubin, 1949](https://doi.org/10.1214/aoms/1177730090){target="_blank"}) regresses $Y - X\beta_0$ on the
-instruments and tests whether they matter. It is valid at any strength in the just-identified case, and
-its confidence set is obtained by collecting the values of $\beta_0$ it does not reject. [Moreira
-(2003)](https://doi.org/10.1111/1468-0262.00438){target="_blank"} extends the idea to over-identified
-models.
+**Inference.** Robust or clustered standard errors when the instrument is strong. When it may be weak, use tests whose size does not depend on instrument strength. The **Anderson–Rubin test** ([Anderson & Rubin, 1949](https://doi.org/10.1214/aoms/1177730090){target="_blank"}) regresses $Y - X\beta_0$ on the instruments and tests whether they matter. It is valid at any instrument strength in the just-identified case. Its confidence set is the collection of values of $\beta_0$ that it does not reject. [Moreira (2003)](https://doi.org/10.1111/1468-0262.00438){target="_blank"} extends the idea to over-identified models.
 
 **Diagnostics.**
 
-- **The first stage.** The regression of the endogenous regressor on the instruments, $X_i = Z_i'\pi + v_i$,
-  is the first stage. Report it, with a first-stage $F$-statistic for $\pi = 0$ that is robust to the
-  dependence in the data. With heteroskedastic or clustered errors, that is the "effective $F$" of [Montiel
-  Olea & Pflueger (2013)](https://doi.org/10.1080/00401706.2013.806694){target="_blank"}, not the classical
-  one.
-- **The reduced form.** Regress the outcome directly on the instrument. It is an ordinary regression, immune
-  to weak-instrument problems, and if it is zero there is no effect to find.
-- **Balance and placebos.** The instrument should not predict pre-determined characteristics, or outcomes that
-  the treatment cannot affect.
+- **The first stage.** The regression of the endogenous regressor on the instruments, $X_i = Z_i'\pi + v_i$, is the first stage. Report it, with a first-stage $F$-statistic for $\pi = 0$ that is robust to the dependence in the data. With heteroskedastic or clustered errors, that statistic is the "effective $F$" of [Montiel Olea & Pflueger (2013)](https://doi.org/10.1080/00401706.2013.806694){target="_blank"}, not the classical one.
+- **The reduced form.** Regress the outcome directly on the instrument. The reduced form is an ordinary regression, immune to weak-instrument problems, and if it is zero there is no effect to find.
+- **Balance and placebos.** The instrument should not predict pre-determined characteristics, or outcomes that the treatment cannot affect.
 
 **Failure modes.**
 
-*Weak instruments.* When the first stage is weak, 2SLS is biased toward OLS and its $t$-test rejects true
-nulls too often. The figure below simulates a just-identified model with strong endogeneity (a correlation
-of 0.8 between the first-stage and structural errors) and a true effect of zero. With an expected
-first-stage $F$ of 2, the median 2SLS estimate is 0.29, over a third of the way to the OLS estimate of 0.80.
-With an expected $F$ of 10 the median bias has gone, but the estimate's spread is wide and the $t$-test
-still rejects at 7%. **[Simulated]**
+*Weak instruments.* When the first stage is weak, 2SLS is biased toward OLS, and its $t$-test rejects true nulls too often. The figure below simulates a just-identified model with strong endogeneity (a correlation of 0.8 between the first-stage and structural errors) and a true effect of zero. [Simulated] With an expected first-stage $F$ of 2, the median 2SLS estimate is 0.29, over a third of the way to the OLS estimate of 0.80. With an expected $F$ of 10, the median bias has gone, but the estimate's spread is wide, and the $t$-test still rejects at 7%.
 
 ```{=latex}
 \begin{center}
@@ -2635,69 +1597,29 @@ still rejects at 7%. **[Simulated]**
      alt="Quantiles of the 2SLS estimate against first-stage strength, and false rejection rates of IV tests">
 ```
 
-The dashed line in the right panel is the more important result. It shows what the $t$-test does in only
-those samples whose first-stage $F$ clears 10, which is what a literature that screens on $F > 10$ ends up
-reporting. When the true expected $F$ is 5, the samples that pass the screen reject the true null 44% of the
-time. **[Simulated]** Passing the screen selects samples where the first stage looks strong *by chance*,
-and because the first-stage and structural errors are correlated, those are also the samples where the
-estimate is furthest from the truth.
+The dashed line in the right panel is the more important result. It shows what the $t$-test does in only those samples whose first-stage $F$ clears 10, which is what a literature that screens on $F > 10$ ends up reporting. [Simulated] When the true expected $F$ is 5, the samples that pass the screen reject the true null 44% of the time. Passing the screen selects samples where the first stage looks strong *by chance*. Because the first-stage and structural errors are correlated, those are also the samples where the estimate is furthest from the truth.
 
-The published thresholds tell the same story. **[Fact]** For one instrument, keeping the size of a nominal
-5% test below 10% requires a first-stage $F$ above 16.38 ([Stock & Yogo,
-2005](https://www.nber.org/papers/t0284){target="_blank"}). [Lee, McCrary, Moreira & Porter
-(2022)](https://arxiv.org/abs/2010.05058){target="_blank"} show that a true 5% test needs $F$ above 104.7, or
-equivalently a critical value of 3.43 instead of 1.96 when $F$ is 10. Re-examining 57 IV papers in the
-*American Economic Review*, they find that about half of the results presumed significant are not.
+The published thresholds tell the same story. [Fact] For one instrument, keeping the size of a nominal 5% test below 10% requires a first-stage $F$ above 16.38 ([Stock & Yogo, 2005](https://www.nber.org/papers/t0284){target="_blank"}). [Lee, McCrary, Moreira & Porter (2022)](https://arxiv.org/abs/2010.05058){target="_blank"} show that a true 5% test needs $F$ above 104.7, or equivalently a critical value of 3.43 instead of 1.96 when $F$ is 10. Re-examining 57 IV papers in the *American Economic Review*, they find that about half of the results presumed significant are not.
 
-*Invalid exclusion.* The instrument affects the outcome through another channel. Weather is a popular
-instrument, and [Mellon (2025)](https://doi.org/10.1111/ajps.12894){target="_blank"} catalogues close to
-two hundred variables that published studies have linked to weather. Each one is a potential channel that
-violates the exclusion restriction of every other weather-IV study.
+*Invalid exclusion.* The instrument affects the outcome through another channel. Weather is a popular instrument, and [Mellon (2025)](https://doi.org/10.1111/ajps.12894){target="_blank"} catalogues close to two hundred variables that published studies have linked to weather. Each one is a potential channel that violates the exclusion restriction of every other weather-IV study.
 
-*Weak instruments amplify small violations.* The large-sample bias of IV is $\operatorname{Cov}(Z, u) /
-\operatorname{Cov}(Z, X)$. A weak first stage divides a small correlation with the error by a small
-correlation with the treatment. **An instrument that is both slightly invalid and weak can be worse than
-OLS.**
+*Weak instruments amplify small violations.* The large-sample bias of IV is $\operatorname{Cov}(Z, u) / \operatorname{Cov}(Z, X)$. A weak first stage divides a small correlation with the error by a small correlation with the treatment. **An instrument that is both slightly invalid and weak can be worse than OLS.**
 
-*Many instruments.* 2SLS with many instruments over-fits the first stage and drifts toward OLS. **[Fact]**
-[Bound, Jaeger & Baker (1995)](https://doi.org/10.2307/2291055){target="_blank"} showed that a famous
-estimate of the return to schooling, which used quarter of birth interacted with many other variables as
-instruments, could be closely reproduced with *randomly generated* instruments.
+*Many instruments.* 2SLS with many instruments over-fits the first stage and drifts toward OLS. [Fact] [Bound, Jaeger & Baker (1995)](https://doi.org/10.2307/2291055){target="_blank"} showed that a famous estimate of the return to schooling could be closely reproduced with *randomly generated* instruments. The original estimate used quarter of birth, interacted with many other variables, as instruments.
 
-*Fragile inference in practice.* [Young (2022)](https://doi.org/10.1016/j.euroecorev.2022.104112){target="_blank"}
-re-examined 1,309 IV regressions from 30 papers in the American Economic Association's journals. He found
-that non-independent errors and high leverage, results that hinge on a few clusters or observations,
-distort size and power, that first-stage $F$ pretests are largely uninformative, and that IV estimates
-rarely reject the OLS estimate despite being substantively different from it. **[Contested]**
+*Fragile inference in practice.* [Contested] [Young (2022)](https://doi.org/10.1016/j.euroecorev.2022.104112){target="_blank"} re-examined 1,309 IV regressions from 30 papers in the American Economic Association's journals. Young found that non-independent errors and high leverage distort size and power, so that results hinge on a few clusters or observations. First-stage $F$ pretests were largely uninformative, and IV estimates rarely rejected the OLS estimate despite being substantively different from it.
 
-*The wrong estimand.* LATE is the effect for compliers, who may be unrepresentative. Whether that is a
-feature or a flaw is a live debate ([Deaton, 2010](https://doi.org/10.1257/jel.48.2.424){target="_blank"};
-[Imbens, 2010](https://doi.org/10.1257/jel.48.2.399){target="_blank"}). **[Contested]**
+*The wrong estimand.* LATE is the effect for compliers, who may be unrepresentative. [Contested] Whether that is a feature or a flaw is a live debate ([Deaton, 2010](https://doi.org/10.1257/jel.48.2.424){target="_blank"}; [Imbens, 2010](https://doi.org/10.1257/jel.48.2.399){target="_blank"}).
 
-*Shift-share instruments.* "Bartik" instruments combine exposure shares with aggregate shocks. The
-identifying variation can come from the shares or from the shocks, and the assumptions needed are different
-in each case ([Goldsmith-Pinkham, Sorkin & Swift, 2020](https://www.nber.org/papers/w24408){target="_blank"};
-[Borusyak, Hull & Jaravel, 2022](https://www.nber.org/papers/w24997){target="_blank"}).
+*Shift-share instruments.* "Bartik" instruments combine exposure shares with aggregate shocks. The identifying variation can come from the shares or from the shocks, and the assumptions needed differ in each case ([Goldsmith-Pinkham, Sorkin & Swift, 2020](https://www.nber.org/papers/w24408){target="_blank"}; [Borusyak, Hull & Jaravel, 2022](https://www.nber.org/papers/w24997){target="_blank"}).
 
-**In finance.** The cautionary tale is the mutual-fund flow instrument. Large outflows force funds to sell
-their holdings, so flow-induced selling was used as a source of price pressure unrelated to fundamentals
-([Coval & Stafford, 2007](https://www.nber.org/papers/w11357){target="_blank"}; [Edmans, Goldstein & Jiang,
-2012](https://doi.org/10.1111/j.1540-6261.2012.01738.x){target="_blank"}), and a large literature used it to
-study how mispricing affects corporate decisions. [Wardlaw (2020)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3248750){target="_blank"}
-showed that the standard construction of the measure is mechanically a function of the stock's own realised
-return in the outflow quarter. With that removed, the price effect is small and does not reverse, and many
-downstream results do not hold. **[Contested]** An instrument that contains the outcome is not excluded.
-More constructive uses include demand-system asset pricing, which instruments for prices using features of
-investors' mandates ([Koijen & Yogo, 2019](https://www.nber.org/papers/w21749){target="_blank"}), and
-monetary-policy surprises measured from futures prices (§8.5).
+**In finance.** The cautionary tale is the mutual-fund flow instrument. Large outflows force funds to sell their holdings, so flow-induced selling was used as a source of price pressure unrelated to fundamentals ([Coval & Stafford, 2007](https://www.nber.org/papers/w11357){target="_blank"}; [Edmans, Goldstein & Jiang, 2012](https://doi.org/10.1111/j.1540-6261.2012.01738.x){target="_blank"}). A large literature then used it to study how mispricing affects corporate decisions. [Contested] [Wardlaw (2020)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3248750){target="_blank"} showed that the standard construction of the measure is mechanically a function of the stock's own realised return in the outflow quarter. With that component removed, the price effect is small and does not reverse, and many downstream results do not hold. An instrument that contains the outcome is not excluded. More constructive uses include demand-system asset pricing, which instruments for prices with features of investors' mandates ([Koijen & Yogo, 2019](https://www.nber.org/papers/w21749){target="_blank"}), and monetary-policy surprises measured from futures prices (§8.5).
 
-**When preferred.** When some feature of the world moves the treatment for reasons you can argue are
-unrelated to the outcome, and you can defend the exclusion restriction channel by channel.
+**When preferred.** When some feature of the world moves the treatment for reasons that can be argued to be unrelated to the outcome, and the exclusion restriction can be defended channel by channel.
 
 ## 7.4 Panel data and fixed effects
 
-**Intuition.** Compare each unit with itself at other times, removing everything about it that does not
-change.
+**Intuition.** Compare each unit with itself at other times, which removes everything about the unit that does not change.
 
 **Model and estimand.**
 
@@ -2705,102 +1627,52 @@ $$
 Y_{it} = \alpha_i + \lambda_t + X_{it}'\beta + u_{it} ,
 $$
 
-where $\alpha_i$ absorbs every time-invariant characteristic of unit $i$, observed or not, and $\lambda_t$
-absorbs every shock common to all units at date $t$. The coefficient $\beta$ is identified from **within-unit
-changes** in $X$ relative to the average change at that date.
+Here $\alpha_i$ absorbs every time-invariant characteristic of unit $i$, observed or not, and $\lambda_t$ absorbs every shock common to all units at date $t$. The coefficient $\beta$ is identified from **within-unit changes** in $X$, relative to the average change at that date.
 
-**Identifying assumption.** **Strict exogeneity**: $\mathbb{E}[u_{it} \mid X_{i1}, \dots, X_{iT}, \alpha_i] =
-0$. The error at any date is unrelated to the regressors at *every* date. That rules out time-varying
-confounders, and it rules out feedback from past outcomes to current regressors.
+**Identifying assumption.** **Strict exogeneity**: $\mathbb{E}[u_{it} \mid X_{i1}, \dots, X_{iT}, \alpha_i] = 0$. The error at any date is unrelated to the regressors at *every* date. That rules out time-varying confounders, and it rules out feedback from past outcomes to current regressors.
 
-**Estimation.** The **within estimator** subtracts each unit's time average from every variable and runs
-OLS. By Frisch–Waugh–Lovell (§3.4) this is identical to including a dummy variable for every unit. With two
-periods, first-differencing gives the same estimate. The two-way version also removes date means, and
-high-dimensional variants absorb interactions such as industry-by-year effects.
+**Estimation.** The **within estimator** subtracts each unit's time average from every variable and runs OLS. By Frisch–Waugh–Lovell (§3.4), this is identical to including a dummy variable for every unit. With two periods, first-differencing gives the same estimate. The two-way version also removes date means, and high-dimensional variants absorb interactions such as industry-by-year effects.
 
-**Random effects** assume $\alpha_i$ is uncorrelated with the regressors, and in exchange use the
-between-unit variation too. In economics that assumption is rarely credible, because the unobserved
-unit characteristic is usually the reason for worrying in the first place. The **Hausman test** compares
-the two estimators ([Hausman, 1978](https://doi.org/10.2307/1913827){target="_blank"}).
-[Mundlak (1978)](https://doi.org/10.2307/1913646){target="_blank"} showed that adding the unit averages
-of the regressors to a random-effects model reproduces the fixed-effects coefficients exactly, which
-turns the choice into a regression specification.
+**Random effects** assume that $\alpha_i$ is uncorrelated with the regressors, and in exchange they use the between-unit variation too. In economics that assumption is rarely credible, because the unobserved unit characteristic is usually the reason for concern in the first place. The **Hausman test** compares the two estimators ([Hausman, 1978](https://doi.org/10.2307/1913827){target="_blank"}). [Mundlak (1978)](https://doi.org/10.2307/1913646){target="_blank"} showed that adding the unit averages of the regressors to a random-effects model reproduces the fixed-effects coefficients exactly, which turns the choice into a regression specification.
 
-**Inference.** Cluster by unit, which allows for serial correlation within units (§4.4). Cluster two-way
-if shocks are also shared across units at a date.
+**Inference.** Cluster by unit, which allows for serial correlation within units (§4.4). Cluster two-way if shocks are also shared across units at a date.
 
-**Diagnostics.** How much of the regressor's variance is within units? How many units change their
-treatment, and are they typical? Does the estimate change sharply between pooled and fixed-effects
-specifications, and if so, is that confounding or attenuation (§6.4)?
+**Diagnostics.** Measure how much of the regressor's variance is within units. Count how many units change their treatment, and check whether they are typical. Check whether the estimate changes sharply between pooled and fixed-effects specifications, and if it does, whether the change reflects confounding or attenuation (§6.4).
 
 **Failure modes.**
 
-- **Only time-invariant confounders are removed.** A confounder that changes over time, such as a
-  firm's growth opportunities, is untouched.
-- **Feedback violates strict exogeneity.** If a bad year leads a firm to change its leverage, current
-  leverage depends on past errors. With a lagged dependent variable and fixed effects, the within
-  estimator is biased by roughly $-(1 + \phi)/(T - 1)$ in panels with $T$ periods ([Nickell,
-  1981](https://doi.org/10.2307/1911408){target="_blank"}). With ten periods and $\phi = 0.5$ the bias
-  is about $-0.17$, a third of the true coefficient. GMM estimators that use lagged levels as instruments
-  address it ([Arellano & Bond, 1991](https://doi.org/10.2307/2297968){target="_blank"}), and become
-  weak-instrument problems when $\phi$ is near one.
+- **Only time-invariant confounders are removed.** A confounder that changes over time, such as a firm's growth opportunities, is untouched.
+- **Feedback violates strict exogeneity.** If a bad year leads a firm to change its leverage, current leverage depends on past errors. With a lagged dependent variable and fixed effects, the within estimator is biased by roughly $-(1 + \phi)/(T - 1)$ in panels with $T$ periods ([Nickell, 1981](https://doi.org/10.2307/1911408){target="_blank"}). With ten periods and $\phi = 0.5$, the bias is about $-0.17$, a third of the true coefficient. GMM estimators that use lagged levels as instruments address the bias ([Arellano & Bond, 1991](https://doi.org/10.2307/2297968){target="_blank"}), and they become weak-instrument problems when $\phi$ is near one.
 - **Measurement error is amplified**, as §6.4 showed, because demeaning removes signal and keeps noise.
-- **Identification from a few switchers.** If the regressor rarely changes within units (a state law,
-  a CEO's characteristics), the estimate comes from the small and possibly unusual set of units where it
-  does.
-- **Fixed effects can absorb the variation of interest.** With firm fixed effects, the effect of a
-  slow-moving characteristic like governance quality is estimated from its noise.
-- **Substitutes for fixed effects are not fixed effects.** **[Fact]** [Gormley & Matsa
-  (2014)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2023868){target="_blank"} show that two
-  common shortcuts in finance, subtracting the industry mean from the dependent variable ("industry-adjusting")
-  and adding the group mean of the dependent variable as a control, give inconsistent estimates. Use the
-  fixed-effects estimator.
+- **Identification comes from a few switchers.** If the regressor rarely changes within units, as with a state law or a CEO's characteristics, the estimate comes from the small and possibly unusual set of units where it does change.
+- **Fixed effects can absorb the variation of interest.** With firm fixed effects, the effect of a slow-moving characteristic such as governance quality is estimated from its noise.
+- **Substitutes for fixed effects are not fixed effects.** [Fact] [Gormley & Matsa (2014)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2023868){target="_blank"} show that two common shortcuts in finance give inconsistent estimates. The shortcuts are subtracting the industry mean from the dependent variable ("industry-adjusting") and adding the group mean of the dependent variable as a control. Use the fixed-effects estimator instead.
 
-**In finance.** Firm fixed effects are the workhorse of empirical corporate finance: capital structure,
-investment, and payout policy. Fund and manager fixed effects separate skill from style. Stock fixed
-effects in return-predictability regressions deserve caution, since demeaning a persistent predictor over
-a short window creates the finite-sample biases of §9.2.
+**In finance.** Firm fixed effects are the workhorse of empirical corporate finance: capital structure, investment, and payout policy. Fund and manager fixed effects separate skill from style. Stock fixed effects in return-predictability regressions deserve caution, because demeaning a persistent predictor over a short window creates the finite-sample biases of §9.2.
 
-**When preferred.** When the main worry is a stable unobserved characteristic of each unit, and the
-regressor changes within units for reasons unrelated to the outcome's recent history.
+**When preferred.** When the main worry is a stable unobserved characteristic of each unit, and the regressor changes within units for reasons unrelated to the outcome's recent history.
 
 ## 7.5 Difference-in-differences
 
-**Intuition.** Compare the change over time in a group that was treated with the change in a group that was
-not. The untreated group's change stands in for what would have happened to the treated group.
+**Intuition.** Compare the change over time in a group that was treated with the change in a group that was not. The untreated group's change stands in for what would have happened to the treated group.
 
 **Estimand.** The ATT, for the treated group, in the post-treatment period.
 
-**The two-by-two case.** With a treated and a control group, observed before and after,
+**The two-by-two case.** With a treated and a control group, each observed before and after,
 
 $$
 \hat\tau_{\text{DiD}} = \big(\bar Y_{\text{treated, post}} - \bar Y_{\text{treated, pre}}\big) - \big(\bar Y_{\text{control, post}} - \bar Y_{\text{control, pre}}\big) .
 $$
 
-It equals the coefficient on the interaction in a regression of $Y$ on a treated-group indicator, a
-post-period indicator, and their product. First-differencing removes each group's fixed level, and the
-second difference removes the common time shock.
+This equals the coefficient on the interaction in a regression of $Y$ on a treated-group indicator, a post-period indicator, and their product. The first difference removes each group's fixed level, and the second difference removes the common time shock.
 
-**Identifying assumption.** **Parallel trends**: without treatment, the treated group's average outcome
-would have changed by the same amount as the control group's. Add no anticipation, meaning outcomes do
-not respond before treatment begins, and SUTVA. Note that parallel trends is a statement about a particular
-*scale*. If the groups start at different levels, trends cannot be parallel in both levels and logs, so
-choosing the scale is part of the assumption.
+**Identifying assumption.** **Parallel trends**: without treatment, the treated group's average outcome would have changed by the same amount as the control group's. Add no anticipation, meaning that outcomes do not respond before treatment begins, and SUTVA. Parallel trends is a statement about a particular *scale*. If the groups start at different levels, trends cannot be parallel in both levels and logs, so the choice of scale is part of the assumption.
 
-**Estimation.** The **two-way fixed effects** (TWFE) regression $Y_{it} = \alpha_i + \lambda_t + \tau D_{it} +
-u_{it}$, where $D_{it}$ switches on when unit $i$ is treated. The **event-study** version replaces $\tau
-D_{it}$ with separate coefficients for each period relative to treatment, including periods before it.
+**Estimation.** The **two-way fixed effects** (TWFE) regression $Y_{it} = \alpha_i + \lambda_t + \tau D_{it} + u_{it}$, where $D_{it}$ switches on when unit $i$ is treated. The **event-study** version replaces $\tau D_{it}$ with separate coefficients for each period relative to treatment, including periods before it.
 
-**The staggered-adoption problem.** With a single treatment date, TWFE equals the 2×2 estimator. When
-units are treated at *different* dates and effects vary over time, it does not, and the reason is
-worth working through by hand. Take two groups over three periods. The early group is treated from
-period 2, and the late group from period 3. Untreated outcomes are flat, so parallel trends holds exactly.
-Write $\tau_{E2}$ and $\tau_{E3}$ for the early group's treatment effects in periods 2 and 3, and
-$\tau_{L3}$ for the late group's effect in period 3.
+**The staggered-adoption problem.** With a single treatment date, TWFE equals the 2×2 estimator. When units are treated at *different* dates and effects vary over time, it does not, and the reason is worth working through by hand. Take two groups over three periods. The early group is treated from period 2, and the late group from period 3. Untreated outcomes are flat, so parallel trends holds exactly. Write $\tau_{E2}$ and $\tau_{E3}$ for the early group's treatment effects in periods 2 and 3, and $\tau_{L3}$ for the late group's effect in period 3.
 
-By Frisch–Waugh–Lovell (§3.4), the TWFE coefficient is the regression of $Y$ on the treatment indicator
-after removing unit and period means from it. For a balanced panel, that residual is $\tilde D_{it} =
-D_{it} - \bar D_{i\cdot} - \bar D_{\cdot t} + \bar D$:
+By Frisch–Waugh–Lovell (§3.4), the TWFE coefficient is the regression of $Y$ on the treatment indicator after unit and period means have been removed from the indicator. For a balanced panel, that residual is $\tilde D_{it} = D_{it} - \bar D_{i\cdot} - \bar D_{\cdot t} + \bar D$. The table gives its values.
 
 | | Period 1 | Period 2 | Period 3 |
 |---|---|---|---|
@@ -2809,35 +1681,17 @@ D_{it} - \bar D_{i\cdot} - \bar D_{\cdot t} + \bar D$:
 | Residual $\tilde D_{it}$, early group | $-1/6$ | $+1/3$ | $-1/6$ |
 | Residual $\tilde D_{it}$, late group | $+1/6$ | $-1/3$ | $+1/6$ |
 
-The sum of squared residuals is $1/3$. The unit and period effects in the outcome are orthogonal to
-$\tilde D$, so only the treatment effects contribute to $\sum \tilde D_{it}Y_{it}$, and
+The sum of squared residuals is $1/3$. The unit and period effects in the outcome are orthogonal to $\tilde D$, so only the treatment effects contribute to $\sum \tilde D_{it}Y_{it}$, and
 
 $$
 \hat\tau_{\text{TWFE}} = 3\Big(\tfrac13\,\tau_{E2} - \tfrac16\,\tau_{E3} + \tfrac16\,\tau_{L3}\Big) = \tau_{E2} - \tfrac12\,\tau_{E3} + \tfrac12\,\tau_{L3}.
 $$
 
-**The early group's second-period effect enters with a negative weight.** In period 3 the early group,
-already treated, is serving as the *control* for the late group, so growth in its treatment effect is
-subtracted as if it were a trend. If every effect equals 1, TWFE gives 1, correctly. If effects grow with
-exposure, $(\tau_{E2}, \tau_{E3}, \tau_{L3}) = (1, 2, 1)$, TWFE gives 0.5 while the average effect on the
-treated is $4/3$. If they grow faster, $(1, 4, 1)$, TWFE gives $-0.5$: **a negative estimate when every
-treatment effect is positive.** This is the mechanism documented by [Goodman-Bacon
-(2021)](https://www.nber.org/papers/w25018){target="_blank"} and [de Chaisemartin & D'Haultfœuille
-(2020)](https://arxiv.org/abs/1803.08807){target="_blank"}. **[Fact]**
+**The early group's second-period effect enters with a negative weight.** In period 3 the early group, already treated, serves as the *control* for the late group, so growth in its treatment effect is subtracted as if it were a trend. If every effect equals 1, TWFE gives 1, correctly. If effects grow with exposure, $(\tau_{E2}, \tau_{E3}, \tau_{L3}) = (1, 2, 1)$, TWFE gives 0.5, while the average effect on the treated is $4/3$. If they grow faster, $(1, 4, 1)$, TWFE gives $-0.5$: **a negative estimate when every treatment effect is positive.** [Fact] This is the mechanism documented by [Goodman-Bacon (2021)](https://www.nber.org/papers/w25018){target="_blank"} and [de Chaisemartin & D'Haultfœuille (2020)](https://arxiv.org/abs/1803.08807){target="_blank"}.
 
-The remedy is to compare treated units only with units that are not yet treated, or never treated.
-Several estimators do this: group-by-period effects that are then aggregated ([Callaway & Sant'Anna,
-2021](https://arxiv.org/abs/1803.09015){target="_blank"}), interaction-weighted event studies ([Sun &
-Abraham, 2021](https://arxiv.org/abs/1804.05785){target="_blank"}), and imputation of untreated outcomes
-from untreated observations ([Borusyak, Jaravel & Spiess, 2024](https://arxiv.org/abs/2108.12419){target="_blank"}).
-[Roth, Sant'Anna, Bilinski & Poe (2023)](https://arxiv.org/abs/2201.01194){target="_blank"} is the guide
-to choosing among them. [Baker, Larcker & Wang (2022)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3794018){target="_blank"}
-show that the problem affects published work in finance and accounting, where staggered designs are
-common.
+The remedy is to compare treated units only with units that are not yet treated, or never treated. Several estimators do this: group-by-period effects that are then aggregated ([Callaway & Sant'Anna, 2021](https://arxiv.org/abs/1803.09015){target="_blank"}), interaction-weighted event studies ([Sun & Abraham, 2021](https://arxiv.org/abs/1804.05785){target="_blank"}), and imputation of untreated outcomes from untreated observations ([Borusyak, Jaravel & Spiess, 2024](https://arxiv.org/abs/2108.12419){target="_blank"}). [Roth, Sant'Anna, Bilinski & Poe (2023)](https://arxiv.org/abs/2201.01194){target="_blank"} is the guide to choosing among them. [Baker, Larcker & Wang (2022)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3794018){target="_blank"} show that the problem affects published work in finance and accounting, where staggered designs are common.
 
-**Inference.** Cluster at the level at which treatment is assigned. [Bertrand, Duflo & Mullainathan
-(2004)](https://www.nber.org/papers/w8841){target="_blank"} is the warning (§4.4), and the few-treated-clusters
-problem of §4.4 applies with full force when a policy changes in only a handful of states.
+**Inference.** Cluster at the level at which treatment is assigned. [Bertrand, Duflo & Mullainathan (2004)](https://www.nber.org/papers/w8841){target="_blank"} is the warning (§4.4). The few-treated-clusters problem of §4.4 applies with full force when a policy changes in only a handful of states.
 
 **Diagnostics.**
 
@@ -2846,63 +1700,31 @@ problem of §4.4 applies with full force when a policy changes in only a handful
   not have affected.
 - **The scale.** Check whether conclusions survive switching between levels and logs.
 
-Pre-trend tests deserve a caution of their own. They have low power, so passing them is weak evidence,
-and reporting only designs that pass them biases the resulting estimates ([Roth,
-2022](https://doi.org/10.1257/aeri.20210236){target="_blank"}). A more honest approach bounds how far
-post-treatment trends could depart from parallel, in proportion to the departures seen before treatment,
-and reports the range of effects consistent with that bound ([Rambachan & Roth,
-2023](https://doi.org/10.1093/restud/rdad018){target="_blank"}).
+Pre-trend tests deserve a caution of their own. They have low power, so passing them is weak evidence, and reporting only designs that pass them biases the resulting estimates ([Roth, 2022](https://doi.org/10.1257/aeri.20210236){target="_blank"}). A more honest approach bounds how far post-treatment trends could depart from parallel, in proportion to the departures seen before treatment. It then reports the range of effects consistent with that bound ([Rambachan & Roth, 2023](https://doi.org/10.1093/restud/rdad018){target="_blank"}).
 
 **Failure modes.**
 
-- **Non-parallel trends from selection into timing.** Units adopt a treatment *because* of how their
-  outcomes are evolving. **[Fact]** Workers who enter training programmes experience an earnings decline
-  just before entering, which reverses whether or not the training works, so a naive DiD overstates the
-  effect ([Ashenfelter & Card, 1985](https://www.nber.org/papers/w1489){target="_blank"}). Firms adopt
-  policies when they are in trouble, and mean reversion then masquerades as a treatment effect.
-- **Anticipation.** In financial markets, prices respond at announcement, not at the effective date, so a
-  DiD keyed to the effective date misses most of the effect.
-- **Staggered timing with heterogeneous effects**, above.
+- **Non-parallel trends from selection into timing.** Units adopt a treatment *because* of how their outcomes are evolving. [Fact] Workers who enter training programmes experience an earnings decline just before entering, and the decline reverses whether or not the training works, so a naive DiD overstates the effect ([Ashenfelter & Card, 1985](https://www.nber.org/papers/w1489){target="_blank"}). Firms adopt policies when they are in trouble, and mean reversion then masquerades as a treatment effect.
+- **Anticipation.** In financial markets, prices respond at announcement, not at the effective date, so a DiD keyed to the effective date misses most of the effect.
+- **Staggered timing with heterogeneous effects**, described above.
 - **Spillovers** to the control group, and changes in the composition of either group over time.
-- **Policy endogeneity and institutional context.** **[Contested]** [Karpoff & Wittry
-  (2018)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2493913){target="_blank"} show that the
-  effect of state antitakeover laws on a firm's takeover protection depends on other state laws, the firm's
-  existing defences, and court decisions, and that tests which ignore this context can support misleading
-  inferences from the laws used as natural experiments.
+- **Policy endogeneity and institutional context.** [Contested] [Karpoff & Wittry (2018)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2493913){target="_blank"} show that the effect of state antitakeover laws on a firm's takeover protection depends on other state laws, the firm's existing defences, and court decisions. Tests that ignore this context can draw misleading inferences from the laws used as natural experiments.
 
-**In finance.** Staggered state antitakeover laws ([Bertrand & Mullainathan,
-2003](https://doi.org/10.1086/376950){target="_blank"}), bank deregulation, and regulatory changes that
-affect some firms or markets before others.
+**In finance.** Staggered state antitakeover laws ([Bertrand & Mullainathan, 2003](https://doi.org/10.1086/376950){target="_blank"}), bank deregulation, and regulatory changes that affect some firms or markets before others.
 
-**When preferred.** When a policy or shock hits some units at some times, a comparison group plausibly
-shares the treated group's trends, and there are enough pre-treatment periods to check.
+**When preferred.** When a policy or shock hits some units at some times, a comparison group plausibly shares the treated group's trends, and there are enough pre-treatment periods to check.
 
 ## 7.6 Regression discontinuity
 
-**Intuition.** When treatment is assigned by whether a continuous **running variable** crosses a cutoff,
-units just above and just below the cutoff are nearly identical except for treatment. The jump in the
-average outcome at the cutoff is the treatment effect.
+**Intuition.** Suppose treatment is assigned by whether a continuous **running variable** crosses a cutoff. Units just above and just below the cutoff are then nearly identical except for treatment, and the jump in the average outcome at the cutoff is the treatment effect.
 
-**Estimand.** The effect *at the cutoff*: $\tau(c) = \mathbb{E}[Y_i(1) - Y_i(0) \mid R_i = c]$, where $R_i$ is
-the running variable and $c$ the cutoff. In a **sharp** design, treatment switches on exactly at the cutoff.
-In a **fuzzy** design only the probability of treatment jumps, and the ratio of the outcome jump to the
-treatment jump is an IV estimate, a LATE for compliers at the cutoff ([Hahn, Todd & van der Klaauw,
-2001](https://doi.org/10.1111/1468-0262.00183){target="_blank"}).
+**Estimand.** The effect *at the cutoff*: $\tau(c) = \mathbb{E}[Y_i(1) - Y_i(0) \mid R_i = c]$, where $R_i$ is the running variable and $c$ is the cutoff. In a **sharp** design, treatment switches on exactly at the cutoff. In a **fuzzy** design, only the probability of treatment jumps. The ratio of the outcome jump to the treatment jump is then an IV estimate, a LATE for compliers at the cutoff ([Hahn, Todd & van der Klaauw, 2001](https://doi.org/10.1111/1468-0262.00183){target="_blank"}).
 
-**Identifying assumption.** The average potential outcomes are continuous in the running variable at the
-cutoff. Nothing else jumps there, and units cannot precisely sort themselves to one side.
+**Identifying assumption.** The average potential outcomes are continuous in the running variable at the cutoff. Nothing else jumps there, and units cannot precisely sort themselves to one side.
 
-**Estimation.** Fit separate local linear regressions on each side of the cutoff, within a bandwidth,
-typically weighting nearer observations more heavily, and take the difference of the two fitted values at
-the cutoff. Choose the bandwidth by a data-driven mean-squared-error rule. Do **not** fit high-order
-polynomials to the whole range: they put erratic weight on observations far from the cutoff and give
-misleading confidence intervals ([Gelman & Imbens, 2019](https://www.nber.org/papers/w20405){target="_blank"}).
+**Estimation.** Fit separate local linear regressions on each side of the cutoff, within a bandwidth, typically weighting nearer observations more heavily. Take the difference of the two fitted values at the cutoff. Choose the bandwidth by a data-driven mean-squared-error rule. Do **not** fit high-order polynomials to the whole range. They put erratic weight on observations far from the cutoff and give misleading confidence intervals ([Gelman & Imbens, 2019](https://www.nber.org/papers/w20405){target="_blank"}).
 
-**Inference.** A bandwidth chosen to minimise mean squared error deliberately leaves some bias, which
-invalidates conventional confidence intervals. Use **robust bias-corrected** intervals ([Calonico,
-Cattaneo & Titiunik, 2014](https://doi.org/10.3982/ecta11757){target="_blank"}). A discrete running
-variable, such as an integer rank or a rounded score, needs special treatment ([Kolesár & Rothe,
-2018](https://doi.org/10.1257/aer.20160945){target="_blank"}).
+**Inference.** A bandwidth chosen to minimise mean squared error deliberately leaves some bias, which invalidates conventional confidence intervals. Use **robust bias-corrected** intervals ([Calonico, Cattaneo & Titiunik, 2014](https://doi.org/10.3982/ecta11757){target="_blank"}). A discrete running variable, such as an integer rank or a rounded score, needs special treatment ([Kolesár & Rothe, 2018](https://doi.org/10.1257/aer.20160945){target="_blank"}).
 
 **Diagnostics.**
 
@@ -2923,50 +1745,23 @@ variable, such as an integer rank or a rounded score, needs special treatment ([
 - **Extrapolation.** The effect at the cutoff can differ from the effect anywhere else.
 - **Specification search** over bandwidths, kernels, and polynomial orders.
 
-**In finance.** The canonical application is the annual reconstitution of the Russell 1000 and Russell
-2000 indices. Stocks are ranked by market capitalisation in May, and a stock just below the 1,000th rank
-lands at the top of the Russell 2000 with a large index weight, while one just above lands at the bottom of
-the Russell 1000 with a small weight. The design has been used to estimate the effect of index weight on
-prices ([Chang, Hong & Liskovich, 2015](https://www.nber.org/papers/w19290){target="_blank"}) and of passive
-ownership on governance ([Appel, Gormley & Keim, 2016](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2475150){target="_blank"}).
-The complications illustrate the failure modes above. Russell ranks on its own proprietary capitalisation
-measure, which researchers can only approximate, and since 2007 a "banding" rule has meant that a stock's
-assignment depends on its previous index as well as its rank. Both features blur the discontinuity and
-change which comparisons are valid, and the literature has argued at length about the right specification
-([Appel, Gormley & Keim, 2024](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2641548){target="_blank"}).
-**[Contested]** Other thresholds used in finance include debt covenant limits ([Chava & Roberts,
-2008](https://doi.org/10.1111/j.1540-6261.2008.01391.x){target="_blank"}), close shareholder votes, and
-credit-rating boundaries.
+**In finance.** The canonical application is the annual reconstitution of the Russell 1000 and Russell 2000 indices. Stocks are ranked by market capitalisation in May. A stock just below the 1,000th rank lands at the top of the Russell 2000 with a large index weight, while one just above lands at the bottom of the Russell 1000 with a small weight. The design has been used to estimate the effect of index weight on prices ([Chang, Hong & Liskovich, 2015](https://www.nber.org/papers/w19290){target="_blank"}) and of passive ownership on governance ([Appel, Gormley & Keim, 2016](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2475150){target="_blank"}). The complications illustrate the failure modes above. Russell ranks on its own proprietary capitalisation measure, which researchers can only approximate. Since 2007, a "banding" rule has made a stock's assignment depend on its previous index as well as its rank. Both features blur the discontinuity and change which comparisons are valid. [Contested] The literature has argued at length about the right specification ([Appel, Gormley & Keim, 2024](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2641548){target="_blank"}). Other thresholds used in finance include debt covenant limits ([Chava & Roberts, 2008](https://doi.org/10.1111/j.1540-6261.2008.01391.x){target="_blank"}), close shareholder votes, and credit-rating boundaries.
 
-**When preferred.** Whenever a rule assigns treatment by a threshold on a variable that units cannot
-precisely control. It is the most credible observational design, for the effect it identifies.
+**When preferred.** Whenever a rule assigns treatment by a threshold on a variable that units cannot precisely control. For the effect it identifies, it is the most credible observational design.
 
 ## 7.7 Synthetic control
 
-**Intuition.** When a single aggregate unit is treated, such as a country, a state, or a market, build a
-weighted average of untreated units that tracked the treated unit closely before treatment. Its path after
-treatment is the counterfactual.
+**Intuition.** When a single aggregate unit is treated, such as a country, a state, or a market, build a weighted average of untreated units that tracked the treated unit closely before treatment. The weighted average's path after treatment is the counterfactual.
 
 **Estimand.** The effect on the treated unit, period by period after treatment.
 
-**Identifying assumption.** The weighted donor combination continues to track the treated unit's untreated
-outcome after treatment. A sufficient condition is that outcomes follow a factor structure, with the
-treated unit's factor loadings matched by the donors'. Also required: no spillovers onto the donors, and no
-other shock to the treated unit at the same time.
+**Identifying assumption.** The weighted donor combination continues to track the treated unit's untreated outcome after treatment. A sufficient condition is that outcomes follow a factor structure, and that the donors match the treated unit's factor loadings. The design also requires no spillovers onto the donors, and no other shock to the treated unit at the same time.
 
-**Estimation.** Choose non-negative donor weights that sum to one and minimise the distance between the
-treated unit and the weighted donors in pre-treatment outcomes and predictors ([Abadie & Gardeazabal,
-2003](https://www.nber.org/papers/w8478){target="_blank"}; [Abadie, Diamond & Hainmueller,
-2010](https://www.nber.org/papers/t0335){target="_blank"}). The constraints keep the counterfactual an
-interpolation of real units rather than an extrapolation.
+**Estimation.** Choose non-negative donor weights that sum to one and minimise the distance between the treated unit and the weighted donors in pre-treatment outcomes and predictors ([Abadie & Gardeazabal, 2003](https://www.nber.org/papers/w8478){target="_blank"}; [Abadie, Diamond & Hainmueller, 2010](https://www.nber.org/papers/t0335){target="_blank"}). The constraints keep the counterfactual an interpolation of real units, not an extrapolation.
 
-**Inference.** By placebo. Apply the method to every donor as if it had been treated, and see where the
-treated unit's post-treatment divergence, relative to its pre-treatment fit, ranks among the placebos.
-With 19 donors, being the most extreme of 20 units corresponds to a p-value of 0.05.
+**Inference.** By placebo. Apply the method to every donor as if it had been treated, and see where the treated unit's post-treatment divergence, relative to its pre-treatment fit, ranks among the placebos. With 19 donors, being the most extreme of 20 units corresponds to a p-value of 0.05.
 
-**Diagnostics.** Pre-treatment fit, first of all: if the synthetic unit does not track the treated unit
-before treatment, do not use it. Also check the weights, which should be sparse and interpretable, and
-whether results survive dropping each donor in turn.
+**Diagnostics.** Pre-treatment fit comes first: if the synthetic unit does not track the treated unit before treatment, do not use it. Also check that the weights are sparse and interpretable, and that results survive dropping each donor in turn.
 
 **Failure modes.**
 
@@ -2977,38 +1772,25 @@ whether results survive dropping each donor in turn.
   Possebom, 2020](https://doi.org/10.1002/pam.22206){target="_blank"}).
 - **Contaminated donors** that were themselves affected by the treatment.
 
-Synthetic difference-in-differences combines synthetic-control unit weights with time weights and DiD's
-fixed effects, and is more robust than either parent when the pre-period fit is imperfect ([Arkhangelsky,
-Athey, Hirshberg, Imbens & Wager, 2021](https://arxiv.org/abs/1812.09970){target="_blank"}). [Abadie
-(2021)](https://doi.org/10.1257/jel.20191450){target="_blank"} sets out the data requirements.
+Synthetic difference-in-differences combines synthetic-control unit weights with time weights and DiD's fixed effects. It is more robust than either parent when the pre-period fit is imperfect ([Arkhangelsky, Athey, Hirshberg, Imbens & Wager, 2021](https://arxiv.org/abs/1812.09970){target="_blank"}). [Abadie (2021)](https://doi.org/10.1257/jel.20191450){target="_blank"} sets out the data requirements.
 
-**In finance.** A regulation or market-structure change in one country's market, or a shock to a single
-exchange, with other markets as donors.
+**In finance.** A regulation or market-structure change in one country's market, or a shock to a single exchange, with other markets as donors.
 
-**When preferred.** One or a few treated aggregate units, a long pre-treatment series, and a pool of
-comparable untreated units.
+**When preferred.** One or a few treated aggregate units, a long pre-treatment series, and a pool of comparable untreated units.
 
 ## 7.8 Structural estimation
 
-**Intuition.** Write down a model of the decisions that generated the data, with parameters for
-preferences, technology, constraints, and beliefs. Estimate the parameters, then use the model to answer
-counterfactual questions, including questions about interventions that have never happened.
+**Intuition.** Write down a model of the decisions that generated the data, with parameters for preferences, technology, constraints, and beliefs. Estimate the parameters, then use the model to answer counterfactual questions, including questions about interventions that have never happened.
 
 **Estimand.** Deep parameters, and the counterfactuals they imply.
 
-**Identifying assumption.** The model itself: its functional forms, distributional assumptions, and
-equilibrium concept, together with whatever variation in the data pins down each parameter. **The model is
-the identification.** Good structural work shows which features of the data identify which parameters, so
-that a reader can judge whether identification comes from variation or from functional form.
+**Identifying assumption.** The model itself: its functional forms, distributional assumptions, and equilibrium concept, together with whatever variation in the data pins down each parameter. **The model is the identification.** Good structural work shows which features of the data identify which parameters. A reader can then judge whether identification comes from variation or from functional form.
 
-**Estimation.** Maximum likelihood, GMM, or the **simulated method of moments**, which simulates the model
-and chooses parameters to match selected moments of the data.
+**Estimation.** Maximum likelihood, GMM, or the **simulated method of moments**, which simulates the model and chooses parameters to match selected moments of the data.
 
-**Inference.** The sandwich, or the bootstrap. [Andrews, Gentzkow & Shapiro
-(2017)](https://doi.org/10.1093/qje/qjx023){target="_blank"} show how to report which moments drive which
-estimates, which makes the identification argument inspectable.
+**Inference.** The sandwich, or the bootstrap. [Andrews, Gentzkow & Shapiro (2017)](https://doi.org/10.1093/qje/qjx023){target="_blank"} show how to report which moments drive which estimates, which makes the identification argument inspectable.
 
-**Diagnostics.** Fit to moments that were *not* used in estimation, and plausibility of counterfactuals.
+**Diagnostics.** Fit to moments that were *not* used in estimation, and the plausibility of counterfactuals.
 
 **Failure modes.**
 
@@ -3021,33 +1803,19 @@ estimates, which makes the identification argument inspectable.
 - **Parameters that are not really invariant.** The Lucas critique (§1.2) motivates structural models, but it
   applies to them too if the "deep" parameters would change with policy.
 
-**In finance.** Consumption-based asset pricing estimated by GMM (§5.3); dynamic corporate finance models
-estimated by simulated moments ([Hennessy & Whited, 2007](https://doi.org/10.1111/j.1540-6261.2007.01255.x){target="_blank"});
-demand-system asset pricing, which borrows the structural demand estimation of industrial organisation
-([Berry, Levinsohn & Pakes, 1995](https://www.nber.org/papers/w4264){target="_blank"}; [Koijen & Yogo,
-2019](https://www.nber.org/papers/w21749){target="_blank"}); and term-structure models estimated by the
-Kalman filter.
+**In finance.** Consumption-based asset pricing estimated by GMM (§5.3); dynamic corporate finance models estimated by simulated moments ([Hennessy & Whited, 2007](https://doi.org/10.1111/j.1540-6261.2007.01255.x){target="_blank"}); demand-system asset pricing, which borrows the structural demand estimation of industrial organisation ([Berry, Levinsohn & Pakes, 1995](https://www.nber.org/papers/w4264){target="_blank"}; [Koijen & Yogo, 2019](https://www.nber.org/papers/w21749){target="_blank"}); and term-structure models estimated by the Kalman filter.
 
-**The debate.** How much weight to put on design-based versus structural evidence is the longest-running
-argument in modern empirical economics. The design-based side argues that credible identification of a
-well-defined effect beats an ambitious model whose assumptions cannot be checked ([Angrist & Pischke,
-2010](https://www.nber.org/papers/w15794){target="_blank"}). The structural side argues that design-based
-estimates are local, often answer questions nobody asked, and cannot say anything about interventions
-outside the data without a model anyway ([Keane, 2010](https://doi.org/10.1016/j.jeconom.2009.09.003){target="_blank"};
-[Heckman, 2010](https://www.nber.org/papers/w16110){target="_blank"}; [Deaton,
-2010](https://doi.org/10.1257/jel.48.2.424){target="_blank"}). **[Contested]** My view is that the two are
-complements, and that the best current work uses quasi-experimental variation to discipline a structural
-model, so that the model's extrapolations are anchored by effects that were credibly identified.
+**The debate.** How much weight to put on design-based versus structural evidence is the longest-running argument in modern empirical economics. The design-based side argues that credible identification of a well-defined effect beats an ambitious model whose assumptions cannot be checked ([Angrist & Pischke, 2010](https://www.nber.org/papers/w15794){target="_blank"}). The structural side argues that design-based estimates are local, often answer questions nobody asked, and cannot say anything about interventions outside the data without a model anyway ([Keane, 2010](https://doi.org/10.1016/j.jeconom.2009.09.003){target="_blank"}; [Heckman, 2010](https://www.nber.org/papers/w16110){target="_blank"}; [Deaton, 2010](https://doi.org/10.1257/jel.48.2.424){target="_blank"}). [Contested] The view taken here is that the two approaches are complements. The best current work uses quasi-experimental variation to discipline a structural model, so that credibly identified effects anchor the model's extrapolations.
 
-**When preferred.** When the question is a counterfactual outside the range of the data, a welfare
-calculation, or a mechanism, and when the relevant policy would change the environment that generated the
-data.
+**When preferred.** When the question is a counterfactual outside the range of the data, a welfare calculation, or a mechanism, and when the relevant policy would change the environment that generated the data.
 
 ```{=latex}
 \newpage
 ```
 
 ## 7.9 Comparison
+
+The table compares the designs of this section on the attributes that discriminate between them.
 
 | Design | Estimand | Identifying assumption | What the data can check | Characteristic failure |
 |---|---|---|---|---|
@@ -3060,34 +1828,19 @@ data.
 | Selection on observables | ATE or ATT | Unconfoundedness | Overlap only | Unobserved confounding |
 | Structural | Deep parameters; counterfactuals | The model | Untargeted moments | Misspecification |
 
-**[Practice]** My ranking of credibility, for the effect each design identifies and with competent
-execution: randomised experiments, then regression discontinuity, then instrumental variables with a
-genuinely random instrument and difference-in-differences with a well-understood policy, then synthetic
-control and panel fixed effects, then selection on observables. A structural model is as credible as its
-weakest assumption. The ranking is about *internal* validity. An experiment on the wrong population can be
-less useful than a careful observational study of the right one, and a regression discontinuity says
-nothing about units far from its cutoff.
+[Practice] This chapter's ranking of credibility, for the effect each design identifies and with competent execution, is as follows. Randomised experiments come first, then regression discontinuity. Next come instrumental variables with a genuinely random instrument, and difference-in-differences with a well-understood policy. Synthetic control and panel fixed effects follow, and selection on observables comes last. A structural model is as credible as its weakest assumption. The ranking concerns *internal* validity. An experiment on the wrong population can be less useful than a careful observational study of the right one, and a regression discontinuity says nothing about units far from its cutoff.
 
 > ### §7 Key takeaways
 >
-> 1. Every research design buys an orthogonality condition at a price. Ask which condition, and whether the
->    price is worth paying, before asking about estimators.
-> 2. IV estimates the effect for compliers, not for everyone, and weak instruments bias it toward OLS while
->    making its $t$-test lie. A true 5% test needs a first-stage $F$ near 105, not 10, and screening on
->    $F > 10$ makes reported results worse, not better.
+> 1. Every research design buys an orthogonality condition at a price. Ask which condition, and whether the price is worth paying, before asking about estimators.
+> 2. IV estimates the effect for compliers, not for everyone. Weak instruments bias it toward OLS and make its $t$-test misleading. A true 5% test needs a first-stage $F$ near 105, not 10, and screening on $F > 10$ makes reported results worse, not better.
 > 3. Weak instruments turn small exclusion violations into large biases. Always report the reduced form.
-> 4. Fixed effects remove only time-invariant confounders, fail under feedback from outcomes to regressors,
->    and amplify measurement error. Industry-adjusting the dependent variable is not a substitute.
-> 5. With staggered adoption and effects that change over time, two-way fixed effects can report a negative
->    effect when every true effect is positive. Use estimators that compare treated units only with
->    not-yet-treated or never-treated ones.
-> 6. Pre-trend tests are weak evidence. Report sensitivity to plausible departures from parallel trends.
-> 7. Regression discontinuity is the most credible observational design for the effect at its cutoff, and says
->    nothing beyond it. Test for manipulation and use robust bias-corrected intervals.
-> 8. Synthetic control is for one treated aggregate unit with a long pre-period; poor pre-treatment fit
->    disqualifies it.
-> 9. Structural models answer questions designs cannot, at the cost of assumptions designs do not need. The
->    strongest evidence combines them.
+> 4. Fixed effects remove only time-invariant confounders, fail under feedback from outcomes to regressors, and amplify measurement error. Industry-adjusting the dependent variable is not a substitute.
+> 5. With staggered adoption and effects that change over time, two-way fixed effects can report a negative effect when every true effect is positive. Use estimators that compare treated units only with not-yet-treated or never-treated ones.
+> 6. Pre-trend tests are weak evidence. Report the sensitivity of the result to plausible departures from parallel trends.
+> 7. Regression discontinuity is the most credible observational design for the effect at its cutoff, and it says nothing beyond the cutoff. Test for manipulation, and use robust bias-corrected intervals.
+> 8. Synthetic control is for one treated aggregate unit with a long pre-period. Poor pre-treatment fit disqualifies it.
+> 9. Structural models answer questions that designs cannot, at the cost of assumptions that designs do not need. The strongest evidence combines the two.
 
 ```{=latex}
 \newpage
@@ -3097,51 +1850,27 @@ nothing about units far from its cutoff.
 
 # 8. Time-series econometrics {#8-time-series}
 
-A cross-section is many units observed once. A time series is one unit observed many times, and that
-single structural difference changes almost everything. There is only one history, so "repeated sampling"
-has to be reinterpreted. Observations are dependent, so the meat of every standard error changes. And
-variables can wander without limit, which breaks the asymptotic approximations of §2. This section covers
-the ideas a practitioner needs. [Simple and Log Returns](log_returns.html) §6 applies several of them to
-returns specifically, and [Market Regimes and Machine Learning](market_regimes.html) takes regime-switching
-and change-point models much further.
+A cross-section is many units observed once. A time series is one unit observed many times, and that structural difference changes almost everything. There is only one history, so "repeated sampling" has to be reinterpreted. Observations are dependent, so the meat of every standard error changes. Variables can wander without limit, which breaks the asymptotic approximations of §2. This section covers the ideas a practitioner needs. [Simple and Log Returns](log_returns.html) §6 applies several of them to returns specifically, and [Market Regimes and Machine Learning](market_regimes.html) takes regime-switching and change-point models much further.
 
 ## 8.1 What changes when observations are ordered
 
-**Stationarity replaces random sampling.** A process is **covariance stationary** if its mean and variance
-are constant over time and the covariance between two observations depends only on how far apart they are.
-Combined with **ergodicity**, the requirement that dependence fade fast enough for time averages to converge to
-population averages, it lets a single long history stand in for many independent draws. Without it, the
-average of one path need not estimate anything.
+**Stationarity replaces random sampling.** A process is **covariance stationary** if its mean and variance are constant over time, and if the covariance between two observations depends only on how far apart they are. **Ergodicity** requires dependence to fade fast enough for time averages to converge to population averages. Together, the two conditions let a single long history stand in for many independent draws. Without them, the average of one path need not estimate anything.
 
-**The autocorrelation function** $\rho_j = \operatorname{Corr}(y_t, y_{t-j})$ summarises linear dependence. The
-**partial** autocorrelation at lag $j$ is the correlation between $y_t$ and $y_{t-j}$ after removing the effect of
-the intermediate lags, which is the coefficient on $y_{t-j}$ in a regression on $j$ lags.
+**The autocorrelation function** $\rho_j = \operatorname{Corr}(y_t, y_{t-j})$ summarises linear dependence. The **partial** autocorrelation at lag $j$ is the correlation between $y_t$ and $y_{t-j}$ after the effect of the intermediate lags is removed. It equals the coefficient on $y_{t-j}$ in a regression on $j$ lags.
 
-**Three strengths of "unpredictable"** mirror the three strengths of "unrelated" in §2.2. **White noise** is
-uncorrelated with its past. A **martingale difference sequence** has a conditional mean of zero given its past.
-An **i.i.d.** sequence is independent of its past. Returns come close to the middle one and are far from the
-last, because their variance is predictable.
+**Three strengths of "unpredictable"** mirror the three strengths of "unrelated" in §2.2. **White noise** is uncorrelated with its past. A **martingale difference sequence** has a conditional mean of zero given its past. An **i.i.d.** sequence is independent of its past. Returns come close to the middle condition and are far from the last, because their variance is predictable.
 
-**Testing for autocorrelation** illustrates why the distinction matters. The Ljung–Box statistic ([Ljung & Box,
-1978](https://doi.org/10.1093/biomet/65.2.297){target="_blank"}) sums squared sample autocorrelations and
-compares the total with a chi-squared distribution, which is valid when the series is i.i.d. On returns with
-volatility clustering it rejects too often, because the squared-autocorrelation variance it assumes is too
-small. The **variance ratio** compares the variance of $q$-period returns with $q$ times the variance of
-one-period returns,
+**Testing for autocorrelation** shows why the distinction matters. The Ljung–Box statistic ([Ljung & Box, 1978](https://doi.org/10.1093/biomet/65.2.297){target="_blank"}) sums squared sample autocorrelations and compares the total with a chi-squared distribution, which is valid when the series is i.i.d. On returns with volatility clustering it rejects too often, because the variance of the squared autocorrelations that it assumes is too small. The **variance ratio** compares the variance of $q$-period returns with $q$ times the variance of one-period returns,
 
 $$
 \mathrm{VR}(q) = \frac{\operatorname{Var}(r_t + \dots + r_{t-q+1})}{q\operatorname{Var}(r_t)} = 1 + 2\sum_{j=1}^{q-1}\Big(1 - \frac{j}{q}\Big)\rho_j ,
 $$
 
-which equals 1 for uncorrelated returns and exceeds 1 under positive autocorrelation. [Lo & MacKinlay
-(1988)](https://www.nber.org/papers/w2168){target="_blank"} built a version whose standard errors are robust to
-heteroskedasticity, and rejected the random walk for weekly US stock index returns. The variance ratio as a
-trading statistic is developed in section 4.5.1 of [Momentum in Financial Markets](momentum_deep_dive.html).
+which equals 1 for uncorrelated returns and exceeds 1 under positive autocorrelation. [Lo & MacKinlay (1988)](https://www.nber.org/papers/w2168){target="_blank"} built a version whose standard errors are robust to heteroskedasticity, and rejected the random walk for weekly US stock index returns. Section 4.5.1 of [Momentum in Financial Markets](momentum_deep_dive.html) develops the variance ratio as a trading statistic.
 
 ## 8.2 Autoregressions and the Wold decomposition
 
-**The AR(1) model**, $y_t = c + \phi y_{t-1} + \varepsilon_t$ with $|\phi| < 1$, carries most of the intuition
-of time-series dynamics in one parameter.
+**The AR(1) model**, $y_t = c + \phi y_{t-1} + \varepsilon_t$ with $|\phi| < 1$, carries most of the intuition of time-series dynamics in one parameter. The table lists its main properties.
 
 | Property | Formula | With $\phi = 0.9$ |
 |---|---|---|
@@ -3153,63 +1882,23 @@ of time-series dynamics in one parameter.
 | Forecast | $\mathbb{E}[y_{t+h} \mid \mathcal{F}_t] = \mu + \phi^h(y_t - \mu)$ | Reverts to the mean |
 | Effective sample size for the mean | $T(1-\phi)/(1+\phi)$ | 5.3% of $T$ (§2.5) |
 
-Higher-order **autoregressions** add lags. **Moving-average** models, $y_t = \varepsilon_t + \theta_1\varepsilon_{t-1}
-+ \dots$, model a shock that echoes for a fixed number of periods and then stops, and **ARMA** models combine
-the two.
+Higher-order **autoregressions** add lags. **Moving-average** models, $y_t = \varepsilon_t + \theta_1\varepsilon_{t-1} + \dots$, model a shock that echoes for a fixed number of periods and then stops. **ARMA** models combine the two.
 
-**The Wold decomposition** explains why these simple models are so general. Every covariance-stationary process
-can be written as a deterministic component plus an infinite moving average of its own one-step-ahead linear
-forecast errors. The consequence cuts both ways. **Linear ARMA models can reproduce the autocovariances of any
-stationary process, and they are blind to everything else.** Volatility clustering, asymmetric responses, and any
-predictability that is not linear leave the autocovariances untouched, and so are invisible to them (§8.6).
+**The Wold decomposition** explains why these simple models are so general. Every covariance-stationary process can be written as a deterministic component plus an infinite moving average of its own one-step-ahead linear forecast errors. The consequence cuts both ways. **Linear ARMA models can reproduce the autocovariances of any stationary process, and they are blind to everything else.** Volatility clustering, asymmetric responses, and any non-linear predictability leave the autocovariances untouched, so these models cannot see them (§8.6).
 
-**The Box–Jenkins workflow**, from Box and Jenkins's 1970 book, is still the right order of operations: identify
-a candidate model from the sample autocorrelations and partial autocorrelations, estimate it, check that its
-residuals look like white noise, and only then forecast. Choosing lag lengths by information criteria involves a
-real trade-off. The **AIC** ([Akaike, 1974](https://doi.org/10.1109/tac.1974.1100705){target="_blank"})
-targets forecast accuracy and tends to choose too many lags. The **BIC** ([Schwarz,
-1978](https://doi.org/10.1214/aos/1176344136){target="_blank"}) penalises parameters more heavily and picks the
-true order with probability approaching one when the true model is among the candidates. **[Practice]** For
-forecasting use AIC or cross-validation; for describing the dynamics, BIC. The humbling historical footnote is
-that simple ARIMA models forecast US macroeconomic aggregates about as well as the large structural models of
-the 1960s (§13).
+**The Box–Jenkins workflow**, from Box and Jenkins's 1970 book, is still the right order of operations. Identify a candidate model from the sample autocorrelations and partial autocorrelations, estimate it, and check that its residuals look like white noise. Only then forecast. Choosing lag lengths by information criteria involves a real trade-off. The **AIC** ([Akaike, 1974](https://doi.org/10.1109/tac.1974.1100705){target="_blank"}) targets forecast accuracy and tends to choose too many lags. The **BIC** ([Schwarz, 1978](https://doi.org/10.1214/aos/1176344136){target="_blank"}) penalises parameters more heavily, and it picks the true order with probability approaching one when the true model is among the candidates. [Practice] **Recommendation: use AIC or cross-validation for forecasting, and BIC for describing the dynamics.** A humbling historical footnote is that simple ARIMA models forecast US macroeconomic aggregates about as well as the large structural models of the 1960s (§13).
 
 ## 8.3 Unit roots and spurious regression
 
-**The random walk** $y_t = y_{t-1} + \varepsilon_t$ is the AR(1) with $\phi = 1$, and at that value every property
-in the table above breaks. The variance grows linearly with time, so the process has no fixed variance to
-estimate. Shocks never decay, so the half-life is infinite. There is no mean for the forecast to revert to. A
-series like this is **integrated of order one**, written I(1): its first difference is stationary, but its level
-is not.
+**The random walk** $y_t = y_{t-1} + \varepsilon_t$ is the AR(1) with $\phi = 1$, and at that value every property in the table above breaks. The variance grows linearly with time, so the process has no fixed variance to estimate. Shocks never decay, so the half-life is infinite. There is no mean for the forecast to revert to. A series like this is **integrated of order one**, written I(1): its first difference is stationary, but its level is not.
 
-**Testing for a unit root.** The **Dickey–Fuller** test regresses the change on the lagged level, $\Delta y_t =
-\alpha + \gamma y_{t-1} + \sum_j\delta_j\Delta y_{t-j} + \varepsilon_t$, and tests $\gamma = 0$ ([Dickey & Fuller,
-1979](https://doi.org/10.2307/2286348){target="_blank"}). Under the null the regressor is itself a random walk,
-so the $t$-statistic does not have a $t$ distribution. Its 5% critical value with a constant is about $-2.86$,
-far below the $-1.65$ of a standard one-sided test. The test also has low power: with samples of typical length
-it cannot reliably tell $\phi = 1$ from $\phi = 0.97$, which is a very different process, with a half-life of 23
-periods. The **KPSS** test reverses the null to stationarity ([Kwiatkowski, Phillips, Schmidt & Shin,
-1992](https://doi.org/10.1016/0304-4076(92)90104-y){target="_blank"}), and running both is common.
+**Testing for a unit root.** The **Dickey–Fuller** test regresses the change on the lagged level, $\Delta y_t = \alpha + \gamma y_{t-1} + \sum_j\delta_j\Delta y_{t-j} + \varepsilon_t$, and tests $\gamma = 0$ ([Dickey & Fuller, 1979](https://doi.org/10.2307/2286348){target="_blank"}). Under the null, the regressor is itself a random walk, so the $t$-statistic does not have a $t$ distribution. Its 5% critical value with a constant is about $-2.86$, far below the $-1.65$ of a standard one-sided test. The test also has low power. With samples of typical length, it cannot reliably tell $\phi = 1$ from $\phi = 0.97$, which is a very different process, with a half-life of 23 periods. The **KPSS** test reverses the null to stationarity ([Kwiatkowski, Phillips, Schmidt & Shin, 1992](https://doi.org/10.1016/0304-4076(92)90104-y){target="_blank"}), and running both tests is common.
 
-Whether macroeconomic series have unit roots was a major debate. [Nelson & Plosser
-(1982)](https://doi.org/10.1016/0304-3932(82)90012-5){target="_blank"} could not reject a unit root in most US
-macroeconomic series, and [Perron (1989)](https://doi.org/10.2307/1913712){target="_blank"} showed that allowing
-for a few structural breaks reversed many of those conclusions. **[Contested]** The practical lesson is that
-unit-root tests are rarely decisive, and **[Practice]** the decision to difference a series should rest on the
-economics and on the question as much as on a test.
+[Contested] Whether macroeconomic series have unit roots was a major debate. [Nelson & Plosser (1982)](https://doi.org/10.1016/0304-3932(82)90012-5){target="_blank"} could not reject a unit root in most US macroeconomic series. [Perron (1989)](https://doi.org/10.2307/1913712){target="_blank"} showed that allowing for a few structural breaks reversed many of those conclusions. The practical lesson is that unit-root tests are rarely decisive. [Practice] The decision to difference a series should rest on the economics and on the question as much as on a test.
 
-**Spurious regression.** Regress one random walk on another, independent one, and the regression will usually
-report a strong, significant relationship. The phenomenon was described by [Yule
-(1926)](https://doi.org/10.2307/2341482){target="_blank"}, quantified by [Granger & Newbold
-(1974)](https://doi.org/10.1016/0304-4076(74)90034-7){target="_blank"}, and explained by [Phillips
-(1986)](https://doi.org/10.1016/0304-4076(86)90001-1){target="_blank"}. Under the null, the estimated slope does not
-converge to zero but to a random variable, and the $t$-statistic grows without bound at rate $\sqrt T$.
+**Spurious regression.** A regression of one random walk on another, independent one will usually report a strong, significant relationship. [Yule (1926)](https://doi.org/10.2307/2341482){target="_blank"} described the phenomenon, [Granger & Newbold (1974)](https://doi.org/10.1016/0304-4076(74)90034-7){target="_blank"} quantified it, and [Phillips (1986)](https://doi.org/10.1016/0304-4076(86)90001-1){target="_blank"} explained it. Under the null, the estimated slope converges not to zero but to a random variable, and the $t$-statistic grows without bound at rate $\sqrt T$.
 
-The figure shows how severe this is. With 100 observations of two independent random walks, the conventional
-$t$-test rejects "no relationship" 76% of the time at a nominal 5%. With 1,600 observations it rejects 94% of the
-time: **more data makes it worse.** Newey–West standard errors lower the rates to 59% and 85%, and do not fix the
-problem. The median $R^2$ is about 0.17 at every sample length, and a third of the regressions report an $R^2$
-above 0.3. **[Simulated]**
+The figure shows how severe the problem is. [Simulated] With 100 observations of two independent random walks, the conventional $t$-test rejects "no relationship" 76% of the time at a nominal 5%. With 1,600 observations it rejects 94% of the time: **more data make it worse.** Newey–West standard errors lower the rates to 59% and 85%, and do not fix the problem. The median $R^2$ is about 0.17 at every sample length, and a third of the regressions report an $R^2$ above 0.3.
 
 ```{=latex}
 \begin{center}
@@ -3222,42 +1911,23 @@ above 0.3. **[Simulated]**
      alt="Distribution of t-statistics for regressions of independent white noise and independent random walks, and false rejection rates against sample length">
 ```
 
-The remedies are to difference both series, which answers a different question (how *changes* relate); to
-include lagged levels of both variables, which restores standard inference for some coefficients; or, if the
-levels genuinely move together, to model the relationship as cointegration. In finance, price levels,
-dividend–price ratios, interest rates, and volatility are all at or near unit roots, and a regression of one price
-level on another is spurious until shown otherwise.
+There are three remedies. Differencing both series answers a different question, about how *changes* relate. Including lagged levels of both variables restores standard inference for some coefficients. If the levels truly move together, the relationship can be modelled as cointegration. In finance, price levels, dividend–price ratios, interest rates, and volatility are all at or near unit roots, and a regression of one price level on another is spurious until shown otherwise.
 
 ## 8.4 Cointegration and error correction
 
-Two I(1) series are **cointegrated** if some linear combination of them, $y_t - \beta x_t$, is stationary. They
-share a common stochastic trend, wander together, and the gap between them keeps reverting. The combination is
-the **cointegrating relationship**.
+Two I(1) series are **cointegrated** if some linear combination of them, $y_t - \beta x_t$, is stationary. The series share a common stochastic trend and wander together, and the gap between them keeps reverting. The combination is the **cointegrating relationship**.
 
-**Estimation.** The [Engle & Granger (1987)](https://doi.org/10.2307/1913236){target="_blank"} procedure has two
-steps. First, regress $y_t$ on $x_t$ in levels. When the series are cointegrated, this regression is not
-spurious. The estimate of $\beta$ is **superconsistent**, converging at rate $T$ rather than $\sqrt T$ ([Stock,
-1987](https://doi.org/10.2307/1911260){target="_blank"}), because any wrong $\beta$ leaves a non-stationary residual
-that the least-squares criterion punishes heavily. Second, test the residual for a unit root, using Engle–Granger
-critical values, which are more negative than Dickey–Fuller ones because the residual was chosen to look
-stationary. The [Johansen (1991)](https://doi.org/10.2307/2938278){target="_blank"} procedure estimates the whole
-system by maximum likelihood and allows for several cointegrating relationships.
+**Estimation.** The [Engle & Granger (1987)](https://doi.org/10.2307/1913236){target="_blank"} procedure has two steps. First, regress $y_t$ on $x_t$ in levels. When the series are cointegrated, this regression is not spurious. The estimate of $\beta$ is **superconsistent**, converging at rate $T$ rather than $\sqrt T$ ([Stock, 1987](https://doi.org/10.2307/1911260){target="_blank"}), because any wrong $\beta$ leaves a non-stationary residual that the least-squares criterion punishes heavily. Second, test the residual for a unit root, using Engle–Granger critical values. These are more negative than Dickey–Fuller ones, because the residual was chosen to look stationary. The [Johansen (1991)](https://doi.org/10.2307/2938278){target="_blank"} procedure estimates the whole system by maximum likelihood and allows for several cointegrating relationships.
 
-**The error-correction model.** Cointegration implies, and is implied by, a model in which changes respond to
-the previous period's deviation from equilibrium:
+**The error-correction model.** Cointegration implies, and is implied by, a model in which changes respond to the previous period's deviation from equilibrium:
 
 $$
 \Delta y_t = \alpha\,(y_{t-1} - \beta x_{t-1}) + \text{lagged changes} + \varepsilon_t ,
 $$
 
-with $\alpha < 0$ measuring the speed at which a gap closes. This equivalence is the Granger representation
-theorem.
+Here $\alpha < 0$ measures the speed at which a gap closes. This equivalence is the Granger representation theorem.
 
-**In finance.** Pairs trading is cointegration in practice: the spread between two related prices is traded
-on the expectation that it reverts ([Gatev, Goetzmann & Rouwenhorst, 2006](https://doi.org/10.1093/rfs/hhj020){target="_blank"}).
-Spot and futures prices, yields of different maturities, and log prices and log dividends are other examples.
-Whether a pair should be modelled as a stationary spread or a stationary ratio is its own decision ([Simple and
-Log Returns](log_returns.html) §6.4).
+**In finance.** Pairs trading is cointegration in practice. The spread between two related prices is traded on the expectation that it reverts ([Gatev, Goetzmann & Rouwenhorst, 2006](https://doi.org/10.1093/rfs/hhj020){target="_blank"}). Spot and futures prices, yields of different maturities, and log prices and log dividends are other examples. Whether a pair should be modelled as a stationary spread or a stationary ratio is a separate decision ([Simple and Log Returns](log_returns.html) §6.4).
 
 **Failure modes.**
 
@@ -3276,20 +1946,11 @@ $$
 \mathbf{y}_t = \mathbf{c} + A_1\mathbf{y}_{t-1} + \dots + A_p\mathbf{y}_{t-p} + \mathbf{e}_t, \qquad \operatorname{Var}(\mathbf{e}_t) = \Sigma_e .
 $$
 
-Each equation is estimated by OLS. [Sims (1980)](https://doi.org/10.2307/1912017){target="_blank"} proposed VARs as
-an alternative to large structural models whose identifying restrictions he called "incredible." With $k$ variables
-and $p$ lags there are $k^2p$ coefficients, which is why shrinkage priors are standard for forecasting (§5.6).
+Each equation is estimated by OLS. [Sims (1980)](https://doi.org/10.2307/1912017){target="_blank"} proposed VARs as an alternative to large structural models, whose identifying restrictions Sims called "incredible." With $k$ variables and $p$ lags there are $k^2p$ coefficients, which is why shrinkage priors are standard for forecasting (§5.6).
 
-**Granger causality** asks whether the past of one series improves forecasts of another, given the second
-series's own past ([Granger, 1969](https://doi.org/10.2307/1912791){target="_blank"}). It is a test of predictive
-content and nothing more. **[Fact]** Stock prices Granger-cause GDP because prices anticipate economic news, not
-because the stock market drives output. Forecasts of rain Granger-cause rain.
+**Granger causality** asks whether the past of one series improves forecasts of another, given the second series's own past ([Granger, 1969](https://doi.org/10.2307/1912791){target="_blank"}). It is a test of predictive content and nothing more. [Fact] Stock prices Granger-cause GDP because prices anticipate economic news, not because the stock market drives output. Forecasts of rain Granger-cause rain.
 
-**Structural VARs and the identification problem.** The reduced-form errors $\mathbf{e}_t$ are mixtures of
-economically meaningful **structural shocks** $\boldsymbol{\varepsilon}_t$, such as a monetary policy shock or an oil
-supply shock: $\mathbf{e}_t = B\boldsymbol{\varepsilon}_t$. With structural shocks normalised to unit variance,
-$\Sigma_e = BB'$. That gives $k(k+1)/2$ equations for the $k^2$ unknowns in $B$, so $k(k-1)/2$ restrictions are
-needed. This is exactly the simultaneity problem of §6.4, in dynamic form. The standard solutions:
+**Structural VARs and the identification problem.** The reduced-form errors $\mathbf{e}_t$ are mixtures of economically meaningful **structural shocks** $\boldsymbol{\varepsilon}_t$, such as a monetary policy shock or an oil supply shock: $\mathbf{e}_t = B\boldsymbol{\varepsilon}_t$. With structural shocks normalised to unit variance, $\Sigma_e = BB'$. That gives $k(k+1)/2$ equations for the $k^2$ unknowns in $B$, so $k(k-1)/2$ restrictions are needed. This is the simultaneity problem of §6.4 in dynamic form. The table lists the standard solutions.
 
 | Approach | The restriction | Main weakness |
 |---|---|---|
@@ -3298,77 +1959,35 @@ needed. This is exactly the simultaneity problem of §6.4, in dynamic form. The 
 | Sign restrictions | Shocks move variables in theoretically signed directions | Identify a set of models, not a single one |
 | External instruments | An outside measure of the shock serves as an instrument ([Mertens & Ravn, 2013](https://doi.org/10.1257/aer.103.4.1212){target="_blank"}) | The instrument's relevance and exclusion |
 
-**High-frequency identification** is the external-instrument approach with the most influence on finance. The
-change in federal funds futures prices in a narrow window around a monetary policy announcement measures the
-*surprise* component of the decision ([Kuttner, 2001](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=218892){target="_blank"};
-[Gürkaynak, Sack & Swanson, 2005](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=633281){target="_blank"}).
-Within thirty minutes nothing else systematically moves interest rates, so the surprise is plausibly exogenous.
-It is an event study (§9.3) used as an instrument. One complication is that a surprise can also reveal the central
-bank's private information about the economy, so a rate rise can signal strength as well as tightening ([Nakamura &
-Steinsson, 2018](https://www.nber.org/papers/w19260){target="_blank"}). **[Contested]**
+**High-frequency identification** is the external-instrument approach with the most influence on finance. The change in federal funds futures prices in a narrow window around a monetary policy announcement measures the *surprise* component of the decision ([Kuttner, 2001](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=218892){target="_blank"}; [Gürkaynak, Sack & Swanson, 2005](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=633281){target="_blank"}). Within thirty minutes nothing else systematically moves interest rates, so the surprise is plausibly exogenous. The approach is an event study (§9.3) used as an instrument. [Contested] One complication is that a surprise can also reveal the central bank's private information about the economy, so a rate rise can signal strength as well as tightening ([Nakamura & Steinsson, 2018](https://www.nber.org/papers/w19260){target="_blank"}).
 
-**Impulse responses and local projections.** An **impulse response** traces the effect of a one-time structural
-shock on each variable over subsequent horizons. A VAR computes it by iterating the estimated dynamics forward.
-**Local projections** estimate it directly, with one regression per horizon of $y_{t+h}$ on the shock and controls
-([Jordà, 2005](https://doi.org/10.1257/0002828053828518){target="_blank"}). Local projections are more robust to
-misspecified dynamics and noisier. **[Fact]** In population, with unrestricted lag structures, the two estimate the
-same impulse responses, so the choice between them is a finite-sample bias–variance trade-off rather than a
-difference in what is estimated ([Plagborg-Møller & Wolf, 2021](https://doi.org/10.3982/ecta17813){target="_blank"}).
-Because the dependent variable at horizon $h$ overlaps with its neighbours, local-projection inference faces the
-overlap problem of §4.5, and augmenting the regression with lags of the outcome makes it much simpler ([Montiel Olea
-& Plagborg-Møller, 2021](https://doi.org/10.3982/ecta18756){target="_blank"}).
+**Impulse responses and local projections.** An **impulse response** traces the effect of a one-time structural shock on each variable over subsequent horizons. A VAR computes it by iterating the estimated dynamics forward. **Local projections** estimate it directly, with one regression per horizon of $y_{t+h}$ on the shock and controls ([Jordà, 2005](https://doi.org/10.1257/0002828053828518){target="_blank"}). Local projections are more robust to misspecified dynamics, and noisier. [Fact] In population, with unrestricted lag structures, the two methods estimate the same impulse responses. The choice between them is therefore a finite-sample bias–variance trade-off, not a difference in what is estimated ([Plagborg-Møller & Wolf, 2021](https://doi.org/10.3982/ecta17813){target="_blank"}). The dependent variable at horizon $h$ overlaps with its neighbours, so local-projection inference faces the overlap problem of §4.5. Augmenting the regression with lags of the outcome makes that inference much simpler ([Montiel Olea & Plagborg-Møller, 2021](https://doi.org/10.3982/ecta18756){target="_blank"}).
 
 ## 8.6 Volatility: ARCH, GARCH, and realised variance
 
-**The stylised fact.** **[Fact]** Asset returns are nearly uncorrelated, but their squares and absolute values are
-strongly and persistently autocorrelated. Calm periods and turbulent periods cluster ([Cont,
-2001](https://doi.org/10.1080/713665670){target="_blank"}). Volatility is predictable even when returns are not.
+**The stylised fact.** [Fact] Asset returns are nearly uncorrelated, but their squares and absolute values are strongly and persistently autocorrelated. Calm periods and turbulent periods cluster ([Cont, 2001](https://doi.org/10.1080/713665670){target="_blank"}). Volatility is predictable even when returns are not.
 
-**ARCH and GARCH.** [Engle (1982)](https://doi.org/10.2307/1912773){target="_blank"} modelled the conditional
-variance as a function of past squared shocks. The GARCH(1,1) model ([Bollerslev,
-1986](https://public.econ.duke.edu/~boller/Published_Papers/joe_86.pdf){target="_blank"}) adds the past conditional
-variance:
+**ARCH and GARCH.** [Engle (1982)](https://doi.org/10.2307/1912773){target="_blank"} modelled the conditional variance as a function of past squared shocks. The GARCH(1,1) model ([Bollerslev, 1986](https://public.econ.duke.edu/~boller/Published_Papers/joe_86.pdf){target="_blank"}) adds the past conditional variance:
 
 $$
 \sigma_t^2 = \omega + a\,\varepsilon_{t-1}^2 + b\,\sigma_{t-1}^2 ,
 $$
 
-where $\varepsilon_t = \sigma_t z_t$ and $z_t$ is an i.i.d. shock with unit variance. Its properties are easy to
-read off.
+where $\varepsilon_t = \sigma_t z_t$ and $z_t$ is an i.i.d. shock with unit variance. Its properties are easy to read off.
 
 - **The long-run variance** is $\omega/(1 - a - b)$, provided $a + b < 1$.
-- **Persistence** is $a + b$. A variance shock has a half-life of $\ln 0.5/\ln(a+b)$ periods: 34 days at 0.98, and
-  69 days at 0.99. **[Fact]** Estimates for daily equity index returns typically put $a + b$ in the high 0.9s.
-- **GARCH(1,1) is an ARMA(1,1) in squared shocks.** Writing $v_t = \varepsilon_t^2 - \sigma_t^2$, which is a
-  martingale difference, gives $\varepsilon_t^2 = \omega + (a+b)\varepsilon_{t-1}^2 + v_t - b\,v_{t-1}$. The machinery
-  of §8.2 applies directly.
+- **Persistence** is $a + b$. A variance shock has a half-life of $\ln 0.5/\ln(a+b)$ periods: 34 days at 0.98, and 69 days at 0.99. [Fact] Estimates for daily equity index returns typically put $a + b$ in the high 0.9s.
+- **GARCH(1,1) is an ARMA(1,1) in squared shocks.** Writing $v_t = \varepsilon_t^2 - \sigma_t^2$, which is a martingale difference, gives $\varepsilon_t^2 = \omega + (a+b)\varepsilon_{t-1}^2 + v_t - b\,v_{t-1}$. The machinery of §8.2 applies directly.
 
-GARCH models are estimated by maximum likelihood, and Gaussian quasi-maximum likelihood with sandwich standard
-errors is consistent even though returns are not normal (§5.4). **Asymmetric** versions let volatility respond more
-to negative returns than to positive ones, which fits equity data better ([Nelson,
-1991](https://doi.org/10.2307/2938260){target="_blank"}; [Glosten, Jagannathan & Runkle,
-1993](https://doi.org/10.1111/j.1540-6261.1993.tb05128.x){target="_blank"}).
+GARCH models are estimated by maximum likelihood. Gaussian quasi-maximum likelihood with sandwich standard errors is consistent even though returns are not normal (§5.4). **Asymmetric** versions let volatility respond more to negative returns than to positive ones, which fits equity data better ([Nelson, 1991](https://doi.org/10.2307/2938260){target="_blank"}; [Glosten, Jagannathan & Runkle, 1993](https://doi.org/10.1111/j.1540-6261.1993.tb05128.x){target="_blank"}).
 
-**Realised variance.** With intraday data, variance can be *measured* rather than modelled. Summing squared
-high-frequency returns over a day estimates that day's variance, with an error that shrinks as the sampling interval
-shrinks, up to the point where market microstructure noise takes over ([Andersen, Bollerslev, Diebold & Labys,
-2003](https://www.nber.org/papers/w8160){target="_blank"}). This is Merton's asymmetry (§2.5) put to work: finer
-sampling does nothing for the precision of a mean return and a great deal for the precision of a variance. The
-**HAR** model, which regresses tomorrow's realised variance on its daily, weekly, and monthly averages, is simple and
-hard to beat ([Corsi, 2009](https://doi.org/10.1093/jjfinec/nbp001){target="_blank"}).
+**Realised variance.** With intraday data, variance can be *measured* instead of modelled. Summing squared high-frequency returns over a day estimates that day's variance, with an error that shrinks as the sampling interval shrinks, up to the point where market microstructure noise takes over ([Andersen, Bollerslev, Diebold & Labys, 2003](https://www.nber.org/papers/w8160){target="_blank"}). This is Merton's asymmetry (§2.5) put to work: finer sampling does nothing for the precision of a mean return, and a great deal for the precision of a variance. The **HAR** model regresses tomorrow's realised variance on its daily, weekly, and monthly averages. It is simple and hard to beat ([Corsi, 2009](https://doi.org/10.1093/jjfinec/nbp001){target="_blank"}).
 
-**Evaluating volatility forecasts** has a trap of its own: the target is never observed, so forecasts are compared
-with a noisy proxy such as a squared return. [Patton (2011)](https://doi.org/10.1016/j.jeconom.2010.03.034){target="_blank"}
-showed that only certain loss functions, notably mean squared error and the "QLIKE" loss, rank forecasts consistently
-when the proxy is noisy but unbiased. Others can prefer the wrong forecast. **[Fact]** In the most thorough horse
-race, [Hansen & Lunde (2005)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=264571){target="_blank"} compared
-330 ARCH-type models. For exchange rates they found no evidence that anything beats a GARCH(1,1). For IBM stock
-returns, models with a leverage effect were clearly better.
+**Evaluating volatility forecasts** has a trap of its own. The target is never observed, so forecasts are compared with a noisy proxy such as a squared return. [Patton (2011)](https://doi.org/10.1016/j.jeconom.2010.03.034){target="_blank"} showed that only certain loss functions, notably mean squared error and the "QLIKE" loss, rank forecasts consistently when the proxy is noisy but unbiased. Other losses can prefer the wrong forecast. [Fact] In the most thorough horse race, [Hansen & Lunde (2005)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=264571){target="_blank"} compared 330 ARCH-type models. For exchange rates, they found no evidence that anything beats a GARCH(1,1). For IBM stock returns, models with a leverage effect were clearly better.
 
 ## 8.7 Structural breaks and parameter instability
 
-A relationship estimated over a long sample assumes the parameters were constant throughout. Tests for **structural
-breaks** check that assumption.
+A relationship estimated over a long sample assumes that the parameters were constant throughout. Tests for **structural breaks** check that assumption.
 
 - **A known break date.** The [Chow (1960)](https://doi.org/10.2307/1910133){target="_blank"} test compares
   coefficients estimated before and after the date.
@@ -3379,39 +1998,17 @@ breaks** check that assumption.
 - **Several breaks.** [Bai & Perron (1998)](https://doi.org/10.2307/2998540){target="_blank"} estimate the number and
   location of multiple breaks.
 
-**Breaks and forecasting.** When parameters change, a rolling estimation window adapts and an expanding window is
-more precise, so the choice is a bias–variance trade-off. [Pesaran & Timmermann
-(2007)](https://doi.org/10.1016/j.jeconom.2006.03.010){target="_blank"} show that it can pay to include some
-pre-break data even after a break, trading a little bias for a large reduction in variance. **[Practice]**
-Averaging forecasts across several window lengths is a common robust alternative to choosing one. Regime-switching and change-point models, which treat instability as a process rather
-than an event, are the subject of [Market Regimes and Machine Learning](market_regimes.html) §5.
+**Breaks and forecasting.** When parameters change, a rolling estimation window adapts, and an expanding window is more precise, so the choice is a bias–variance trade-off. [Pesaran & Timmermann (2007)](https://doi.org/10.1016/j.jeconom.2006.03.010){target="_blank"} show that it can pay to include some pre-break data even after a break, trading a little bias for a large reduction in variance. [Practice] Averaging forecasts across several window lengths is a common robust alternative to choosing one. Regime-switching and change-point models treat instability as a process rather than an event, and they are the subject of [Market Regimes and Machine Learning](market_regimes.html) §5.
 
 ## 8.8 Forecasting and forecast evaluation
 
-**Choose the loss function first.** The mean squared error is minimised by the conditional mean, the absolute error
-by the conditional median, and the asymmetric "tick" loss of quantile regression (§5.5) by a conditional quantile.
-A forecast is good or bad *for a loss*, and evaluating with a different loss from the one the forecast targets gives
-misleading rankings.
+**Choose the loss function first.** The mean squared error is minimised by the conditional mean, the absolute error by the conditional median, and the asymmetric "tick" loss of quantile regression (§5.5) by a conditional quantile. A forecast is good or bad *for a loss*. Evaluating it with a different loss from the one it targets gives misleading rankings.
 
-**Evaluate out of sample, honestly.** A **pseudo-out-of-sample** exercise re-estimates the model at each forecast
-date using only data available at that date, with either a rolling or an expanding window. "Only data available at
-that date" is stricter than it sounds. It includes the choice of model, the choice of predictors, the tuning of
-hyperparameters, and the data themselves. Macroeconomic data are revised after release, and a forecast evaluated with
-final revised data uses information nobody had ([Croushore & Stark,
-2001](https://doi.org/10.1016/s0304-4076(01)00072-0){target="_blank"}). Accounting data are available only months
-after the period they describe. The out-of-sample $R^2$ of §3.8 is the standard summary.
+**Evaluate out of sample, honestly.** A **pseudo-out-of-sample** exercise re-estimates the model at each forecast date using only data available at that date, with either a rolling or an expanding window. "Only data available at that date" is stricter than it sounds. It covers the choice of model, the choice of predictors, the tuning of hyperparameters, and the data themselves. Macroeconomic data are revised after release, and a forecast evaluated with final revised data uses information nobody had ([Croushore & Stark, 2001](https://doi.org/10.1016/s0304-4076(01)00072-0){target="_blank"}). Accounting data become available only months after the period they describe. The out-of-sample $R^2$ of §3.8 is the standard summary.
 
-**Comparing two forecasts.** The **Diebold–Mariano** test takes the difference between two forecasts' losses at each
-date and tests whether its mean is zero, with a HAC standard error ([Diebold & Mariano,
-1995](https://www.nber.org/papers/t0169){target="_blank"}). It was designed to compare *forecasts*. It is not valid
-for comparing a model with a larger model that nests it when both are estimated. Under the null that the extra
-predictors are useless, the larger model still pays for estimating them, which inflates its loss and makes the test
-too conservative, so real predictive content is missed. [Clark & West
-(2007)](https://www.nber.org/papers/t0326){target="_blank"} adjust for exactly that noise. [Giacomini & White
-(2006)](https://doi.org/10.1111/j.1468-0262.2006.00718.x){target="_blank"} reframe the question as a comparison of
-forecasting *methods*, estimation windows included.
+**Comparing two forecasts.** The **Diebold–Mariano** test takes the difference between two forecasts' losses at each date and tests whether its mean is zero, with a HAC standard error ([Diebold & Mariano, 1995](https://www.nber.org/papers/t0169){target="_blank"}). It was designed to compare *forecasts*. It is not valid for comparing a model with a larger model that nests it when both are estimated. Under the null that the extra predictors are useless, the larger model still pays for estimating them. That cost inflates its loss and makes the test too conservative, so real predictive content is missed. [Clark & West (2007)](https://www.nber.org/papers/t0326){target="_blank"} adjust for exactly that noise. [Giacomini & White (2006)](https://doi.org/10.1111/j.1468-0262.2006.00718.x){target="_blank"} reframe the question as a comparison of forecasting *methods*, estimation windows included.
 
-**The equity premium debate** is the best-known application, and it is unresolved. **[Contested]**
+**The equity premium debate** is the best-known application, and it is unresolved. [Contested] The main positions are these.
 
 - [Goyal & Welch (2008)](https://www.nber.org/papers/w10483){target="_blank"} examined the predictors proposed in the
   literature (dividend yields, earnings yields, interest rates, and others) and found that they predicted poorly both
@@ -3427,35 +2024,21 @@ forecasting *methods*, estimation windows included.
   [Goyal, Welch & Zafirov (2024)](https://doi.org/10.1093/rfs/hhae044){target="_blank"} updated the original evaluation
   with newer predictors and found the record still weak.
 
-My reading is that equity premium predictability is real, small, and unstable, and that the econometric problems of
-§9.2 make its in-sample strength look larger than it is.
+The view taken here is that equity premium predictability is real, small, and unstable, and that the econometric problems of §9.2 make its in-sample strength look larger than it is.
 
-**Combine forecasts.** Averaging forecasts from different models is one of the most reliable improvements in
-forecasting ([Bates & Granger, 1969](https://doi.org/10.1057/jors.1969.103){target="_blank"}). **[Fact]** Simple equal
-weights usually beat weights estimated to be optimal. This "forecast combination puzzle" is explained by the error in
-estimating the weights, which outweighs the gain from optimising them ([Smith & Wallis,
-2009](https://doi.org/10.1111/j.1468-0084.2008.00541.x){target="_blank"}), the same logic as the shrinkage of §5.6.
+**Combine forecasts.** Averaging forecasts from different models is one of the most reliable improvements in forecasting ([Bates & Granger, 1969](https://doi.org/10.1057/jors.1969.103){target="_blank"}). [Fact] Simple equal weights usually beat weights estimated to be optimal. This "forecast combination puzzle" is explained by the error in estimating the weights, which outweighs the gain from optimising them ([Smith & Wallis, 2009](https://doi.org/10.1111/j.1468-0084.2008.00541.x){target="_blank"}). The logic is the same as for the shrinkage of §5.6.
 
 > ### §8 Key takeaways
 >
-> 1. Stationarity and ergodicity are what let one history stand in for many samples. Without them, time averages need
->    not estimate anything.
-> 2. Returns are close to a martingale difference sequence and far from i.i.d. Tests that assume independence are
->    mis-sized on them; use heteroskedasticity-robust versions.
-> 3. Linear time-series models describe autocovariances completely and are blind to predictable volatility and
->    nonlinear dependence.
-> 4. Unit-root tests have nonstandard critical values and low power. Decide whether to difference on economics as much
->    as on tests.
-> 5. Regressing one random walk on an independent one rejects "no relationship" most of the time, and more data make it
->    worse. Newey–West does not fix it.
-> 6. Cointegration makes levels regressions meaningful, and screening many pairs for it is a multiple-testing
->    exercise.
-> 7. Granger causality is predictive precedence, not causation. Structural VARs need identifying restrictions, and
->    high-frequency event windows are the most credible source of them for monetary shocks.
-> 8. Volatility is highly persistent and predictable. GARCH(1,1) is an ARMA(1,1) in squared shocks, and realised
->    variance turns high-frequency data into precise variance measurement.
-> 9. Choose the loss first, evaluate out of sample with only information available at the time, use Clark–West rather
->    than Diebold–Mariano for nested models, and average forecasts.
+> 1. Stationarity and ergodicity let one history stand in for many samples. Without them, time averages need not estimate anything.
+> 2. Returns are close to a martingale difference sequence and far from i.i.d. Tests that assume independence are mis-sized on returns, so use heteroskedasticity-robust versions.
+> 3. Linear time-series models describe autocovariances completely, and they are blind to predictable volatility and non-linear dependence.
+> 4. Unit-root tests have non-standard critical values and low power. Decide whether to difference on economics as much as on tests.
+> 5. A regression of one random walk on an independent one rejects "no relationship" most of the time, and more data make the problem worse. Newey–West does not fix it.
+> 6. Cointegration makes levels regressions meaningful, and screening many pairs for it is a multiple-testing exercise.
+> 7. Granger causality is predictive precedence, not causation. Structural VARs need identifying restrictions, and high-frequency event windows are the most credible source of them for monetary shocks.
+> 8. Volatility is highly persistent and predictable. GARCH(1,1) is an ARMA(1,1) in squared shocks, and realised variance turns high-frequency data into precise measurements of variance.
+> 9. Choose the loss first. Evaluate out of sample with only the information available at the time, use Clark–West instead of Diebold–Mariano for nested models, and average forecasts.
 
 ```{=latex}
 \newpage
@@ -3465,13 +2048,11 @@ estimating the weights, which outweighs the gain from optimising them ([Smith & 
 
 # 9. Financial econometrics {#9-financial-econometrics}
 
-Everything in Parts I–IV applies to financial data. This section is about where it bites hardest. Finance
-combines the problems of the earlier sections in an unusually unfavourable way: the signals are small, the
-noise is large and fat-tailed, the dependence runs across both time and assets, the predictors are
-persistent, the data have been searched by thousands of researchers for decades, and the act of publishing
-a finding changes the process that generated it.
+Everything in Parts I–IV applies to financial data, and this section is about where it bites hardest. Finance combines the problems of the earlier sections in an unusually unfavourable way. The signals are small. The noise is large and fat-tailed. The dependence runs across both time and assets, and the predictors are persistent. Thousands of researchers have searched the data for decades, and publishing a finding changes the process that generated it.
 
 ## 9.1 Why financial data are statistically hostile
+
+The table lists the properties of financial data that cause the most trouble, with their consequences.
 
 | Property | Consequence | Where |
 |---|---|---|
@@ -3485,42 +2066,27 @@ a finding changes the process that generated it.
 | **Collective data mining** | Decades of research on the same databases turn every new result into the best of an unknown number of tries | §4.8, §9.6 |
 | **Microcaps** | They are about 60% of listed US stocks and about 3% of market value ([Fama & French, 2008](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=911960){target="_blank"}), so equal-weighted results describe them | §9.6 |
 
-The effect of publication deserves a number. **[Fact]** [McLean & Pontiff
-(2016)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2156623){target="_blank"} studied 97 return predictors
-from the academic literature and found portfolio returns 26% lower in the period between the end of the original
-sample and publication, and 58% lower after publication. The first number is an upper bound on how much of the
-original result was statistical overfitting. The difference between the two, about a third, is consistent with
-investors trading on published results.
+The effect of publication deserves a number. [Fact] [McLean & Pontiff (2016)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2156623){target="_blank"} studied 97 return predictors from the academic literature. They found portfolio returns 26% lower in the period between the end of the original sample and publication, and 58% lower after publication. The first number is an upper bound on how much of the original result was statistical overfitting. The difference between the two numbers, about a third of the original return, is consistent with investors trading on published results.
 
 ## 9.2 Predictive regressions
 
-The canonical return-forecasting regression pairs a return equation with an equation for a persistent predictor
-such as the dividend yield:
+The canonical return-forecasting regression pairs a return equation with an equation for a persistent predictor such as the dividend yield:
 
 $$
 r_{t+1} = \alpha + \beta\,x_t + u_{t+1}, \qquad x_{t+1} = \theta + \phi\,x_t + v_{t+1} .
 $$
 
-For valuation ratios, the two innovations are strongly negatively correlated. A positive return shock raises the
-price, and the higher price mechanically lowers the dividend yield in the same period.
+For valuation ratios, the two innovations are strongly negatively correlated. A positive return shock raises the price, and the higher price mechanically lowers the dividend yield in the same period.
 
-**Stambaugh bias.** Because $x_t$ is a lagged dependent variable in its own equation, $\hat\phi$ is biased
-downward, by roughly $-(1+3\phi)/T$ (§2.3). The return equation's slope inherits that bias through the correlation
-of the innovations ([Stambaugh, 1999](https://www.nber.org/papers/t0240){target="_blank"}):
+**Stambaugh bias.** Because $x_t$ is a lagged dependent variable in its own equation, $\hat\phi$ is biased downward, by roughly $-(1+3\phi)/T$ (§2.3). The return equation's slope inherits that bias through the correlation of the innovations ([Stambaugh, 1999](https://www.nber.org/papers/t0240){target="_blank"}):
 
 $$
 \mathbb{E}[\hat\beta - \beta] \approx \frac{\sigma_{uv}}{\sigma_v^2}\;\mathbb{E}[\hat\phi - \phi],
 $$
 
-where $\sigma_{uv}$ is the covariance of the innovations and $\sigma_v^2$ the variance of the predictor's innovation.
-With $\sigma_{uv} < 0$ and $\hat\phi$ biased down, $\hat\beta$ is biased *up*, toward finding that a high dividend
-yield predicts high returns.
+where $\sigma_{uv}$ is the covariance of the innovations and $\sigma_v^2$ is the variance of the predictor's innovation. With $\sigma_{uv} < 0$ and $\hat\phi$ biased down, $\hat\beta$ is biased *up*, toward finding that a high dividend yield predicts high returns.
 
-The left panel of the figure simulates 40 years of monthly data with no predictability at all, a predictor with
-$\phi = 0.99$, and an innovation correlation of $-0.95$. The predictor's autoregressive coefficient is underestimated
-by 0.009 on average, close to the approximation's 0.008. The average estimated slope is about 1.4 standard errors
-above zero (the approximation gives 1.2), the average $t$-statistic is 0.82 instead of zero, and a one-sided 5% test
-for positive predictability rejects 18% of the time. **[Simulated]**
+The left panel of the figure simulates 40 years of monthly data with no predictability at all, a predictor with $\phi = 0.99$, and an innovation correlation of $-0.95$. [Simulated] The predictor's autoregressive coefficient is underestimated by 0.009 on average, close to the approximation's 0.008. The average estimated slope is about 1.4 standard errors above zero (the approximation gives 1.2), and the average $t$-statistic is 0.82 instead of zero. A one-sided 5% test for positive predictability rejects 18% of the time.
 
 ```{=latex}
 \begin{center}
@@ -3533,17 +2099,7 @@ for positive predictability rejects 18% of the time. **[Simulated]**
      alt="t-statistics of a predictive regression with an exogenous and an endogenous persistent predictor, and false rejection rates of long-horizon regressions against horizon">
 ```
 
-**Long-horizon regressions.** Regressing returns over $h$ months on today's predictor was once thought to reveal
-predictability that short horizons missed, because $R^2$ values grow with the horizon. Much of that growth is
-mechanical. The right panel removes the Stambaugh problem by making the predictor exogenous, and keeps only the
-overlap of §4.5. With no predictability, the median $R^2$ at a 60-month horizon is 5.5%, and one simulated sample in
-ten reports an $R^2$ above 27%. Classical standard errors reject a true null 57% of the time at 12 months and 78% at
-60. Newey–West with $h$ lags rejects 15% and 28%. [Hodrick (1992)](https://www.nber.org/papers/t0108){target="_blank"} standard errors, which impose the null of no
-predictability when estimating the meat, stay at 5%. **[Simulated]** [Valkanov
-(2003)](https://doi.org/10.1016/s0304-405x(03)00065-5){target="_blank"} derives the non-standard behaviour of
-long-horizon regressions formally. [Boudoukh, Richardson & Whitelaw
-(2008)](https://www.nber.org/papers/w11841){target="_blank"} show that estimates at different horizons are so highly
-correlated that the long-horizon evidence adds little to the short-horizon evidence it is built from.
+**Long-horizon regressions.** Regressing returns over $h$ months on today's predictor was once thought to reveal predictability that short horizons missed, because $R^2$ values grow with the horizon. Much of that growth is mechanical. The right panel removes the Stambaugh problem by making the predictor exogenous, and keeps only the overlap of §4.5. [Simulated] With no predictability, the median $R^2$ at a 60-month horizon is 5.5%, and one simulated sample in ten reports an $R^2$ above 27%. Classical standard errors reject a true null 57% of the time at 12 months and 78% of the time at 60. Newey–West with $h$ lags rejects 15% and 28% of the time. [Hodrick (1992)](https://www.nber.org/papers/t0108){target="_blank"} standard errors, which impose the null of no predictability when estimating the meat, stay at 5%. [Valkanov (2003)](https://doi.org/10.1016/s0304-405x(03)00065-5){target="_blank"} derives the non-standard behaviour of long-horizon regressions formally. [Boudoukh, Richardson & Whitelaw (2008)](https://www.nber.org/papers/w11841){target="_blank"} show that estimates at different horizons are so highly correlated that the long-horizon evidence adds little to the short-horizon evidence it is built from.
 
 **What to do.**
 
@@ -3558,10 +2114,7 @@ correlated that the long-horizon evidence adds little to the short-horizon evide
 
 ## 9.3 Event studies
 
-**The design.** An event study measures how security prices respond to news, such as an earnings announcement, a
-merger, an index inclusion, or a regulatory decision, by comparing returns around the event with what they would
-normally have been ([Fama, Fisher, Jensen & Roll, 1969](https://doi.org/10.2307/2525569){target="_blank"}; [MacKinlay,
-1997](https://ideas.repec.org/a/aea/jeclit/v35y1997i1p13-39.html){target="_blank"}).
+**The design.** An event study measures how security prices respond to news, such as an earnings announcement, a merger, an index inclusion, or a regulatory decision. It compares returns around the event with what they would normally have been ([Fama, Fisher, Jensen & Roll, 1969](https://doi.org/10.2307/2525569){target="_blank"}; [MacKinlay, 1997](https://ideas.repec.org/a/aea/jeclit/v35y1997i1p13-39.html){target="_blank"}). The procedure has three steps.
 
 1. Fix the event date and an **event window**, such as the day before to the day after.
 2. In an earlier **estimation window**, fit a model of normal returns, typically the market model $r_{it} = a_i + b_i
@@ -3569,100 +2122,42 @@ normally have been ([Fama, Fisher, Jensen & Roll, 1969](https://doi.org/10.2307/
 3. Compute each day's **abnormal return**, $AR_{it} = r_{it} - (\hat a_i + \hat b_i r_{mt})$, sum it over the event
    window into a **cumulative abnormal return** (CAR), and average across events.
 
-**The identifying assumption.** Prices incorporate the news within the window, nothing else moves the stock during
-the window, and the normal-return model is adequate. Over short windows the last condition barely matters: expected
-daily returns are tiny compared with event-day volatility, so any reasonable model gives nearly the same answer
-([Brown & Warner, 1985](https://doi.org/10.1016/0304-405x(85)90042-x){target="_blank"}).
+**The identifying assumption.** Prices incorporate the news within the window, nothing else moves the stock during the window, and the normal-return model is adequate. Over short windows the last condition barely matters. Expected daily returns are tiny compared with event-day volatility, so any reasonable model gives nearly the same answer ([Brown & Warner, 1985](https://doi.org/10.1016/0304-405x(85)90042-x){target="_blank"}).
 
-**The joint-hypothesis problem.** Any test of whether prices react "correctly" is jointly a test of a model of
-expected returns ([Fama, 1970](https://doi.org/10.2307/2325486){target="_blank"}). Over a three-day window the model
-is nearly irrelevant. Over three years it dominates everything.
+**The joint-hypothesis problem.** Any test of whether prices react "correctly" is jointly a test of a model of expected returns ([Fama, 1970](https://doi.org/10.2307/2325486){target="_blank"}). Over a three-day window the model is nearly irrelevant. Over three years it dominates everything.
 
 **Failure modes.**
 
-- **Event clustering.** When many firms share an event date, as with an industry-wide regulation, their abnormal
-  returns are cross-sectionally correlated and conventional $t$-statistics are overstated. Form a portfolio of the
-  affected firms and treat it as one observation, or adjust for the correlation ([Kolari & Pynnönen,
-  2010](https://doi.org/10.1093/rfs/hhq072){target="_blank"}).
-- **Event-induced variance.** Volatility rises on event days, which invalidates tests that standardise by
-  estimation-window variance.
+- **Event clustering.** When many firms share an event date, as with an industry-wide regulation, their abnormal returns are cross-sectionally correlated, and conventional $t$-statistics are overstated. Form a portfolio of the affected firms and treat it as one observation, or adjust for the correlation ([Kolari & Pynnönen, 2010](https://doi.org/10.1093/rfs/hhq072){target="_blank"}).
+- **Event-induced variance.** Volatility rises on event days, which invalidates tests that standardise by the estimation-window variance.
 - **Leakage and anticipation.** If news leaks before the window, the measured response is too small.
 - **Confounding news** inside the window.
-- **Long horizons.** Over months or years, small errors in the expected-return model compound, long-horizon returns
-  are skewed, and overlapping events are correlated. **[Contested]** [Barber & Lyon
-  (1997)](https://doi.org/10.1016/s0304-405x(96)00890-2){target="_blank"} show that common long-horizon test statistics
-  are misspecified. [Fama (1998)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=15108){target="_blank"} argues
-  that long-term return anomalies tend to disappear under reasonable changes in method, and [Mitchell & Stafford
-  (2000)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=94137){target="_blank"} show that correcting for the
-  correlation between overlapping events removes much of the evidence for long-run abnormal performance after
-  corporate events. Behavioural-finance researchers dispute how general that conclusion is.
+- **Long horizons.** Over months or years, small errors in the expected-return model compound, long-horizon returns are skewed, and overlapping events are correlated. [Contested] [Barber & Lyon (1997)](https://doi.org/10.1016/s0304-405x(96)00890-2){target="_blank"} show that common long-horizon test statistics are misspecified. [Fama (1998)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=15108){target="_blank"} argues that long-term return anomalies tend to disappear under reasonable changes in method. [Mitchell & Stafford (2000)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=94137){target="_blank"} show that correcting for the correlation between overlapping events removes much of the evidence for long-run abnormal performance after corporate events. Behavioural-finance researchers dispute how general that conclusion is.
 
-"Event study" means something related but different in the difference-in-differences literature, where it is a DiD
-with separate coefficients for each period around treatment (§7.5, §12.3).
+"Event study" means something related but different in the difference-in-differences literature. There it is a DiD with separate coefficients for each period around treatment (§7.5, §12.3).
 
 ## 9.4 Testing asset pricing models
 
-A **factor model** says that the differences in expected returns across assets are explained by their exposure to a
-few common sources of risk, the **factors**, collected in a vector $f_t$ of factor returns. An asset's **loadings** (its
-betas) $b_i$ measure how strongly its return moves with each factor, and the model's prediction is that expected excess
-returns line up with the loadings: assets with more exposure to a priced factor earn more, and nothing else earns
-anything. Testing a factor model means testing that prediction.
+A **factor model** says that a few common sources of risk, the **factors**, explain the differences in expected returns across assets. The factor returns are collected in a vector $f_t$. An asset's **loadings** (its betas) $b_i$ measure how strongly its return moves with each factor. The model predicts that expected excess returns line up with the loadings: assets with more exposure to a priced factor earn more, and nothing else earns anything. Testing a factor model means testing that prediction.
 
-**Time-series tests.** When the factors are themselves traded portfolio returns, regress each test asset's excess
-return on the factor returns, $r^e_{it} = \alpha_i + b_i'f_t + e_{it}$. The model predicts that every $\alpha_i$ is
-zero. The [Gibbons, Ross & Shanken (1989)](https://doi.org/10.2307/1913625){target="_blank"} test checks them jointly,
-and has a clean economic reading: it asks whether adding the test assets to the factors would significantly raise the
-highest attainable Sharpe ratio.
+**Time-series tests.** When the factors are themselves traded portfolio returns, regress each test asset's excess return on the factor returns, $r^e_{it} = \alpha_i + b_i'f_t + e_{it}$. The model predicts that every $\alpha_i$ is zero. The [Gibbons, Ross & Shanken (1989)](https://doi.org/10.2307/1913625){target="_blank"} test checks them jointly. It has a clean economic reading: it asks whether adding the test assets to the factors would significantly raise the highest attainable Sharpe ratio.
 
-**Cross-sectional tests: Fama–MacBeth.** The two-pass procedure of [Fama & MacBeth
-(1973)](https://doi.org/10.1086/260061){target="_blank"} first estimates each asset's factor loadings from time-series
-regressions. Then, at every date $t$, it regresses the cross-section of returns on the estimated loadings (or on firm
-characteristics) to get a slope $\hat\lambda_t$, the period's reward per unit of exposure. The estimate is the
-time-series average of $\hat\lambda_t$, and its standard error is the standard deviation of $\hat\lambda_t$ divided
-by $\sqrt T$.
+**Cross-sectional tests: Fama–MacBeth.** The two-pass procedure of [Fama & MacBeth (1973)](https://doi.org/10.1086/260061){target="_blank"} first estimates each asset's factor loadings from time-series regressions. Then, at every date $t$, it regresses the cross-section of returns on the estimated loadings, or on firm characteristics, to get a slope $\hat\lambda_t$, the period's reward per unit of exposure. The estimate is the time-series average of $\hat\lambda_t$. Its standard error is the standard deviation of $\hat\lambda_t$ divided by $\sqrt T$.
 
-The standard error's logic is worth understanding, because it defines what the procedure does and does not fix.
-**Each date contributes one observation, so correlation across assets within a date is handled automatically. Correlation
-of $\hat\lambda_t$ over time is not.** With persistent characteristics, the slopes are serially correlated, and the
-time series of $\hat\lambda_t$ needs a Newey–West standard error. The procedure also does nothing about firm-level
-persistence in the residuals (§9.5).
+The logic of the standard error is worth understanding, because it defines what the procedure does and does not fix. **Each date contributes one observation, so correlation across assets within a date is handled automatically. Correlation of $\hat\lambda_t$ over time is not.** With persistent characteristics the slopes are serially correlated, and the time series of $\hat\lambda_t$ needs a Newey–West standard error. The procedure also does nothing about firm-level persistence in the residuals (§9.5).
 
-**Errors in variables.** The loadings used in the second pass are estimates, so the second-pass slopes suffer from the
-attenuation of §6.4 and their standard errors are too small. [Shanken (1992)](https://doi.org/10.1093/rfs/5.1.1){target="_blank"}
-derived the correction to the standard errors. Grouping stocks into portfolios reduces the noise in the loadings, but
-it also discards cross-sectional variation, which is why [Ang, Liu & Schwarz
-(2020)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1106463){target="_blank"} argue for individual stocks with an
-appropriate correction, and [Jegadeesh, Noh, Pukthuanthong, Roll & Wang (2019)](https://doi.org/10.1016/j.jfineco.2019.02.010){target="_blank"}
-use loadings estimated in separate subsamples as instruments.
+**Errors in variables.** The loadings used in the second pass are estimates. The second-pass slopes therefore suffer from the attenuation of §6.4, and their standard errors are too small. [Shanken (1992)](https://doi.org/10.1093/rfs/5.1.1){target="_blank"} derived the correction to the standard errors. Grouping stocks into portfolios reduces the noise in the loadings, but it also discards cross-sectional variation. [Ang, Liu & Schwarz (2020)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1106463){target="_blank"} therefore argue for individual stocks with an appropriate correction, and [Jegadeesh, Noh, Pukthuanthong, Roll & Wang (2019)](https://doi.org/10.1016/j.jfineco.2019.02.010){target="_blank"} use loadings estimated in separate subsamples as instruments.
 
 **Two traps specific to these tests.**
 
-- **Useless factors look priced.** **[Fact]** [Kan & Zhang
-  (1999)](http://www-2.rotman.utoronto.ca/~kan/3032/pdf/EmpiricalTestsOftheCAPMAndMulti-factorModels/Kan_Zhang_JF_1999.pdf){target="_blank"}
-  show that a factor unrelated to returns can appear significantly priced in two-pass regressions, and that the problem
-  gets *worse* with longer samples. It is the weak-instrument problem of §7.3 in asset-pricing form: a factor with
-  near-zero loadings leaves the second pass dividing by nearly nothing. Tests robust to this exist ([Kleibergen,
-  2009](https://doi.org/10.1016/j.jeconom.2009.01.013){target="_blank"}).
-- **The test assets set a low bar.** Portfolios sorted on size and book-to-market have such a strong factor structure that
-  almost any candidate factor correlated with the size and value factors fits their average returns with a high
-  cross-sectional $R^2$. [Lewellen, Nagel & Shanken (2010)](https://web.mit.edu/lewellen/www/Documents/AssetPricingTests.pdf){target="_blank"}
-  recommend adding test portfolios unrelated to the sorting characteristics, such as industries, and reporting a GLS
-  $R^2$, which is tied to the efficiency of the model's factor-mimicking portfolio and is a stricter hurdle.
+- **Useless factors look priced.** [Fact] [Kan & Zhang (1999)](http://www-2.rotman.utoronto.ca/~kan/3032/pdf/EmpiricalTestsOftheCAPMAndMulti-factorModels/Kan_Zhang_JF_1999.pdf){target="_blank"} show that a factor unrelated to returns can appear significantly priced in two-pass regressions, and that the problem gets *worse* with longer samples. It is the weak-instrument problem of §7.3 in asset-pricing form: a factor with near-zero loadings leaves the second pass dividing by nearly nothing. Tests robust to this problem exist ([Kleibergen, 2009](https://doi.org/10.1016/j.jeconom.2009.01.013){target="_blank"}).
+- **The test assets set a low bar.** Portfolios sorted on size and book-to-market have such a strong factor structure that almost any candidate factor correlated with the size and value factors fits their average returns with a high cross-sectional $R^2$. [Lewellen, Nagel & Shanken (2010)](https://web.mit.edu/lewellen/www/Documents/AssetPricingTests.pdf){target="_blank"} recommend adding test portfolios unrelated to the sorting characteristics, such as industries. They also recommend reporting a GLS $R^2$, which is tied to the efficiency of the model's factor-mimicking portfolio and sets a stricter hurdle.
 
-**The SDF approach.** Any linear factor model can be written as a stochastic discount factor that is linear in the factors
-and estimated by GMM from $\mathbb{E}[M_{t+1}R^e_{t+1}] = 0$ (§5.3). The [Hansen & Jagannathan
-(1997)](https://doi.org/10.1111/j.1540-6261.1997.tb04813.x){target="_blank"} distance then measures how far a misspecified
-model is from pricing the assets correctly, in units an investor can interpret.
+**The SDF approach.** Any linear factor model can be written as a stochastic discount factor that is linear in the factors and estimated by GMM from $\mathbb{E}[M_{t+1}R^e_{t+1}] = 0$ (§5.3). The [Hansen & Jagannathan (1997)](https://doi.org/10.1111/j.1540-6261.1997.tb04813.x){target="_blank"} distance then measures how far a misspecified model is from pricing the assets correctly, in units an investor can interpret.
 
 ## 9.5 Panel standard errors in finance
 
-Finance panels have two dependence dimensions. A **firm effect** is persistence within a firm over time, for example in
-leverage or in a firm's residual returns. A **time effect** is correlation across firms at a date, as with market-wide shocks.
-The two call for different corrections, and the literature long used the wrong one for its setting. **[Fact]** Surveying 207
-panel-data papers in the three leading finance journals, [Petersen (2009)](https://www.kellogg.northwestern.edu/faculty/petersen/htm/papers/standarderror.html){target="_blank"}
-found that 42% did not adjust standard errors for dependence in the residuals. He also found that the common practice in
-asset pricing, Fama–MacBeth, corrects for time effects and not firm effects, while White standard errors correct for
-neither.
+Finance panels have two dimensions of dependence. A **firm effect** is persistence within a firm over time, for example in leverage or in a firm's residual returns. A **time effect** is correlation across firms at a date, as with market-wide shocks. The two call for different corrections, and the literature long used the wrong one for its setting. [Fact] [Petersen (2009)](https://www.kellogg.northwestern.edu/faculty/petersen/htm/papers/standarderror.html){target="_blank"} surveyed 207 panel-data papers in the three leading finance journals and found that 42% did not adjust standard errors for dependence in the residuals. Petersen also found that the common practice in asset pricing, Fama–MacBeth, corrects for time effects and not for firm effects, while White standard errors correct for neither. The table matches the correction to the dependence.
 
 | Dependence in the residuals | Use |
 |---|---|
@@ -3671,13 +2166,11 @@ neither.
 | Both | Two-way clustering; or date fixed effects plus firm clustering, if the time effect is common to all firms |
 | Time effects that persist across dates | Driscoll–Kraay standard errors ([Driscoll & Kraay, 1998](https://doi.org/10.1162/003465398557825){target="_blank"}), or Newey–West on the Fama–MacBeth slopes |
 
-The limits of §4.4 still apply. Two-way clustering with ten years of annual data has ten time clusters, which is not enough.
+The limits of §4.4 still apply. Two-way clustering with ten years of annual data has only ten time clusters, which is not enough.
 
 ## 9.6 Multiple testing, the factor zoo, and replication
 
-Finance has run the multiple-testing experiment of §4.8 at an industrial scale. Several hundred variables have been published as
-predictors of the cross-section of stock returns, most of them tested on the same US databases. How many are real is one of the
-field's live disputes, and the positions are worth setting side by side. **[Contested]**
+Finance has run the multiple-testing experiment of §4.8 at an industrial scale. Several hundred variables have been published as predictors of the cross-section of stock returns, most of them tested on the same US databases. [Contested] How many are real is one of the field's live disputes, and the positions are worth setting side by side.
 
 - **Raise the bar.** [Harvey, Liu & Zhu (2016)](https://www.nber.org/papers/w20592){target="_blank"} argue that, given the search,
   a new factor should clear $t > 3.0$.
@@ -3693,25 +2186,13 @@ field's live disputes, and the positions are worth setting side by side. **[Cont
   because results that failed the old hurdle were never published, the data cannot pin down how much higher the hurdle should be,
   whereas false-discovery rates for published findings can be estimated well, and are modest.
 
-My reading is that these conflict less than their titles suggest. Hou, Xue & Zhang ask whether an anomaly survives an
-implementation that downweights microcaps, which is closer to asking whether it is economically important. Jensen, Kelly & Pedersen,
-and Chen & Zimmermann, ask whether the original statistical finding reproduces. Both camps find that many anomalies are concentrated in
-small, illiquid stocks and have weakened since publication. The practical implication is the same from either side: a new predictor
-should be tested value-weighted, net of costs, out of sample, and against the existing factor themes before it is believed.
+The view taken here is that these positions conflict less than their titles suggest. Hou, Xue & Zhang ask whether an anomaly survives an implementation that downweights microcaps, which is closer to asking whether it is economically important. Jensen, Kelly & Pedersen, and Chen & Zimmermann, ask whether the original statistical finding reproduces. Both camps find that many anomalies are concentrated in small, illiquid stocks and have weakened since publication. The practical implication is the same from either side. **Recommendation: before believing a new predictor, test it value-weighted, net of costs, out of sample, and against the existing factor themes.**
 
-**Data snooping in trading rules** is the same problem one level up. [Sullivan, Timmermann & White
-(1999)](https://doi.org/10.1111/0022-1082.00163){target="_blank"} applied White's reality check (§4.8) to a universe of several
-thousand technical trading rules on a century of daily Dow Jones data, adjusting for the full search that produced the best rule. In the
-ten years that followed their original sample, the best rules were not profitable. Earlier, [Lo & MacKinlay (1990)](https://www.nber.org/papers/w3001){target="_blank"} had shown how forming test
-portfolios on characteristics that were chosen *because* they are known to be related to returns biases asset-pricing tests toward
-rejection.
+**Data snooping in trading rules** is the same problem one level up. [Sullivan, Timmermann & White (1999)](https://doi.org/10.1111/0022-1082.00163){target="_blank"} applied White's reality check (§4.8) to a universe of several thousand technical trading rules on a century of daily Dow Jones data, adjusting for the full search that produced the best rule. In the ten years that followed their original sample, the best rules were not profitable. Earlier, [Lo & MacKinlay (1990)](https://www.nber.org/papers/w3001){target="_blank"} had shown that forming test portfolios on characteristics chosen *because* they are known to be related to returns biases asset-pricing tests toward rejection.
 
 ## 9.7 Backtests are econometrics
 
-A backtest estimates the mean return of a strategy. The mean is the hardest parameter in finance to estimate (§2.5). The estimate
-comes from dependent data (§4.5), after a search over configurations (§4.8), frequently with information that was not available at
-the time (§6.4), and net of costs that were assumed rather than measured. Every failure in this document can appear in a backtest,
-and none of them announces itself in the output.
+A backtest estimates the mean return of a strategy, and the mean is the hardest parameter in finance to estimate (§2.5). The estimate comes from dependent data (§4.5), after a search over configurations (§4.8), frequently with information that was not available at the time (§6.4), and net of costs that were assumed rather than measured. Every failure in this chapter can appear in a backtest, and none of them announces itself in the output. The table lists the common failures with their fixes.
 
 | Failure | Mechanism | Fix |
 |---|---|---|
@@ -3724,31 +2205,19 @@ and none of them announces itself in the output.
 | Assumed costs | Spreads and impact omitted or understated | Cost models calibrated to trade size and capacity |
 | Too short a sample | A Sharpe ratio of 0.5 needs about 16 years to reach $t = 2$ | Compute the power first (§4.7) |
 
-Two numbers from earlier sections belong next to every backtest. If a strategy's true Sharpe ratio is 0.3 and it is tested for ten
-years, a backtest that clears $t = 2$ reports a Sharpe ratio of about 0.8 on average (§4.7). And the average published anomaly lost
-more than half its return after publication (§9.1). The expected out-of-sample performance of a strategy selected from a search is
-materially below its backtest, even if nothing was done wrong. [Portfolio Construction](portfolio_construction.html), Appendix A.45–A.46,
-gives the standard error of a Sharpe ratio and the deflated Sharpe ratio. [Momentum in Financial Markets](momentum_deep_dive.html) and
-[Market Regimes and Machine Learning](market_regimes.html) cover walk-forward and purged validation in detail.
+Two numbers from earlier sections belong next to every backtest. If a strategy's true Sharpe ratio is 0.3 and it is tested for ten years, a backtest that clears $t = 2$ reports a Sharpe ratio of about 0.8 on average (§4.7). And the average published anomaly lost more than half its return after publication (§9.1). The expected out-of-sample performance of a strategy selected from a search is materially below its backtest, even if nothing was done wrong. [Portfolio Construction](portfolio_construction.html), Appendix A.45–A.46, gives the standard error of a Sharpe ratio and the deflated Sharpe ratio. [Momentum in Financial Markets](momentum_deep_dive.html) and [Market Regimes and Machine Learning](market_regimes.html) cover walk-forward and purged validation in detail.
 
 > ### §9 Key takeaways
 >
-> 1. Financial data combine small signals, fat tails, cross-sectional and serial dependence, persistent predictors, and decades of
->    collective data mining. Assume every problem in Parts I–IV is present until shown otherwise.
+> 1. Financial data combine small signals, fat tails, cross-sectional and serial dependence, persistent predictors, and decades of collective data mining. Assume every problem in Parts I–IV is present until shown otherwise.
 > 2. Published return predictors lose about a quarter of their return out of sample and more than half after publication.
-> 3. Persistent predictors whose innovations are correlated with returns bias predictive slopes upward. Long-horizon regressions add
->    little independent evidence and inflate $R^2$ mechanically.
-> 4. Short-window event studies are robust to the choice of expected-return model; long-window ones are dominated by it. Correct for
->    clustering of events in time.
-> 5. Fama–MacBeth standard errors handle correlation across assets within a date, not persistence over time or within firms. First-pass
->    betas are noisy regressors.
-> 6. Useless factors can look priced in two-pass tests, and size/value-sorted test portfolios set a low bar. Add unrelated test assets.
-> 7. Identify whether residuals have firm effects, time effects, or both before choosing a standard error; many published papers did
->    not.
-> 8. The replication debate turns partly on definitions. Either way, test a new predictor value-weighted, net of costs, out of sample,
->    and against existing factor themes.
-> 9. A backtest is an econometric estimate of the hardest parameter in finance. Expect its out-of-sample performance to be materially
->    lower, even when nothing was done wrong.
+> 3. Persistent predictors whose innovations are correlated with returns bias predictive slopes upward. Long-horizon regressions add little independent evidence and inflate $R^2$ mechanically.
+> 4. Short-window event studies are robust to the choice of expected-return model, and long-window ones are dominated by it. Correct for the clustering of events in time.
+> 5. Fama–MacBeth standard errors handle correlation across assets within a date, not persistence over time or within firms. First-pass betas are noisy regressors.
+> 6. Useless factors can look priced in two-pass tests, and size- and value-sorted test portfolios set a low bar. Add unrelated test assets.
+> 7. Identify whether the residuals have firm effects, time effects, or both before choosing a standard error. Many published papers did not.
+> 8. The replication debate turns partly on definitions. Either way, test a new predictor value-weighted, net of costs, out of sample, and against the existing factor themes.
+> 9. A backtest is an econometric estimate of the hardest parameter in finance. Expect its out-of-sample performance to be materially lower, even when nothing was done wrong.
 
 ```{=latex}
 \newpage
@@ -3756,73 +2225,35 @@ gives the standard error of a Sharpe ratio and the deflated Sharpe ratio. [Momen
 
 # 10. Prediction, model selection, and machine learning {#10-prediction}
 
-Machine learning has changed empirical finance more than any other development of the past fifteen years,
-and its relationship to econometrics is often misunderstood in both directions. Econometricians sometimes
-treat it as curve-fitting without inference. Machine-learning practitioners sometimes treat econometrics as
-a collection of outdated linear models. The accurate picture is that they answer different questions, share
-most of their mathematics, and are most powerful in combination.
+Machine learning has changed empirical finance more than any other development of the past fifteen years, and its relationship to econometrics is often misunderstood in both directions. Econometricians sometimes treat it as curve-fitting without inference. Machine-learning practitioners sometimes treat econometrics as a collection of outdated linear models. The accurate picture is that the two answer different questions, share most of their mathematics, and are most powerful in combination.
 
 ## 10.1 Two questions: $\hat Y$ and $\hat\beta$
 
-[Breiman (2001)](https://doi.org/10.1214/ss/1009213726){target="_blank"} described "two cultures" of
-statistical modelling: one that assumes a data-generating model and estimates its parameters, and one that
-treats the mechanism as unknown and optimises predictive accuracy. [Shmueli
-(2010)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1351252){target="_blank"} put the same point as
-*explaining* versus *predicting*. For applied work, [Mullainathan & Spiess
-(2017)](https://doi.org/10.1257/jep.31.2.87){target="_blank"} give the sharpest form: some problems are about
-$\hat Y$, a good prediction of the outcome, and some are about $\hat\beta$, a good estimate of a parameter.
+[Breiman (2001)](https://doi.org/10.1214/ss/1009213726){target="_blank"} described "two cultures" of statistical modelling. One assumes a data-generating model and estimates its parameters. The other treats the mechanism as unknown and optimises predictive accuracy. [Shmueli (2010)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1351252){target="_blank"} put the same point as *explaining* versus *predicting*. For applied work, [Mullainathan & Spiess (2017)](https://doi.org/10.1257/jep.31.2.87){target="_blank"} give the sharpest form. Some problems are about $\hat Y$, a good prediction of the outcome, and some are about $\hat\beta$, a good estimate of a parameter.
 
-Machine learning is built for $\hat Y$ problems, and it is very good at them. Its parameters are not built to
-be interpreted. When predictors are correlated, a LASSO fitted on two random halves of the same data can select
-quite different variables while producing nearly identical predictions. The predictions are stable, and the
-coefficients that generate them are not. **Feature importances from a predictive model are statements about
-the model, not about the world.**
+Machine learning is built for $\hat Y$ problems, and it is very good at them. Its parameters are not built to be interpreted. When predictors are correlated, a LASSO fitted on two random halves of the same data can select quite different variables while producing nearly identical predictions. The predictions are stable, and the coefficients that generate them are not. **Feature importances from a predictive model are statements about the model, not about the world.**
 
-Some decisions genuinely need only a prediction. [Kleinberg, Ludwig, Mullainathan & Obermeyer
-(2015)](https://doi.org/10.1257/aer.p20151023){target="_blank"} call them "prediction policy problems": deciding
-whether to carry an umbrella requires a forecast of rain, not the causal effect of umbrellas on rain. In finance,
-return forecasting, risk models, and default prediction are $\hat Y$ problems. Evaluating whether a hedging
-programme reduced a firm's cost of capital, or whether a regulation reduced liquidity, is a $\hat\beta$ problem.
+Some decisions need only a prediction. [Kleinberg, Ludwig, Mullainathan & Obermeyer (2015)](https://doi.org/10.1257/aer.p20151023){target="_blank"} call them "prediction policy problems." Deciding whether to carry an umbrella requires a forecast of rain, not the causal effect of umbrellas on rain. In finance, return forecasting, risk models, and default prediction are $\hat Y$ problems. Evaluating whether a hedging programme reduced a firm's cost of capital, or whether a regulation reduced liquidity, is a $\hat\beta$ problem.
 
-The two errors mirror each other. Reading a predictive model's coefficients causally is the mistake of §1.4.
-Using a causal estimate to predict outcomes in a different population or period assumes an external validity the
-design never established.
+The two errors mirror each other. Reading a predictive model's coefficients causally is the mistake of §1.4. Using a causal estimate to predict outcomes in a different population or period assumes an external validity that the design never established.
 
 ## 10.2 Overfitting, measured
 
-For linear regression with $k$ estimated coefficients, $n$ observations, and error variance $\sigma^2$, the
-expected mean squared error in the estimation sample is $\sigma^2(1 - k/n)$, while the expected error on new
-observations with the same regressors is $\sigma^2(1 + k/n)$. **[Fact]** The gap, about $2\sigma^2k/n$, is the
-**optimism** of in-sample fit, and it is the basis of Mallows's $C_p$ and of the AIC. With 20 coefficients and 100
-observations, in-sample error understates the noise variance by 20% and out-of-sample error exceeds it by 20%.
+Consider linear regression with $k$ estimated coefficients, $n$ observations, and error variance $\sigma^2$. The expected mean squared error in the estimation sample is $\sigma^2(1 - k/n)$, while the expected error on new observations with the same regressors is $\sigma^2(1 + k/n)$. [Fact] The gap, about $2\sigma^2k/n$, is the **optimism** of in-sample fit, and it is the basis of Mallows's $C_p$ and of the AIC. With 20 coefficients and 100 observations, in-sample error understates the noise variance by 20%, and out-of-sample error exceeds it by 20%.
 
-This arithmetic is decisive for return prediction, and it is worth a short derivation. Suppose the true predictors
-explain a share $\rho^2$ of the variance of returns, and they are estimated by OLS with $k$ coefficients. The
-forecast's out-of-sample mean squared error is roughly $(1 - \rho^2)(1 + k/n)$ in units of the return variance,
-while the historical mean's is roughly $1 + 1/n$. Out-of-sample $R^2$ compares the two,
-$R^2_{\text{OS}} = 1 - \text{MSE}_{\text{model}}/\text{MSE}_{\text{null}}$ (§3.8), so it is approximately
+This arithmetic is decisive for return prediction, and a short derivation shows why. Suppose the true predictors explain a share $\rho^2$ of the variance of returns, and OLS estimates them with $k$ coefficients. In units of the return variance, the forecast's out-of-sample mean squared error is roughly $(1 - \rho^2)(1 + k/n)$, while the historical mean's is roughly $1 + 1/n$. Out-of-sample $R^2$ compares the two, $R^2_{\text{OS}} = 1 - \text{MSE}_{\text{model}}/\text{MSE}_{\text{null}}$ (§3.8), so it is approximately
 
 $$
 R^2_{\text{OS}} \approx \rho^2 - \frac{k}{n}\,(1 - \rho^2) \approx \rho^2 - \frac{k}{n},
 $$
 
-which is positive only if $n > k/\rho^2$. With a true monthly $R^2$ of 1% and ten predictors, that is 1,000
-months, or 83 years. **An unrestricted regression of monthly returns on ten individually sensible predictors is
-expected to lose to the historical mean out of sample, even if every predictor is genuinely informative.** This is
-my calculation, and it is the reason shrinkage, sign restrictions, and forecast combination (§8.8) matter so much
-in this setting: each one reduces the effective $k$.
+which is positive only if $n > k/\rho^2$. With a true monthly $R^2$ of 1% and ten predictors, that threshold is 1,000 months, or 83 years. **An unrestricted regression of monthly returns on ten individually sensible predictors is expected to lose to the historical mean out of sample, even if every predictor is truly informative.** The calculation is this chapter's own, not a published result. It is the reason that shrinkage, sign restrictions, and forecast combination (§8.8) matter so much in this setting: each one reduces the effective $k$.
 
-The same logic is at the centre of a live debate. [Kelly, Malamud & Zhou
-(2024)](https://www.nber.org/papers/w30217){target="_blank"} argue that heavily over-parameterised models, with
-far more parameters than observations and strong ridge shrinkage, can predict returns *better* than parsimonious
-ones, a "virtue of complexity." [Nagel (2025)](https://www.nber.org/papers/w34104){target="_blank"} shows that the
-method, trained in short rolling windows, reduces to a volatility-timed momentum strategy. That strategy happened
-to perform well historically, and the method constructs the same strategy on artificial data in which returns
-reverse, where it performs poorly. **[Contested]**
+The same logic is at the centre of a live debate. [Kelly, Malamud & Zhou (2024)](https://www.nber.org/papers/w30217){target="_blank"} argue that heavily over-parameterised models can predict returns *better* than parsimonious ones, a "virtue of complexity." Their models have far more parameters than observations and strong ridge shrinkage. [Contested] [Nagel (2025)](https://www.nber.org/papers/w34104){target="_blank"} shows that the method, trained in short rolling windows, reduces to a volatility-timed momentum strategy. That strategy happened to perform well historically. On artificial data in which returns reverse, the method constructs the same strategy, and there it performs poorly.
 
 ## 10.3 Model selection: AIC, BIC, and cross-validation
 
-Choosing among models trades fit against complexity, and the three standard tools target different things.
+Choosing among models trades fit against complexity, and the three standard tools target different things, as the table shows.
 
 | Criterion | Formula or procedure | What it targets | Tendency |
 |---|---|---|---|
@@ -3832,17 +2263,11 @@ Choosing among models trades fit against complexity, and the three standard tool
 
 $L$ is the maximised likelihood, and $k$ the number of estimated parameters.
 
-**Inference after selection is invalid.** Choosing a model with the data and then reporting that model's standard
-errors as if it had been fixed in advance gives confidence intervals that are too narrow. The distribution of an
-estimator after data-driven selection is not normal and cannot be estimated uniformly well ([Leeb & Pötscher,
-2005](https://doi.org/10.1017/s0266466605050036){target="_blank"}). **[Fact]** The most common instance in applied
-work is choosing control variables by their significance. A control that is insignificant in the outcome equation
-but strongly correlated with the treatment gets dropped, and the omitted-variable bias of §3.5 returns. §10.5 gives
-the fix.
+**Inference after selection is invalid.** Choosing a model with the data, and then reporting that model's standard errors as if it had been fixed in advance, gives confidence intervals that are too narrow. The distribution of an estimator after data-driven selection is not normal, and it cannot be estimated uniformly well ([Leeb & Pötscher, 2005](https://doi.org/10.1017/s0266466605050036){target="_blank"}). [Fact] The most common instance in applied work is choosing control variables by their significance. A control that is insignificant in the outcome equation but strongly correlated with the treatment gets dropped, and the omitted-variable bias of §3.5 returns. §10.5 gives the fix.
 
 ## 10.4 Regularisation
 
-Shrinkage (§5.6) is the main defence against overfitting when the number of candidate predictors is large.
+Shrinkage (§5.6) is the main defence against overfitting when the number of candidate predictors is large. The common forms are these:
 
 - **Ridge** shrinks all coefficients proportionally. It suits many small, correlated effects, which is the usual
   shape of return predictability.
@@ -3853,33 +2278,17 @@ Shrinkage (§5.6) is the main defence against overfitting when the number of can
 - **Trees, boosting, and neural networks** allow nonlinearity and interactions, and are regularised by depth,
   learning rate, early stopping, and dropout rather than by an explicit coefficient penalty.
 
-Every penalty strength or architecture choice is a hyperparameter, tuned by cross-validation. The benchmark
-evidence for return prediction is [Gu, Kelly & Xiu (2020)](https://www.nber.org/papers/w25398){target="_blank"}.
-With more than 900 candidate predictors, ordinary least squares on all of them had a negative out-of-sample $R^2$.
-Penalised and dimension-reduction linear models recovered small positive values, and tree ensembles and neural
-networks did best, with the best neural network reaching a monthly out-of-sample $R^2$ of about 0.4% for individual
-stocks. By the arithmetic of §3.8 those are economically meaningful
-numbers, and by the arithmetic of §10.2 they are about what careful regularisation should be expected to deliver.
+Every penalty strength or architecture choice is a hyperparameter, tuned by cross-validation. The benchmark evidence for return prediction is [Gu, Kelly & Xiu (2020)](https://www.nber.org/papers/w25398){target="_blank"}. With more than 900 candidate predictors, ordinary least squares on all of them had a negative out-of-sample $R^2$. Penalised and dimension-reduction linear models recovered small positive values. Tree ensembles and neural networks did best, and the best neural network reached a monthly out-of-sample $R^2$ of about 0.4% for individual stocks. By the arithmetic of §3.8 those numbers are economically meaningful, and by the arithmetic of §10.2 they are about what careful regularisation should be expected to deliver.
 
 ## 10.5 Machine learning for causal parameters
 
-The most important recent development at the boundary is the use of machine learning *inside* causal estimators.
-The problem it solves is common. You want the effect $\theta$ of a treatment $D$ on $Y$, and there are many potential
-confounders $X$, more than a regression can handle without overfitting, or entering in unknown nonlinear ways.
+The most important recent development at the boundary is the use of machine learning *inside* causal estimators. The problem it solves is common. The target is the effect $\theta$ of a treatment $D$ on $Y$, and there are many potential confounders $X$. There may be more of them than a regression can handle without overfitting, or they may enter in unknown non-linear ways.
 
-**Why naive approaches fail.** Fit a LASSO of $Y$ on $D$ and $X$, and the penalty drops controls that are weakly
-related to $Y$ even when they are strongly related to $D$. That is omitted-variable bias created by the regularisation
-itself.
+**Why naive approaches fail.** A LASSO of $Y$ on $D$ and $X$ drops controls that are weakly related to $Y$, even when they are strongly related to $D$. The regularisation itself then creates omitted-variable bias.
 
-**Post-double selection.** [Belloni, Chernozhukov & Hansen (2014)](https://arxiv.org/abs/1201.0224){target="_blank"}
-select controls that predict $Y$, separately select controls that predict $D$, and regress $Y$ on $D$ and the *union*.
-A confounder strongly related to either side is kept, and inference on $\theta$ is valid under approximate sparsity.
+**Post-double selection.** [Belloni, Chernozhukov & Hansen (2014)](https://arxiv.org/abs/1201.0224){target="_blank"} select the controls that predict $Y$, separately select the controls that predict $D$, and regress $Y$ on $D$ and the *union* of the two sets. A confounder strongly related to either side is kept, and inference on $\theta$ is valid under approximate sparsity.
 
-**Double/debiased machine learning (DML).** [Chernozhukov et al. (2018)](https://arxiv.org/abs/1608.00060){target="_blank"}
-generalise the idea. Take the partially linear model $Y = \theta D + g(X) + u$ and $D = \pi(X) + v$, where $\pi(X)$ is a
-flexible first stage, the nonlinear counterpart of the coefficient $\pi$ of §7.3. Write $\ell(X) \equiv \mathbb{E}[Y \mid X]
-= \theta\,\pi(X) + g(X)$ for the best prediction of $Y$ from $X$ alone. It is not the same function as $g$, because $X$
-predicts $Y$ partly through $D$.
+**Double/debiased machine learning (DML).** [Chernozhukov et al. (2018)](https://arxiv.org/abs/1608.00060){target="_blank"} generalise the idea. Take the partially linear model $Y = \theta D + g(X) + u$ and $D = \pi(X) + v$, where $\pi(X)$ is a flexible first stage, the non-linear counterpart of the coefficient $\pi$ of §7.3. Write $\ell(X) \equiv \mathbb{E}[Y \mid X] = \theta\,\pi(X) + g(X)$ for the best prediction of $Y$ from $X$ alone. It is not the same function as $g$, because $X$ predicts $Y$ partly through $D$. The estimator has two steps.
 
 1. Predict $Y$ from $X$ with any machine-learning method to get $\hat\ell(X)$, and predict $D$ from $X$ the same way
    to get $\hat\pi(X)$.
@@ -3893,21 +2302,13 @@ This is Frisch–Waugh–Lovell (§3.4) with flexible first stages. Two ingredie
 - **Cross-fitting.** The prediction functions are estimated on folds of the data that are not used to compute the
   residuals, so their overfitting does not contaminate the second step.
 
-The result is a $\sqrt n$-consistent, approximately normal $\hat\theta$ with an ordinary sandwich standard error. It is
-the master form of §1.5 with a carefully chosen $\psi$. For effects that vary with characteristics, **causal forests**
-estimate the conditional average treatment effect with valid confidence intervals ([Wager & Athey,
-2018](https://arxiv.org/abs/1510.04342){target="_blank"}). [Athey & Imbens (2019)](https://arxiv.org/abs/1903.10075){target="_blank"}
-survey the toolkit.
+The result is a $\sqrt n$-consistent, approximately normal $\hat\theta$ with an ordinary sandwich standard error. It is the master form of §1.5 with a carefully chosen $\psi$. For effects that vary with characteristics, **causal forests** estimate the conditional average treatment effect with valid confidence intervals ([Wager & Athey, 2018](https://arxiv.org/abs/1510.04342){target="_blank"}). [Athey & Imbens (2019)](https://arxiv.org/abs/1903.10075){target="_blank"} survey the toolkit.
 
-**What machine learning does not do: it does not create identification.** DML still requires unconfoundedness given
-$X$ (§6.6). It makes adjusting for many controls feasible without bias; it does not make the controls sufficient.
-Machine learning is an estimator, not a research design.
+**What machine learning does not do: it does not create identification.** DML still requires unconfoundedness given $X$ (§6.6). It makes adjusting for many controls feasible without bias, and it does not make the controls sufficient. Machine learning is an estimator, not a research design.
 
 ## 10.6 Validation with dependent data
 
-Cross-validation estimates out-of-sample loss honestly only if the held-out data are genuinely unseen. Random
-$K$-fold cross-validation assumes the observations are exchangeable. With time series, overlapping labels, or assets that
-share shocks, that assumption fails, and information leaks from the training folds into the test folds.
+Cross-validation estimates out-of-sample loss honestly only if the held-out data are truly unseen. Random $K$-fold cross-validation assumes that the observations are exchangeable. With time series, overlapping labels, or assets that share shocks, that assumption fails, and information leaks from the training folds into the test folds. There are three common leaks:
 
 - **Serial dependence.** A test observation's neighbours in time sit in the training set and carry information about it.
 - **Overlapping labels.** A 20-day forward return on Monday and one on Tuesday share 19 days. With one in training and one
@@ -3915,7 +2316,7 @@ share shocks, that assumption fails, and information leaks from the training fol
 - **Cross-sectional dependence.** Stocks on the same date share market and industry shocks, so splitting assets rather
   than dates leaks the date's shock.
 
-The remedies follow from the leak:
+The remedies follow from the leaks:
 
 - **Walk-forward (forward-chaining) validation.** Train only on the past, and test on the future.
 - **Purging and embargo.** Remove training observations whose label windows overlap the test period, and a buffer after
@@ -3924,25 +2325,17 @@ The remedies follow from the leak:
 - **Group by date** when splitting panels.
 - **Nested validation.** Tune hyperparameters inside the training folds only, and keep a final holdout that is used once.
 
-One more trap sits on top of all of these. **Hyperparameter search is multiple testing.** The cross-validated loss of
-the best of 200 configurations is an optimistic estimate of that configuration's out-of-sample loss, for exactly the
-reason in §4.8. The holdout exists to measure how optimistic.
+One more trap sits on top of all of these. **Hyperparameter search is multiple testing.** The cross-validated loss of the best of 200 configurations is an optimistic estimate of that configuration's out-of-sample loss, for exactly the reason given in §4.8. The holdout exists to measure how optimistic.
 
 > ### §10 Key takeaways
 >
-> 1. Machine learning answers $\hat Y$ questions and econometric designs answer $\hat\beta$ questions. Feature importances
->    describe a model, not the world.
-> 2. In-sample fit overstates out-of-sample fit by about $2\sigma^2k/n$. For return prediction, an unrestricted regression
->    needs roughly $k/\rho^2$ observations just to beat the historical mean.
-> 3. AIC targets prediction, BIC targets the true model, and cross-validation targets out-of-sample loss directly. Standard
->    errors after data-driven model selection are invalid.
-> 4. Shrinkage is the main defence against overfitting. Realistic out-of-sample monthly $R^2$ values for individual stocks are
->    fractions of a percent, and are economically meaningful.
-> 5. Selecting controls by significance recreates omitted-variable bias. Use double selection or double machine learning,
->    whose orthogonal moments and cross-fitting deliver valid inference on a causal parameter.
+> 1. Machine learning answers $\hat Y$ questions, and econometric designs answer $\hat\beta$ questions. Feature importances describe a model, not the world.
+> 2. In-sample fit overstates out-of-sample fit by about $2\sigma^2k/n$. For return prediction, an unrestricted regression needs roughly $k/\rho^2$ observations just to beat the historical mean.
+> 3. AIC targets prediction, BIC targets the true model, and cross-validation targets out-of-sample loss directly. Standard errors after data-driven model selection are invalid.
+> 4. Shrinkage is the main defence against overfitting. Realistic out-of-sample monthly $R^2$ values for individual stocks are fractions of a percent, and they are economically meaningful.
+> 5. Selecting controls by significance recreates omitted-variable bias. Use double selection or double machine learning, whose orthogonal moments and cross-fitting deliver valid inference on a causal parameter.
 > 6. Machine learning is an estimator, not a research design. DML still needs unconfoundedness.
-> 7. Random $K$-fold cross-validation leaks on time series, overlapping labels, and panels. Walk forward, purge, embargo, group
->    by date, and treat hyperparameter search as multiple testing.
+> 7. Random $K$-fold cross-validation leaks on time series, overlapping labels, and panels. Walk forward, purge, embargo, group by date, and treat hyperparameter search as multiple testing.
 
 ```{=latex}
 \newpage
@@ -3950,12 +2343,11 @@ reason in §4.8. The holdout exists to measure how optimistic.
 
 # 11. The practice of applied econometrics {#11-practice}
 
-The previous sections describe methods. This one describes the habits that decide whether methods produce knowledge.
-Almost none of it is mathematically difficult, and almost all of it is routinely skipped.
+The previous sections describe methods. This one describes the habits that decide whether methods produce knowledge. Almost none of the material is mathematically difficult, and almost all of it is routinely skipped.
 
 ## 11.1 Where the effort should go
 
-**[Practice]** Ranked by how much they typically determine whether a result is right:
+[Practice] The list ranks the parts of an analysis by how much each typically determines whether a result is right:
 
 1. **The question and the estimand.** What decision will the answer inform, and what exact population quantity would
    inform it? A wrong estimand makes everything downstream irrelevant.
@@ -3968,11 +2360,11 @@ Almost none of it is mathematically difficult, and almost all of it is routinely
 6. **The estimator.**
 7. **Software and computation.**
 
-Effort is usually allocated in close to the reverse order, because the bottom of the list is where the interesting
-tools are and the top is where the tedious work is. The allocation that works is the one on the list, and early
-stages are not preliminaries to the analysis: they are most of it.
+Effort is usually allocated in close to the reverse order, because the bottom of the list is where the interesting tools are and the top is where the tedious work is. The allocation that works follows the list. The early stages are not preliminaries to the analysis; they are most of it.
 
 ## 11.2 A workflow
+
+The diagram sets out the workflow, including the loop back to identification when a diagnostic fails.
 
 ```mermaid
 flowchart TD
@@ -3992,20 +2384,13 @@ flowchart TD
     style K fill:#0b6e75,color:#fff
 ```
 
-Two steps deserve emphasis because they are the ones most often skipped. **Step 3** separates choices from the data
-that judge them (§4.8). A dated note written before the outcome data are examined is enough for most internal
-research. **Step 5** catches problems no estimator can: [Anscombe (1973)](https://doi.org/10.1080/00031305.1973.10478966){target="_blank"}
-constructed four datasets with identical means, variances, correlations, and regression lines that look completely
-different when plotted. Binned scatter plots are the standard way to look at a conditional mean with many observations,
-and they have their own pitfalls, notably residualising the controls in a way that distorts the picture ([Cattaneo, Crump,
-Farrell & Feng, 2024](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3344739){target="_blank"}).
+Two steps deserve emphasis, because they are the ones most often skipped. **Step 3** separates choices from the data that judge them (§4.8). A dated note written before the outcome data are examined is enough for most internal research. **Step 5** catches problems that no estimator can. [Anscombe (1973)](https://doi.org/10.1080/00031305.1973.10478966){target="_blank"} constructed four datasets with identical means, variances, correlations, and regression lines that look completely different when plotted. Binned scatter plots are the standard way to look at a conditional mean with many observations. They have their own pitfalls, notably residualising the controls in a way that distorts the picture ([Cattaneo, Crump, Farrell & Feng, 2024](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3344739){target="_blank"}).
 
-The dotted arrow matters as much as the solid ones. When a design diagnostic fails, the right response is to return to
-the identification argument, not to search for a specification in which the diagnostic passes.
+The dotted arrow matters as much as the solid ones. When a design diagnostic fails, the right response is to return to the identification argument, not to search for a specification in which the diagnostic passes.
 
 ## 11.3 Data work
 
-**[Practice]** Most wrong results in empirical finance are data errors, not econometric errors. The recurring ones:
+[Practice] Most wrong results in empirical finance are data errors, not econometric errors. The recurring ones are these:
 
 - **Joins.** Merges that silently duplicate or drop rows. Count rows before and after every join, and check key
   uniqueness on both sides.
@@ -4024,26 +2409,13 @@ the identification argument, not to search for a specification in which the diag
 
 ## 11.4 Specification and robustness
 
-**Functional form.** A linear specification estimates the best linear approximation to the conditional mean (§3.2), which
-is fine when it is close and misleading when it is not. Binned plots, splines, and tests for omitted nonlinearity, such as
-the RESET test ([Ramsey, 1969](https://doi.org/10.1111/j.2517-6161.1969.tb00796.x){target="_blank"}), show which case you
-are in.
+**Functional form.** A linear specification estimates the best linear approximation to the conditional mean (§3.2). That approximation is fine when it is close and misleading when it is not. Binned plots, splines, and tests for omitted non-linearity, such as the RESET test ([Ramsey, 1969](https://doi.org/10.1111/j.2517-6161.1969.tb00796.x){target="_blank"}), show which case applies.
 
-**Diagnostics are also forks.** Running a diagnostic, respecifying when it fails, and reporting the specification that passes
-is a specification search with extra steps. Decide in advance which diagnostic results would change the specification, and
-report them whatever they show.
+**Diagnostics are also forks.** Running a diagnostic, respecifying when it fails, and reporting the specification that passes is a specification search with extra steps. Decide in advance which diagnostic results would change the specification, and report them whatever they show.
 
-**Robustness tables versus specification curves.** A conventional robustness table shows a handful of alternatives chosen by
-the author, and so shows the tail of a distribution the author selected. A **specification curve** estimates the model under
-every combination of reasonable analytical choices, sorts the estimates, and displays which choices produced which estimates
-([Simonsohn, Simmons & Nelson, 2020](https://doi.org/10.1038/s41562-020-0912-z){target="_blank"}). The idea goes back to
-Leamer's "extreme bounds" ([Leamer, 1983](https://pricetheory.uchicago.edu/levitt/Papers/Leamer1983.pdf){target="_blank"}),
-which asked whether a coefficient keeps its sign across all specifications, and to [Sala-i-Martin
-(1997)](https://www.nber.org/papers/w6252){target="_blank"}, who argued for looking at the whole distribution of estimates
-across millions of control sets rather than the extremes. The claim a specification curve supports is honest: "across
-the choices a reasonable analyst might make, the estimate lies in this range."
+**Robustness tables versus specification curves.** A conventional robustness table shows a handful of alternatives chosen by the author, so it shows the tail of a distribution that the author selected. A **specification curve** estimates the model under every combination of reasonable analytical choices, sorts the estimates, and displays which choices produced which estimates ([Simonsohn, Simmons & Nelson, 2020](https://doi.org/10.1038/s41562-020-0912-z){target="_blank"}). The idea goes back to Leamer's "extreme bounds" ([Leamer, 1983](https://pricetheory.uchicago.edu/levitt/Papers/Leamer1983.pdf){target="_blank"}), which asked whether a coefficient keeps its sign across all specifications. It also goes back to [Sala-i-Martin (1997)](https://www.nber.org/papers/w6252){target="_blank"}, who argued for looking at the whole distribution of estimates across millions of control sets instead of at the extremes. The claim a specification curve supports is honest: "across the choices a reasonable analyst might make, the estimate lies in this range."
 
-**Sensitivity to what was not observed** belongs in the same section of a report as sensitivity to what was (§6.7).
+**Sensitivity to what was not observed** belongs in the same section of a report as sensitivity to what was observed (§6.7).
 
 ## 11.5 Reporting
 
@@ -4056,21 +2428,13 @@ the choices a reasonable analyst might make, the estimate lies in this range."
 - **Make it reproducible.** Leading economics journals now require data and code sufficient to reproduce the results, and
   internal research should meet the same standard.
 
-The reason for these norms is measurable. **[Fact]** [Brodeur, Lé, Sangnier & Zylberberg
-(2016)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2238281){target="_blank"} found that the distribution of test
-statistics published in top economics journals has a shortage just below conventional significance thresholds and an excess
-just above them. [Brodeur, Cook & Heyes (2020)](https://doi.org/10.1257/aer.20190687){target="_blank"} examined thousands of
-hypothesis tests in 25 leading journals and found that the problem varies by method: it is substantial in IV and
-difference-in-differences studies, and much smaller in randomised trials and regression discontinuity designs. The designs
-that leave more discretion to the researcher show more signs of it.
+The reason for these norms is measurable. [Fact] [Brodeur, Lé, Sangnier & Zylberberg (2016)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2238281){target="_blank"} found that the distribution of test statistics published in top economics journals has a shortage just below conventional significance thresholds and an excess just above them. [Brodeur, Cook & Heyes (2020)](https://doi.org/10.1257/aer.20190687){target="_blank"} examined thousands of hypothesis tests in 25 leading journals and found that the problem varies by method. It is substantial in IV and difference-in-differences studies, and much smaller in randomised trials and regression discontinuity designs. The designs that leave more discretion to the researcher show more signs of it.
 
-**[Practice]** In a quantitative research group, the equivalent of a pre-registration is a **research log** that records every
-backtest run, not just the ones that were kept. It turns "how many things did we try?" from a guess into a number, which is what
-the deflated Sharpe ratio and every multiple-testing correction need as an input (§4.8).
+[Practice] In a quantitative research group, the equivalent of a pre-registration is a **research log** that records every backtest run, not just the ones that were kept. The log turns "how many things were tried?" from a guess into a number. That number is the input that the deflated Sharpe ratio and every multiple-testing correction need (§4.8).
 
 ## 11.6 A catalogue of failure modes
 
-The table collects the failure modes of the whole document in one place, with a pointer to where each is explained.
+The table collects the failure modes of the whole chapter in one place, with a pointer to where each is explained.
 
 ```{=latex}
 \newpage
@@ -4107,16 +2471,13 @@ The table collects the failure modes of the whole document in one place, with a 
 
 > ### §11 Key takeaways
 >
-> 1. Effort should go to the question, the data, and identification before specification, inference, and estimators, which
->    is close to the reverse of how it is usually spent.
-> 2. Most wrong results in empirical finance are data errors: joins, units, timing, corporate actions, delistings.
+> 1. Effort should go to the question, the data, and identification before specification, inference, and estimators. That order is close to the reverse of how effort is usually spent.
+> 2. Most wrong results in empirical finance are data errors: joins, units, timing, corporate actions, and delistings.
 > 3. Plot the data before estimating anything. Summary statistics can be identical for data that look nothing alike.
 > 4. Diagnostics that trigger respecification are forks in the path. Decide in advance what they would change.
-> 5. Report a specification curve rather than a curated robustness table: the claim is the range of estimates across
->    reasonable choices.
+> 5. Report a specification curve instead of a curated robustness table. The claim is the range of estimates across reasonable choices.
 > 6. Show the design (first stage, event-study plot, density test, pre-period fit, overlap), not just the estimate.
-> 7. Published test statistics bunch just above significance thresholds, most of all in the designs with the most
->    researcher discretion. Keep a log of everything tried.
+> 7. Published test statistics bunch just above significance thresholds, most of all in the designs with the most researcher discretion. Keep a log of everything tried.
 
 ```{=latex}
 \newpage
@@ -4128,9 +2489,7 @@ The table collects the failure modes of the whole document in one place, with a 
 
 ## 12.1 The design space as a product
 
-A flat list of methods ("OLS, IV, GMM, fixed effects, DiD, clustered errors, Newey–West, LASSO…") hides the fact that
-these are answers to different questions. Every empirical study is a *coordinate* in a product space of four
-independent choices, and most methods in the literature are names for a choice on one axis only.
+A flat list of methods ("OLS, IV, GMM, fixed effects, DiD, clustered errors, Newey–West, LASSO…") hides the fact that these are answers to different questions. Every empirical study is a *coordinate* in a product space of four independent choices, and most methods in the literature are names for a choice on one axis only. The table defines the four axes.
 
 | Axis | What it decides | Choices |
 |---|---|---|
@@ -4139,13 +2498,9 @@ independent choices, and most methods in the literature are names for a choice o
 | **3. Estimator** | How the sample moment condition is formed and solved | OLS; IV and GMM; maximum and quasi-maximum likelihood; quantile and robust M-estimators; shrinkage; machine-learning-assisted (DML) |
 | **4. Meat** | What is independent of what | Independent; heteroskedastic; clustered one-way or two-way; HAC; Driscoll–Kraay; Fama–MacBeth; bootstrap by the independent unit |
 
-A prediction problem replaces axis 2 with a **validation design**: in-sample fit, random cross-validation, walk-forward,
-or purged and grouped splits (§10.6).
+A prediction problem replaces axis 2 with a **validation design**: in-sample fit, random cross-validation, walk-forward validation, or purged and grouped splits (§10.6).
 
-Seen this way, "difference-in-differences with clustered standard errors" is a coordinate (ATT, timing, OLS with fixed effects,
-clustered by state), and so is "a Fama–MacBeth regression" (a projection or risk premium, characteristics as regressors, period-by-period
-OLS, a meat that treats each date as one observation). The empty cells are informative too. There is no reason, for instance, not
-to pair a regression-discontinuity design with a wild cluster bootstrap when the running variable is assigned at the cluster level.
+Seen this way, "difference-in-differences with clustered standard errors" is a coordinate: ATT, timing, OLS with fixed effects, and clustering by state. So is "a Fama–MacBeth regression": a projection or risk premium, characteristics as regressors, period-by-period OLS, and a meat that treats each date as one observation. The empty cells are informative too. There is no reason, for instance, not to pair a regression-discontinuity design with a wild cluster bootstrap when the running variable is assigned at the cluster level. The diagram shows the two axes that are most often confused.
 
 ```mermaid
 flowchart LR
@@ -4175,14 +2530,11 @@ flowchart LR
     style R5 fill:#a8452b,color:#fff
 ```
 
-The shading runs from variation that is random by construction to variation that is random only by assumption. The meat is
-drawn separately because it is not a design: every design needs one, and choosing it is a question about the data rather than
-about identification.
+The shading runs from variation that is random by construction to variation that is random only by assumption. The meat is drawn separately because it is not a design. Every design needs one, and choosing it is a question about the data, not about identification.
 
 ## 12.2 Equivalences
 
-Things that look different and are provably the same. The status column says whether the identity is exact, holds only
-asymptotically, or holds under a stated condition.
+The table lists relationships between methods that look different but are provably the same. The status column says whether each identity is exact, holds only asymptotically, or holds under a stated condition.
 
 ```{=latex}
 \newpage
@@ -4232,6 +2584,8 @@ asymptotically, or holds under a stated condition.
 
 ## 12.3 Same name, different thing
 
+The table lists terms that carry more than one meaning, so that a reader can tell which object a given use refers to.
+
 | Term | One meaning | Another meaning |
 |---|---|---|
 | **Fixed effects** | Unit-specific intercepts, allowed to correlate with the regressors (econometrics) | Non-random effects, as opposed to random effects in a mixed model (statistics) |
@@ -4254,29 +2608,18 @@ asymptotically, or holds under a stated condition.
 
 The product space has four axes, and they do not matter equally.
 
-- **For causal questions, the identifying variation dominates.** LaLonde's comparison (§1.1) and its successors show
-  estimates on the same data varying by more than the effect itself when the source of variation changes. Under a
-  *fixed* identifying assumption with good overlap, different estimators tend to agree with each other ([Imbens & Xu,
-  2025](https://arxiv.org/abs/2406.00827){target="_blank"}), and whether they agree with the truth depends on the assumption,
-  not on which estimator was used. **[Practice]**
-- **For inference, the meat dominates.** Choosing the wrong dependence structure changes standard errors by factors of two to
-  seven in realistic settings (§4.4, §4.5, §9.2). No estimator choice has an effect of that size on precision.
-- **For prediction, the effective number of parameters relative to the signal dominates.** With low signal-to-noise, the
-  $k/n$ term of §10.2 decides whether a model beats a naive benchmark, which is why shrinkage and combination beat cleverness.
-- **The estimator is rarely the binding choice**, except in the weak-identification cases (weak instruments, many moments,
-  near-unit roots) where the default estimator's approximations break down.
+- **For causal questions, the identifying variation dominates.** LaLonde's comparison (§1.1) and its successors show estimates on the same data varying by more than the effect itself when the source of variation changes. [Practice] Under a *fixed* identifying assumption with good overlap, different estimators tend to agree with each other ([Imbens & Xu, 2025](https://arxiv.org/abs/2406.00827){target="_blank"}). Whether they agree with the truth depends on the assumption, not on which estimator was used.
+- **For inference, the meat dominates.** Choosing the wrong dependence structure changes standard errors by factors of two to seven in realistic settings (§4.4, §4.5, §9.2). No estimator choice has an effect of that size on precision.
+- **For prediction, the effective number of parameters relative to the signal dominates.** With a low signal-to-noise ratio, the $k/n$ term of §10.2 decides whether a model beats a naive benchmark. That is why shrinkage and combination beat cleverness.
+- **The estimator is rarely the binding choice.** The exceptions are the weak-identification cases (weak instruments, many moments, near-unit roots), where the default estimator's approximations break down.
 
 > ### §12 Key takeaways
 >
-> 1. Every empirical study is a coordinate on four axes: estimand, identifying variation, estimator, and meat. Most method names
->    describe one axis only.
+> 1. Every empirical study is a coordinate on four axes: estimand, identifying variation, estimator, and meat. Most method names describe one axis only.
 > 2. The meat is not a design. Every design needs one, and choosing it is a question about the dependence in the data.
-> 3. Many apparently different methods are algebraically identical: IV is a ratio of regressions, fixed effects are demeaning,
->    DML is Frisch–Waugh–Lovell, fuzzy RD is IV, ridge is a Bayesian posterior.
-> 4. Many shared names hide different objects: "event study," "robust," "fixed effects," "structural," and "causality" each mean at
->    least two things.
-> 5. Identifying variation dominates causal conclusions, the meat dominates inference, and the parameter count relative to signal
->    dominates prediction. The estimator is rarely the binding choice.
+> 3. Many apparently different methods are algebraically identical: IV is a ratio of regressions, fixed effects are demeaning, DML is Frisch–Waugh–Lovell, fuzzy RD is IV, and ridge is a Bayesian posterior.
+> 4. Many shared names hide different objects. "Event study," "robust," "fixed effects," "structural," and "causality" each mean at least two things.
+> 5. Identifying variation dominates causal conclusions, the meat dominates inference, and the parameter count relative to the signal dominates prediction. The estimator is rarely the binding choice.
 
 ```{=latex}
 \newpage
@@ -4284,10 +2627,7 @@ The product space has four axes, and they do not matter equally.
 
 # 13. How the field evolved {#13-history}
 
-The history is worth a few thousand words because it explains why the field's concerns are what they are: why
-"identification" is the first word an econometrician reaches for, why standard errors are clustered by reflex, and why
-a finance seminar asks about data mining before it asks about the model. Each era is summarised in four parts: its
-contribution, what changed as a result, its limitations, and what survives.
+The history is worth a few thousand words, because it explains why the field's concerns are what they are. It explains why "identification" is the first word an econometrician reaches for, why standard errors are clustered by reflex, and why a finance seminar asks about data mining before it asks about the model. Each era is summarised in four parts: its contribution, what changed as a result, its limitations, and what survives. The timeline shows the six eras.
 
 ```mermaid
 timeline
@@ -4304,165 +2644,82 @@ timeline
 
 *Thesis: statistics met economic theory, and immediately ran into the identification problem.*
 
-**Contribution.** Economists began estimating demand curves from market data. [Working
-(1927)](https://doi.org/10.2307/1883501){target="_blank"} showed that a scatter of prices and quantities traces a demand curve only
-if supply shifts while demand stays put, which stated the identification problem two decades before it was named. The
-following year, Philip Wright's book on tariffs on animal and vegetable oils included an appendix that derived instrumental
-variables as a solution ([Stock & Trebbi, 2003](https://doi.org/10.1257/089533003769204416){target="_blank"}). [Yule
-(1926)](https://doi.org/10.2307/2341482){target="_blank"} documented nonsense correlations between time series, and [Frisch &
-Waugh (1933)](https://doi.org/10.2307/1907330){target="_blank"} proved the partialling-out theorem. Ragnar Frisch coined
-"econometrics" and helped found the Econometric Society and its journal. The first volume of *Econometrica* carried
-[Cowles (1933)](https://doi.org/10.2307/1907042){target="_blank"}, which examined the recommendations of 45 professional
-forecasting agencies and found no evidence that they did better than chance: the first test of market efficiency, and the
-first finance paper in the field's flagship journal.
+**Contribution.** Economists began estimating demand curves from market data. [Working (1927)](https://doi.org/10.2307/1883501){target="_blank"} showed that a scatter of prices and quantities traces a demand curve only if supply shifts while demand stays put. That statement of the identification problem came two decades before the problem was named. The following year, Philip Wright's book on tariffs on animal and vegetable oils included an appendix that derived instrumental variables as a solution ([Stock & Trebbi, 2003](https://doi.org/10.1257/089533003769204416){target="_blank"}). [Yule (1926)](https://doi.org/10.2307/2341482){target="_blank"} documented nonsense correlations between time series, and [Frisch & Waugh (1933)](https://doi.org/10.2307/1907330){target="_blank"} proved the partialling-out theorem. Ragnar Frisch coined the word "econometrics" and helped found the Econometric Society and its journal. The first volume of *Econometrica* carried [Cowles (1933)](https://doi.org/10.2307/1907042){target="_blank"}, which examined the recommendations of 45 professional forecasting agencies and found no evidence that they did better than chance. It was the first test of market efficiency, and the first finance paper in the field's flagship journal.
 
 **What changed.** Economic relationships became quantities to be estimated rather than asserted.
 
-**Limitations.** There was no probability model for the errors, identification was handled case by case, and the most
-ambitious project, Tinbergen's statistical business-cycle models, drew a critique from [Keynes
-(1939)](https://doi.org/10.1093/ej/49.195.558){target="_blank"} that the era could not answer: the method needs a complete
-list of causes, relationships that stay stable, and a way to tell causation from correlation.
+**Limitations.** There was no probability model for the errors, and identification was handled case by case. The most ambitious project, Tinbergen's statistical business-cycle models, drew a critique from [Keynes (1939)](https://doi.org/10.1093/ej/49.195.558){target="_blank"} that the era could not answer. Keynes argued that the method needs a complete list of causes, relationships that stay stable, and a way to tell causation from correlation.
 
-**Lasting influence.** Instrumental variables, partialling out, spurious correlation, and the identification problem are all
-still core, which makes this the era with the highest ratio of lasting ideas to papers.
+**Lasting influence.** Instrumental variables, partialling out, spurious correlation, and the identification problem are all still core. This era has the highest ratio of lasting ideas to papers.
 
 ## 13.2 Era II — The probability approach (1940–1960)
 
 *Thesis: economic data are draws from a probability model, and identification is a property of that model.*
 
-**Contribution.** [Haavelmo (1943)](https://doi.org/10.2307/1905714){target="_blank"} showed that least squares applied to one
-equation of a simultaneous system is inconsistent. [Haavelmo (1944)](https://doi.org/10.2307/1906935){target="_blank"} argued that
-economic data should be treated as realisations from a joint distribution generated by a system of behavioural equations,
-the framing of §1.2. The Cowles Commission turned this into a programme. [Koopmans (1949)](https://doi.org/10.2307/1905689){target="_blank"}
-formalised identification, with the rank and order conditions for simultaneous equations, and Anderson and Rubin developed
-estimation and inference for them ([Anderson & Rubin, 1949](https://doi.org/10.1214/aoms/1177730090){target="_blank"}).
+**Contribution.** [Haavelmo (1943)](https://doi.org/10.2307/1905714){target="_blank"} showed that least squares applied to one equation of a simultaneous system is inconsistent. [Haavelmo (1944)](https://doi.org/10.2307/1906935){target="_blank"} argued that economic data should be treated as realisations from a joint distribution generated by a system of behavioural equations, the framing of §1.2. The Cowles Commission turned this into a programme. [Koopmans (1949)](https://doi.org/10.2307/1905689){target="_blank"} formalised identification, with the rank and order conditions for simultaneous equations, and Anderson and Rubin developed estimation and inference for them ([Anderson & Rubin, 1949](https://doi.org/10.1214/aoms/1177730090){target="_blank"}).
 
-**What changed.** Econometrics became a probabilistic discipline with its own theory, and "identification" acquired a precise
-meaning.
+**What changed.** Econometrics became a probabilistic discipline with its own theory, and "identification" acquired a precise meaning.
 
-**Limitations.** The identifying restrictions came from economic theory and were taken on trust. Computing power and data were
-too limited to test much. [Koopmans (1947)](https://doi.org/10.2307/1928627){target="_blank"} attacked the empirical
-business-cycle measurement of the NBER as "measurement without theory," opening an argument between theory-led and data-led
-empirical work that is still running (§7.8).
+**Limitations.** The identifying restrictions came from economic theory and were taken on trust. Computing power and data were too limited to test much. [Koopmans (1947)](https://doi.org/10.2307/1928627){target="_blank"} attacked the NBER's empirical business-cycle measurement as "measurement without theory." The attack opened an argument between theory-led and data-led empirical work that is still running (§7.8).
 
-**Lasting influence.** The structural tradition and the language of identification. Frisch and Tinbergen shared the first
-economics Nobel prize in 1969, and Haavelmo received his in 1989.
+**Lasting influence.** The structural tradition, and the language of identification. Frisch and Tinbergen shared the first economics Nobel prize in 1969, and Haavelmo received the prize in 1989.
 
 ## 13.3 Era III — Large models and their critics (1960–1980)
 
-*Thesis: large structural models promised policy evaluation, and lost on forecasting to simple time-series methods and on
-theory to rational expectations.*
+*Thesis: large structural models promised policy evaluation, and they lost on forecasting to simple time-series methods and on theory to rational expectations.*
 
-**Contribution.** Macroeconometric models with hundreds of equations were built for forecasting and policy analysis. Box and
-Jenkins's 1970 book systematised ARIMA modelling. [Nelson (1972)](https://ideas.repec.org/a/aea/aecrev/v62y1972i5p902-17.html){target="_blank"}
-found that simple ARIMA forecasts contained information that the forecasts of the large FRB–MIT–Penn model missed, and were
-competitive with them. [Granger (1969)](https://doi.org/10.2307/1912791){target="_blank"} gave a testable definition of
-predictive causality. [Lucas (1976)](https://doi.org/10.1016/s0167-2231(76)80003-6){target="_blank"} argued that the models'
-estimated relationships would shift whenever policy changed, because they summarised decisions made under the old policy.
-[Sims (1980)](https://doi.org/10.2307/1912017){target="_blank"} called the models' identifying restrictions "incredible" and
-proposed vector autoregressions instead.
+**Contribution.** Macroeconometric models with hundreds of equations were built for forecasting and policy analysis. Box and Jenkins's 1970 book systematised ARIMA modelling. [Nelson (1972)](https://ideas.repec.org/a/aea/aecrev/v62y1972i5p902-17.html){target="_blank"} found that simple ARIMA forecasts contained information that the forecasts of the large FRB–MIT–Penn model missed, and that they were competitive with them. [Granger (1969)](https://doi.org/10.2307/1912791){target="_blank"} gave a testable definition of predictive causality. [Lucas (1976)](https://doi.org/10.1016/s0167-2231(76)80003-6){target="_blank"} argued that the models' estimated relationships would shift whenever policy changed, because they summarised decisions made under the old policy. [Sims (1980)](https://doi.org/10.2307/1912017){target="_blank"} called the models' identifying restrictions "incredible" and proposed vector autoregressions instead.
 
-**What changed.** Confidence in large structural models collapsed. Forecasting and policy analysis came apart, and time-series
-methods rose.
+**What changed.** Confidence in large structural models collapsed. Forecasting and policy analysis came apart, and time-series methods rose.
 
-**Limitations.** VARs bought credibility by giving up economic content, and the Lucas critique applies with equal force to
-reduced-form relationships.
+**Limitations.** VARs bought credibility by giving up economic content, and the Lucas critique applies with equal force to reduced-form relationships.
 
-**Lasting influence.** Structural VARs remain the workhorse of empirical macroeconomics (§8.5), and the Lucas critique is the
-standard warning about relationships that break when deployed. Sargent and Sims shared the 2011 Nobel prize.
+**Lasting influence.** Structural VARs remain the workhorse of empirical macroeconomics (§8.5), and the Lucas critique is the standard warning about relationships that break when deployed. Sargent and Sims shared the 2011 Nobel prize.
 
 ## 13.4 Era IV — Time series and robust inference (1974–1995)
 
-*Thesis: the classical assumptions were systematically wrong for economic data, and the field built tools that did not need
-them.*
+*Thesis: the classical assumptions were systematically wrong for economic data, and the field built tools that did not need them.*
 
-**Contribution.** Nonstationarity: [Granger & Newbold (1974)](https://doi.org/10.1016/0304-4076(74)90034-7){target="_blank"}
-on spurious regression, [Dickey & Fuller (1979)](https://doi.org/10.2307/2286348){target="_blank"} on unit-root testing,
-[Engle & Granger (1987)](https://doi.org/10.2307/1913236){target="_blank"} on cointegration. Volatility: [Engle
-(1982)](https://doi.org/10.2307/1912773){target="_blank"} on ARCH. Robust inference: [White
-(1980)](https://doi.org/10.2307/1912934){target="_blank"} on heteroskedasticity, [White (1982)](https://doi.org/10.2307/1912526){target="_blank"}
-on misspecified likelihoods, [Hansen (1982)](https://doi.org/10.2307/1912775){target="_blank"} on GMM, and [Newey & West
-(1987)](https://www.nber.org/papers/t0055){target="_blank"} on autocorrelation. Microeconometrics: [Heckman
-(1979)](https://doi.org/10.2307/1912352){target="_blank"} on selection, discrete-choice models, and panel methods. Finance
-built its own econometrics in parallel: event studies ([Fama, Fisher, Jensen & Roll, 1969](https://doi.org/10.2307/2525569){target="_blank"}),
-two-pass tests ([Fama & MacBeth, 1973](https://doi.org/10.1086/260061){target="_blank"}), Euler-equation GMM ([Hansen & Singleton,
-1982](https://doi.org/10.2307/1911873){target="_blank"}), and portfolio efficiency tests ([Gibbons, Ross & Shanken,
-1989](https://doi.org/10.2307/1913625){target="_blank"}), gathered in Campbell, Lo and MacKinlay's 1997 textbook.
+**Contribution.** The era produced four strands of work. On non-stationarity: [Granger & Newbold (1974)](https://doi.org/10.1016/0304-4076(74)90034-7){target="_blank"} on spurious regression, [Dickey & Fuller (1979)](https://doi.org/10.2307/2286348){target="_blank"} on unit-root testing, and [Engle & Granger (1987)](https://doi.org/10.2307/1913236){target="_blank"} on cointegration. On volatility: [Engle (1982)](https://doi.org/10.2307/1912773){target="_blank"} on ARCH. On robust inference: [White (1980)](https://doi.org/10.2307/1912934){target="_blank"} on heteroskedasticity, [White (1982)](https://doi.org/10.2307/1912526){target="_blank"} on misspecified likelihoods, [Hansen (1982)](https://doi.org/10.2307/1912775){target="_blank"} on GMM, and [Newey & West (1987)](https://www.nber.org/papers/t0055){target="_blank"} on autocorrelation. On microeconometrics: [Heckman (1979)](https://doi.org/10.2307/1912352){target="_blank"} on selection, discrete-choice models, and panel methods. Finance built its own econometrics in parallel: event studies ([Fama, Fisher, Jensen & Roll, 1969](https://doi.org/10.2307/2525569){target="_blank"}), two-pass tests ([Fama & MacBeth, 1973](https://doi.org/10.1086/260061){target="_blank"}), Euler-equation GMM ([Hansen & Singleton, 1982](https://doi.org/10.2307/1911873){target="_blank"}), and portfolio efficiency tests ([Gibbons, Ross & Shanken, 1989](https://doi.org/10.2307/1913625){target="_blank"}). Campbell, Lo and MacKinlay's 1997 textbook gathered this work.
 
-**What changed.** Standard errors robust to heteroskedasticity and dependence became the default, and nonstationarity and time-varying
-volatility were modelled rather than ignored.
+**What changed.** Standard errors robust to heteroskedasticity and dependence became the default, and non-stationarity and time-varying volatility were modelled instead of ignored.
 
-**Limitations.** Robust inference did nothing about identification, and the specification searches that Leamer was about to attack
-went on unchanged.
+**Limitations.** Robust inference did nothing about identification, and the specification searches that Leamer was about to attack went on unchanged.
 
-**Lasting influence.** Close to all of the standard-error practice of §4, GARCH, GMM in asset pricing, and cointegration. Heckman and
-McFadden shared the 2000 Nobel prize, Engle and Granger the 2003 prize, and Hansen shared the 2013 prize with Fama and Shiller.
+**Lasting influence.** Close to all of the standard-error practice of §4, GARCH, GMM in asset pricing, and cointegration. Heckman and McFadden shared the 2000 Nobel prize, Engle and Granger the 2003 prize, and Hansen shared the 2013 prize with Fama and Shiller.
 
 ## 13.5 Era V — The credibility revolution (1983–2010)
 
 *Thesis: credible causal claims come from research design, not from modelling.*
 
-**Contribution.** [Leamer (1983)](https://pricetheory.uchicago.edu/levitt/Papers/Leamer1983.pdf){target="_blank"} argued that
-specification searches made most econometric conclusions fragile, and [LaLonde (1986)](https://ideas.repec.org/a/aea/aecrev/v76y1986i4p604-20.html){target="_blank"}
-showed non-experimental estimators failing against an experimental benchmark (§1.1). The response was to look for variation that was
-random for reasons outside the model: a draft lottery ([Angrist, 1990](https://economics.mit.edu/sites/default/files/publications/Angrist%201990%20-%20Lifetime%20Earnings%20and%20the%20Vietname%20.pdf){target="_blank"}),
-quarter of birth ([Angrist & Krueger, 1991](https://www.nber.org/papers/w3572){target="_blank"}), a minimum-wage increase in one state
-but not its neighbour ([Card & Krueger, 1994](https://www.nber.org/papers/w4509){target="_blank"}). The theory followed: LATE ([Imbens
-& Angrist, 1994](https://www.nber.org/papers/t0118){target="_blank"}), weak instruments ([Bound, Jaeger & Baker,
-1995](https://doi.org/10.2307/2291055){target="_blank"}; [Staiger & Stock, 1997](https://www.nber.org/papers/t0151){target="_blank"}),
-regression discontinuity ([Hahn, Todd & van der Klaauw, 2001](https://doi.org/10.1111/1468-0262.00183){target="_blank"}), synthetic
-control ([Abadie & Gardeazabal, 2003](https://www.nber.org/papers/w8478){target="_blank"}), and clustering in difference-in-differences
-([Bertrand, Duflo & Mullainathan, 2004](https://www.nber.org/papers/w8841){target="_blank"}). Angrist and Pischke's *Mostly Harmless
-Econometrics* (2009) and their 2010 essay named the movement.
+**Contribution.** [Leamer (1983)](https://pricetheory.uchicago.edu/levitt/Papers/Leamer1983.pdf){target="_blank"} argued that specification searches made most econometric conclusions fragile. [LaLonde (1986)](https://ideas.repec.org/a/aea/aecrev/v76y1986i4p604-20.html){target="_blank"} showed non-experimental estimators failing against an experimental benchmark (§1.1). The response was to look for variation that was random for reasons outside the model: a draft lottery ([Angrist, 1990](https://economics.mit.edu/sites/default/files/publications/Angrist%201990%20-%20Lifetime%20Earnings%20and%20the%20Vietname%20.pdf){target="_blank"}), quarter of birth ([Angrist & Krueger, 1991](https://www.nber.org/papers/w3572){target="_blank"}), and a minimum-wage increase in one state but not its neighbour ([Card & Krueger, 1994](https://www.nber.org/papers/w4509){target="_blank"}). The theory followed: LATE ([Imbens & Angrist, 1994](https://www.nber.org/papers/t0118){target="_blank"}), weak instruments ([Bound, Jaeger & Baker, 1995](https://doi.org/10.2307/2291055){target="_blank"}; [Staiger & Stock, 1997](https://www.nber.org/papers/t0151){target="_blank"}), regression discontinuity ([Hahn, Todd & van der Klaauw, 2001](https://doi.org/10.1111/1468-0262.00183){target="_blank"}), synthetic control ([Abadie & Gardeazabal, 2003](https://www.nber.org/papers/w8478){target="_blank"}), and clustering in difference-in-differences ([Bertrand, Duflo & Mullainathan, 2004](https://www.nber.org/papers/w8841){target="_blank"}). Angrist and Pischke's *Mostly Harmless Econometrics* (2009) and their 2010 essay named the movement.
 
-**What changed.** "What is your identification strategy?" became the first question in applied microeconomics and much of empirical
-corporate finance, and randomised field experiments spread through development economics. Banerjee, Duflo, and Kremer shared the 2019
-Nobel prize for experiments, and Card, Angrist, and Imbens the 2021 prize for natural experiments.
+**What changed.** "What is your identification strategy?" became the first question in applied microeconomics and in much of empirical corporate finance, and randomised field experiments spread through development economics. Banerjee, Duflo, and Kremer shared the 2019 Nobel prize for experiments, and Card, Angrist, and Imbens shared the 2021 prize for natural experiments.
 
-**Limitations.** Local estimands and limited external validity, argued forcefully by the structural side ([Keane,
-2010](https://doi.org/10.1016/j.jeconom.2009.09.003){target="_blank"}; [Deaton, 2010](https://doi.org/10.1257/jel.48.2.424){target="_blank"};
-[Heckman, 2010](https://www.nber.org/papers/w16110){target="_blank"}). And, as the later evidence on p-hacking shows (§11.5), designs
-constrain researcher discretion without removing it.
+**Limitations.** Local estimands and limited external validity, as the structural side argued forcefully ([Keane, 2010](https://doi.org/10.1016/j.jeconom.2009.09.003){target="_blank"}; [Deaton, 2010](https://doi.org/10.1257/jel.48.2.424){target="_blank"}; [Heckman, 2010](https://www.nber.org/papers/w16110){target="_blank"}). And, as the later evidence on p-hacking shows (§11.5), designs constrain researcher discretion without removing it.
 
 **Lasting influence.** It is the dominant paradigm of applied microeconomics and of causal work in corporate finance.
 
 ## 13.6 Era VI — Heterogeneity, design, and machine learning (2010–present)
 
-*Thesis: the credibility revolution's tools were re-examined under heterogeneous effects, and machine learning was absorbed as an
-estimator.*
+*Thesis: the credibility revolution's tools were re-examined under heterogeneous effects, and machine learning was absorbed as an estimator.*
 
-**Contribution.** Difference-in-differences with staggered timing was shown to fail under heterogeneous effects, and new estimators
-followed within a few years (§7.5). Weak-instrument practice was reassessed ([Andrews, Stock & Sun,
-2019](https://doi.org/10.1146/annurev-economics-080218-025643){target="_blank"}; [Lee, McCrary, Moreira & Porter,
-2022](https://arxiv.org/abs/2010.05058){target="_blank"}), and the foundations of clustering were reworked ([Abadie, Athey, Imbens & Wooldridge,
-2023](https://arxiv.org/abs/1710.02926){target="_blank"}). Machine learning entered causal inference with valid inference ([Belloni,
-Chernozhukov & Hansen, 2014](https://arxiv.org/abs/1201.0224){target="_blank"}; [Chernozhukov et al., 2018](https://arxiv.org/abs/1608.00060){target="_blank"};
-[Wager & Athey, 2018](https://arxiv.org/abs/1510.04342){target="_blank"}). Meta-research documented low power and selective reporting
-([Ioannidis, Stanley & Doucouliagos, 2017](https://doi.org/10.1111/ecoj.12461){target="_blank"}; [Brodeur, Cook & Heyes,
-2020](https://doi.org/10.1257/aer.20190687){target="_blank"}), and journals began requiring replication packages. In finance, the factor zoo
-and its replication debate (§9.6), machine-learning asset pricing ([Gu, Kelly & Xiu, 2020](https://www.nber.org/papers/w25398){target="_blank"}),
-and demand-system asset pricing ([Koijen & Yogo, 2019](https://www.nber.org/papers/w21749){target="_blank"}) reshaped the empirical agenda.
+**Contribution.** Difference-in-differences with staggered timing was shown to fail under heterogeneous effects, and new estimators followed within a few years (§7.5). Weak-instrument practice was reassessed ([Andrews, Stock & Sun, 2019](https://doi.org/10.1146/annurev-economics-080218-025643){target="_blank"}; [Lee, McCrary, Moreira & Porter, 2022](https://arxiv.org/abs/2010.05058){target="_blank"}), and the foundations of clustering were reworked ([Abadie, Athey, Imbens & Wooldridge, 2023](https://arxiv.org/abs/1710.02926){target="_blank"}). Machine learning entered causal inference with valid inference ([Belloni, Chernozhukov & Hansen, 2014](https://arxiv.org/abs/1201.0224){target="_blank"}; [Chernozhukov et al., 2018](https://arxiv.org/abs/1608.00060){target="_blank"}; [Wager & Athey, 2018](https://arxiv.org/abs/1510.04342){target="_blank"}). Meta-research documented low power and selective reporting ([Ioannidis, Stanley & Doucouliagos, 2017](https://doi.org/10.1111/ecoj.12461){target="_blank"}; [Brodeur, Cook & Heyes, 2020](https://doi.org/10.1257/aer.20190687){target="_blank"}), and journals began requiring replication packages. In finance, three developments reshaped the empirical agenda: the factor zoo and its replication debate (§9.6), machine-learning asset pricing ([Gu, Kelly & Xiu, 2020](https://www.nber.org/papers/w25398){target="_blank"}), and demand-system asset pricing ([Koijen & Yogo, 2019](https://www.nber.org/papers/w21749){target="_blank"}).
 
-**What changed.** Two-way fixed effects stopped being the default for staggered designs, weak-instrument-robust inference became expected,
-machine-learning estimators gained valid confidence intervals, and replication became a condition of publication.
+**What changed.** Two-way fixed effects stopped being the default for staggered designs, and weak-instrument-robust inference became expected. Machine-learning estimators gained valid confidence intervals, and replication became a condition of publication.
 
-**Limitations.** Methods now turn over faster than practice can absorb them, each new estimator carries assumptions of its own, and none of
-them substitutes for a credible source of variation.
+**Limitations.** Methods now turn over faster than practice can absorb them. Each new estimator carries assumptions of its own, and none of them substitutes for a credible source of variation.
 
-**Lasting influence.** It is too early to judge. My expectation is that heterogeneity-robust difference-in-differences and double machine
-learning will be routine within a decade, and that the argument over whether complexity is a virtue in return prediction will still be open.
+**Lasting influence.** It is too early to judge. [Hypothesis] The expectation offered here is that heterogeneity-robust difference-in-differences and double machine learning will be routine within a decade, and that the argument over whether complexity is a virtue in return prediction will still be open.
 
 > ### §13 Key takeaways
 >
-> 1. The identification problem was stated in 1927 and instrumental variables were invented in 1928, to estimate supply and demand. The
->    field's central concern is as old as the field.
+> 1. The identification problem was stated in 1927, and instrumental variables were invented in 1928 to estimate supply and demand. The field's central concern is as old as the field.
 > 2. Haavelmo's probability approach made identification a property of a model, and the structural tradition followed from it.
-> 3. Large structural models lost on forecasting to simple time-series models and on theory to the Lucas critique; VARs replaced them in
->    macroeconomics.
+> 3. Large structural models lost on forecasting to simple time-series models and on theory to the Lucas critique. VARs replaced them in macroeconomics.
 > 4. The 1980s made inference robust to heteroskedasticity, autocorrelation, and misspecification, and did nothing for identification.
 > 5. The credibility revolution moved the source of credibility from the model to the research design, at the cost of local estimands.
-> 6. The current era is re-examining those designs under heterogeneous effects, absorbing machine learning as an estimator, and confronting
->    evidence of low power and selective reporting.
+> 6. The current era is re-examining those designs under heterogeneous effects, absorbing machine learning as an estimator, and confronting evidence of low power and selective reporting.
 
 ```{=latex}
 \newpage
@@ -4472,13 +2729,11 @@ learning will be routine within a decade, and that the argument over whether com
 
 ## 14.1 The framework on one page
 
-Everything in this document is three questions, one equation, and two ways to fail.
+The chapter reduces to three questions, one equation, and two ways to fail.
 
-**The three questions** (§1.3). What is the estimand? Is it identified? How precisely is it estimated? They are answered
-in that order, errors flow downward, and prediction problems replace the second question with an honest validation design.
+**The three questions** (§1.3). What is the estimand? Is it identified? How precisely is it estimated? They are answered in that order, and errors flow downward. Prediction problems replace the second question with an honest validation design.
 
-**The one equation** (§1.5–§1.6). Every estimator solves a sample moment condition, and every standard error is the sandwich
-around it:
+**The one equation** (§1.5–§1.6). Every estimator solves a sample moment condition, and every standard error is the sandwich around it:
 
 $$
 \frac1n\sum_{i=1}^n\psi_i(\hat\theta) = 0,
@@ -4486,14 +2741,9 @@ $$
 \operatorname{Avar}\big(\sqrt n(\hat\theta - \theta_0)\big) = Q^{-1}\,\Omega\,Q^{-1\prime}.
 $$
 
-The choice of $\psi$ states the orthogonality condition, which is the identifying assumption. The bread $Q$ comes from the
-model. The meat $\Omega$ comes from the dependence in the data.
+The choice of $\psi$ states the orthogonality condition, which is the identifying assumption. The bread $Q$ comes from the model. The meat $\Omega$ comes from the dependence in the data.
 
-**The two ways to fail.** Bias comes from a false orthogonality condition: confounding, measurement error, simultaneity,
-selection, or a bad control (§6). False precision comes from a wrong meat: ignored clustering, serial correlation, overlap,
-too few independent units, or a specification search that the standard error never saw (§4). The research designs of §7 exist
-to make the first failure less likely. The standard-error machinery of §4, §8, and §9 exists to prevent the second. Shrinkage
-and validation (§5.6, §10) trade a little of the first for a large reduction in variance when the goal is prediction.
+**The two ways to fail.** Bias comes from a false orthogonality condition: confounding, measurement error, simultaneity, selection, or a bad control (§6). False precision comes from a wrong meat: ignored clustering, serial correlation, overlap, too few independent units, or a specification search that the standard error never saw (§4). The research designs of §7 exist to make the first failure less likely. The standard-error machinery of §4, §8, and §9 exists to prevent the second. When the goal is prediction, shrinkage and validation (§5.6, §10) accept a little bias in exchange for a large reduction in variance. The diagram traces both failures through the pipeline.
 
 ```
 QUESTION ─► ESTIMAND ─► ORTHOGONALITY CONDITION ─► MOMENT ψ ─► ESTIMATE θ̂
@@ -4515,8 +2765,7 @@ QUESTION ─► ESTIMAND ─► ORTHOGONALITY CONDITION ─► MOMENT ψ ─► 
 
 ## 14.2 A decision tree
 
-The tree branches on the questions that actually change what you should do, and ends in named methods. The steps listed
-after it apply whichever branch you take.
+The tree branches on the questions that change the analysis, and it ends in named methods. The steps listed after it apply on every branch.
 
 ```{=latex}
 \newpage
@@ -4546,72 +2795,51 @@ flowchart TD
     style RD fill:#0b6e75,color:#fff
 ```
 
-**Whatever the branch:** choose the meat by the dependence in the data, count the independent units, check when every
-variable was known, and report intervals together with everything that was tried.
+**On every branch:** choose the meat by the dependence in the data, count the independent units, check when every variable was known, and report intervals together with everything that was tried.
 
-The shaded warning on the selection-on-observables leaf is deliberate. It is where analyses end up when no better source of
-variation exists, and it is where a sensitivity analysis (§6.7) is not optional.
+The shaded warning on the selection-on-observables leaf is deliberate. Analyses end up there when no better source of variation exists, and there a sensitivity analysis (§6.7) is not optional.
 
 ## 14.3 A roadmap for building an empirical research capability
 
-For a team or an individual building the capability to produce empirical results that survive contact with new data, in stages,
-each with a gate that has to be passed before moving on. The first two stages are infrastructure, not the interesting part, and
-skipping them is the usual reason later stages fail.
+The roadmap is for a team or an individual building the capability to produce empirical results that survive contact with new data. It proceeds in stages, and each stage has a gate that must be passed before moving on. The first two stages are infrastructure, not the interesting part, and skipping them is the usual reason later stages fail.
 
 | Stage | Build | Gate before moving on |
 |---|---|---|
 | **0. Data** | Point-in-time data with reporting lags; delistings and corporate actions; tests on every join | Reproduce a published series, such as a standard factor's returns, to within a small tolerance |
-| **1. Inference core** | Regression with heteroskedasticity-robust, clustered, two-way, HAC, Driscoll–Kraay, and Fama–MacBeth errors; a simulation harness | Recover known answers in simulations with known dependence, including this document's clustering and overlap simulations |
+| **1. Inference core** | Regression with heteroskedasticity-robust, clustered, two-way, HAC, Driscoll–Kraay, and Fama–MacBeth errors; a simulation harness | Recover known answers in simulations with known dependence, including this chapter's clustering and overlap simulations |
 | **2. Designs** | IV with Anderson–Rubin inference; heterogeneity-robust DiD; RD with robust bias-corrected intervals | Replicate one published design end to end |
 | **3. Time series and forecasting** | Unit-root and cointegration tools; GARCH and HAR; walk-forward evaluation; Diebold–Mariano and Clark–West | Reproduce a known *negative* out-of-sample result |
 | **4. Prediction** | Shrinkage and tree models; purged, grouped validation; a research log with trial counts | Every reported result has a computable number of trials behind it |
 | **5. Causal machine learning and structure** | Double machine learning; causal forests; a small structural model estimated by simulated moments | DML matches OLS in simple simulated designs and removes regularisation bias in hard ones |
 
-A reading order that follows the same arc: *Mastering 'Metrics* for intuition; *Mostly Harmless Econometrics*, *The Mixtape*, or
-*The Effect* for designs; Wooldridge for panels, or Hansen for theory; Hamilton for time series; Campbell, Lo and MacKinlay, and
-Cochrane for finance; and the *Applied Causal Inference* book for machine learning. §15.1 has the details.
+A reading order follows the same arc. Start with *Mastering 'Metrics* for intuition. For designs, read *Mostly Harmless Econometrics*, *The Mixtape*, or *The Effect*. Read Wooldridge for panels or Hansen for theory, and Hamilton for time series. For finance, read Campbell, Lo and MacKinlay, and Cochrane. For machine learning, read the *Applied Causal Inference* book. §15.1 has the details.
 
-## 14.4 Things I would tell someone starting today
+## 14.4 Advice for someone starting today
 
-1. **Write down the estimand before touching the data.** If you cannot say which population quantity would answer the question,
-   no estimate will.
-2. **Ask what experiment the study approximates**, and where the approximation breaks.
-3. **Count the independent units** before trusting a standard error: clusters, treated clusters, non-overlapping periods. The rows
-   do not matter.
+These recommendations condense the chapter for a practitioner starting empirical work.
+
+1. **Write down the estimand before touching the data.** If no population quantity can be named that would answer the question, no estimate will answer it.
+2. **Ask which experiment the study approximates**, and where the approximation breaks.
+3. **Count the independent units** before trusting a standard error: clusters, treated clusters, and non-overlapping periods. The rows do not matter.
 4. **Plot the raw data and the reduced form** before estimating anything more elaborate.
 5. **Controls are not free.** Draw the causal graph, and never control for anything the treatment could have caused.
 6. **Treat any $t$-statistic below about 3 that came out of a search as a hypothesis**, not a finding.
-7. **Compute the minimum detectable effect first.** If the plausible effect is smaller, a significant result is more likely an
-   exaggeration than a discovery.
-8. **A backtest estimates a mean from dependent data after a search.** Expect it to shrink out of sample, even when nothing was
-   done wrong.
+7. **Compute the minimum detectable effect first.** If the plausible effect is smaller, a significant result is more likely an exaggeration than a discovery.
+8. **A backtest estimates a mean from dependent data after a search.** Expect it to shrink out of sample, even when nothing was done wrong.
 9. **Use the simplest estimator the design allows**, and spend the effort on data and diagnostics.
-10. **Simulate your method on data where you know the answer**, including data where the answer is zero. Every figure in this
-    document was produced that way, and each one found a failure that the textbook formula hides.
-11. **Keep a log of everything you run.** It is the only way to know how many things you tried.
-12. **For prediction, the only sample that counts is the one the model never saw. For causation, the nearest equivalent is a
-    placebo test.**
+10. **Simulate the method on data with a known answer**, including data where the answer is zero. Every figure in this chapter was produced that way, and each one found a failure that the textbook formula hides.
+11. **Keep a log of every analysis run.** A log is the only way to know how many things were tried.
+12. **For prediction, the only sample that counts is the one the model never saw. For causation, the nearest equivalent is a placebo test.**
 
 ## 14.5 What is and is not known
 
-**Settled.** The mathematics of estimation and inference, meaning moment conditions, the sandwich, and the asymptotic theory behind
-both, is settled, and so are the mechanisms of failure: omitted variables, measurement error, simultaneity, selection, colliders,
-spurious regression, and specification search. So is the need for inference that respects the dependence in the data. For causal
-questions it is also settled that the source of variation matters far more than the choice of estimator.
+**Settled.** The mathematics of estimation and inference is settled: moment conditions, the sandwich, and the asymptotic theory behind both. So are the mechanisms of failure: omitted variables, measurement error, simultaneity, selection, colliders, spurious regression, and specification search. So is the need for inference that respects the dependence in the data. For causal questions, it is also settled that the source of variation matters far more than the choice of estimator.
 
-**Contested.** How much weight local, design-based estimates deserve relative to structural models (§7.8). How many published return
-predictors reflect real, exploitable effects (§9.6). Whether heavily over-parameterised models genuinely improve return prediction
-(§10.2). How far pre-analysis plans and multiple-testing hurdles should go, given their cost in missed discoveries (§4.8, §9.6).
+**Contested.** Four questions remain open. How much weight should local, design-based estimates get relative to structural models (§7.8)? How many published return predictors reflect real, exploitable effects (§9.6)? Do heavily over-parameterised models really improve return prediction (§10.2)? How far should pre-analysis plans and multiple-testing hurdles go, given their cost in missed discoveries (§4.8, §9.6)?
 
-**Open.** Three problems seem to me both important and unsolved. The first is **inference with few independent episodes**. Finance has
-one history, a handful of crises, and a few regimes, and no standard-error formula creates independence the data lack. The second is
-**external validity**: when an effect estimated in one market, period, or population transfers to another. Most of the field's tools
-say nothing about it. The third is **interference and reflexivity**. In markets, one participant's treatment changes the prices faced
-by the others, violating the no-interference assumption at the heart of causal inference, and publishing a finding changes the process
-that produced it.
+**Open.** Three problems are both important and unsolved. The first is **inference with few independent episodes**. Finance has one history, a handful of crises, and a few regimes, and no standard-error formula creates independence that the data lack. The second is **external validity**: when an effect estimated in one market, period, or population transfers to another. Most of the field's tools say nothing about it. The third is **interference and reflexivity**. In markets, one participant's treatment changes the prices that the others face, which violates the no-interference assumption at the heart of causal inference. Publishing a finding also changes the process that produced it.
 
-Econometrics cannot make data answer a question the data do not contain the answer to. What it can do, and what this document has tried
-to make usable, is say precisely which questions a given dataset can answer, under which assumptions, and with how much confidence.
+Econometrics cannot make data answer a question whose answer the data do not contain. It can say precisely which questions a given dataset can answer, under which assumptions, and with how much confidence. This chapter aims to make that capability usable.
 
 ```{=latex}
 \newpage
@@ -4619,9 +2847,7 @@ to make usable, is say precisely which questions a given dataset can answer, und
 
 # 15. References {#15-references}
 
-Grouped by kind, because the kinds are read differently. Each entry says why it matters. Where a free copy exists it is
-the link, usually a working-paper or author version, which can differ from the published version in detail. Entries
-linked to a publisher page may be paywalled.
+The references are grouped by kind, because the kinds are read differently, and each entry says why it matters. Where a free copy exists, the link points to it. That copy is usually a working-paper or author version, which can differ in detail from the published version. Entries linked to a publisher page may be paywalled.
 
 ## 15.1 Textbooks and guides
 
@@ -4644,7 +2870,7 @@ linked to a publisher page may be paywalled.
 - **Wooldridge (2010).** [*Econometric Analysis of Cross Section and Panel Data*, 2nd ed.](https://mitpress.mit.edu/9780262232586/econometric-analysis-of-cross-section-and-panel-data/)
   MIT Press. — The reference for microeconometrics and panels.
 - **Hansen (2022).** [*Econometrics.*](https://www.ssc.wisc.edu/~bhansen/econometrics/) Princeton University Press. — A modern,
-  rigorous graduate text built on projection and the sandwich; the textbook closest to this document's organisation.
+  rigorous graduate text built on projection and the sandwich; the textbook closest to this chapter's organisation.
 - **Hayashi (2000).** [*Econometrics.*](https://press.princeton.edu/books/hardcover/9780691010182/econometrics) Princeton University
   Press. — GMM as the organising principle of the whole field, with finance applications.
 - **Hamilton (1994).** [*Time Series Analysis.*](https://press.princeton.edu/books/hardcover/9780691042893/time-series-analysis)
@@ -5181,7 +3407,7 @@ No stable free copies are linked for these.
 
 ## 15.11 Critiques, debates, and meta-research
 
-A bibliography that lists only a field's methods is advertising. These are the papers that challenge how the methods are used.
+A bibliography that lists only a field's methods shows only its successes. The papers below challenge how the methods are used.
 
 - **Leamer (1983).** ["Let's Take the Con Out of Econometrics."](https://pricetheory.uchicago.edu/levitt/Papers/Leamer1983.pdf) *American
   Economic Review* 73(1), 31–43. — Specification search makes inference fragile.
@@ -5235,20 +3461,13 @@ In this order:
 
 # Appendix A: Concepts and prerequisites {#appendix-a}
 
-Everything the main text leans on without stopping to explain. The reader this is written for is
-mathematically comfortable but does not do econometrics for a living: they meet "fixed-$b$ critical values" or
-"Neyman orthogonality" somewhere in the middle of an argument, want the idea rather than a textbook chapter, and
-would rather not leave the document to get it.
+This appendix explains the concepts that the main text uses without stopping to explain them. It is written for a reader who is mathematically comfortable but does not do econometrics for a living. Such a reader meets "fixed-$b$ critical values" or "Neyman orthogonality" in the middle of an argument, wants the idea rather than a textbook chapter, and would rather not leave the chapter to get it.
 
-Entries are ordered by **dependency**, not alphabetically, and grouped into seven parts that are themselves in
-dependency order, so the appendix reads as a build-up. Each entry gives the idea in words first, then the formal
-definition, then why it appears in this document, then where to go deeper. Notation follows the main text's
-Notation block. Where a standard formula from another literature would collide with it, the entry says so and keeps
-the other literature's letters local to that entry.
+The entries are ordered by **dependency**, not alphabetically. They are grouped into seven parts, which are themselves in dependency order, so the appendix reads as a build-up. Each entry gives the idea in words first, then the formal definition, then why it appears in this chapter, and then where to go deeper. Notation follows the notation table of the main text. Where a standard formula from another literature would collide with it, the entry says so and keeps the other literature's letters local to that entry.
 
-Nothing here is needed to follow the *argument* of the document. A good deal of it is needed to implement it.
+None of this material is needed to follow the *argument* of the chapter. Much of it is needed to implement it.
 
-**Index.** Where each concept first appears:
+**Index.** The table shows where each concept is first used.
 
 | Concept | First used | Concept | First used |
 |---|---|---|---|
@@ -5276,15 +3495,10 @@ Nothing here is needed to follow the *argument* of the document. A good deal of 
 
 ---
 
-**Part I — Probability and asymptotics.** The approximations that every standard error in the document relies on,
-and the time-series conditions under which they hold.
+**Part I — Probability and asymptotics.** The approximations that every standard error in the chapter relies on, and the time-series conditions under which they hold.
 
 ## A.1 Information sets, filtrations, and martingale differences {#a1}
-**The idea.** A forecast can only use what is known when it is made. An **information set** is the formal name for
-"everything known at time $t$": past prices, past data releases, the forecaster's own past forecasts. Information
-accumulates, so each period's set contains the previous one. A sequence is a **martingale difference** if nothing in
-the information set helps predict its next *value on average*, although it may still help predict its size. That
-gap between unpredictable levels and predictable magnitudes is the statistical signature of asset returns.
+**The idea.** A forecast can use only what is known when it is made. An **information set** is the formal name for everything known at time $t$: past prices, past data releases, and the forecaster's own past forecasts. Information accumulates, so each period's set contains the previous one. A sequence is a **martingale difference** if nothing in the information set helps predict its next *value on average*. The information may still help predict the size of the next value. That gap between unpredictable levels and predictable magnitudes is the statistical signature of asset returns.
 
 **Formally.** A **filtration** is an increasing sequence of information sets (σ-algebras) $\mathcal{F}_0 \subseteq
 \mathcal{F}_1 \subseteq \cdots$; a process $x_t$ is **adapted** if $x_t$ is known at $t$. A sequence $\varepsilon_t$
@@ -5307,12 +3521,7 @@ martingale-difference conditions on pricing errors.
 7; section 8 of [Stochastic Processes](stochastic_processes.html) builds filtrations from σ-algebras.
 
 ## A.2 Stationarity and ergodicity {#a2}
-**The idea.** With one history, the only way to learn about a process is to average over time. That works only if
-two things hold. The process must be **stationary**: its statistical behaviour does not change with the calendar, so
-early and late observations are draws from the same rules. And it must be **ergodic**: a single long path eventually
-explores the full range of the process's behaviour, so the time average converges to the average over all possible
-paths. A process can be stationary without being ergodic. Flip a coin once, then report its outcome every day forever:
-the series is stationary, but its time average is the one flip, not one-half.
+**The idea.** With one history, the only way to learn about a process is to average over time. That works only if two conditions hold. The process must be **stationary**: its statistical behaviour does not change with the calendar, so early and late observations are draws from the same rules. It must also be **ergodic**: a single long path eventually explores the full range of the process's behaviour, so the time average converges to the average over all possible paths. A process can be stationary without being ergodic. Flip a coin once, then report its outcome every day forever. The series is stationary, but its time average is the one flip, not one-half.
 
 **Formally.** A process is **strictly stationary** if the joint distribution of $(y_{t_1+h}, \dots, y_{t_k+h})$ does not
 depend on $h$. It is **covariance stationary** if $\mathbb{E}[y_t] = \mu$ and $\operatorname{Cov}(y_t, y_{t-j}) =
@@ -5328,11 +3537,7 @@ sampling, and §8.3 is about what happens when it fails.
 3; [Hansen (2022)](https://www.ssc.wisc.edu/~bhansen/econometrics/){target="_blank"}, the time-series chapters.
 
 ## A.3 Convergence in probability and in distribution; Slutsky and continuous mapping {#a3}
-**The idea.** Asymptotic theory uses two different senses of "settling down". An estimate **converges in
-probability** to a number when, in large samples, it is almost certainly close to that number; that is consistency. A
-statistic **converges in distribution** when the *shape* of its sampling distribution approaches a limit, even though the
-statistic itself keeps varying from sample to sample; that is what licenses normal critical values. Two workhorse
-results let you combine the two kinds of limit the way you would combine ordinary numbers.
+**The idea.** Asymptotic theory uses two senses of "settling down." An estimate **converges in probability** to a number when, in large samples, it is almost certainly close to that number. That is consistency. A statistic **converges in distribution** when the *shape* of its sampling distribution approaches a limit, even though the statistic itself keeps varying from sample to sample. That is what licenses normal critical values. Two workhorse results allow the two kinds of limit to be combined like ordinary numbers.
 
 **Formally.** $X_n \xrightarrow{p} c$, written $\operatorname{plim} X_n = c$, if $\Pr(|X_n - c| > \epsilon) \to 0$ for every
 $\epsilon > 0$. $X_n \xrightarrow{d} X$ if the distribution function of $X_n$ converges to that of $X$ at every point where
@@ -5374,11 +3579,7 @@ test (A.20), and every joint test in §4.6.
 GMM.
 
 ## A.5 The long-run variance as a spectral density at frequency zero {#a5}
-**The idea.** Any stationary series can be decomposed into cycles of different frequencies, fast wiggles and slow
-swells, and the **spectral density** says how much of the variance sits at each frequency. A long average washes out the
-fast wiggles and keeps the slow swells. The variance of a long average is therefore governed by the spectral density at
-the slowest frequency, zero. That is why the "meat" of a time-series standard error and the spectral density at zero are
-the same object.
+**The idea.** Any stationary series can be decomposed into cycles of different frequencies, from fast wiggles to slow swells. The **spectral density** says how much of the variance sits at each frequency. A long average washes out the fast wiggles and keeps the slow swells. The variance of a long average is therefore governed by the spectral density at the slowest frequency, zero. That is why the "meat" of a time-series standard error and the spectral density at zero are the same object.
 
 **Formally.** For a covariance-stationary vector series $\psi_t$ with autocovariances $\Gamma_j$, the spectral density is
 $f(\omega) = \frac{1}{2\pi}\sum_{j=-\infty}^{\infty}\Gamma_j e^{-i\omega j}$. At $\omega = 0$,
@@ -5398,11 +3599,7 @@ estimate of the spectral density at zero.
 6 and 10.
 
 ## A.6 Fixed-$b$ asymptotics {#a6}
-**The idea.** Conventional theory for HAC standard errors assumes the bandwidth is a vanishing fraction of the sample, so
-the estimated long-run variance can be treated as exact. In real samples the bandwidth is a noticeable fraction of $T$,
-the variance estimate is itself noisy, and a $t$-statistic that divides by it has fatter tails than a normal. **Fixed-$b$**
-theory holds the ratio $b = L/T$ fixed as the sample grows, derives the distribution the $t$-statistic actually has, and
-gives critical values that account for the noise in the denominator.
+**The idea.** Conventional theory for HAC standard errors assumes that the bandwidth is a vanishing fraction of the sample, so that the estimated long-run variance can be treated as exact. In real samples the bandwidth is a noticeable fraction of $T$, and the variance estimate is itself noisy. A $t$-statistic that divides by it therefore has fatter tails than a normal. **Fixed-$b$** theory holds the ratio $b = L/T$ fixed as the sample grows. It derives the distribution that the $t$-statistic actually has, and it gives critical values that account for the noise in the denominator.
 
 **Formally.** With $b$ fixed, the HAC $t$-statistic converges to a nonstandard distribution that depends on the kernel and
 on $b$, and whose critical values rise with $b$. For the equal-weighted cosine estimator with $\nu$ terms, the limit is
@@ -5422,11 +3619,7 @@ critical values, or the cosine estimator with $\nu = 0.4\,T^{2/3}$ and $t_\nu$ c
 why it is efficient when the model is right, and how priors turn into penalties.
 
 ## A.7 Kullback–Leibler divergence and pseudo-true parameters {#a7}
-**The idea.** A misspecified model cannot match the true distribution of the data, but some parameter values bring it
-closer than others. **Kullback–Leibler divergence** measures "closer" as the average shortfall in log-likelihood from
-using the model instead of the truth. Maximum likelihood on a wrong model converges to the parameter that minimises
-this divergence, called the **pseudo-true** value. Whether that value is the parameter you care about depends on which
-parts of the model are wrong.
+**The idea.** A misspecified model cannot match the true distribution of the data, but some parameter values bring it closer than others. **Kullback–Leibler divergence** measures "closer" as the average shortfall in log-likelihood from using the model instead of the truth. Maximum likelihood on a wrong model converges to the parameter that minimises this divergence, called the **pseudo-true** value. Whether that value is the parameter of interest depends on which parts of the model are wrong.
 
 **Formally.** For a true density $p$ and a model density $q_\theta$,
 
@@ -5446,10 +3639,7 @@ and why their standard errors need the sandwich.
 **Deeper.** [White (1982)](https://doi.org/10.2307/1912526){target="_blank"}.
 
 ## A.8 Fisher information, the information matrix equality, and the Cramér–Rao bound {#a8}
-**The idea.** If the log-likelihood falls away steeply on either side of its peak, the data pin the parameter down
-tightly; if it is flat, many values fit almost equally well. **Fisher information** measures that curvature at the true
-value. The **Cramér–Rao bound** turns it into a floor on precision: no unbiased estimator can have a smaller variance than
-the inverse of the information. Maximum likelihood attains the bound in large samples, when the model is correct.
+**The idea.** If the log-likelihood falls away steeply on either side of its peak, the data pin the parameter down tightly. If it is flat, many values fit almost equally well. **Fisher information** measures that curvature at the true value. The **Cramér–Rao bound** turns the curvature into a floor on precision: no unbiased estimator can have a variance smaller than the inverse of the information. Maximum likelihood attains the bound in large samples when the model is correct.
 
 **Formally.** With per-observation score $s_i(\theta) = \partial \log f(Y_i \mid X_i;\theta)/\partial\theta$, which has
 mean zero at $\theta_0$, the information is
@@ -5470,11 +3660,7 @@ sandwich language.
 **Deeper.** [Hansen (2022)](https://www.ssc.wisc.edu/~bhansen/econometrics/){target="_blank"}, the chapters on maximum likelihood.
 
 ## A.9 Priors as penalties {#a9}
-**The idea.** A Bayesian estimate combines what the data say (the likelihood) with what was believed beforehand (the
-prior). A prior belief that coefficients are probably small pulls estimates toward zero, and the strength of the pull
-depends on how confident the prior is relative to how noisy the data are. Written out, the most probable coefficients
-under such a prior are exactly the solution of a penalised regression, so every penalty in machine learning corresponds to
-a prior, and every prior to a penalty.
+**The idea.** A Bayesian estimate combines what the data say, the likelihood, with what was believed beforehand, the prior. A prior belief that coefficients are probably small pulls estimates toward zero. The strength of the pull depends on how confident the prior is relative to how noisy the data are. Written out, the most probable coefficients under such a prior are exactly the solution of a penalised regression. Every penalty in machine learning therefore corresponds to a prior, and every prior to a penalty.
 
 **Formally.** With $\mathbf{Y} \mid \beta \sim N(\mathbf{X}\beta, \sigma^2 I)$ and prior $\beta \sim N(0, \tau^2 I)$, the posterior
 mean and mode are
@@ -5495,12 +3681,7 @@ regularised predictors of §10.4.
 **Deeper.** [Litterman (1986)](https://doi.org/10.2307/1391384){target="_blank"}; [Tibshirani (1996)](https://doi.org/10.1111/j.2517-6161.1996.tb02080.x){target="_blank"}.
 
 ## A.10 Stein's paradox and empirical Bayes {#a10}
-**The idea.** Estimate the skill of 2,000 fund managers from their track records, and the top of the ranking is
-populated partly by skill and partly by luck. Pulling every estimate toward the group average removes some of the luck and
-lowers the total error, even though it biases each individual estimate. **Stein's paradox** is the surprising theorem that
-this shrinkage beats the unshrunk estimates for any true values once three or more are estimated together. **Empirical
-Bayes** chooses how much to shrink from the data: the spread of the estimates, compared with their noise, reveals how much
-genuine variation there is.
+**The idea.** Consider estimating the skill of 2,000 fund managers from their track records. The top of the ranking is populated partly by skill and partly by luck. Pulling every estimate toward the group average removes some of the luck and lowers the total error, even though it biases each individual estimate. **Stein's paradox** is the surprising theorem that this shrinkage beats the unshrunk estimates for any true values, once three or more are estimated together. **Empirical Bayes** chooses how much to shrink from the data. The spread of the estimates, compared with their noise, reveals how much real variation there is.
 
 **Formally.** Let $\hat\theta_i \sim N(\theta_i, s^2)$ independently for $i = 1, \dots, p$ with $p \ge 3$. The James–Stein
 estimator $\tilde\theta_i = \big(1 - (p-2)s^2/\sum_j\hat\theta_j^2\big)\hat\theta_i$ has lower total mean squared error than
@@ -5520,11 +3701,7 @@ underlies the forecast-combination puzzle of §8.8 and the winner's curse of §4
 **Deeper.** [Efron & Morris (1977)](https://doi.org/10.1038/scientificamerican0577-119){target="_blank"}.
 
 ## A.11 The truncated normal and the inverse Mills ratio {#a11}
-**The idea.** If an outcome is observed only when some unobserved index is high enough (a wage only when someone chose to
-work, a fund's return only when it survived), the observed errors are not mean zero: they are the errors of units that were
-lucky enough to be selected. How far their average is shifted depends on how likely selection was. For normal errors the
-shift has a closed form, the **inverse Mills ratio**, and Heckman's selection correction adds it to the regression as the
-omitted variable.
+**The idea.** Suppose an outcome is observed only when some unobserved index is high enough: a wage only when someone chose to work, or a fund's return only when the fund survived. The observed errors are then not mean zero, because they are the errors of units lucky enough to be selected. How far their average shifts depends on how likely selection was. For normal errors the shift has a closed form, the **inverse Mills ratio**. Heckman's selection correction adds it to the regression as the omitted variable.
 
 **Formally.** For $v \sim N(0,1)$, $\mathbb{E}[v \mid v > -a] = \varphi(a)/\Phi(a) \equiv \lambda(a)$, which is large when
 $a$ is small (selection is rare and only large $v$ get through) and near zero when $a$ is large. In Heckman's model, $Y_i =
@@ -5550,11 +3727,7 @@ the chapter on sample selection.
 corrections for testing many hypotheses at once.
 
 ## A.12 The jackknife, the percentile-$t$ bootstrap, and block bootstraps {#a12}
-**The idea.** The **jackknife** recomputes an estimate $n$ times, each time leaving out one observation, and uses how
-much the estimate moves to estimate its variance. The bootstrap (§4.9) resamples with replacement instead. Two
-refinements matter. Resampling the $t$-statistic rather than the estimate, the **percentile-$t$** method, gives more
-accurate intervals because a $t$-statistic's distribution depends less on unknown parameters. And for dependent data,
-resampling **blocks** of consecutive observations preserves the dependence inside each block.
+**The idea.** The **jackknife** recomputes an estimate $n$ times, each time leaving out one observation, and uses how much the estimate moves to estimate its variance. The bootstrap (§4.9) resamples with replacement instead. Two refinements matter. The first, the **percentile-$t$** method, resamples the $t$-statistic instead of the estimate. It gives more accurate intervals, because the distribution of a $t$-statistic depends less on unknown parameters. The second applies to dependent data: resampling **blocks** of consecutive observations preserves the dependence inside each block.
 
 **Formally.** The jackknife variance is $\frac{n-1}{n}\sum_{i}\big(\hat\theta_{(-i)} - \bar\theta_{(\cdot)}\big)^2$, where
 $\hat\theta_{(-i)}$ omits observation $i$ and $\bar\theta_{(\cdot)}$ averages them. A percentile-$t$ interval bootstraps
@@ -5570,11 +3743,7 @@ constructions.
 [Politis & Romano (1994)](https://doi.org/10.1080/01621459.1994.10476870){target="_blank"}.
 
 ## A.13 The wild and wild cluster bootstrap {#a13}
-**The idea.** Keep the regressors fixed, and create new artificial samples by multiplying each residual by a random sign.
-Each observation keeps its own error variance, so heteroskedasticity is preserved without modelling it. The **cluster**
-version flips the sign of a whole cluster's residuals at once, which also preserves any correlation inside the cluster.
-Because the procedure uses the actual cluster structure rather than an approximation that assumes many clusters, it
-remains accurate with far fewer clusters than the cluster-robust $t$-test.
+**The idea.** Keep the regressors fixed, and create new artificial samples by multiplying each residual by a random sign. Each observation keeps its own error variance, so heteroskedasticity is preserved without being modelled. The **cluster** version flips the sign of a whole cluster's residuals at once, which also preserves any correlation inside the cluster. The procedure uses the actual cluster structure, not an approximation that assumes many clusters. It therefore remains accurate with far fewer clusters than the cluster-robust $t$-test needs.
 
 **Formally.** Estimate the model imposing the null (the **restricted** version), with residuals $\tilde u_i$. For $b = 1,
 \dots, B$, draw a weight $w_g$ for each cluster, either $\pm 1$ with equal probability (Rademacher) or from the six-point
@@ -5590,11 +3759,7 @@ procedure becomes very conservative (§4.4).
 (2023)](https://arxiv.org/abs/2205.03285){target="_blank"}.
 
 ## A.14 Randomisation inference {#a14}
-**The idea.** In an experiment, the uncertainty comes from the coin flips that assigned treatment. Under the null that
-treatment did nothing to anyone, every unit's outcome would have been the same under any assignment, so the outcomes under
-every alternative assignment are known. Recompute the test statistic for all the assignments the design could have produced,
-and see how extreme the actual one is. The resulting p-value is exact in any sample size and needs no distributional
-assumption.
+**The idea.** In an experiment, the uncertainty comes from the coin flips that assigned treatment. Under the null that treatment did nothing to anyone, every unit's outcome would have been the same under any assignment. The outcomes under every alternative assignment are therefore known. Recompute the test statistic for all the assignments the design could have produced, and see how extreme the actual statistic is. The resulting p-value is exact at any sample size and needs no distributional assumption.
 
 **Formally.** Test the **sharp null** $Y_i(1) = Y_i(0)$ for all $i$. For a statistic $T(\mathbf{d}, \mathbf{Y})$, such as the
 difference in means under assignment vector $\mathbf{d}$, the p-value is the share of assignments $\mathbf{d}$ allowed by the
@@ -5608,10 +3773,7 @@ of synthetic control in §7.7 is a version of it.
 **Deeper.** [Imbens & Rubin (2015)](https://doi.org/10.1017/CBO9781139025751){target="_blank"}, the chapter on Fisher's exact p-values.
 
 ## A.15 Family-wise error and false discovery rates {#a15}
-**The idea.** When many hypotheses are tested, "5%" can mean two different things. The **family-wise error rate** is the
-probability of making *any* false discovery; controlling it is strict and appropriate when a single false claim is costly.
-The **false discovery rate** is the expected *share* of discoveries that are false; controlling it allows many discoveries
-while bounding how contaminated they are, which suits screening.
+**The idea.** When many hypotheses are tested, "5%" can mean two different things. The **family-wise error rate** is the probability of making *any* false discovery. Controlling it is strict, and appropriate when a single false claim is costly. The **false discovery rate** is the expected *share* of discoveries that are false. Controlling it allows many discoveries while bounding how contaminated they are, which suits screening.
 
 **Formally.** With $K$ tests and p-values sorted as $p_{(1)} \le \dots \le p_{(K)}$:
 
@@ -5629,10 +3791,7 @@ With $K = 100$ and $\alpha = 5\%$, Bonferroni requires $p \le 0.0005$, a two-sid
 (2016)](https://www.nber.org/papers/w20592){target="_blank"}.
 
 ## A.16 Testing the best of many: reality check, SPA, and stepdown {#a16}
-**The idea.** After searching over many strategies or forecasting models, the question worth testing is whether *any* of
-them genuinely beats a benchmark, and the natural statistic is the performance of the best one. Its distribution under the
-null must reflect both the size of the search and the correlation among the candidates, which share the same data. White's
-reality check obtains that distribution by bootstrapping all candidates together over the same resampled dates.
+**The idea.** After a search over many strategies or forecasting models, the question to test is whether *any* of them beats a benchmark, and the natural statistic is the performance of the best one. Its distribution under the null must reflect both the size of the search and the correlation among the candidates, which share the same data. White's reality check obtains that distribution by bootstrapping all the candidates together over the same resampled dates.
 
 **Formally.** For candidate $k$ at date $t$, let $d_{k,t}$ be its performance relative to the benchmark, such as a loss
 difference or a return difference, with sample mean $\bar d_k$. The null is $\max_k \mathbb{E}[d_{k,t}] \le 0$ and the statistic is
@@ -5648,9 +3807,7 @@ family-wise error rate.
 [Romano & Wolf (2005)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=563209){target="_blank"}.
 
 ## A.17 The Hausman test {#a17}
-**The idea.** Compare two estimators: one that is consistent whether or not an assumption holds but is imprecise, and one
-that is more efficient but consistent only if the assumption holds. If the assumption is true, both converge to the same
-value and their difference is just noise. If the difference is too large to be noise, reject the assumption.
+**The idea.** Compare two estimators. One is consistent whether or not an assumption holds, but imprecise. The other is more efficient, but consistent only if the assumption holds. If the assumption is true, both converge to the same value, and their difference is just noise. If the difference is too large to be noise, reject the assumption.
 
 **Formally.** With $\hat\theta_C$ consistent under both hypotheses and $\hat\theta_E$ efficient under the null,
 
@@ -5674,10 +3831,7 @@ the chapter on linear panel models.
 **Part IV — Identification machinery.** The formal tools behind the research designs of §6, §7, and §10.5.
 
 ## A.18 d-separation and the back-door criterion {#a18}
-**The idea.** A causal graph is a map of which variables can pass statistical association to which others. Association
-flows along any path between two variables, whatever the direction of its arrows, unless something blocks it. Conditioning on
-a variable in the middle of a chain or a fork blocks the flow; conditioning on a collider, where two arrows meet, *opens* a
-path that was blocked. The back-door criterion uses these rules to decide which controls identify a causal effect.
+**The idea.** A causal graph is a map of which variables can pass statistical association to which others. Association flows along any path between two variables, whatever the direction of its arrows, unless something blocks it. Conditioning on a variable in the middle of a chain or a fork blocks the flow. Conditioning on a collider, where two arrows meet, *opens* a path that was blocked. The back-door criterion uses these rules to decide which controls identify a causal effect.
 
 **Formally.** A path between $D$ and $Y$ is **blocked** by a set of variables $S$ if it contains a chain $A \to B \to C$ or a
 fork $A \leftarrow B \to C$ with $B$ in $S$, or a collider $A \to B \leftarrow C$ with neither $B$ nor any of its descendants in
@@ -5698,10 +3852,7 @@ controls are colliders.
 **Deeper.** [Pearl (2009)](https://doi.org/10.1017/CBO9780511803161){target="_blank"}; [Cinelli, Forney & Pearl (2024)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3689437){target="_blank"}.
 
 ## A.19 Sensitivity analysis: Oster's $\delta$ and the robustness value {#a19}
-**The idea.** Unobserved confounding cannot be tested, but its required strength can be measured: how strong would a
-confounder have to be to explain the estimate away? Both methods here calibrate that strength against something observed.
-Oster's $\delta$ compares it with the selection implied by the controls you have. The robustness value expresses it as the
-share of variance the confounder would need to explain.
+**The idea.** Unobserved confounding cannot be tested, but its required strength can be measured: how strong would a confounder have to be to explain the estimate away? Both methods here calibrate that strength against something observed. Oster's $\delta$ compares it with the selection implied by the available controls. The robustness value expresses it as the share of variance that the confounder would need to explain.
 
 **Formally.** *Oster.* Let $\mathring\beta, \mathring R^2$ come from the regression without controls and $\tilde\beta,
 \tilde R^2$ from the regression with them. Suppose selection on unobservables is $\delta$ times selection on observables,
@@ -5741,11 +3892,7 @@ compares it with critical values for the bias of 2SLS; in just-identified models
 (2013)](https://doi.org/10.1080/00401706.2013.806694){target="_blank"}; [Andrews, Stock & Sun (2019)](https://doi.org/10.1146/annurev-economics-080218-025643){target="_blank"}.
 
 ## A.21 Dynamic panel GMM {#a21}
-**The idea.** With a lagged dependent variable and unit fixed effects, demeaning biases the estimate (Nickell bias, §7.4).
-First-differencing removes the fixed effect but creates a new problem: the differenced lag is correlated with the differenced
-error, because both contain last period's shock. Levels of the dependent variable from two or more periods back are
-correlated with the differenced lag but, if the shocks are serially uncorrelated, not with the differenced error, so they can
-serve as instruments.
+**The idea.** With a lagged dependent variable and unit fixed effects, demeaning biases the estimate (the Nickell bias of §7.4). First-differencing removes the fixed effect but creates a new problem. The differenced lag is correlated with the differenced error, because both contain last period's shock. Levels of the dependent variable from two or more periods back are correlated with the differenced lag. If the shocks are serially uncorrelated, those levels are not correlated with the differenced error, so they can serve as instruments.
 
 **Formally.** In $Y_{it} = \phi Y_{i,t-1} + X_{it}'\beta + \alpha_i + u_{it}$, differencing gives $\Delta Y_{it} = \phi\,\Delta
 Y_{i,t-1} + \Delta X_{it}'\beta + \Delta u_{it}$, where $\Delta Y_{i,t-1}$ and $\Delta u_{it}$ both contain $u_{i,t-1}$. If
@@ -5761,10 +3908,7 @@ are weak; "system GMM", which adds equations in levels, is the usual response.
 the chapter on dynamic panel models.
 
 ## A.22 Local polynomial regression and bandwidth choice {#a22}
-**The idea.** To estimate a regression function at one point without assuming its shape, fit a straight line using only
-the data near that point, weighting the nearest observations most. The **bandwidth** defines "near". A wide bandwidth uses
-more data, which cuts variance but lets curvature further away bias the fit; a narrow one does the reverse. Regression
-discontinuity needs these fits at the edge of the data, on each side of the cutoff, where global polynomials behave worst.
+**The idea.** To estimate a regression function at one point without assuming its shape, fit a straight line using only the data near that point, and weight the nearest observations most. The **bandwidth** defines "near." A wide bandwidth uses more data, which cuts variance but lets curvature further away bias the fit. A narrow bandwidth does the reverse. Regression discontinuity needs these fits at the edge of the data, on each side of the cutoff, which is where global polynomials behave worst.
 
 **Formally.** On the right of a cutoff $c$, with running variable $R_i$ and kernel $K$, solve
 
@@ -5784,10 +3928,7 @@ standard error to account for the correction.
 (2020)](https://arxiv.org/abs/1911.09511){target="_blank"}.
 
 ## A.23 Approximate sparsity {#a23}
-**The idea.** With hundreds of candidate controls, estimation is only feasible if most of them barely matter. **Sparsity**
-means that only a few have non-zero coefficients. **Approximate sparsity** relaxes this to realism: a few controls matter a
-lot, and the many small effects that remain add up to an error smaller than the sampling noise. Under that condition, a
-selection method that finds the important few loses little.
+**The idea.** With hundreds of candidate controls, estimation is feasible only if most of them barely matter. **Sparsity** means that only a few controls have non-zero coefficients. **Approximate sparsity** relaxes this to something realistic. A few controls matter a lot, and the many small effects that remain add up to an error smaller than the sampling noise. Under that condition, a selection method that finds the important few loses little.
 
 **Formally.** A conditional mean $\mathbb{E}[Y \mid X] = \sum_{j=1}^{p}\beta_jX_j$ with possibly $p > n$ is approximately
 sparse if it can be approximated by some $s$ of the regressors with an approximation error whose root mean square is of
@@ -5801,11 +3942,7 @@ the $s$ important controls would achieve.
 Syrgkanis (2024)](https://causalml-book.org/){target="_blank"}.
 
 ## A.24 Neyman orthogonality and cross-fitting {#a24}
-**The idea.** Machine-learning predictions are deliberately biased by regularisation. If a causal estimate depends on them
-directly, that bias passes straight through. The fix is to build the estimating equation so that small errors in the
-auxiliary predictions do not move the causal estimate *to first order*. Their effect then enters only as the product of two
-small errors, which is negligible. **Cross-fitting** adds a second protection: the predictions used for each observation are
-made by models that never saw that observation, so overfitting cannot contaminate the estimate.
+**The idea.** Machine-learning predictions are deliberately biased by regularisation. If a causal estimate depends on them directly, that bias passes straight through. The fix is to build the estimating equation so that small errors in the auxiliary predictions do not move the causal estimate *to first order*. Their effect then enters only as the product of two small errors, which is negligible. **Cross-fitting** adds a second protection. The predictions used for each observation come from models that never saw that observation, so overfitting cannot contaminate the estimate.
 
 **Formally.** A moment function $\psi(W;\theta,\eta)$ with nuisance functions $\eta$ is **Neyman orthogonal** if its expectation
 has zero derivative in every direction of $\eta$ at the truth:
@@ -5855,10 +3992,7 @@ $P$ is the variance of the state estimate and $\mathcal{G}_t$ the **gain**. The 
 section 6.6 of [Trend-Following in Financial Markets](trend_following.html) applies it to trend estimation.
 
 ## A.26 The Granger representation theorem {#a26}
-**The idea.** If several non-stationary series are cointegrated, the gaps between them are stationary, so something must keep
-pulling them back together. The **Granger representation theorem** says the pull has to show up in the short-run dynamics: at
-least one of the series must respond to last period's deviation from the long-run relationship. Cointegration and error
-correction are two descriptions of the same system.
+**The idea.** If several non-stationary series are cointegrated, the gaps between them are stationary, so something must keep pulling the series back together. The **Granger representation theorem** says that the pull has to show up in the short-run dynamics: at least one of the series must respond to last period's deviation from the long-run relationship. Cointegration and error correction are two descriptions of the same system.
 
 **Formally.** Let $\mathbf{y}_t$ be a vector of $n_y$ integrated series. They are cointegrated with rank $r$ if there are $r$
 linearly independent vectors, the columns of an $n_y \times r$ matrix $\mathsf{B}$, such that $\mathsf{B}'\mathbf{y}_t$ is stationary.
@@ -5877,10 +4011,7 @@ by testing the rank of this matrix. The letters $\mathsf{A}$, $\mathsf{B}$, $\Ga
 **Deeper.** [Engle & Granger (1987)](https://doi.org/10.2307/1913236){target="_blank"}; [Johansen (1991)](https://doi.org/10.2307/2938278){target="_blank"}.
 
 ## A.27 Market microstructure noise {#a27}
-**The idea.** Transaction prices are not the "efficient" price. They bounce between the bid and the ask, move in discrete
-ticks, and carry temporary price impact. Each deviation is tiny, but unlike genuine price moves it does not shrink when you
-sample more often. At high enough frequency the noise dominates squared returns, and realised variance measures the noise
-rather than the volatility.
+**The idea.** Transaction prices are not the "efficient" price. They bounce between the bid and the ask, move in discrete ticks, and carry temporary price impact. Each deviation is tiny. Unlike real price moves, however, it does not shrink as the sampling interval shrinks. At high enough frequency the noise dominates squared returns, and realised variance measures the noise instead of the volatility.
 
 **Formally.** Write the observed log price as $p_t^{\text{obs}} = p_t^* + \upsilon_t$, with $\upsilon_t$ independent noise of variance
 $\sigma_\upsilon^2$. An observed return over a short interval is then the efficient return plus $\upsilon_t - \upsilon_{t-1}$.
@@ -5894,9 +4025,7 @@ estimators such as realised kernels and pre-averaging.
 **Deeper.** [Andersen, Bollerslev, Diebold & Labys (2003)](https://www.nber.org/papers/w8160){target="_blank"}.
 
 ## A.28 Loss functions for volatility forecasts: MSE and QLIKE {#a28}
-**The idea.** Variance is never observed, so volatility forecasts are scored against a noisy stand-in such as a squared return.
-Some loss functions rank competing forecasts in the same order whether they are scored against the true variance or against an
-unbiased noisy stand-in; others can prefer the wrong forecast. Mean squared error and QLIKE are in the first group.
+**The idea.** Variance is never observed, so volatility forecasts are scored against a noisy stand-in such as a squared return. Some loss functions rank competing forecasts in the same order whether they are scored against the true variance or against an unbiased noisy stand-in. Others can prefer the wrong forecast. Mean squared error and QLIKE are in the first group.
 
 **Formally.** Let $\hat h_t$ be a variance forecast and $\hat\sigma_t^2$ a proxy with $\mathbb{E}[\hat\sigma_t^2 \mid
 \mathcal{F}_{t-1}] = \sigma_t^2$. The two standard robust losses are
@@ -5915,11 +4044,7 @@ variances are not robust in this sense.
 **Deeper.** [Patton (2011)](https://doi.org/10.1016/j.jeconom.2010.03.034){target="_blank"}; [Hansen & Lunde (2005)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=264571){target="_blank"}.
 
 ## A.29 IVX {#a29}
-**The idea.** A predictor that is nearly a random walk gives the predictive regression a nonstandard sampling distribution,
-and the right correction depends on exactly how persistent the predictor is, which is itself poorly estimated (§9.2). **IVX**
-sidesteps the problem. It builds an instrument from the predictor's own past changes, filtered so that the instrument is
-deliberately less persistent than the predictor, and uses it in an IV regression. The resulting test statistic is
-approximately normal whatever the predictor's persistence.
+**The idea.** A predictor that is nearly a random walk gives the predictive regression a non-standard sampling distribution. The right correction depends on exactly how persistent the predictor is, which is itself poorly estimated (§9.2). **IVX** sidesteps the problem. It builds an instrument from the predictor's own past changes, filtered so that the instrument is deliberately less persistent than the predictor, and uses that instrument in an IV regression. The resulting test statistic is approximately normal whatever the predictor's persistence.
 
 **Formally.** For $r_{t+1} = \alpha + \beta x_t + u_{t+1}$, construct $\tilde z_t = \sum_{j=0}^{t-1}\varrho^{\,j}\,\Delta x_{t-j}$
 with $\varrho = 1 - c_z/T^{a}$, for a constant $c_z > 0$ and $a \in (0,1)$. This makes $\tilde z_t$ "mildly integrated", less
@@ -5937,10 +4062,7 @@ entry.
 **Part VI — Finance.** The finance vocabulary and machinery used in §3.8, §4.7, and §9.
 
 ## A.30 Excess returns and the Sharpe ratio {#a30}
-**The idea.** An investment's **excess return** is what it earns above a risk-free rate, the reward for bearing risk. The
-**Sharpe ratio** divides the average excess return by its volatility: reward per unit of risk. It does not change with leverage,
-since doubling a position doubles both the numerator and the denominator. It is also, almost exactly, the signal-to-noise ratio
-that determines how hard a strategy's mean return is to estimate.
+**The idea.** An investment's **excess return** is what it earns above a risk-free rate, the reward for bearing risk. The **Sharpe ratio** divides the average excess return by its volatility, giving reward per unit of risk. Leverage does not change it, because doubling a position doubles both the numerator and the denominator. It is also, almost exactly, the signal-to-noise ratio that determines how hard a strategy's mean return is to estimate.
 
 **Formally.** With excess return $r^e_t$, $\mathrm{SR} = \mathbb{E}[r^e_t]/\operatorname{sd}(r^e_t)$. For independent returns,
 a per-period Sharpe ratio scales to annual units by $\sqrt{A}$, with $A$ periods per year. The $t$-statistic of the mean excess
@@ -5955,12 +4077,7 @@ is approximately $\sqrt{(1 + \mathrm{SR}^2/2)/T}$ (§2.6).
 Construction and the Covariance Matrix](portfolio_construction.html).
 
 ## A.31 Risk aversion, rational expectations, and the stochastic discount factor {#a31}
-**The idea.** An investor values a payoff by how much an extra dollar is worth in the state of the world where it arrives. A
-dollar in a recession, when consumption is low, is worth more than a dollar in a boom. The **stochastic discount factor** is
-that state-by-state valuation, and the price of every asset is its expected payoff weighted by it. **Risk aversion** controls
-how steeply the valuation rises in bad states. **Rational expectations** is the assumption that investors' expectations are the
-true conditional expectations, which is what allows an econometrician to test the resulting pricing equations using realised
-data.
+**The idea.** An investor values a payoff by how much an extra dollar is worth in the state of the world where the payoff arrives. A dollar in a recession, when consumption is low, is worth more than a dollar in a boom. The **stochastic discount factor** is that state-by-state valuation, and the price of every asset is its expected payoff weighted by it. **Risk aversion** controls how steeply the valuation rises in bad states. **Rational expectations** is the assumption that investors' expectations are the true conditional expectations. That assumption allows an econometrician to test the resulting pricing equations with realised data.
 
 **Formally.** With power (constant relative risk aversion) utility $u(C) = C^{1-\eta}/(1-\eta)$, relative risk aversion
 $-Cu''(C)/u'(C)$ equals $\eta$. An investor who can buy an asset with gross return $R_{t+1}$ is at an optimum only if
@@ -5982,10 +4099,7 @@ in §9.4, the rational-expectations critique in §13.3, and the optimal portfoli
 (1982)](https://doi.org/10.2307/1911873){target="_blank"}.
 
 ## A.32 Portfolio sorts, value weighting, and NYSE breakpoints {#a32}
-**The idea.** The simplest non-parametric test of whether a characteristic predicts returns is to rank stocks on it every
-period, group them into portfolios, and track each portfolio's subsequent return. The return of the top group minus the bottom
-group is the characteristic's "factor" return. Two implementation choices decide whether the result describes the economy or its
-smallest stocks: how stocks are weighted inside each portfolio, and where the group boundaries are drawn.
+**The idea.** The simplest non-parametric test of whether a characteristic predicts returns ranks stocks on it every period, groups them into portfolios, and tracks each portfolio's subsequent return. The return of the top group minus the bottom group is the characteristic's "factor" return. Two implementation choices decide whether the result describes the economy or only its smallest stocks: how stocks are weighted inside each portfolio, and where the group boundaries are drawn.
 
 **Formally.** At each rebalancing date, compute percentile **breakpoints** of the characteristic, assign stocks to groups, and
 compute next-period portfolio returns, either equal-weighted, $\frac{1}{N_p}\sum_i r_i$, or **value-weighted**, $\sum_i
@@ -6002,11 +4116,7 @@ weighting and breakpoints.
 (2020)](https://www.nber.org/papers/w23394){target="_blank"}.
 
 ## A.33 Mean-variance efficiency, the tangency portfolio, and the GLS $R^2$ {#a33}
-**The idea.** Among all combinations of a set of risky assets, one has the highest Sharpe ratio: the **tangency portfolio**. A
-factor model is exactly right when some combination of its factors reaches that maximum, so that adding the test assets cannot
-improve on the factors. That is why the time-series test of a factor model can be read as a question about Sharpe ratios, and
-why a goodness-of-fit measure for a factor model should weight pricing errors by how much they matter for the maximum Sharpe
-ratio rather than equally.
+**The idea.** Among all combinations of a set of risky assets, one has the highest Sharpe ratio: the **tangency portfolio**. A factor model is exactly right when some combination of its factors reaches that maximum, so that adding the test assets cannot improve on the factors. That is why the time-series test of a factor model can be read as a question about Sharpe ratios. It is also why a goodness-of-fit measure for a factor model should weight pricing errors by how much they matter for the maximum Sharpe ratio, not equally.
 
 **Formally.** For assets with mean excess returns $\mu$ and covariance matrix $\Sigma$, the maximum squared Sharpe ratio is
 $\mu'\Sigma^{-1}\mu$, attained by weights proportional to $\Sigma^{-1}\mu$. If $\alpha$ collects the test assets' intercepts in
@@ -6027,10 +4137,7 @@ factor, comes to the tangency portfolio. In this entry $\mu$ and $\alpha$ are ve
 (2010)](https://web.mit.edu/lewellen/www/Documents/AssetPricingTests.pdf){target="_blank"}; [Cochrane (2005)](https://press.princeton.edu/books/hardcover/9780691121376/asset-pricing){target="_blank"}.
 
 ## A.34 Errors in betas: the Shanken correction {#a34}
-**The idea.** Fama–MacBeth standard errors treat the first-pass betas as if they were known. They are estimated, so the
-second-pass risk premia inherit extra uncertainty that the standard errors miss. Shanken derived the adjustment. It inflates the
-variance by a factor that grows with the squared Sharpe ratio of the factors, and adds a term for the sampling variation of
-the factors themselves.
+**The idea.** Fama–MacBeth standard errors treat the first-pass betas as if they were known. The betas are estimated, so the second-pass risk premia inherit extra uncertainty that the standard errors miss. Shanken derived the adjustment. It inflates the variance by a factor that grows with the squared Sharpe ratio of the factors, and it adds a term for the sampling variation of the factors themselves.
 
 **Formally.** For an OLS second pass with $K$ factors, estimated premia $\hat\lambda$, factor covariance matrix $\Sigma_f$, and
 Fama–MacBeth variance $\hat V_{\text{FM}}$, the corrected variance is approximately
@@ -6067,10 +4174,7 @@ Consistency requires the number of dates to grow; the number of firms can be fix
 **Deeper.** [Driscoll & Kraay (1998)](https://doi.org/10.1162/003465398557825){target="_blank"}; [Petersen (2009)](https://www.kellogg.northwestern.edu/faculty/petersen/htm/papers/standarderror.html){target="_blank"}.
 
 ## A.36 The deflated Sharpe ratio {#a36}
-**The idea.** The best of many backtests reports a Sharpe ratio biased upward by the search that selected it. The **deflated
-Sharpe ratio** asks whether the best result beats what the best of that many unskilled trials would have produced by luck,
-after also accounting for the sample length and for non-normal returns. It converts "my best configuration scored 1.4" into the
-probability that the configuration has genuine skill.
+**The idea.** The best of many backtests reports a Sharpe ratio biased upward by the search that selected it. The **deflated Sharpe ratio** asks whether the best result beats what the best of that many unskilled trials would have produced by luck. It also accounts for the sample length and for non-normal returns. It converts a statement such as "the best configuration scored 1.4" into the probability that the configuration has real skill.
 
 **Formally.** The expected maximum Sharpe ratio across $K$ independent unskilled trials is approximately
 
@@ -6098,16 +4202,7 @@ trials, which is smaller than the raw count when configurations are correlated (
 **Part VII — Machine learning.**
 
 ## A.37 Trees, forests, boosting, and neural-network regularisation {#a37}
-**The idea.** A **regression tree** splits the data into boxes using thresholds on the predictors ("book-to-market above 0.8
-and size below the median") and predicts the average outcome in each box, so it captures nonlinearities and interactions
-without being told about them. A single deep tree overfits badly. A **random forest** averages many trees, each grown on a
-bootstrap sample and allowed to split only on a random subset of predictors, which reduces variance. **Boosting** grows a
-sequence of small trees, each fitted to what the ensemble so far has failed to explain, and adds each with a small weight,
-which reduces bias gradually. **Neural networks** stack layers of nonlinear transformations and are kept from overfitting by
-weight penalties, **early stopping** (halting training when validation loss stops improving), **dropout** (randomly silencing
-units during training), and averaging several networks. A **causal forest** grows trees whose splits seek differences in
-treatment effects rather than in outcomes, and uses separate subsamples to choose the splits and to estimate the effects
-within them, which is what makes its confidence intervals valid.
+**The idea.** A **regression tree** splits the data into boxes using thresholds on the predictors, such as "book-to-market above 0.8 and size below the median." It predicts the average outcome in each box, so it captures non-linearities and interactions without being told about them. A single deep tree overfits badly. A **random forest** averages many trees, each grown on a bootstrap sample and allowed to split only on a random subset of predictors, which reduces variance. **Boosting** grows a sequence of small trees. Each tree is fitted to what the ensemble so far has failed to explain and is added with a small weight, which reduces bias gradually. **Neural networks** stack layers of non-linear transformations. Four devices keep them from overfitting: weight penalties, **early stopping** (halting training when validation loss stops improving), **dropout** (randomly silencing units during training), and averaging several networks. A **causal forest** grows trees whose splits seek differences in treatment effects instead of in outcomes. It uses separate subsamples to choose the splits and to estimate the effects within them, which is what makes its confidence intervals valid.
 
 **Formally.** A tree predicts $\hat f(x) = \sum_{m} c_m\,\mathbb{1}\{x \in \mathcal{R}_m\}$ for boxes $\mathcal{R}_m$ chosen greedily
 to reduce squared error, with $c_m$ the mean outcome in box $m$. A forest averages $B$ trees, $\bar f(x) = \frac1B\sum_b \hat
@@ -6121,10 +4216,7 @@ learning rate, penalties) are chosen by validation (§10.6). The symbols in this
 Athey (2018)](https://arxiv.org/abs/1510.04342){target="_blank"}; [Gu, Kelly & Xiu (2020)](https://www.nber.org/papers/w25398){target="_blank"}.
 
 ## A.38 Mallows's $C_p$ and the optimism of in-sample fit {#a38}
-**The idea.** A model's error on the data it was fitted to understates its error on new data, and the understatement grows
-with the number of parameters, because each parameter lets the fit absorb some of the noise. **Mallows's $C_p$** adds the
-expected understatement back to the in-sample error, so that models of different sizes can be compared on an estimate of their
-out-of-sample error without holding out data.
+**The idea.** A model's error on the data it was fitted to understates its error on new data. The understatement grows with the number of parameters, because each parameter lets the fit absorb some of the noise. **Mallows's $C_p$** adds the expected understatement back to the in-sample error. Models of different sizes can then be compared on an estimate of their out-of-sample error without holding out data.
 
 **Formally.** For linear regression with $k$ coefficients, $n$ observations, and error variance $\sigma^2$, the expected
 in-sample mean squared error falls short of the expected out-of-sample error at the same regressor values by $2\sigma^2k/n$

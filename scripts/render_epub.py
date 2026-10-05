@@ -7,9 +7,14 @@ site's "Chapter N" labels. Each document is read on its own with
 drop_toc_section.lua and epub_chapter.lua, which together turn it into a
 chapter: the title becomes the chapter heading, identifiers get a per-document
 prefix and links between documents become links within the book. The chapters
-are then joined into one EPUB 3 file with MathML equations, SVG figures and PNG
-mermaid diagrams (PNG because mermaid's SVG draws its labels in HTML, which
-e-readers drop).
+are then joined into one EPUB 3 file with SVG figures and PNG mermaid diagrams
+(PNG because mermaid's SVG draws its labels in HTML, which e-readers drop).
+
+Equations avoid MathML, which many readers (Google Play Books among them) lay
+out one token per line. Simple inline math is set as text, with italics,
+sub/superscripts and Unicode symbols, so it reflows with the prose and follows
+the reader's night theme; everything else becomes an SVG image drawn by MathJax
+(tex_to_svg.mjs), the engine the site uses.
 
 The book is written to docs/quant_research.epub, published beside the pages it
 collects. It is rebuilt only when one of its inputs (the chapters, the index,
@@ -25,6 +30,7 @@ Usage (from anywhere):
 from __future__ import annotations
 
 import argparse
+import hashlib
 import html
 import json
 import os
@@ -35,7 +41,7 @@ import subprocess
 import sys
 import tempfile
 import uuid
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
 from concurrent.futures import ThreadPoolExecutor
 
 QR_DIR = pathlib.Path(__file__).resolve().parent.parent
@@ -43,7 +49,13 @@ RENDER_ROOT = QR_DIR.parent
 REL = QR_DIR.name
 INDEX = QR_DIR / "docs" / "index.html"
 EPUB = QR_DIR / "docs" / "quant_research.epub"
-BUILD_FILES = ["scripts/render_epub.py", "scripts/epub_chapter.lua", "scripts/drop_toc_section.lua", "assets/epub.css"]
+BUILD_FILES = [
+    "scripts/render_epub.py",
+    "scripts/epub_chapter.lua",
+    "scripts/drop_toc_section.lua",
+    "scripts/tex_to_svg.mjs",
+    "assets/epub.css",
+]
 SOURCE_DATE_EPOCH = "1735689600"
 
 SITE_URL = "https://rmahfoud.github.io/quant-research/"
@@ -59,6 +71,29 @@ RIGHTS = (
 ARTICLE_RE = re.compile(r'<article class="doc">.*?</article>', re.DOTALL)
 SLUG_RE = re.compile(r'href="([a-z0-9_]+)\.html"')
 DESCRIPTION_RE = re.compile(r'<meta name="description" content="(.*?)">')
+
+# Inline math simple enough to set as text: letters, digits, Greek, common
+# operators and scripts, plus only those blackboard and calligraphic capitals
+# with a Basic Multilingual Plane code point, which e-reader fonts cover.
+_SYMBOL = (
+    r"\\(?:alpha|beta|gamma|delta|epsilon|varepsilon|zeta|eta|theta|vartheta|iota|kappa|lambda|mu|nu|xi|pi"
+    r"|rho|sigma|tau|upsilon|phi|varphi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Phi|Psi|Omega"
+    r"|ell|le|leq|ge|geq|ne|neq|equiv|approx|sim|times|cdot|pm|to|in|mid|infty|ldots|dots|cdots|quad"
+    r"|ln|log|exp)(?![A-Za-z])"
+    r"|\\[,;!%{}]|\\mathrm\{[A-Za-z]+\}|\\mathbb\{[CNPQRZ]\}|\\mathcal\{[BEFHILMR]\}"
+    r"|[A-Za-z0-9 +\-=<>,.()\[\]|'/:!*]"
+)
+SIMPLE_MATH_RE = re.compile(rf"^(?:{_SYMBOL}|[_^](?:{_SYMBOL}|\{{(?:{_SYMBOL})+\}}))+$")
+SQRT_RE = re.compile(r"\\sqrt\{([^{}]*)\}")
+VIEWBOX_RE = re.compile(r'viewBox="([-\d.]+) ([-\d.]+) ([-\d.]+) ([-\d.]+)"')
+SVG_TAG_RE = re.compile(r"<svg [^>]*>")
+DATA_ATTR_RE = re.compile(r' data-[\w-]+="[^"]*"')
+# MathJax on the web scales its glyphs to the text's x-height, about this much
+# larger than TeX's in a typical book face.
+MATH_SCALE = 1.1
+# Intrinsic size, for readers that rasterise SVG: sharp on a 3x screen, within
+# Google Play Books' 3200px cap.
+PX_PER_EM = 48
 
 # Elements whose pandoc JSON carries an Attr, and where it sits in "c".
 ATTR_POS = {"Header": 1, "Div": 0, "Span": 0, "Link": 0, "Image": 0, "CodeBlock": 0, "Code": 0, "Table": 0, "Figure": 0}
@@ -123,6 +158,66 @@ def check_links(blocks: list) -> None:
         print(f"warning: link to #{target}, which no heading or anchor in the book carries", file=sys.stderr)
 
 
+def find_math(node: object, in_header: bool = False) -> Iterator[tuple[dict | list, int | str, bool]]:
+    items = node.items() if isinstance(node, dict) else enumerate(node) if isinstance(node, list) else ()
+    for key, child in items:
+        if isinstance(child, dict) and child.get("t") == "Math":
+            yield node, key, in_header
+        else:
+            yield from find_math(child, in_header or (isinstance(child, dict) and child.get("t") == "Header"))
+
+
+def tex_to_svg(exprs: list[tuple[str, bool]]) -> list[str]:
+    npm_root = subprocess.run(["npm", "root", "-g"], capture_output=True, text=True, check=True).stdout.strip()
+    mathjax = pathlib.Path(npm_root) / "mathjax"
+    if not (mathjax / "node-main.mjs").exists():
+        sys.exit("MathJax not found. Run ./scripts/setup_dev.sh")
+    result = subprocess.run(
+        ["node", str(QR_DIR / "scripts" / "tex_to_svg.mjs"), str(mathjax)],
+        input=json.dumps(exprs),
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    sys.stderr.write(result.stderr)
+    if result.returncode:
+        sys.exit("MathJax failed")
+    return json.loads(result.stdout)
+
+
+def math_image(tex: str, display: bool, svg: str, media: pathlib.Path) -> dict:
+    viewbox = VIEWBOX_RE.search(svg)
+    y, w, h = (float(v) for v in viewbox.groups()[1:])
+    px = min(PX_PER_EM / 1000, 3200 / max(w, h))
+    root = f'<svg xmlns="http://www.w3.org/2000/svg" width="{w * px:.1f}" height="{h * px:.1f}" {viewbox.group(0)}>'
+    svg = DATA_ATTR_RE.sub("", SVG_TAG_RE.sub(root, svg, count=1)).replace("currentColor", "#000")
+    path = media / f"{hashlib.sha1(f'{display}{tex}'.encode()).hexdigest()}.svg"
+    path.write_text(svg)
+    # Sized in em, from MathJax's 1000 units per em, so it scales with the
+    # reader's font; inline images sit on the baseline by their depth.
+    em = MATH_SCALE / 1000
+    style = f"width:{w * em:.3f}em"
+    if not display:
+        style += f";height:{h * em:.3f}em;vertical-align:{-(h + y) * em:.3f}em"
+    attr = ["", ["math", "display" if display else "inline"], [["style", style]]]
+    return {"t": "Image", "c": [attr, [{"t": "Str", "c": tex}], [str(path), ""]]}
+
+
+def render_math(blocks: list, media: pathlib.Path) -> None:
+    images: dict[tuple[str, bool], list[tuple[dict | list, int | str]]] = {}
+    for parent, key, in_header in list(find_math(blocks)):
+        kind, tex = parent[key]["c"][0]["t"], parent[key]["c"][1]
+        if in_header:
+            # Headings feed the reader's table of contents, which shows text only.
+            parent[key]["c"][1] = SQRT_RE.sub(r"√{\1}", tex)
+        elif kind == "DisplayMath" or not SIMPLE_MATH_RE.match(tex.strip()):
+            images.setdefault((tex, kind == "DisplayMath"), []).append((parent, key))
+    for (tex, display), svg in zip(images, tex_to_svg(list(images)), strict=True):
+        image = math_image(tex, display, svg, media)
+        for parent, key in images[(tex, display)]:
+            parent[key] = image
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("-o", "--output", type=pathlib.Path, default=EPUB)
@@ -136,6 +231,8 @@ def main() -> int:
         sys.exit("pandoc not found. Run ./scripts/setup_dev.sh")
     if not shutil.which("mermaid-filter"):
         sys.exit("mermaid-filter not found. Run ./scripts/setup_dev.sh")
+    if not shutil.which("node"):
+        sys.exit("node not found. Run ./scripts/setup_dev.sh")
 
     slugs, description = read_index()
     if not args.force and is_current(output, slugs):
@@ -163,6 +260,7 @@ def main() -> int:
 
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
+        render_math(blocks, pathlib.Path(tmp))
         meta_file = pathlib.Path(tmp) / "meta.json"
         meta_file.write_text(json.dumps(meta))
         result = subprocess.run(
@@ -174,7 +272,6 @@ def main() -> int:
                 "--toc",
                 "--toc-depth=2",
                 "--split-level=2",
-                "--mathml",
                 f"--css={REL}/assets/epub.css",
             ],
             cwd=RENDER_ROOT,

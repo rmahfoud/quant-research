@@ -118,8 +118,23 @@ hr {
   border-top: 1px solid #999;
   margin: 1.5em 0;
 }
-math[display="block"] {
-  margin: 0.8em 0;
+/* Simple inline math is text (pandoc's plain rendering); the rest is SVG,
+   sized in em by render_epub.py. The plate keeps black ink visible in a night
+   theme, where the reader cannot recolour an image. */
+span.math {
+  white-space: nowrap;
+}
+sub, sup {
+  line-height: 0;
+}
+img.math {
+  background-color: #fff;
+}
+img.math.display {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  margin: 0.6em auto;
 }
 
 nav#toc ol, nav#landmarks ol {

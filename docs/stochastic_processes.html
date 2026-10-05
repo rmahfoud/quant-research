@@ -19,7 +19,7 @@ theory, measure theory, filtration, Brownian motion" />
 <meta property="og:url" content="https://rmahfoud.github.io/quant-research/stochastic_processes.html" />
 <meta property="og:locale" content="en_US" />
 <meta property="article:published_time" content="2026-08-06" />
-<meta property="article:modified_time" content="2026-09-26" />
+<meta property="article:modified_time" content="2026-10-04" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Stochastic Processes" />
 <meta name="twitter:description" content="The formal definition of a stochastic process unpacked ingredient by ingredient, with a measure-theoretic appendix built from σ-algebras up." />
@@ -50,7 +50,7 @@ theory, measure theory, filtration, Brownian motion" />
     "name": "Robert Mahfoud"
   },
   "datePublished": "2026-08-06",
-  "dateModified": "2026-09-26",
+  "dateModified": "2026-10-04",
   "inLanguage": "en",
   "license": "https://creativecommons.org/publicdomain/zero/1.0/",
   "isPartOf": {
@@ -1079,7 +1079,7 @@ measure-theoretic vocabulary</a>
 <ul>
 <li><a href="#app-a" id="toc-app-a">A. Why probability is a theory of
 sets, not of points</a></li>
-<li><a href="#app-b" id="toc-app-b">B. <span class="math inline">\(\sigma\)</span>-algebras: the catalogue of
+<li><a href="#app-b" id="toc-app-b">B. <span class="math inline">\(\sigma\)</span>-algebras: the catalog of
 answerable questions</a></li>
 <li><a href="#app-c" id="toc-app-c">C. Generation and Borel
 sets</a></li>
@@ -1110,108 +1110,379 @@ definition, unpacked ingredient by ingredient</h3>
 <aside class="eli5">
 <h1 id="eli5">ELI5 — the short version</h1>
 <p><strong>In one sentence.</strong> A stochastic process is a
-<em>random function</em>: rather than drawing a number, you draw an
-entire path — a whole history, all at once — and everything below is the
-machinery that makes that sentence precise.</p>
+<em>random function</em>: one random draw picks out an entire history of
+values, past and future together, rather than a single number.</p>
 <p><strong>1. The picture to hold</strong> (<a href="#readings">§6</a>).
-Imagine a fan of wiggly lines spreading out from a single starting
-point, each line one possible history of a price. The process is the
-whole fan, together with the rules for how likely each line is. There
-are two ways to read it. Cut down through the fan at one moment and you
-have an ordinary random variable — a spread of values that might occur
-at that instant. Follow one line from left to right and you have a
-<em>sample path</em>: an entirely ordinary function, with nothing random
+Picture many wiggly lines fanning out from one starting point. Each line
+is one possible history of a price. The process is the whole fan,
+together with the rule for how likely each line is. The fan can be read
+two ways. A vertical cut at one moment shows the spread of values the
+price might take at that moment. Following one line from left to right
+gives a single history, which is an ordinary curve with nothing random
 left in it.</p>
-<p><strong>2. The randomness happens once, not repeatedly</strong> (<a href="#instantiated">§9</a>). “Take a step, roll the dice, take another
-step” is how you <em>build</em> a process on a computer, but it is not
-what the definition says. One draw fixes the entire path, past and
-future together. Nothing is rolled again later; the line was already
-there when you picked it.</p>
-<p><strong>3. Four ingredients and one condition</strong> (<a href="#definition">§1</a>). Where the randomness lives, what labels the
-family (usually time, but it can be position on a map), where the values
-land, and a rule that the questions you want to ask are ones probability
-is able to answer. That is the whole definition. Everything else in the
-subject is extra structure added later to get theorems.</p>
-<p><strong>4. The load-bearing word is “one”</strong> (<a href="#probability-space">§2</a>). Every moment of the process reads the
-<em>same</em> draw. That shared source is the entire difference between
-a process and an unrelated pile of random variables: it is why “low
-today <em>and</em> high next month” has a probability at all. Remove it
-and dependence across time cannot even be stated.</p>
-<p><strong>5. Probability sizes collections, not outcomes</strong> (<a href="#app-a">Section A</a>). Pick a random number between 0 and 1.
-Every individual number has probability zero, yet something happens — so
-probability cannot be a rule about single outcomes. It has to assign
-sizes to <em>collections</em> of them, and once you are doing that you
-are doing measure theory: length, area, mass and probability are one
-mathematical object, with probability normalized so the whole space
-weighs exactly 1. One awkward fact forces the last piece of apparatus —
-you cannot consistently size <em>every</em> collection — so the theory
-names in advance the ones it promises to handle.</p>
-<p><strong>6. “Measurable” means the question is answerable</strong> (<a href="#measurability">§5</a>). The clause everybody skims is the one
-that makes the rest legal. It says that “which histories put the price
-below 90?” picks out a collection the theory promised to size. Without
-it, the probability of that event is not false or unknown — it is
-undefined.</p>
-<p><strong>7. Nobody ever builds the space of all histories</strong> (<a href="#fdd">§7</a>). In practice you describe what happens at any
-handful of times — Brownian motion is “starts at zero, separate
-stretches are independent, each one bell-shaped” — and a theorem
-promises that some process with exactly those properties exists. The
-catch is that those snapshots do not settle whether the path is
-continuous or jumpy; smoothness is a separate question with a separate
-proof.</p>
-<p><strong>8. Filtrations are lookahead bias, formalized</strong> (<a href="#filtrations">§8</a>). A filtration is the growing list of what is
-settled by each moment, and a process is <em>adapted</em> when its value
-at each time is knowable at that time. That is exactly the backtesting
-rule: a signal computed from something outside the information set at
-time <span class="math inline">\(t\)</span> is one you could not have
-had, however good the results look.</p>
+<p><strong>2. The randomness happens once</strong> (<a href="#readings">§6</a>). A computer simulation builds a path step by
+step: take a step, roll the dice, take another step. The definition
+works differently. One draw fixes the entire path at once, and nothing
+is rolled again later. The step-by-step loop is a way to produce that
+draw, not the definition of the process.</p>
+<p><strong>3. Four ingredients</strong> (<a href="#definition">§1</a>).
+The definition needs four things: a source of randomness, a set of
+labels for the moments (usually times, but they can be places on a map),
+a set where the values land, and a rule that every question about the
+values is one that probability can answer. Familiar properties, such as
+“the future depends only on the present,” are extra assumptions added on
+top of this definition.</p>
+<p><strong>4. Every moment reads the same draw</strong> (<a href="#probability-space">§2</a>). The values at all times come from one
+shared draw. The shared draw is what distinguishes a process from a pile
+of random numbers produced by unconnected experiments. Because every
+moment reads the same draw, a combined event such as “low today and high
+next month” has a probability, and the theory can describe how one
+moment relates to another.</p>
+<p><strong>5. Probability measures collections, not single
+outcomes</strong> (<a href="#app-a">Section A</a>). Pick a random number
+between 0 and 1. Each individual number has probability zero, yet some
+number always comes up. So probability cannot work by giving each
+outcome a weight and adding the weights. Instead it assigns sizes to
+collections of outcomes: “somewhere in the first quarter” has
+probability one quarter. Assigning sizes to collections is the subject
+of measure theory. Length, area, mass, and probability are one
+mathematical idea, and probability is the version in which the whole
+space has size one. One complication remains: for a number picked evenly
+between 0 and 1, no consistent rule can size every possible collection,
+so the theory lists in advance the collections it will size.</p>
+<p><strong>6. Every question must have an answer</strong> (<a href="#measurability">§5</a>). The definition contains a condition that
+readers tend to skip. Mathematicians call it <em>measurability</em>. It
+says that each question about the values, such as “which histories put
+the price below 90?”, must pick out one of the collections the theory
+sizes. If the condition fails, the probability that the price is below
+90 is undefined. It is not zero, and it is not unknown.</p>
+<p><strong>7. Snapshots define the process</strong> (<a href="#fdd">§7</a>). Nobody writes down the space of all histories. A
+model describes how the values behave jointly at any handful of times.
+Provided the descriptions for different handfuls agree with one another,
+a theorem guarantees that a process with exactly that behavior exists.
+The standard model of a random path, Brownian motion, is specified this
+way: it starts at zero, separate stretches are independent, and each
+stretch is bell-shaped. Snapshots at single moments are not enough,
+because two processes can look identical at every moment and still move
+together differently. Snapshots also do not settle whether a path is
+smooth or jumpy. That question needs its own proof.</p>
+<p><strong>8. Lookahead bias has a formal definition</strong> (<a href="#filtrations">§8</a>). A <em>filtration</em> is the list of what
+is known at each moment, and the list only grows. A process is
+<em>adapted</em> when its value at each moment is known at that moment.
+Adaptedness is the backtesting rule in mathematical form. A signal that
+uses information not yet available at its timestamp could not have been
+traded, however good its results look.</p>
 <hr />
 <p><strong>If you remember three things:</strong> a process is one
-random function rather than a sequence of separate rolls; the single
-shared probability space is what makes dependence across time
-expressible; and measurability is not bookkeeping — it is the condition
-under which probabilities exist at all.</p>
+random function, not a sequence of separate rolls; the single shared
+source of randomness is what lets the theory describe how different
+moments relate; and the measurability condition is what makes the
+probabilities exist.</p>
 </aside>
 <hr />
-<p><strong>How to read this document.</strong> Sections 1–5 unpack the
-formal definition of a stochastic process: four objects and one
-condition, each taken in turn. Sections 6–8 cover the machinery that
-identifies a process (finite-dimensional distributions, the Kolmogorov
-extension theorem) and the filtration that almost every application adds
-on top. The appendix, Sections A–K, builds the measure-theoretic
-vocabulary from scratch — <span class="math inline">\(\sigma\)</span>-algebras, measurable spaces,
-measures, probability spaces, random variables, integration — for
-readers who want the foundations rather than the summary.</p>
-<p><strong>Notation.</strong> <span class="math inline">\((\Omega,
-\mathcal{F}, \mathbb{P})\)</span> is a probability space, <span class="math inline">\(\omega \in \Omega\)</span> an outcome, <span class="math inline">\(T\)</span> an index set, <span class="math inline">\((E, \mathcal{E})\)</span> a measurable state
-space. <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span> is
-the Borel <span class="math inline">\(\sigma\)</span>-algebra, <span class="math inline">\(\lambda\)</span> Lebesgue measure, <span class="math inline">\(\mu_X\)</span> the law of <span class="math inline">\(X\)</span>. <span class="math inline">\(\mathbb{1}_A\)</span> is the indicator of <span class="math inline">\(A\)</span>, and a.s. abbreviates <em>almost
-surely</em>.</p>
+<p><strong>How to read this document.</strong> Part I (Sections 1–9) is
+the main text. Sections 1–5 unpack the formal definition of a stochastic
+process. The definition has four ingredients, and each one gets a
+section. Sections 6–8 cover how the definition is used: the two ways to
+read a process, the finite-dimensional distributions that identify it,
+and the filtration that almost every application adds. Section 9 runs
+five standard processes through the definition and collects the
+equivalences between its objects. Part II, the appendix (Sections A–K),
+builds the measure-theoretic vocabulary from scratch: <span class="math inline">\(\sigma\)</span>-algebras, measurable spaces,
+measures, probability spaces, random variables, integration,
+conditioning, and product spaces. A reader who knows measure theory can
+skip Part II. A reader who does not can read it first, or consult it
+whenever Part I uses an unfamiliar term.</p>
+<p><strong>Objectives.</strong> After this chapter, you should be able
+to:</p>
+<ul>
+<li>state the definition of a stochastic process and name the job of
+each ingredient;</li>
+<li>read a process two ways, as a random variable at each time and as a
+random function of time;</li>
+<li>explain why measurability decides whether a probability exists at
+all;</li>
+<li>say what the finite-dimensional distributions determine about a
+process, and what they leave open;</li>
+<li>express “no lookahead” as adaptedness to a filtration, and check a
+backtest signal against it.</li>
+</ul>
+<p><strong>Epistemic tags.</strong> The chapters in this collection flag
+claims by status:</p>
+<ul>
+<li><strong>[Fact]</strong> — replicated across independent datasets or
+implementations; broad agreement.</li>
+<li><strong>[Contested]</strong> — documented, but with live
+disagreement about magnitude, robustness, or cause.</li>
+<li><strong>[Hypothesis]</strong> — a proposed mechanism, not decisively
+tested.</li>
+<li><strong>[Practice]</strong> — practitioner convention; the evidence
+may be private or absent. A [Practice] claim is not a debunked one.</li>
+</ul>
+<p>This chapter is mathematics. Its definitions and theorems are facts
+by construction, so they carry no tag. The one tag that appears is
+[Practice], on conventions that textbooks assume rather than prove.</p>
+<p><strong>Notation.</strong> The table lists every symbol that recurs
+in the chapter, with the section that defines it. Symbols used in a
+single example are defined where they appear.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+<th>Defined in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math inline">\((\Omega, \mathcal{F},
+\mathbb{P})\)</span></td>
+<td>Probability space: sample space, <span class="math inline">\(\sigma\)</span>-algebra of events, probability
+measure</td>
+<td><a href="#probability-space">§2</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(\omega\)</span></td>
+<td>An outcome, one element of <span class="math inline">\(\Omega\)</span>: a complete realization of
+everything random</td>
+<td><a href="#probability-space">§2</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(T\)</span>; <span class="math inline">\(s, t\)</span>; <span class="math inline">\(n\)</span></td>
+<td>Index set; indices in it (times, with <span class="math inline">\(s
+\le t\)</span> when ordered); an index in discrete time, or the number
+of times <span class="math inline">\(t_1, \dots, t_n\)</span> in <a href="#fdd">§7</a></td>
+<td><a href="#index-set">§3</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\((E, \mathcal{E})\)</span></td>
+<td>State space: the set of possible values, with its <span class="math inline">\(\sigma\)</span>-algebra</td>
+<td><a href="#state-space">§4</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(X = (X_t)_{t \in T}\)</span></td>
+<td>The stochastic process; <span class="math inline">\(X_t : \Omega \to
+E\)</span> is its value at index <span class="math inline">\(t\)</span></td>
+<td><a href="#definition">§1</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(A_n\)</span></td>
+<td>Measurable sets; in Part I, <span class="math inline">\(B\)</span>
+is a set of values: a member of <span class="math inline">\(\mathcal{E}\)</span>, or in <a href="#fdd">§7</a>
+a measurable subset of <span class="math inline">\(E^n\)</span></td>
+<td><a href="#measurability">§5</a>, <a href="#app-b">B</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(X_t^{-1}(B)\)</span></td>
+<td>Preimage: the outcomes <span class="math inline">\(\omega\)</span>
+with <span class="math inline">\(X_t(\omega) \in B\)</span></td>
+<td><a href="#measurability">§5</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(E^T\)</span></td>
+<td>Path space: all functions from <span class="math inline">\(T\)</span> to <span class="math inline">\(E\)</span>, with the product <span class="math inline">\(\sigma\)</span>-algebra</td>
+<td><a href="#fdd">§7</a>, <a href="#app-k">K</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(\mu_{t_1 \dots t_n}\)</span></td>
+<td>Finite-dimensional distribution: the joint law of <span class="math inline">\((X_{t_1}, \dots, X_{t_n})\)</span></td>
+<td><a href="#fdd">§7</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(\mathcal{N}(m, v)\)</span></td>
+<td>Normal distribution with mean <span class="math inline">\(m\)</span>
+and variance <span class="math inline">\(v\)</span></td>
+<td><a href="#fdd">§7</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(W_t\)</span>; <span class="math inline">\(N_t\)</span></td>
+<td>Brownian motion; a counting process, such as the Poisson
+process</td>
+<td><a href="#fdd">§7</a>, <a href="#state-space">§4</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\((\mathcal{F}_t)_{t \in T}\)</span>;
+<span class="math inline">\(\mathcal{F}_t^X\)</span></td>
+<td>Filtration; natural filtration of <span class="math inline">\(X\)</span></td>
+<td><a href="#filtrations">§8</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\((U, \mathcal{U}, \mu)\)</span>, <span class="math inline">\((V, \mathcal{V}, \nu)\)</span></td>
+<td>Generic measurable spaces with measures, used in Part II</td>
+<td><a href="#app-b">B</a>, <a href="#app-e">E</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(2^U\)</span></td>
+<td>Power set: every subset of <span class="math inline">\(U\)</span></td>
+<td><a href="#app-b">B</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(\sigma(\mathcal{C})\)</span>; <span class="math inline">\(\sigma(X)\)</span></td>
+<td><span class="math inline">\(\sigma\)</span>-algebra generated by a
+collection of sets <span class="math inline">\(\mathcal{C}\)</span>; by
+a random variable <span class="math inline">\(X\)</span>, or by a family
+such as <span class="math inline">\((X_s)_{s \le t}\)</span></td>
+<td><a href="#app-c">C</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span></td>
+<td>Borel <span class="math inline">\(\sigma\)</span>-algebra: generated
+by the open subsets of <span class="math inline">\(\mathbb{R}\)</span></td>
+<td><a href="#app-c">C</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(\lambda\)</span>; <span class="math inline">\(\delta_x\)</span></td>
+<td>Lebesgue measure (length); Dirac measure at the point <span class="math inline">\(x\)</span></td>
+<td><a href="#app-e">E</a></td>
+</tr>
+<tr>
+<td>a.s.</td>
+<td>Almost surely: outside a set of probability zero</td>
+<td><a href="#app-f">F</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(f\)</span>, <span class="math inline">\(g\)</span></td>
+<td>Generic measurable functions; in <a href="#app-h">H</a>, <span class="math inline">\(f\)</span> is a density</td>
+<td><a href="#app-g">G</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(\mu_X\)</span>; <span class="math inline">\(F_X\)</span></td>
+<td>Law of <span class="math inline">\(X\)</span>; its cumulative
+distribution function</td>
+<td><a href="#app-h">H</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(\mu \ll \nu\)</span></td>
+<td><span class="math inline">\(\mu\)</span> is absolutely continuous
+with respect to <span class="math inline">\(\nu\)</span></td>
+<td><a href="#app-h">H</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(\mathbb{1}_A\)</span>; <span class="math inline">\(\mathbb{1}\{\cdot\}\)</span></td>
+<td>Indicator of <span class="math inline">\(A\)</span>: equal to 1 on
+<span class="math inline">\(A\)</span> and 0 elsewhere; indicator of the
+condition in braces</td>
+<td><a href="#fdd">§7</a>, <a href="#app-i">I</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(\mathbb{E}[X]\)</span>; <span class="math inline">\(\mathbb{E}[X \mid \mathcal{G}]\)</span></td>
+<td>Expectation; conditional expectation given a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{G}\)</span></td>
+<td><a href="#app-i">I</a>, <a href="#app-j">J</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(\mathbb{N}\)</span>; <span class="math inline">\(\mathbb{N}_0\)</span>; <span class="math inline">\(\mathbb{Z}\)</span></td>
+<td><span class="math inline">\(\{1, 2, \dots\}\)</span>; <span class="math inline">\(\{0, 1, 2, \dots\}\)</span>; the integers</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Two symbols need a warning. In this chapter, <span class="math inline">\(\sigma\)</span> appears only in the names “<span class="math inline">\(\sigma\)</span>-algebra” and “<span class="math inline">\(\sigma\)</span>-finite” and in the operator <span class="math inline">\(\sigma(\cdot)\)</span>. It never denotes
+volatility, which this chapter does not use. And <span class="math inline">\(\mathbb{E}\)</span>, in blackboard bold, is
+expectation, while the italic <span class="math inline">\(E\)</span> is
+the state space.</p>
 <hr />
 <h1 id="part-i">Part I — The definition</h1>
 <h2 id="definition">1. The definition</h2>
+<p>A stochastic process is a collection of random quantities, one for
+each index, all driven by the same source of randomness. The formal
+definition makes each part of that sentence precise.</p>
 <p>Let <span class="math inline">\((\Omega, \mathcal{F},
 \mathbb{P})\)</span> be a probability space, let <span class="math inline">\((E, \mathcal{E})\)</span> be a measurable space,
 and let <span class="math inline">\(T\)</span> be a non-empty set. A
-<strong>stochastic process</strong> with index set <span class="math inline">\(T\)</span> and state space <span class="math inline">\((E, \mathcal{E})\)</span> is a family</p>
+<strong>stochastic process</strong> with index set <span class="math inline">\(T\)</span> and state space <span class="math inline">\((E, \mathcal{E})\)</span> is a family of maps</p>
 <p><span class="math display">\[X = (X_t)_{t \in T}, \qquad X_t : \Omega
-\longrightarrow E\]</span></p>
-<p>of maps such that each <span class="math inline">\(X_t\)</span> is
-<span class="math inline">\(\mathcal{F}/\mathcal{E}\)</span>-measurable
-— that is,</p>
+\longrightarrow E,\]</span></p>
+<p>such that each <span class="math inline">\(X_t\)</span> is <span class="math inline">\(\mathcal{F}/\mathcal{E}\)</span>-measurable:</p>
 <p><span class="math display">\[X_t^{-1}(B) \in \mathcal{F} \quad
 \text{for every } B \in \mathcal{E} \text{ and every } t \in
 T.\]</span></p>
-<p>Equivalently, and sometimes more usefully: a stochastic process is a
-single map <span class="math inline">\(X : T \times \Omega \to
+<p>In words, each <span class="math inline">\(X_t\)</span> turns an
+outcome <span class="math inline">\(\omega\)</span> into a value in
+<span class="math inline">\(E\)</span>. The measurability condition says
+that for every set of values <span class="math inline">\(B\)</span> the
+theory admits, the outcomes that land in <span class="math inline">\(B\)</span> form an event, so they have a
+probability.</p>
+<p>An equivalent form is often more convenient. A stochastic process is
+a single map <span class="math inline">\(X : T \times \Omega \to
 E\)</span> such that <span class="math inline">\(X(t, \cdot)\)</span> is
-measurable for each fixed <span class="math inline">\(t\)</span>.</p>
-<p>Four objects and one condition. The rest of Part I takes them one at
-a time.</p>
+measurable for each fixed <span class="math inline">\(t\)</span>. Fixing
+the first argument at <span class="math inline">\(t\)</span> recovers
+the map <span class="math inline">\(X_t\)</span> above.</p>
+<p>The definition has four ingredients: three spaces and one condition
+on the maps between them. Sections 2–5 take them in order.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Ingredient</th>
+<th>Symbol</th>
+<th>Job</th>
+<th>Section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Probability space</td>
+<td><span class="math inline">\((\Omega, \mathcal{F},
+\mathbb{P})\)</span></td>
+<td>Holds the randomness</td>
+<td><a href="#probability-space">§2</a></td>
+</tr>
+<tr>
+<td>Index set</td>
+<td><span class="math inline">\(T\)</span></td>
+<td>Labels the members of the family, usually by time</td>
+<td><a href="#index-set">§3</a></td>
+</tr>
+<tr>
+<td>State space</td>
+<td><span class="math inline">\((E, \mathcal{E})\)</span></td>
+<td>Holds the values, and fixes which sets of values can be asked
+about</td>
+<td><a href="#state-space">§4</a></td>
+</tr>
+<tr>
+<td>Measurability</td>
+<td><span class="math inline">\(X_t^{-1}(B) \in
+\mathcal{F}\)</span></td>
+<td>Makes every probability about <span class="math inline">\(X_t\)</span> defined</td>
+<td><a href="#measurability">§5</a></td>
+</tr>
+</tbody>
+</table>
+<p>Three ideas run through the rest of the chapter, and every section
+returns to them:</p>
+<ol type="1">
+<li><strong>One draw fixes the whole path.</strong> A single outcome
+<span class="math inline">\(\omega\)</span> determines <span class="math inline">\(X_t(\omega)\)</span> for every <span class="math inline">\(t\)</span> at once. A process is a random
+function, not a sequence of separate random draws.</li>
+<li><strong>Every <span class="math inline">\(X_t\)</span> reads the
+same <span class="math inline">\(\Omega\)</span>.</strong> Because all
+the <span class="math inline">\(X_t\)</span> share one probability
+space, a joint event across times, such as “low today and high next
+month,” has a probability. Dependence across time is defined through
+it.</li>
+<li><strong>A <span class="math inline">\(\sigma\)</span>-algebra is a
+list of answerable questions, and also a body of information.</strong>
+Measurability makes <span class="math inline">\(\mathbb{P}(X_t \in
+B)\)</span> defined. A filtration, a growing family of <span class="math inline">\(\sigma\)</span>-algebras, records what is known at
+each time.</li>
+</ol>
 <hr />
 <h2 id="probability-space">2. Ingredient I: the probability space</h2>
-<h3 id="omega-mathcalf-mathbbp-where-the-randomness-lives-and-it-is-drawn-only-once"><span class="math inline">\((\Omega, \mathcal{F}, \mathbb{P})\)</span> — where
-the randomness lives, and it is drawn only once</h3>
-<p>Three objects, each with a distinct job.</p>
+<h3 id="omega-mathcalf-mathbbp-where-the-randomness-lives-drawn-once"><span class="math inline">\((\Omega, \mathcal{F}, \mathbb{P})\)</span>: where
+the randomness lives, drawn once</h3>
+<p>The probability space has three parts, and each has its own job.</p>
 <table>
 <colgroup>
 <col style="width: 33%" />
@@ -1229,62 +1500,81 @@ the randomness lives, and it is drawn only once</h3>
 <tr>
 <td><span class="math inline">\(\Omega\)</span></td>
 <td>Sample space</td>
-<td>A single point <span class="math inline">\(\omega \in
-\Omega\)</span> is one complete description of how everything turned out
-— the entire history, all at once, not the value at one moment.</td>
+<td>The set of all possible outcomes. One outcome <span class="math inline">\(\omega \in \Omega\)</span> describes how
+everything turned out: the entire history, not the value at one
+moment.</td>
 </tr>
 <tr>
 <td><span class="math inline">\(\mathcal{F}\)</span></td>
 <td><span class="math inline">\(\sigma\)</span>-algebra</td>
-<td>The collection of subsets of <span class="math inline">\(\Omega\)</span> we are allowed to call events.
-Contains <span class="math inline">\(\Omega\)</span>, closed under
+<td>The subsets of <span class="math inline">\(\Omega\)</span> that
+count as events, meaning the subsets that receive a probability. It
+contains <span class="math inline">\(\Omega\)</span> and is closed under
 complement and countable union.</td>
 </tr>
 <tr>
 <td><span class="math inline">\(\mathbb{P}\)</span></td>
 <td>Probability measure</td>
-<td>A map <span class="math inline">\(\mathcal{F} \to [0,1]\)</span>
-with <span class="math inline">\(\mathbb{P}(\Omega) = 1\)</span>,
-countably additive over disjoint events.</td>
+<td>Assigns each event a number in <span class="math inline">\([0,1]\)</span>, with <span class="math inline">\(\mathbb{P}(\Omega) = 1\)</span>. The probabilities
+of countably many disjoint events add up.</td>
 </tr>
 </tbody>
 </table>
-<p>The subtlety in <span class="math inline">\(\mathcal{F}\)</span> is
-that it usually cannot be <em>all</em> subsets of <span class="math inline">\(\Omega\)</span>. Once <span class="math inline">\(\Omega\)</span> is uncountable — as it is for
-anything in continuous time — there exist subsets to which no
-translation-invariant measure can consistently assign a probability. So
-<span class="math inline">\(\mathcal{F}\)</span> is deliberately smaller
-than the power set, and <span class="math inline">\(\mathbb{P}\)</span>
-is only ever asked about members of <span class="math inline">\(\mathcal{F}\)</span>. (See <a href="#app-a">Section A</a>.)</p>
+<p><span class="math inline">\(\mathcal{F}\)</span> usually cannot
+contain every subset of <span class="math inline">\(\Omega\)</span>. The
+uniform probability on <span class="math inline">\([0,1]\)</span> shows
+why. It gives a set the same probability after the set is shifted along
+<span class="math inline">\([0,1]\)</span>, and no countably additive
+extension of it to every subset of <span class="math inline">\([0,1]\)</span> keeps that property (<a href="#app-a">Section A</a>). So <span class="math inline">\(\mathcal{F}\)</span> is deliberately smaller than
+the set of all subsets, and <span class="math inline">\(\mathbb{P}\)</span> answers questions only about
+members of <span class="math inline">\(\mathcal{F}\)</span>.</p>
 <blockquote>
-<p><strong>The load-bearing word in the definition is
-<em>one</em>.</strong> Every <span class="math inline">\(X_t\)</span> is
-defined on the <em>same</em> <span class="math inline">\((\Omega,
-\mathcal{F}, \mathbb{P})\)</span>. That single shared space is the
-entire difference between a stochastic process and an unrelated pile of
-random variables.</p>
+<p><strong>Every <span class="math inline">\(X_t\)</span> is defined on
+the same <span class="math inline">\((\Omega, \mathcal{F},
+\mathbb{P})\)</span>.</strong> The shared space distinguishes a
+stochastic process from a collection of random variables defined on
+separate spaces.</p>
 </blockquote>
-<p>Because the space is shared, joint events like <span class="math inline">\(\{X_1 \le 3\} \cap \{X_5 &gt; 7\}\)</span> are
-subsets of the same <span class="math inline">\(\Omega\)</span>, live in
-<span class="math inline">\(\mathcal{F}\)</span>, and therefore have
-probabilities. Dependence across time is expressible — which is the only
-reason the theory is interesting.</p>
-<p><strong>Concretely.</strong> Take <span class="math inline">\(\Omega
-= \{H, T\}^{\mathbb{N}}\)</span>, the set of all infinite coin-flip
-sequences, with <span class="math inline">\(\mathbb{P}\)</span> the
-fair-coin measure. One <span class="math inline">\(\omega\)</span> is an
-entire infinite sequence, fixed the moment it is drawn. Define <span class="math inline">\(X_n(\omega)\)</span> = number of heads in the
-first <span class="math inline">\(n\)</span> flips of <span class="math inline">\(\omega\)</span>. Nothing further is randomized:
-<span class="math inline">\(X_{10}\)</span> and <span class="math inline">\(X_{11}\)</span> are correlated automatically,
-because they read the same <span class="math inline">\(\omega\)</span>.</p>
+<p>Because the space is shared, a joint event such as <span class="math inline">\(\{X_1 \le 3\} \cap \{X_5 &gt; 7\}\)</span> is a
+subset of the same <span class="math inline">\(\Omega\)</span>. Each of
+the two sets is an event, because <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_5\)</span> are measurable (<a href="#measurability">§5</a>), and <span class="math inline">\(\mathcal{F}\)</span> is closed under intersection.
+So the joint event belongs to <span class="math inline">\(\mathcal{F}\)</span> and has a probability.
+Dependence across time lives here. The correlation between <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_5\)</span>, or the probability that a price
+falls and then recovers, describes how events in a single <span class="math inline">\(\Omega\)</span> overlap.</p>
+<p><strong>Example: coin flips.</strong> Let <span class="math inline">\(\Omega = \{0, 1\}^{\mathbb{N}}\)</span> be the set
+of all infinite sequences of coin flips, with 1 for heads and 0 for
+tails. Let <span class="math inline">\(\mathbb{P}\)</span> make the
+flips fair and independent. One outcome <span class="math inline">\(\omega\)</span> is an entire infinite sequence.
+Define <span class="math inline">\(X_n(\omega)\)</span> as the number of
+heads among the first <span class="math inline">\(n\)</span> flips of
+<span class="math inline">\(\omega\)</span>. Nothing further is drawn.
+<span class="math inline">\(X_{10}\)</span> and <span class="math inline">\(X_{11}\)</span> are correlated because both read
+the same <span class="math inline">\(\omega\)</span> and share its first
+ten flips. Their correlation is <span class="math inline">\(\sqrt{10/11}
+\approx 0.95\)</span>.</p>
+<blockquote>
+<h3 id="key-takeaways">§2 Key takeaways</h3>
+<ol type="1">
+<li>One outcome <span class="math inline">\(\omega\)</span> is one
+complete history. Drawing <span class="math inline">\(\omega\)</span>
+once fixes the value of the process at every time.</li>
+<li>All the <span class="math inline">\(X_t\)</span> live on the same
+probability space. Joint events across times are therefore events with
+probabilities, and dependence across time can be measured.</li>
+<li>The <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span> lists the subsets of <span class="math inline">\(\Omega\)</span> that receive a probability. In
+continuous models it is smaller than the set of all subsets, because
+some subsets cannot be given a consistent probability.</li>
+</ol>
+</blockquote>
 <hr />
 <h2 id="index-set">3. Ingredient II: the index set <span class="math inline">\(T\)</span></h2>
 <h3 id="usually-time-but-the-definition-never-says-so">Usually time, but
 the definition never says so</h3>
-<p><span class="math inline">\(T\)</span> is just a set that labels the
-family. Nothing about ordering, continuity, or time appears in the
-axioms; those are conventions we impose because the label is normally a
-clock.</p>
+<p><span class="math inline">\(T\)</span> is any set that labels the
+members of the family. The axioms say nothing about order, continuity,
+or time. Applications add those properties because the index is usually
+a clock.</p>
+<p>The table lists the common choices.</p>
 <table>
 <colgroup>
 <col style="width: 33%" />
@@ -1302,8 +1592,8 @@ clock.</p>
 <tr>
 <td><span class="math inline">\(\{0, 1, 2, \dots\}\)</span></td>
 <td>Discrete time</td>
-<td>Daily closing prices, steps of a Markov chain, terms of a time
-series</td>
+<td>Daily closing prices, the steps of a Markov chain, the terms of a
+time series</td>
 </tr>
 <tr>
 <td><span class="math inline">\([0, \infty)\)</span></td>
@@ -1313,33 +1603,51 @@ series</td>
 <tr>
 <td><span class="math inline">\(\mathbb{R}^2\)</span> or <span class="math inline">\(\mathbb{Z}^2\)</span></td>
 <td>Random field</td>
-<td>Ore grade across a deposit, pixel noise, temperature over a map —
-the index is space, not time</td>
+<td>Ore grade across a deposit, pixel noise, temperature over a map; the
+index is a location, not a time</td>
 </tr>
 <tr>
 <td><span class="math inline">\(\{1, \dots, d\}\)</span></td>
 <td>Finite</td>
-<td>Exactly a random vector. A random vector <em>is</em> a stochastic
-process; the general definition only widens <span class="math inline">\(T\)</span>.</td>
+<td>A random vector with <span class="math inline">\(d\)</span>
+components. A random vector <em>is</em> a stochastic process, and the
+general definition only widens <span class="math inline">\(T\)</span>.</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p>Nearly all the technical difficulty in the subject is a function of
-how big <span class="math inline">\(T\)</span> is. With <span class="math inline">\(T\)</span> countable, the definition is almost
-free. With <span class="math inline">\(T\)</span> uncountable,
-statements like “the path is continuous” involve uncountably many
-conditions at once and need not be measurable — which is why
-continuous-time theory carries so much machinery.</p>
+<p>Most of the technical difficulty in the subject grows with the size
+of <span class="math inline">\(T\)</span>. With <span class="math inline">\(T\)</span> countable, the definition causes no
+trouble. A statement about the whole path, such as “the path stays below
+5,” is a countable intersection of statements about single times, and
+<span class="math inline">\(\sigma\)</span>-algebras are closed under
+countable operations. With <span class="math inline">\(T\)</span>
+uncountable, a statement such as “the path is continuous” constrains
+uncountably many values at once. Such a statement need not define an
+event, and continuous-time theory needs extra machinery to handle it (<a href="#fdd">§7</a>, <a href="#app-k">Section K</a>).</p>
+</blockquote>
+<blockquote>
+<h3 id="key-takeaways-1">§3 Key takeaways</h3>
+<ol type="1">
+<li>The index set <span class="math inline">\(T\)</span> can be any set.
+Time, order, and continuity come from the application, not from the
+definition.</li>
+<li>A random vector is a process with a finite index set, and a random
+field is a process indexed by location.</li>
+<li>A countable <span class="math inline">\(T\)</span> keeps every
+statement about the path inside the <span class="math inline">\(\sigma\)</span>-algebra. An uncountable <span class="math inline">\(T\)</span> does not, and that gap drives most of
+the continuous-time machinery.</li>
+</ol>
 </blockquote>
 <hr />
 <h2 id="state-space">4. Ingredient III: the state space</h2>
-<h3 id="e-mathcale-where-the-values-land-and-which-subsets-of-it-we-can-ask-about"><span class="math inline">\((E, \mathcal{E})\)</span> — where the values land,
-and which subsets of it we can ask about</h3>
-<p>The target has to be a <em>measurable</em> space, not merely a set:
-we need a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{E}\)</span> of subsets of <span class="math inline">\(E\)</span> so that questions like “is the value in
-<span class="math inline">\(B\)</span>?” are the kind of question
-probability can answer.</p>
+<h3 id="e-mathcale-where-the-values-land-and-which-sets-of-values-can-be-asked-about"><span class="math inline">\((E, \mathcal{E})\)</span>: where the values land,
+and which sets of values can be asked about</h3>
+<p>The state space holds the values of the process. It must be a
+<em>measurable</em> space, not just a set. The <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{E}\)</span> lists the sets of values
+<span class="math inline">\(B\)</span> for which “is <span class="math inline">\(X_t\)</span> in <span class="math inline">\(B\)</span>?” is a question probability can
+answer.</p>
+<p>The table lists the common choices.</p>
 <table>
 <colgroup>
 <col style="width: 50%" />
@@ -1355,81 +1663,131 @@ probability can answer.</p>
 <tr>
 <td><span class="math inline">\((\mathbb{R},
 \mathcal{B}(\mathbb{R}))\)</span></td>
-<td>The default. Real-valued process with the Borel <span class="math inline">\(\sigma\)</span>-algebra — a price, a temperature,
-a residual.</td>
+<td>The default: a real-valued process with the Borel <span class="math inline">\(\sigma\)</span>-algebra, such as a price, a
+temperature, or a residual.</td>
 </tr>
 <tr>
 <td><span class="math inline">\((\mathbb{R}^d,
 \mathcal{B}(\mathbb{R}^d))\)</span></td>
-<td>Vector-valued: a particle’s position, a whole yield curve observed
-at one instant.</td>
+<td>Vector-valued: a particle’s position, or the yields at <span class="math inline">\(d\)</span> fixed maturities observed at one
+instant.</td>
 </tr>
 <tr>
 <td><span class="math inline">\((\{\text{sun}, \text{rain}\},
 2^E)\)</span></td>
-<td>A finite state space with the power set — the weather Markov chain.
-No measure-theoretic subtlety at all here.</td>
+<td>A finite state space with the power set, as in a two-state weather
+Markov chain. Because <span class="math inline">\(E\)</span> is finite,
+every subset can be measured and no subtlety arises.</td>
 </tr>
 <tr>
 <td><span class="math inline">\((\mathbb{N}_0,
 2^{\mathbb{N}_0})\)</span></td>
-<td>Counting processes: <span class="math inline">\(N_t\)</span> =
+<td>Counting processes: <span class="math inline">\(N_t\)</span> is the
 number of arrivals by time <span class="math inline">\(t\)</span>.</td>
 </tr>
 </tbody>
 </table>
 <p><span class="math inline">\(E\)</span> need not be numeric. It can be
-a space of functions, of graphs, or of measures — giving function-valued
-or measure-valued processes. The definition is indifferent; only <span class="math inline">\(\mathcal{E}\)</span> has to exist.</p>
+a space of functions, graphs, or measures, which gives function-valued
+or measure-valued processes. A whole yield curve that evolves over time
+is a function-valued process. The definition asks nothing of <span class="math inline">\(E\)</span> beyond the existence of <span class="math inline">\(\mathcal{E}\)</span>.</p>
+<blockquote>
+<h3 id="key-takeaways-2">§4 Key takeaways</h3>
+<ol type="1">
+<li>The state space must carry a <span class="math inline">\(\sigma\)</span>-algebra. <span class="math inline">\(\mathcal{E}\)</span> fixes which sets of values a
+question about <span class="math inline">\(X_t\)</span> can name.</li>
+<li>Real values default to the Borel <span class="math inline">\(\sigma\)</span>-algebra; finite or countable
+values use the power set.</li>
+<li>Values need not be numbers. A curve, a graph, or a measure works,
+provided <span class="math inline">\(\mathcal{E}\)</span> exists.</li>
+</ol>
+</blockquote>
 <hr />
 <h2 id="measurability">5. Ingredient IV: measurability</h2>
-<h3 id="the-clause-that-makes-the-probabilities-exist">The clause that
-makes the probabilities exist</h3>
+<h3 id="the-condition-that-makes-the-probabilities-exist">The condition
+that makes the probabilities exist</h3>
+<p>Measurability says that every question about the value of <span class="math inline">\(X_t\)</span> translates into an event:</p>
 <p><span class="math display">\[X_t^{-1}(B) = \{\, \omega \in \Omega :
 X_t(\omega) \in B \,\} \in \mathcal{F} \qquad \text{for all } B \in
-\mathcal{E}\]</span></p>
-<p>This is the one part people skim, and it is the part that makes the
-rest legal. <span class="math inline">\(\mathbb{P}\)</span> only accepts
-arguments from <span class="math inline">\(\mathcal{F}\)</span>.
-Measurability says: the set of outcomes for which <span class="math inline">\(X_t\)</span> lands in <span class="math inline">\(B\)</span> is one of the sets <span class="math inline">\(\mathbb{P}\)</span> can measure. Without it, the
-expression <span class="math inline">\(\mathbb{P}(X_t \in B)\)</span> is
-not false — it is <em>undefined</em>.</p>
-<p>Read it as a translation between two worlds. A question about
-<em>values</em> (“is the price below 90?”) is pulled back into a
-question about <em>outcomes</em> (“which <span class="math inline">\(\omega\)</span> produce that?”), and measurability
-guarantees the pulled-back question is one we already agreed to
-answer.</p>
-<p><strong>A distinction worth keeping.</strong> The definition demands
-measurability of <span class="math inline">\(X_t\)</span> for each <span class="math inline">\(t\)</span> separately. It does <em>not</em> follow
-that the map <span class="math inline">\((t, \omega) \mapsto
-X_t(\omega)\)</span> is jointly measurable on <span class="math inline">\(T \times \Omega\)</span>. Joint measurability is a
-strictly stronger property, and it is what you need before integrating
-along a path — so in continuous time it is usually assumed on top, not
-derived. (See <a href="#app-k">Section K</a>.)</p>
+\mathcal{E}.\]</span></p>
+<p>The left side is the <strong>preimage</strong> of <span class="math inline">\(B\)</span>: the set of outcomes <span class="math inline">\(\omega\)</span> for which <span class="math inline">\(X_t\)</span> lands in <span class="math inline">\(B\)</span>. The condition requires that set to be
+an event.</p>
+<p>The condition matters because <span class="math inline">\(\mathbb{P}\)</span> is defined only on <span class="math inline">\(\mathcal{F}\)</span>. The expression <span class="math inline">\(\mathbb{P}(X_t \in B)\)</span> is shorthand for
+<span class="math inline">\(\mathbb{P}\big(X_t^{-1}(B)\big)\)</span>. If
+the preimage is not in <span class="math inline">\(\mathcal{F}\)</span>,
+<span class="math inline">\(\mathbb{P}\)</span> has no value there, and
+<span class="math inline">\(\mathbb{P}(X_t \in B)\)</span> is undefined.
+It is not zero, and it is not unknown.</p>
+<p>Measurability translates between two kinds of question. A question
+about values, such as “is the price below 90?”, becomes a question about
+outcomes: “which <span class="math inline">\(\omega\)</span> produce a
+price below 90?” Measurability guarantees that <span class="math inline">\(\mathbb{P}\)</span> answers the second
+question.</p>
+<p><strong>Measurable at each <span class="math inline">\(t\)</span>
+versus jointly measurable.</strong> The definition requires each <span class="math inline">\(X_t\)</span> to be measurable on its own. That
+does not make the map <span class="math inline">\((t, \omega) \mapsto
+X_t(\omega)\)</span> measurable on <span class="math inline">\(T \times
+\Omega\)</span>. Joint measurability is a strictly stronger property.
+For an example, take <span class="math inline">\(T = [0,1]\)</span>, let
+<span class="math inline">\(V \subseteq [0,1]\)</span> be a set that has
+no length (<a href="#app-a">Section A</a>), and set <span class="math inline">\(X_t(\omega) = 1\)</span> if <span class="math inline">\(t \in V\)</span> and 0 otherwise. Each <span class="math inline">\(X_t\)</span> is constant in <span class="math inline">\(\omega\)</span>, so it is measurable, yet no path
+can be integrated in <span class="math inline">\(t\)</span>. A path
+integral such as <span class="math inline">\(\int_0^1 X_t \, dt\)</span>
+relies on the joint version, which makes every path a measurable
+function of <span class="math inline">\(t\)</span> and makes the
+integral a random variable. [Practice] Continuous-time texts usually
+assume joint measurability rather than derive it. A common route is to
+assume right-continuous paths, which imply it. <a href="#app-k">Section
+K</a> defines the <span class="math inline">\(\sigma\)</span>-algebra on
+<span class="math inline">\(T \times \Omega\)</span>.</p>
+<blockquote>
+<h3 id="key-takeaways-3">§5 Key takeaways</h3>
+<ol type="1">
+<li><span class="math inline">\(\mathbb{P}(X_t \in B)\)</span> means
+<span class="math inline">\(\mathbb{P}\)</span> of the preimage <span class="math inline">\(X_t^{-1}(B)\)</span>. Measurability guarantees the
+preimage is an event; without it, the probability is undefined.</li>
+<li>Measurability is a precondition for every probability statement
+about the process, not a technicality.</li>
+<li>Measurability at each <span class="math inline">\(t\)</span> is
+weaker than joint measurability in <span class="math inline">\((t,
+\omega)\)</span>. Integrals along a path rely on the joint version,
+which makes them random variables.</li>
+</ol>
+</blockquote>
 <hr />
 <h2 id="readings">6. Two readings: slices and paths</h2>
-<p>The object has two free arguments. Fixing either one gives a
-completely different — and equally standard — mental picture.</p>
+<p>A process <span class="math inline">\(X_t(\omega)\)</span> has two
+arguments, <span class="math inline">\(t\)</span> and <span class="math inline">\(\omega\)</span>. Fixing either one gives a
+different object, and both views are standard.</p>
 <ul>
-<li><strong>Fix <span class="math inline">\(t\)</span>, let <span class="math inline">\(\omega\)</span> vary.</strong> You get <span class="math inline">\(X_t(\cdot)\)</span>, a single random variable: a
-snapshot across the ensemble, with a distribution, a mean, a variance.
-This is the vertical slice.</li>
-<li><strong>Fix <span class="math inline">\(\omega\)</span>, let <span class="math inline">\(t\)</span> vary.</strong> You get <span class="math inline">\(t \mapsto X_t(\omega)\)</span>, a <strong>sample
-path</strong> — one ordinary, fully deterministic function. This is the
-horizontal read.</li>
+<li><strong>Fix <span class="math inline">\(t\)</span>, vary <span class="math inline">\(\omega\)</span>.</strong> The result is <span class="math inline">\(X_t(\cdot)\)</span>, a single random variable. It
+describes the value at time <span class="math inline">\(t\)</span>
+across all possible outcomes, and it has a distribution, a mean, and a
+variance. This chapter calls it the <strong>slice</strong> at <span class="math inline">\(t\)</span>.</li>
+<li><strong>Fix <span class="math inline">\(\omega\)</span>, vary <span class="math inline">\(t\)</span>.</strong> The result is <span class="math inline">\(t \mapsto X_t(\omega)\)</span>, a <strong>sample
+path</strong>, or <strong>path</strong> for short. A path is an ordinary
+deterministic function of time.</li>
 </ul>
 <blockquote>
-<p>Which is why the honest one-sentence summary is: <strong>a stochastic
-process is a random function.</strong> <span class="math inline">\(\Omega\)</span> is the set of functions you might
-have been handed, <span class="math inline">\(\mathcal{F}\)</span> and
-<span class="math inline">\(\mathbb{P}\)</span> say how likely each
-collection of them is, and drawing a single <span class="math inline">\(\omega\)</span> hands you exactly one path — all
-of it at once, past and future together.</p>
+<p><strong>A stochastic process is a random function.</strong> <span class="math inline">\(\Omega\)</span> indexes the functions you might
+receive. <span class="math inline">\(\mathcal{F}\)</span> and <span class="math inline">\(\mathbb{P}\)</span> say how likely each collection
+of them is. Drawing one <span class="math inline">\(\omega\)</span>
+delivers one path, complete for all times at once.</p>
 </blockquote>
-<p>The picture to hold is an ensemble of sample paths fanning out from a
-common origin. Every line is one <span class="math inline">\(\omega\)</span> drawn from the same <span class="math inline">\(\Omega\)</span>. Cut vertically at a fixed <span class="math inline">\(t\)</span> and the spread of crossing points
-<em>is</em> the distribution of the single random variable <span class="math inline">\(X_t\)</span> — for a random walk, widening as
-<span class="math inline">\(\sqrt{t}\)</span>.</p>
+<p>Both readings appear in practice. A Monte Carlo simulation draws many
+outcomes and generates one path for each. A risk measure at a fixed
+horizon, such as a 10-day value at risk, reads a slice. A rule that
+depends on the route the price takes, such as a stop-loss, a drawdown
+limit, or a barrier option, reads whole paths.</p>
+<p>The figure below shows both readings for a <strong>simple random
+walk</strong>: the walk starts at 0 and moves up or down by 1 at each
+step, with equal probability and independently across steps. Each faint
+line is one path, produced by one <span class="math inline">\(\omega\)</span> from the same <span class="math inline">\(\Omega\)</span>. A vertical cut at a fixed <span class="math inline">\(t\)</span> crosses every path, and the spread of
+the crossing points is the distribution of the single random variable
+<span class="math inline">\(X_t\)</span>, also called the
+<strong>marginal</strong> distribution at <span class="math inline">\(t\)</span>. That spread has standard deviation
+<span class="math inline">\(\sqrt{t}\)</span>. After 100 steps, the
+standard deviation is 10 steps, not 100.</p>
 <style>
 .rw-fig {
 --rw-ink: #10171B; --rw-rose: #A63D62; --rw-teal: #0B6E75;
@@ -1630,56 +1988,180 @@ padding: 0.35rem 0.7rem; cursor: pointer;
   draw();
 })();
 </script>
+<blockquote>
+<h3 id="key-takeaways-4">§6 Key takeaways</h3>
+<ol type="1">
+<li>Fixing the time gives a random variable, the slice. Fixing the
+outcome gives a deterministic function of time, the path.</li>
+<li>A process is a random function: one <span class="math inline">\(\omega\)</span> delivers one complete path.</li>
+<li>Risk at a fixed horizon reads slices. Path-dependent rules and
+payoffs read paths, and a model can match every slice while getting the
+joint behavior across times wrong (<a href="#fdd">§7</a>).</li>
+</ol>
+</blockquote>
 <hr />
 <h2 id="fdd">7. Finite-dimensional distributions</h2>
-<p>The <strong>law</strong> of the process is the pushforward of <span class="math inline">\(\mathbb{P}\)</span> onto the path space <span class="math inline">\(E^T\)</span>. In practice we never specify it
-directly; we specify the family of finite-dimensional distributions, for
-every finite set of indices <span class="math inline">\(t_1, \dots, t_n
+<p>A process is identified by its <strong>law</strong>: the probability
+measure it induces on the <strong>path space</strong> <span class="math inline">\(E^T\)</span>, the set of all functions from <span class="math inline">\(T\)</span> to <span class="math inline">\(E\)</span>, equipped with the product <span class="math inline">\(\sigma\)</span>-algebra of <a href="#app-k">Section K</a>. Formally, the law is the pushforward of
+<span class="math inline">\(\mathbb{P}\)</span> through the map <span class="math inline">\(\omega \mapsto (X_t(\omega))_{t \in T}\)</span>,
+which sends each outcome to its path (<a href="#app-h">Section H</a>
+defines pushforwards). In practice nobody specifies the law directly. A
+model instead states the joint distribution of the process at every
+finite set of distinct times <span class="math inline">\(t_1, \dots, t_n
 \in T\)</span>:</p>
 <p><span class="math display">\[\mu_{t_1 \dots t_n}(B) =
-\mathbb{P}\big((X_{t_1}, \dots, X_{t_n}) \in B\big).\]</span></p>
-<p>The <strong>Kolmogorov extension theorem</strong> (<a href="https://doi.org/10.1007/978-3-030-61871-1" target="_blank">Kallenberg, 2021</a>) says the converse holds: given any
-family of finite-dimensional distributions that is <em>consistent</em> —
-marginalizing one index out of <span class="math inline">\(\mu_{t_1
-\dots t_n}\)</span> reproduces the smaller one, and permuting indices
-permutes the measure — there <em>exists</em> a probability space and a
-process realizing them.</p>
-<p>That theorem is why you can define Brownian motion by saying “<span class="math inline">\(W_0 = 0\)</span>, increments are independent, and
-<span class="math inline">\(W_t - W_s \sim \mathcal{N}(0, t -
-s)\)</span>” and never exhibit <span class="math inline">\(\Omega\)</span>. Existence is delegated.</p>
-<p><strong>What the finite-dimensional distributions do not pin down:
-path properties.</strong> Two processes can share every
-finite-dimensional distribution while one has continuous paths and the
-other does not — they are <em>modifications</em> of each other, agreeing
-at each fixed <span class="math inline">\(t\)</span> almost surely, yet
-differing on an event that involves uncountably many <span class="math inline">\(t\)</span> at once. Continuous versions have to be
-produced separately, e.g. by the Kolmogorov–Chentsov criterion (<a href="https://doi.org/10.1007/978-3-030-61871-1" target="_blank">Kallenberg, 2021</a>; <a href="https://doi.org/10.1007/978-0-387-87859-1" target="_blank">Çınlar,
-2011</a>). <a href="#app-k">Section K</a> explains why this gap is
-structural rather than accidental.</p>
+\mathbb{P}\big((X_{t_1}, \dots, X_{t_n}) \in B\big) \qquad \text{for
+measurable } B \subseteq E^n.\]</span></p>
+<p>Each <span class="math inline">\(\mu_{t_1 \dots t_n}\)</span> is an
+ordinary probability distribution on <span class="math inline">\(E^n\)</span>: the joint distribution of <span class="math inline">\(n\)</span> snapshots of the process. The family of
+all of them, over every finite choice of times, is the process’s
+<strong>finite-dimensional distributions</strong>.</p>
+<p>The <strong>Kolmogorov extension theorem</strong> (<a href="https://doi.org/10.1007/978-3-030-61871-1" target="_blank">Kallenberg, 2021</a>) runs the other way. Start from a
+family of finite-dimensional distributions that is <em>consistent</em>,
+which means two things. First, dropping a time gives the smaller
+distribution:</p>
+<p><span class="math display">\[\mu_{t_1 \dots t_n}(B \times E) =
+\mu_{t_1 \dots t_{n-1}}(B) \qquad \text{for measurable } B \subseteq
+E^{n-1}.\]</span></p>
+<p>The left side places no condition on the value at <span class="math inline">\(t_n\)</span>, so it must equal the distribution of
+the first <span class="math inline">\(n - 1\)</span> values. Second,
+listing the same times in a different order permutes the coordinates of
+the measure to match. Every process satisfies both conditions
+automatically, because all of its finite-dimensional distributions come
+from the same random variables. The theorem says the conditions are also
+sufficient. For state spaces such as <span class="math inline">\(\mathbb{R}^d\)</span>, and more generally any
+complete separable metric space with its Borel <span class="math inline">\(\sigma\)</span>-algebra, it guarantees a
+probability space and a process with exactly those finite-dimensional
+distributions.</p>
+<p>The theorem is why Brownian motion can be defined by three
+properties, without ever writing down <span class="math inline">\(\Omega\)</span>: <span class="math inline">\(W_0 =
+0\)</span>; increments over non-overlapping time intervals are
+independent; and <span class="math inline">\(W_t - W_s \sim
+\mathcal{N}(0, t - s)\)</span> for <span class="math inline">\(s \le
+t\)</span>. These properties fix every finite-dimensional distribution.
+For times <span class="math inline">\(t_1 &lt; \dots &lt; t_n\)</span>,
+each <span class="math inline">\(W_{t_k}\)</span> is a sum of
+independent normal increments, so the vector <span class="math inline">\((W_{t_1}, \dots, W_{t_n})\)</span> is jointly
+normal with mean zero and covariance <span class="math inline">\(\operatorname{Cov}(W_s, W_t) = \min(s,
+t)\)</span>. The resulting family is consistent, and the theorem
+supplies a process.</p>
+<p><strong>Distributions at single times are not enough.</strong> The
+finite-dimensional distributions include joint distributions across
+times, not only the distribution at each single time. To see the
+difference, let <span class="math inline">\(Z\)</span> be one standard
+normal draw and set <span class="math inline">\(Y_t = \sqrt{t}\,
+Z\)</span>. At every <span class="math inline">\(t\)</span>, <span class="math inline">\(Y_t \sim \mathcal{N}(0, t)\)</span>, the same
+distribution as <span class="math inline">\(W_t\)</span>. But every path
+of <span class="math inline">\(Y\)</span> is the same curve rescaled by
+one draw, so the correlation between <span class="math inline">\(Y_1\)</span> and <span class="math inline">\(Y_4\)</span> is 1. For Brownian motion, the
+covariance formula above gives a correlation between <span class="math inline">\(W_1\)</span> and <span class="math inline">\(W_4\)</span> of <span class="math inline">\(1 /
+\sqrt{1 \cdot 4} = 0.5\)</span>. The two processes agree at every single
+time and disagree about every pair of distinct positive times.
+Derivatives pricing has the same gap. Vanilla option prices across all
+strikes at each expiry pin down the risk-neutral distribution of the
+asset price at that expiry, one expiry at a time. A barrier or
+forward-start option depends on the joint distribution across dates, so
+two models calibrated to the same vanilla prices can still disagree
+about its price.</p>
+<p><strong>The finite-dimensional distributions do not determine path
+properties.</strong> Two processes can share every finite-dimensional
+distribution while one has continuous paths and the other does not. For
+an example, let <span class="math inline">\(T = [0,1]\)</span>, let
+<span class="math inline">\(\tau\)</span> be uniform on <span class="math inline">\([0,1]\)</span>, and compare the zero process with
+<span class="math inline">\(J_t = \mathbb{1}\{t = \tau\}\)</span>, which
+equals 1 when <span class="math inline">\(t = \tau\)</span> and 0
+otherwise. At each fixed <span class="math inline">\(t\)</span>, <span class="math inline">\(J_t\)</span> differs from 0 only when <span class="math inline">\(\tau = t\)</span>, which has probability zero. At
+any <span class="math inline">\(n\)</span> fixed times, the probability
+that <span class="math inline">\(J\)</span> is non-zero at one of them
+is at most a sum of <span class="math inline">\(n\)</span> zeros. So the
+two processes have the same finite-dimensional distributions. Yet every
+path of the zero process is continuous, and every path of <span class="math inline">\(J\)</span> jumps to 1 at the time <span class="math inline">\(\tau\)</span>.</p>
+<p>Processes that agree at each fixed <span class="math inline">\(t\)</span> with probability one are called
+<strong>modifications</strong> of each other. They can still differ in a
+property that involves uncountably many times at once, such as
+continuity of the path. A continuous modification therefore needs a
+separate argument, such as the Kolmogorov–Chentsov criterion, which
+produces one when the increments <span class="math inline">\(X_t -
+X_s\)</span> shrink fast enough, on average, as <span class="math inline">\(s\)</span> approaches <span class="math inline">\(t\)</span> (<a href="https://doi.org/10.1007/978-3-030-61871-1" target="_blank">Kallenberg, 2021</a>; <a href="https://doi.org/10.1007/978-0-387-87859-1" target="_blank">Çınlar,
+2011</a>). <a href="#app-k">Section K</a> explains why the
+finite-dimensional distributions cannot see path properties.</p>
+<blockquote>
+<h3 id="key-takeaways-5">§7 Key takeaways</h3>
+<ol type="1">
+<li>A model specifies a process through its finite-dimensional
+distributions, the joint laws at every finite set of times. The
+Kolmogorov extension theorem turns a consistent family into a
+process.</li>
+<li>Distributions at single times do not determine the
+finite-dimensional distributions. <span class="math inline">\(\sqrt{t}\,Z\)</span> and Brownian motion agree at
+every time and differ at every pair of distinct positive times.</li>
+<li>The finite-dimensional distributions do not determine path
+properties such as continuity. Path regularity needs its own
+argument.</li>
+</ol>
+</blockquote>
 <hr />
 <h2 id="filtrations">8. Filtrations and adaptedness</h2>
-<p>The bare definition has no notion of information accumulating. Almost
-every applied use adds one. A <strong>filtration</strong> is an
-increasing family of sub-<span class="math inline">\(\sigma\)</span>-algebras</p>
+<p>The bare definition has no notion of information arriving over time.
+Almost every application adds one through a filtration.</p>
+<p>When the index set <span class="math inline">\(T\)</span> is ordered,
+a <strong>filtration</strong> is a family of <span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\((\mathcal{F}_t)_{t \in T}\)</span> inside <span class="math inline">\(\mathcal{F}\)</span> that grows with time:</p>
 <p><span class="math display">\[\mathcal{F}_s \subseteq \mathcal{F}_t
-\subseteq \mathcal{F} \qquad \text{for all } s \le t,\]</span></p>
-<p>with <span class="math inline">\(\mathcal{F}_t\)</span> read as “the
-events whose truth is settled by time <span class="math inline">\(t\)</span>.” The quadruple <span class="math inline">\((\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \in T},
-\mathbb{P})\)</span> is a <em>filtered</em> probability space. A process
-is <strong>adapted</strong> if <span class="math inline">\(X_t\)</span>
-is <span class="math inline">\(\mathcal{F}_t\)</span>-measurable for
-every <span class="math inline">\(t\)</span> — its value is known once
-time <span class="math inline">\(t\)</span> arrives. The smallest such
-choice is the natural filtration <span class="math inline">\(\mathcal{F}_t^X = \sigma(X_s : s \le
-t)\)</span>.</p>
-<p>Adaptedness is what makes martingales, stopping times, and stochastic
-integration expressible, since each is a statement about not seeing the
-future. It is also the formal statement of lookahead bias: a quantity
-computed from data that is not <span class="math inline">\(\mathcal{F}_t\)</span>-measurable is precisely one
-you could not have known at time <span class="math inline">\(t\)</span>,
-however plausible the backtest looks.</p>
+\subseteq \mathcal{F} \qquad \text{for all } s \le t.\]</span></p>
+<p>Read <span class="math inline">\(\mathcal{F}_t\)</span> as the events
+whose truth is settled by time <span class="math inline">\(t\)</span>.
+The inclusion says that information is never lost: an event settled at
+time <span class="math inline">\(s\)</span> stays settled at every later
+time <span class="math inline">\(t\)</span>. A probability space
+together with a filtration, <span class="math inline">\((\Omega,
+\mathcal{F}, (\mathcal{F}_t)_{t \in T}, \mathbb{P})\)</span>, is a
+<strong>filtered probability space</strong>. <a href="#app-b">Section
+B</a> works through a small filtration in full.</p>
+<p>A process is <strong>adapted</strong> to the filtration if <span class="math inline">\(X_t\)</span> is <span class="math inline">\(\mathcal{F}_t\)</span>-measurable for every <span class="math inline">\(t\)</span>, meaning <span class="math inline">\(X_t^{-1}(B) \in \mathcal{F}_t\)</span> for every
+<span class="math inline">\(B \in \mathcal{E}\)</span>. Every question
+about the value at time <span class="math inline">\(t\)</span> is then
+settled by time <span class="math inline">\(t\)</span>, so the value is
+known by time <span class="math inline">\(t\)</span>. Every process is
+adapted to its own <strong>natural filtration</strong> <span class="math inline">\(\mathcal{F}_t^X = \sigma(X_s : s \le t)\)</span>,
+the information revealed by observing <span class="math inline">\(X\)</span> up to time <span class="math inline">\(t\)</span>. Here <span class="math inline">\(\sigma(\cdot)\)</span> denotes the smallest <span class="math inline">\(\sigma\)</span>-algebra for which every listed
+random variable is measurable (<a href="#app-c">Section C</a>). <a href="#app-g">Section G</a> makes “known by time <span class="math inline">\(t\)</span>” concrete: an <span class="math inline">\(\mathcal{F}_t^X\)</span>-measurable quantity is a
+function of the observed values <span class="math inline">\(X_s\)</span>
+for <span class="math inline">\(s \le t\)</span>.</p>
+<p>Martingales, stopping times, and stochastic integrals are all built
+on adaptedness, because each one is a statement about not seeing the
+future. A <strong>martingale</strong> is an adapted process whose best
+forecast of any later value, given the information at time <span class="math inline">\(s\)</span>, is its value at <span class="math inline">\(s\)</span> (<a href="#app-j">Section J</a>). A
+<strong>stopping time</strong> is a random time whose arrival is known
+when it happens, such as the first time a price touches a barrier: the
+event that it has occurred by time <span class="math inline">\(t\)</span> belongs to <span class="math inline">\(\mathcal{F}_t\)</span>. A <strong>stochastic
+integral</strong> accumulates the gains of a position that is chosen
+from the information available before each move of the price.</p>
+<p>Adaptedness is also the formal version of the rule against lookahead
+bias in a backtest. A signal at time <span class="math inline">\(t\)</span> must be <span class="math inline">\(\mathcal{F}_t\)</span>-measurable, where <span class="math inline">\(\mathcal{F}_t\)</span> is the information actually
+available at <span class="math inline">\(t\)</span>. A signal computed
+from anything outside <span class="math inline">\(\mathcal{F}_t\)</span>
+could not have been known at time <span class="math inline">\(t\)</span>, however good its backtest looks.
+Typical violations include a signal that uses a day’s closing price to
+trade at that same close, fundamentals stamped with the fiscal period
+end rather than the release date, and a feature standardized with
+statistics from the full sample.</p>
+<blockquote>
+<h3 id="key-takeaways-6">§8 Key takeaways</h3>
+<ol type="1">
+<li>A filtration is a growing family of <span class="math inline">\(\sigma\)</span>-algebras. <span class="math inline">\(\mathcal{F}_t\)</span> holds the events settled by
+time <span class="math inline">\(t\)</span>.</li>
+<li>A process is adapted when its value at each time is known at that
+time. Martingales, stopping times, and stochastic integrals all require
+it.</li>
+<li>Lookahead bias is a failure of adaptedness: a signal that is not
+measurable with respect to the information available at its
+timestamp.</li>
+</ol>
+</blockquote>
 <h2 id="instantiated">9. Instantiated</h2>
-<p>The same four objects, five times over.</p>
+<p>The table runs five standard processes through the definition. Each
+row names the sample space, the index set, and the state space, then the
+property that characterizes the process.</p>
 <table>
 <colgroup>
 <col style="width: 20%" />
@@ -1704,7 +2186,7 @@ however plausible the backtest looks.</p>
 <td><span class="math inline">\(\{0,1,2,\dots\}\)</span></td>
 <td><span class="math inline">\((\mathbb{Z},
 2^{\mathbb{Z}})\)</span></td>
-<td><span class="math inline">\(S_n\)</span> sums the first <span class="math inline">\(n\)</span> steps of <span class="math inline">\(\omega\)</span>; increments independent</td>
+<td><span class="math inline">\(X_n\)</span> sums the first <span class="math inline">\(n\)</span> steps of <span class="math inline">\(\omega\)</span>; increments independent</td>
 </tr>
 <tr>
 <td>Brownian motion</td>
@@ -1713,25 +2195,28 @@ Wiener measure</td>
 <td><span class="math inline">\([0,\infty)\)</span></td>
 <td><span class="math inline">\((\mathbb{R},
 \mathcal{B}(\mathbb{R}))\)</span></td>
-<td><span class="math inline">\(W_t \sim \mathcal{N}(0,t)\)</span>;
-continuous paths, nowhere differentiable</td>
+<td><span class="math inline">\(W_0 = 0\)</span>; independent
+increments, <span class="math inline">\(W_t - W_s \sim \mathcal{N}(0,
+t-s)\)</span>; continuous paths, almost surely nowhere
+differentiable</td>
 </tr>
 <tr>
 <td>Poisson process</td>
-<td>Increasing arrival-time sequences</td>
+<td>Increasing sequences of arrival times</td>
 <td><span class="math inline">\([0,\infty)\)</span></td>
 <td><span class="math inline">\((\mathbb{N}_0,
 2^{\mathbb{N}_0})\)</span></td>
 <td><span class="math inline">\(N_t\)</span> counts arrivals;
-right-continuous, jumps of size 1</td>
+independent increments whose distribution depends only on the interval
+length; right-continuous paths, jumps of size 1</td>
 </tr>
 <tr>
 <td>Weather chain</td>
-<td><span class="math inline">\(\{\text{sun},\text{rain}\}^{\mathbb{N}}\)</span></td>
+<td><span class="math inline">\(\{\text{sun},\text{rain}\}^{\mathbb{N}_0}\)</span></td>
 <td><span class="math inline">\(\{0,1,2,\dots\}\)</span></td>
 <td><span class="math inline">\((\{\text{sun},\text{rain}\},
 2^E)\)</span></td>
-<td>Markov: the next state depends on the present one only</td>
+<td>Markov: the next state depends only on the present state</td>
 </tr>
 <tr>
 <td>i.i.d. noise</td>
@@ -1740,216 +2225,359 @@ product measure</td>
 <td><span class="math inline">\(\mathbb{Z}\)</span></td>
 <td><span class="math inline">\((\mathbb{R},
 \mathcal{B}(\mathbb{R}))\)</span></td>
-<td>No dependence whatsoever — still a stochastic process</td>
+<td>No dependence at all, yet still a stochastic process</td>
 </tr>
 </tbody>
 </table>
-<p>Note the last row. Nothing in the definition requires the <span class="math inline">\(X_t\)</span> to be dependent, or identically
-distributed, or ordered in any meaningful way. Those are extra
-structure, imposed to get theorems.</p>
-<h3 id="four-things-the-definition-quietly-settles">Four things the
-definition quietly settles</h3>
-<ul>
-<li>A process is not a sequence of numbers. It is a family of
-<em>functions on <span class="math inline">\(\Omega\)</span></em>. The
-numbers appear only after an <span class="math inline">\(\omega\)</span>
-is drawn.</li>
-<li>Randomness is resolved once, not repeatedly. “Step forward, draw a
-shock, step again” is a construction recipe; in the definition the whole
-path is already determined by a single <span class="math inline">\(\omega\)</span>.</li>
-<li>The shared probability space is what makes dependence across <span class="math inline">\(T\)</span> even statable. Drop it and there is no
-process, only a collection.</li>
-<li>Measurability is not bookkeeping. It is the condition under which
-<span class="math inline">\(\mathbb{P}(X_t \in B)\)</span> denotes
-anything at all.</li>
-</ul>
+<p>In the Brownian row, <span class="math inline">\(C([0,\infty),
+\mathbb{R})\)</span> is the set of continuous functions from <span class="math inline">\([0,\infty)\)</span> to <span class="math inline">\(\mathbb{R}\)</span>, and Wiener measure is the law
+of Brownian motion on that set. In the last row, i.i.d. means
+independent and identically distributed.</p>
+<p>The last row shows that the definition requires no dependence between
+the <span class="math inline">\(X_t\)</span>. It also requires no common
+distribution and no meaningful order. Each named class of processes adds
+one such property, and its theorems follow from that addition: Markov
+chains add a rule for how the next state depends on the present one, and
+stationary processes add invariance under shifts in time.</p>
+<h3 id="equivalences">Equivalences</h3>
+<p>Several objects in this chapter have more than one description, and a
+few pairs that look alike are different. The table collects both
+kinds.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Objects</th>
+<th>Relationship</th>
+<th>Section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A family <span class="math inline">\((X_t)_{t \in T}\)</span>; a
+single map on <span class="math inline">\(T \times \Omega\)</span>; a
+random element of <span class="math inline">\(E^T\)</span> with the
+product <span class="math inline">\(\sigma\)</span>-algebra</td>
+<td>One process, three descriptions</td>
+<td><a href="#definition">§1</a>, <a href="#fdd">§7</a>, <a href="#app-k">K</a></td>
+</tr>
+<tr>
+<td>A random vector in <span class="math inline">\(\mathbb{R}^d\)</span>; a process with <span class="math inline">\(T = \{1, \dots, d\}\)</span></td>
+<td>The same object</td>
+<td><a href="#index-set">§3</a></td>
+</tr>
+<tr>
+<td>A <span class="math inline">\(\sigma\)</span>-algebra on a finite
+set; a partition of that set</td>
+<td>Same information</td>
+<td><a href="#app-b">B</a></td>
+</tr>
+<tr>
+<td>A <span class="math inline">\(\sigma\)</span>-algebra; a list of
+answerable questions; an observer’s information</td>
+<td>One object, three readings</td>
+<td><a href="#app-b">B</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(Y\)</span> is <span class="math inline">\(\sigma(X)\)</span>-measurable; <span class="math inline">\(Y = g(X)\)</span> for a measurable <span class="math inline">\(g\)</span></td>
+<td>Equivalent for real-valued <span class="math inline">\(Y\)</span>
+(Doob–Dynkin)</td>
+<td><a href="#app-g">G</a></td>
+</tr>
+<tr>
+<td>Adapted to the available information; free of lookahead</td>
+<td>Equivalent</td>
+<td><a href="#filtrations">§8</a></td>
+</tr>
+<tr>
+<td>Law; distribution</td>
+<td>Two names for <span class="math inline">\(\mathbb{P} \circ
+X^{-1}\)</span></td>
+<td><a href="#app-h">H</a></td>
+</tr>
+<tr>
+<td>Probability density function; probability mass function</td>
+<td>One Radon–Nikodym density, against Lebesgue measure or against
+counting measure on a countable set</td>
+<td><a href="#app-h">H</a></td>
+</tr>
+<tr>
+<td><span class="math inline">\(\mathbb{E}[X \mid \mathcal{G}]\)</span>
+for square-integrable <span class="math inline">\(X\)</span>; orthogonal
+projection onto square-integrable <span class="math inline">\(\mathcal{G}\)</span>-measurable variables</td>
+<td>Equal, up to a null set</td>
+<td><a href="#app-j">J</a></td>
+</tr>
+<tr>
+<td>Measurable at each <span class="math inline">\(t\)</span>; jointly
+measurable in <span class="math inline">\((t, \omega)\)</span></td>
+<td>Different: joint is strictly stronger</td>
+<td><a href="#measurability">§5</a></td>
+</tr>
+<tr>
+<td>Same distribution at each time; same finite-dimensional
+distributions</td>
+<td>Different: the second is strictly stronger</td>
+<td><a href="#fdd">§7</a></td>
+</tr>
+<tr>
+<td>Same finite-dimensional distributions; same path properties</td>
+<td>Different: the first does not imply the second</td>
+<td><a href="#fdd">§7</a>, <a href="#app-k">K</a></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h3 id="part-i-key-takeaways">Part I key takeaways</h3>
+<ol type="1">
+<li>A process is a family of functions on <span class="math inline">\(\Omega\)</span>, not a sequence of numbers.
+Numbers appear only after an outcome <span class="math inline">\(\omega\)</span> is drawn.</li>
+<li>Randomness is resolved once. “Step forward, draw a shock, step
+again” is how a simulation constructs a path. In the definition, one
+<span class="math inline">\(\omega\)</span> fixes the whole path.</li>
+<li>The shared probability space turns joint statements across times
+into events. Random variables on separate spaces have no joint
+distribution, so dependence between them is undefined.</li>
+<li>Measurability decides whether <span class="math inline">\(\mathbb{P}(X_t \in B)\)</span> is defined at
+all.</li>
+<li>The finite-dimensional distributions identify the law but not the
+path properties. Information enters through a filtration, and
+adaptedness is the formal ban on lookahead.</li>
+</ol>
+</blockquote>
 <h1 id="part-ii">Part II — Appendix: the measure-theoretic
 vocabulary</h1>
-<p>Everything Part I leaned on, built from the ground up. Sections A–F
-build the container: sets <span class="math inline">\(\to\)</span> <span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\(\to\)</span> measurable spaces <span class="math inline">\(\to\)</span> measures <span class="math inline">\(\to\)</span> probability spaces. Sections G–I put
-things inside it: measurable functions, distributions, expectation.
-Sections J–K cover independence, conditioning, and product spaces. A
-glossary closes it out.</p>
+<p>Part II builds the vocabulary that Part I uses, starting from bare
+sets. Sections A–F build the container in steps: sets, <span class="math inline">\(\sigma\)</span>-algebras, measurable spaces,
+measures, and probability spaces. Sections G–I describe what goes inside
+it: measurable functions, distributions, and expectation. Sections J and
+K cover independence, conditioning, and product spaces. A glossary
+follows.</p>
+<p>Each entry starts with the idea in words, gives the formal
+definition, and then points back to the place in Part I that relies on
+it. For proofs, <a href="#further-reading">Further reading</a> lists the
+standard texts in order of difficulty.</p>
+<p>Part II uses <span class="math inline">\((U, \mathcal{U})\)</span>
+and <span class="math inline">\((V, \mathcal{V})\)</span> for generic
+measurable spaces, so that <span class="math inline">\(X\)</span> stays
+reserved for random variables and processes.</p>
 <hr />
 <h2 id="app-a">A. Why probability is a theory of sets, not of
 points</h2>
-<p>The elementary definition — probability equals favourable outcomes
-over total outcomes — works only while you can count. Move to a
-continuum and it collapses immediately. Drop a point uniformly on <span class="math inline">\([0,1]\)</span>: every individual point has
-probability zero, there are uncountably many of them, and yet the total
-is one. Zero cannot be summed into one, so probability simply cannot be
-a function on outcomes.</p>
-<p>The repair is to assign numbers to <em>sets</em> of outcomes rather
-than to outcomes. “The point lands in <span class="math inline">\([0,
-\tfrac14]\)</span>” has probability <span class="math inline">\(\tfrac14\)</span> with no paradox. And once you
-are assigning sizes to sets, you have walked into a subject that already
-existed: measure theory, the general study of how to attach a consistent
-notion of size to subsets of something.</p>
+<p>The elementary definition of probability, favorable outcomes divided
+by total outcomes, needs finitely many equally likely outcomes. Its
+natural extension gives each outcome a weight and adds the weights,
+which works whenever the outcomes can be listed one by one. Both fail on
+a continuum. Drop a point uniformly on <span class="math inline">\([0,1]\)</span>. Each individual point has
+probability zero, yet the total probability is one, and no sum of zeros
+reaches one.</p>
+<p>The fix assigns numbers to <em>sets</em> of outcomes. The event “the
+point lands in <span class="math inline">\([0, \tfrac14]\)</span>” has
+probability <span class="math inline">\(\tfrac14\)</span>, with no
+contradiction. Assigning sizes to sets is the subject of measure theory,
+which studies consistent notions of size for the subsets of a space.</p>
 <blockquote>
-<p>Length, area, volume, mass, charge and probability are the same
-mathematical object — a <strong>measure</strong> — differing only in
-normalization and interpretation. Probability is measure theory with the
-extra requirement that the whole space has size 1. That single
-constraint is the entire specialization; every theorem about integration
-and limits comes along for free.</p>
+<p>Length, area, volume, mass, and probability are all
+<strong>measures</strong>. They differ only in normalization and
+interpretation. Probability is a measure with one extra requirement: the
+whole space has size 1. Every theorem about measures, integrals, and
+limits therefore applies to probability unchanged.</p>
 </blockquote>
-<p>The awkward part is that you cannot hand out sizes to <em>every</em>
-subset. Assuming the axiom of choice, there exist subsets of <span class="math inline">\([0,1]\)</span> — Vitali’s construction — that no
-translation-invariant, countably additive measure can consistently size.
-Rather than abandon countable additivity (which is what makes limits
-work), the theory abandons universality: we declare in advance a
-restricted collection of sets we promise to measure, and refuse the
-rest. That collection is the <span class="math inline">\(\sigma\)</span>-algebra.</p>
+<p>The complication is that sizes cannot be assigned to every subset.
+Vitali’s construction produces subsets of <span class="math inline">\([0,1]\)</span> that cannot be given a length: no
+countably additive, translation-invariant measure that gives <span class="math inline">\([0,1]\)</span> length 1 extends to them.
+Translation-invariant means that shifting a set does not change its
+size.</p>
+<p>The construction runs as follows. Call two numbers in <span class="math inline">\([0,1)\)</span> equivalent when their difference is
+rational. The construction uses the axiom of choice to pick one number
+from each equivalence class. Shifting the chosen set by each rational in
+<span class="math inline">\([0,1)\)</span>, wrapping around at 1, gives
+countably many disjoint copies that together fill <span class="math inline">\([0,1)\)</span>. Translation invariance forces
+every copy to have the same length, and countable additivity then makes
+the total either 0 or infinite, never 1.</p>
+<p>The theory keeps countable additivity, because limits depend on it,
+and gives up measuring every set. It fixes in advance a collection of
+sets it promises to measure. That collection is a <span class="math inline">\(\sigma\)</span>-algebra (<a href="#app-b">Section
+B</a>).</p>
+<p><a href="#probability-space">§2</a> relies on this restriction: in
+continuous models, <span class="math inline">\(\mathcal{F}\)</span> is
+smaller than the set of all subsets.</p>
 <hr />
 <h2 id="app-b">B. <span class="math inline">\(\sigma\)</span>-algebras:
-the catalogue of answerable questions</h2>
-<p><strong>Definition.</strong> Let <span class="math inline">\(X\)</span> be a set. A collection <span class="math inline">\(\mathcal{A}\)</span> of subsets of <span class="math inline">\(X\)</span> is a <strong><span class="math inline">\(\sigma\)</span>-algebra</strong> on <span class="math inline">\(X\)</span> if:</p>
+the catalog of answerable questions</h2>
+<p>A <span class="math inline">\(\sigma\)</span>-algebra is the list of
+subsets that a theory agrees to measure. The list must be closed under
+the operations that combine questions, so that combining answerable
+questions never produces an unanswerable one.</p>
+<p><strong>Definition.</strong> Let <span class="math inline">\(U\)</span> be a set. A collection <span class="math inline">\(\mathcal{U}\)</span> of subsets of <span class="math inline">\(U\)</span> is a <strong><span class="math inline">\(\sigma\)</span>-algebra</strong> on <span class="math inline">\(U\)</span> if:</p>
 <ol type="i">
-<li><span class="math inline">\(X \in \mathcal{A}\)</span>;</li>
-<li><span class="math inline">\(A \in \mathcal{A} \implies X \setminus A
-\in \mathcal{A}\)</span> (closed under complement);</li>
-<li><span class="math inline">\(A_1, A_2, \dots \in \mathcal{A} \implies
-\bigcup_n A_n \in \mathcal{A}\)</span> (closed under <em>countable</em>
+<li><span class="math inline">\(U \in \mathcal{U}\)</span>;</li>
+<li><span class="math inline">\(A \in \mathcal{U} \implies U \setminus A
+\in \mathcal{U}\)</span> (closed under complement);</li>
+<li><span class="math inline">\(A_1, A_2, \dots \in \mathcal{U} \implies
+\bigcup_n A_n \in \mathcal{U}\)</span> (closed under <em>countable</em>
 union).</li>
 </ol>
-<p>Members of <span class="math inline">\(\mathcal{A}\)</span> are
-called <strong>measurable sets</strong>; in a probability context,
-<strong>events</strong>. The <span class="math inline">\(\sigma\)</span>
-is for countability.</p>
-<p>From these three, <span class="math inline">\(\emptyset \in
-\mathcal{A}\)</span> follows from (i) and (ii), and closure under
-countable intersection follows via De Morgan, as does closure under set
-difference. So the axioms are minimal, not restrictive: what looks like
-three rules is really “closed under everything you can do with countably
-many sets.”</p>
-<h3 id="reading-one-what-you-are-allowed-to-ask">Reading one: what you
-are allowed to ask</h3>
-<p>Identify a subset <span class="math inline">\(A \subseteq X\)</span>
-with the yes/no question “is the outcome in <span class="math inline">\(A\)</span>?” The axioms then say something very
-natural. If you can ask <span class="math inline">\(A\)</span>, you can
-ask <em>not</em>-<span class="math inline">\(A\)</span>. If you can ask
-<span class="math inline">\(A_1, A_2, \dots\)</span>, you can ask <em>at
-least one of them</em>. A <span class="math inline">\(\sigma\)</span>-algebra is a catalogue of
-questions closed under the logical operations, so that any question you
-can build from countably many admissible questions is itself
-admissible.</p>
-<p>The restriction to <em>countable</em> unions is the load-bearing
-choice. Allow arbitrary unions and the theory dies instantly: every
-subset is a union of its singletons, so closure under arbitrary unions
-of singletons forces <span class="math inline">\(\mathcal{A}\)</span> to
-be the full power set — the very thing that cannot be measured.
-Countability is precisely the amount of closure needed to take limits
-without admitting the pathological sets.</p>
+<p>Members of <span class="math inline">\(\mathcal{U}\)</span> are
+called <strong>measurable sets</strong>, and in probability they are
+called <strong>events</strong>. The <span class="math inline">\(\sigma\)</span> signals countability.</p>
+<p>The three axioms imply more. Axioms (i) and (ii) give <span class="math inline">\(\emptyset \in \mathcal{U}\)</span>. De Morgan’s
+laws turn countable unions into countable intersections, so <span class="math inline">\(\mathcal{U}\)</span> is also closed under
+countable intersection and under set difference. The axioms are a
+minimal list: together they say that <span class="math inline">\(\mathcal{U}\)</span> is closed under every
+operation built from countably many of its sets.</p>
+<h3 id="reading-one-the-questions-you-can-ask">Reading one: the
+questions you can ask</h3>
+<p>Identify each subset <span class="math inline">\(A \subseteq
+U\)</span> with the yes-or-no question “is the outcome in <span class="math inline">\(A\)</span>?” The axioms then become rules about
+questions. If <span class="math inline">\(A\)</span> can be asked, so
+can “not <span class="math inline">\(A\)</span>.” If <span class="math inline">\(A_1, A_2, \dots\)</span> can be asked, so can “at
+least one of them.” A <span class="math inline">\(\sigma\)</span>-algebra is a catalog of questions
+closed under these logical operations: any question built from countably
+many admissible questions is admissible.</p>
+<p>The restriction to <em>countable</em> unions matters. Suppose the
+axioms allowed arbitrary unions, and suppose every single point is
+measurable, as it is in any reasonable model of a continuum. Every
+subset is the union of its points, so <span class="math inline">\(\mathcal{U}\)</span> would contain every subset.
+That is the power set, which <a href="#app-a">Section A</a> showed
+cannot carry length. Countable unions are enough to take limits and few
+enough to exclude the pathological sets.</p>
 <h3 id="reading-two-information">Reading two: information</h3>
-<p>The second reading is the one that makes filtrations obvious. Think
-of <span class="math inline">\(\mathcal{A}\)</span> as the resolving
-power of an observer: the events they can determine the truth of. A
-coarse <span class="math inline">\(\sigma\)</span>-algebra is an
-observer who knows little; a fine one is an observer who knows more.</p>
+<p>The second reading explains filtrations. Treat <span class="math inline">\(\mathcal{U}\)</span> as the resolving power of an
+observer: the collection of events whose truth the observer can
+determine. A coarse <span class="math inline">\(\sigma\)</span>-algebra
+describes an observer who knows little, and a fine one describes an
+observer who knows more.</p>
 <ul>
-<li><span class="math inline">\(\{\emptyset, X\}\)</span>, the
-<strong>trivial</strong> <span class="math inline">\(\sigma\)</span>-algebra: an observer who knows
-only that <em>something</em> happened. Every random variable measurable
-with respect to it is constant.</li>
-<li><span class="math inline">\(2^X\)</span>, the <strong>power
-set</strong>: total knowledge. Fine for countable <span class="math inline">\(X\)</span>, unusable on a continuum.</li>
-<li><strong><span class="math inline">\(\sigma\)</span> of a
-partition</strong>: given a partition of <span class="math inline">\(X\)</span> into blocks, the <span class="math inline">\(\sigma\)</span>-algebra of all unions of blocks.
-The observer can tell which block occurred but cannot distinguish points
-inside a block. Every finite <span class="math inline">\(\sigma\)</span>-algebra is of this form — so on
-finite spaces, “<span class="math inline">\(\sigma\)</span>-algebra” and
-“partition” are the same idea.</li>
+<li><span class="math inline">\(\{\emptyset, U\}\)</span>, the
+<strong>trivial</strong> <span class="math inline">\(\sigma\)</span>-algebra, describes an observer who
+knows only that some outcome occurred. Every real-valued random variable
+measurable with respect to it is constant.</li>
+<li><span class="math inline">\(2^U\)</span>, the <strong>power
+set</strong>, describes total knowledge. It works for a countable <span class="math inline">\(U\)</span>. On a continuum it is too large to
+carry length (<a href="#app-a">Section A</a>).</li>
+<li><strong>The <span class="math inline">\(\sigma\)</span>-algebra of a
+partition.</strong> Split <span class="math inline">\(U\)</span> into
+blocks, and take all unions of blocks. The observer can tell which block
+occurred, but not which point inside the block. Every finite <span class="math inline">\(\sigma\)</span>-algebra has this form, so on a
+finite set a <span class="math inline">\(\sigma\)</span>-algebra and a
+partition carry the same information.</li>
 </ul>
-<p><strong>Worked example — two coin flips.</strong> Let <span class="math inline">\(\Omega = \{HH, HT, TH, TT\}\)</span>. Before any
-flip you cannot distinguish outcomes at all. After the first flip you
-know which half you are in. After the second, everything:</p>
+<p><strong>Worked example: two coin flips.</strong> Let <span class="math inline">\(\Omega = \{\mathrm{HH}, \mathrm{HT}, \mathrm{TH},
+\mathrm{TT}\}\)</span>. Before any flip, the observer cannot tell any
+outcomes apart. After the first flip, the observer knows which half
+contains the outcome. After the second flip, the observer knows the
+outcome.</p>
 <pre><code>F0    [ HH  HT  TH  TT ]                 knows nothing
 F1    [ HH  HT ][ TH  TT ]               knows the first flip
 F2    [ HH ][ HT ][ TH ][ TT ]           knows everything</code></pre>
-<p>The partition <em>refines</em>, the <span class="math inline">\(\sigma\)</span>-algebra <em>grows</em> — <span class="math inline">\(\mathcal{F}_0 \subset \mathcal{F}_1 \subset
-\mathcal{F}_2\)</span> — and that increasing chain is exactly a
-filtration (<a href="#filtrations">Section 8</a>).</p>
+<p>The partition gets finer and the <span class="math inline">\(\sigma\)</span>-algebra grows: <span class="math inline">\(\mathcal{F}_0 \subset \mathcal{F}_1 \subset
+\mathcal{F}_2\)</span>. <span class="math inline">\(\mathcal{F}_0\)</span> contains two events, <span class="math inline">\(\mathcal{F}_1\)</span> contains four, and <span class="math inline">\(\mathcal{F}_2\)</span> contains all 16 subsets of
+<span class="math inline">\(\Omega\)</span>. That increasing chain is a
+filtration (<a href="#filtrations">§8</a>).</p>
+<p>Part I uses both readings. The <span class="math inline">\(\mathcal{F}\)</span> of <a href="#probability-space">§2</a> and the <span class="math inline">\(\mathcal{E}\)</span> of <a href="#state-space">§4</a> are catalogs of answerable questions, and the
+filtration of <a href="#filtrations">§8</a> is the information
+reading.</p>
 <hr />
 <h2 id="app-c">C. Generation and Borel sets</h2>
-<p>On a continuum you can never enumerate the measurable sets. Instead
-you name a few you insist on having and take the closure.</p>
-<p><strong>Definition — generated <span class="math inline">\(\sigma\)</span>-algebra.</strong> For any
+<p>On a continuum, nobody can list the measurable sets one by one.
+Instead, one names a few sets that must be measurable and takes the
+smallest <span class="math inline">\(\sigma\)</span>-algebra that
+contains them.</p>
+<p><strong>Definition: generated <span class="math inline">\(\sigma\)</span>-algebra.</strong> For any
 collection <span class="math inline">\(\mathcal{C}\)</span> of subsets
-of <span class="math inline">\(X\)</span>, <span class="math inline">\(\sigma(\mathcal{C})\)</span> is the smallest <span class="math inline">\(\sigma\)</span>-algebra containing <span class="math inline">\(\mathcal{C}\)</span> — equivalently, the
+of <span class="math inline">\(U\)</span>, <span class="math inline">\(\sigma(\mathcal{C})\)</span> is the smallest <span class="math inline">\(\sigma\)</span>-algebra that contains <span class="math inline">\(\mathcal{C}\)</span>. Equivalently, it is the
 intersection of all <span class="math inline">\(\sigma\)</span>-algebras
-containing <span class="math inline">\(\mathcal{C}\)</span>.</p>
-<p>That definition is legitimate for two reasons: the power set is
-always a <span class="math inline">\(\sigma\)</span>-algebra containing
-<span class="math inline">\(\mathcal{C}\)</span>, so the family being
-intersected is non-empty; and an arbitrary intersection of <span class="math inline">\(\sigma\)</span>-algebras is again a <span class="math inline">\(\sigma\)</span>-algebra, since each axiom is
-preserved under intersection. So a smallest one exists and is
+that contain <span class="math inline">\(\mathcal{C}\)</span>.</p>
+<p>Two facts make the definition work. The power set is a <span class="math inline">\(\sigma\)</span>-algebra that contains <span class="math inline">\(\mathcal{C}\)</span>, so at least one such <span class="math inline">\(\sigma\)</span>-algebra exists. And any
+intersection of <span class="math inline">\(\sigma\)</span>-algebras is
+again a <span class="math inline">\(\sigma\)</span>-algebra, because
+each axiom survives intersection. So the smallest one exists and is
 unique.</p>
-<p><strong>Definition — Borel <span class="math inline">\(\sigma\)</span>-algebra.</strong> <span class="math inline">\(\mathcal{B}(\mathbb{R}) = \sigma(\{\text{open
-subsets of } \mathbb{R}\})\)</span>. Equivalently, generated by the open
-intervals, or by the rays <span class="math inline">\((-\infty,
-a]\)</span> for <span class="math inline">\(a \in \mathbb{Q}\)</span>.
-More generally <span class="math inline">\(\mathcal{B}(S)\)</span> is
-defined for any topological space <span class="math inline">\(S\)</span>.</p>
-<p>The Borel sets are the default answer to “which subsets of <span class="math inline">\(\mathbb{R}\)</span> are we willing to measure.”
-They contain every interval, every open and closed set, every countable
-set, every countable intersection of opens and union of closeds, and
-essentially everything you will ever write down. They are nonetheless a
-vanishingly small part of the power set: <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span> has the
-cardinality of the continuum, while <span class="math inline">\(2^{\mathbb{R}}\)</span> is strictly larger. Almost
-every subset of <span class="math inline">\(\mathbb{R}\)</span> is
-non-Borel — you just cannot exhibit one without the axiom of choice.</p>
+<p><strong>Definition: Borel <span class="math inline">\(\sigma\)</span>-algebra.</strong> <span class="math inline">\(\mathcal{B}(\mathbb{R}) = \sigma(\{\text{open
+subsets of } \mathbb{R}\})\)</span>. The open intervals generate the
+same <span class="math inline">\(\sigma\)</span>-algebra, and so do the
+rays <span class="math inline">\((-\infty, a]\)</span> with <span class="math inline">\(a \in \mathbb{Q}\)</span>. The same construction
+defines the Borel <span class="math inline">\(\sigma\)</span>-algebra of
+any topological space.</p>
+<p>The Borel sets are the default answer to the question of which
+subsets of <span class="math inline">\(\mathbb{R}\)</span> to measure.
+They include every interval, every open set, every closed set, every
+countable set, and every set built from these by countable operations.
+Nearly every set that arises in modeling is Borel. Even so, the Borel
+sets are a small part of the power set. <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span> has the
+cardinality of the continuum, while <span class="math inline">\(2^{\mathbb{R}}\)</span> is strictly larger, so
+most subsets of <span class="math inline">\(\mathbb{R}\)</span> are not
+Borel.</p>
 <blockquote>
-<p>The generation idea is also what gives “information” a formal home.
-For a random variable <span class="math inline">\(X\)</span>, the <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\sigma(X) = X^{-1}(\mathcal{E})\)</span> is
-<em>the information carried by knowing <span class="math inline">\(X\)</span></em>, and the natural filtration <span class="math inline">\(\mathcal{F}_t^X = \sigma(X_s : s \le t)\)</span>
-is the information accumulated by observing the process up to time <span class="math inline">\(t\)</span>.</p>
+<p>Generation also gives “information” a formal definition. For a random
+variable <span class="math inline">\(X\)</span> with values in <span class="math inline">\((E, \mathcal{E})\)</span>, the <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\sigma(X) = \{X^{-1}(B) : B \in
+\mathcal{E}\}\)</span> is the information carried by knowing <span class="math inline">\(X\)</span>. The preimages already form a <span class="math inline">\(\sigma\)</span>-algebra (<a href="#app-g">Section
+G</a> shows why), and it is the smallest <span class="math inline">\(\sigma\)</span>-algebra on <span class="math inline">\(\Omega\)</span> for which <span class="math inline">\(X\)</span> is measurable. For a family of random
+variables, the preimages of all of them together need not form a <span class="math inline">\(\sigma\)</span>-algebra, so <span class="math inline">\(\sigma(X_s : s \le t)\)</span> is the <span class="math inline">\(\sigma\)</span>-algebra they generate: the
+smallest one for which every <span class="math inline">\(X_s\)</span>
+with <span class="math inline">\(s \le t\)</span> is measurable. The
+natural filtration <span class="math inline">\(\mathcal{F}_t^X =
+\sigma(X_s : s \le t)\)</span> is the information gathered by observing
+the process up to time <span class="math inline">\(t\)</span> (<a href="#filtrations">§8</a>).</p>
 </blockquote>
+<p>The default state space of <a href="#state-space">§4</a>, <span class="math inline">\((\mathbb{R}, \mathcal{B}(\mathbb{R}))\)</span>,
+uses the Borel <span class="math inline">\(\sigma\)</span>-algebra.</p>
 <hr />
 <h2 id="app-d">D. Measurable space: structure without numbers</h2>
+<p>A measurable space is a set together with its list of measurable
+subsets, before any sizes are assigned.</p>
 <p><strong>Definition.</strong> A <strong>measurable space</strong> is a
-pair <span class="math inline">\((X, \mathcal{A})\)</span> where <span class="math inline">\(X\)</span> is a set and <span class="math inline">\(\mathcal{A}\)</span> is a <span class="math inline">\(\sigma\)</span>-algebra on <span class="math inline">\(X\)</span>.</p>
-<p>That is the whole definition, and the notable thing is what is
-absent: no numbers, no sizes, no probabilities. A measurable space only
-declares <em>which questions are legal</em>. It is the type signature
-before the implementation — the domain of discourse fixed in advance, so
-that when a measure arrives later it knows exactly what it is expected
-to evaluate.</p>
-<p>The analogy worth carrying is with topology. A topological space is a
-set plus a distinguished family of subsets (the opens) that makes
-continuity expressible. A measurable space is a set plus a distinguished
-family of subsets (the measurable sets) that makes measurement
-expressible. Same move, different closure axioms, different purpose.</p>
-<p>This is why the definition of a stochastic process requires the state
-space to be a measurable space <span class="math inline">\((E,
-\mathcal{E})\)</span> and not merely a set <span class="math inline">\(E\)</span>. Without <span class="math inline">\(\mathcal{E}\)</span> there is no way to state what
-“the value lands in <span class="math inline">\(B\)</span>” is even
-allowed to mean.</p>
+pair <span class="math inline">\((U, \mathcal{U})\)</span>, where <span class="math inline">\(U\)</span> is a set and <span class="math inline">\(\mathcal{U}\)</span> is a <span class="math inline">\(\sigma\)</span>-algebra on <span class="math inline">\(U\)</span>.</p>
+<p>The definition contains no numbers, sizes, or probabilities. A
+measurable space only declares which questions are legal. It plays the
+role of a type signature in code. It fixes the domain in advance, so
+that a measure added later knows exactly which sets it must
+evaluate.</p>
+<p>Topology offers a useful parallel. A topological space is a set plus
+a chosen family of subsets, the open sets, which makes continuity
+expressible. A measurable space is a set plus a chosen family of
+subsets, the measurable sets, which makes measurement expressible. The
+construction is the same; the closure axioms and the purpose differ.</p>
+<p>For this reason the definition of a stochastic process requires the
+state space to be a measurable space <span class="math inline">\((E,
+\mathcal{E})\)</span> rather than a bare set <span class="math inline">\(E\)</span> (<a href="#state-space">§4</a>).
+Without <span class="math inline">\(\mathcal{E}\)</span>, there is no
+list of sets <span class="math inline">\(B\)</span> for which “<span class="math inline">\(X_t \in B\)</span>” is a valid question.</p>
 <hr />
 <h2 id="app-e">E. Measure: a consistent notion of size</h2>
-<p><strong>Definition.</strong> Given <span class="math inline">\((X,
-\mathcal{A})\)</span>, a <strong>measure</strong> is a function <span class="math inline">\(\mu : \mathcal{A} \to [0, \infty]\)</span>
-with</p>
+<p>A measure assigns a size to each measurable set, and the sizes of
+disjoint pieces add up to the size of the whole.</p>
+<p><strong>Definition.</strong> Given a measurable space <span class="math inline">\((U, \mathcal{U})\)</span>, a
+<strong>measure</strong> is a function <span class="math inline">\(\mu :
+\mathcal{U} \to [0, \infty]\)</span> with</p>
 <ol type="i">
 <li><span class="math inline">\(\mu(\emptyset) = 0\)</span>;</li>
 <li><span class="math inline">\(\mu\big(\bigcup_n A_n\big) = \sum_n
-\mu(A_n)\)</span> for every sequence of <em>pairwise disjoint</em> <span class="math inline">\(A_n \in \mathcal{A}\)</span> (<strong>countable
+\mu(A_n)\)</span> for every sequence of <em>pairwise disjoint</em> <span class="math inline">\(A_n \in \mathcal{U}\)</span> (<strong>countable
 additivity</strong>).</li>
 </ol>
-<p>The triple <span class="math inline">\((X, \mathcal{A}, \mu)\)</span>
+<p>The triple <span class="math inline">\((U, \mathcal{U}, \mu)\)</span>
 is a <strong>measure space</strong>.</p>
-<p>Countable additivity does all the work. Finite additivity alone —
-disjoint pieces of a set have sizes that add — would be the obvious
-axiom, and it is not enough. What countable additivity buys is
+<p>Countable additivity is the axiom that matters. Finite additivity,
+under which the sizes of finitely many disjoint pieces add up, is the
+obvious axiom, but it is too weak. Countable additivity gives
 <strong>continuity of measure</strong>: if <span class="math inline">\(A_1 \subseteq A_2 \subseteq \cdots\)</span>
-increase to <span class="math inline">\(A\)</span>, then <span class="math inline">\(\mu(A_n) \uparrow \mu(A)\)</span>. Sizes respect
-limits. Every limit theorem downstream — laws of large numbers,
-martingale convergence, the construction of the integral itself —
-reduces to that property.</p>
-<p>Immediate consequences: monotonicity (<span class="math inline">\(A
-\subseteq B \implies \mu(A) \le \mu(B)\)</span>) and countable
-subadditivity (<span class="math inline">\(\mu(\bigcup A_n) \le \sum
-\mu(A_n)\)</span>, with no disjointness needed). Continuity from above
-holds too, but only for sets of finite measure.</p>
+increase to <span class="math inline">\(A\)</span>, then <span class="math inline">\(\mu(A_n) \uparrow \mu(A)\)</span>. In words, the
+size of a limit is the limit of the sizes. The laws of large numbers,
+martingale convergence, and the construction of the integral all rest on
+this property.</p>
+<p>Two consequences follow at once. <strong>Monotonicity:</strong> <span class="math inline">\(A \subseteq B\)</span> implies <span class="math inline">\(\mu(A) \le \mu(B)\)</span>. <strong>Countable
+subadditivity:</strong> <span class="math inline">\(\mu(\bigcup_n A_n)
+\le \sum_n \mu(A_n)\)</span>, with no disjointness required. Continuity
+also holds for decreasing sequences of sets, provided the first set has
+finite measure. Without that proviso it can fail: the rays <span class="math inline">\([n, \infty)\)</span> all have infinite length, yet
+they decrease to the empty set.</p>
+<p>The table lists four standard measures.</p>
 <table>
 <colgroup>
 <col style="width: 33%" />
@@ -1966,8 +2594,9 @@ holds too, but only for sets of finite measure.</p>
 <tbody>
 <tr>
 <td>Counting measure</td>
-<td><span class="math inline">\(\mu(A) = \#A\)</span></td>
-<td>Makes integration into summation</td>
+<td><span class="math inline">\(\mu(A) = \#A\)</span>, the number of
+elements of <span class="math inline">\(A\)</span></td>
+<td>Turns integration into summation</td>
 </tr>
 <tr>
 <td>Lebesgue <span class="math inline">\(\lambda\)</span></td>
@@ -1979,27 +2608,29 @@ measure with <span class="math inline">\(\lambda([0,1]) =
 </tr>
 <tr>
 <td>Dirac <span class="math inline">\(\delta_x\)</span></td>
-<td><span class="math inline">\(\delta_x(A) = \mathbb{1}\{x \in
-A\}\)</span></td>
-<td>All the mass at one point</td>
+<td><span class="math inline">\(\delta_x(A) = 1\)</span> if <span class="math inline">\(x \in A\)</span>, and 0 otherwise</td>
+<td>Puts all the mass at one point</td>
 </tr>
 <tr>
 <td>Probability</td>
-<td>Any measure with <span class="math inline">\(\mu(X) =
+<td>Any measure with <span class="math inline">\(\mu(U) =
 1\)</span></td>
-<td>Nothing else distinguishes it</td>
+<td>Normalization is its only distinguishing feature</td>
 </tr>
 </tbody>
 </table>
+<p>The probability measure <span class="math inline">\(\mathbb{P}\)</span> of <a href="#probability-space">§2</a> is a measure of this kind.</p>
 <hr />
 <h2 id="app-f">F. Probability space: a measure normalized to one</h2>
+<p>A probability space is a measure space whose total size is one, with
+the sizes read as probabilities.</p>
 <p><strong>Definition.</strong> A <strong>probability space</strong> is
 a measure space <span class="math inline">\((\Omega, \mathcal{F},
 \mathbb{P})\)</span> with <span class="math inline">\(\mathbb{P}(\Omega)
-= 1\)</span>. Explicitly, the axioms of <a href="https://archive.org/details/kolmogorov_202112" target="_blank">Kolmogorov (1933)</a>: <span class="math inline">\(\mathbb{P}(A) \ge 0\)</span> for all <span class="math inline">\(A \in \mathcal{F}\)</span>; <span class="math inline">\(\mathbb{P}(\Omega) = 1\)</span>; and <span class="math inline">\(\mathbb{P}\)</span> is countably additive on
+= 1\)</span>. In modern form, these are the axioms of <a href="https://archive.org/details/kolmogorov_202112" target="_blank">Kolmogorov (1933)</a>, who stated finite additivity plus
+a continuity axiom that together amount to countable additivity: <span class="math inline">\(\mathbb{P}(A) \ge 0\)</span> for all <span class="math inline">\(A \in \mathcal{F}\)</span>; <span class="math inline">\(\mathbb{P}(\Omega) = 1\)</span>; and <span class="math inline">\(\mathbb{P}\)</span> is countably additive over
 disjoint sequences.</p>
-<p>The renaming that comes with it is the only real content of the
-specialization:</p>
+<p>The specialization adds a vocabulary and nothing else:</p>
 <table>
 <colgroup>
 <col style="width: 33%" />
@@ -2021,13 +2652,13 @@ specialization:</p>
 </tr>
 <tr>
 <td><span class="math inline">\(\omega \in \Omega\)</span></td>
-<td>Outcome / sample point</td>
+<td>Outcome</td>
 <td>One fully specified way the world could turn out</td>
 </tr>
 <tr>
 <td><span class="math inline">\(A \in \mathcal{F}\)</span></td>
 <td>Event</td>
-<td>A set of outcomes whose probability we have agreed to define</td>
+<td>A set of outcomes that receives a probability</td>
 </tr>
 <tr>
 <td><span class="math inline">\(\mathbb{P}(A)\)</span></td>
@@ -2037,20 +2668,30 @@ monotonicity and normalization</td>
 </tr>
 </tbody>
 </table>
-<p>Two pieces of vocabulary follow directly and are used constantly. A
-<strong>null set</strong> is an <span class="math inline">\(N \in
-\mathcal{F}\)</span> with <span class="math inline">\(\mathbb{P}(N) =
-0\)</span>. A statement holds <strong>almost surely</strong> (a.s.) if
-the set where it fails is null. In continuous settings almost every
-theorem is an a.s. statement, because individual outcomes routinely have
-probability zero and cannot be excluded individually.</p>
-<p>A related technicality: a measure space is <strong>complete</strong>
-if every subset of a null set is itself measurable (necessarily with
-measure 0). Nothing forces this, but subsets of null sets are morally
-negligible, so probability spaces are conventionally completed — and
-continuous-time theory usually assumes the filtration is completed too,
-as part of the “usual conditions.”</p>
+<p>Two terms follow directly and appear constantly. A <strong>null
+set</strong> is an event <span class="math inline">\(A\)</span> with
+<span class="math inline">\(\mathbb{P}(A) = 0\)</span>. A statement
+holds <strong>almost surely</strong> (a.s.) if the outcomes where it
+fails lie inside a null set. In continuous models nearly every theorem
+is an almost-sure statement, because exceptional outcomes usually exist.
+The space of continuous paths that carries Brownian motion (<a href="#instantiated">§9</a>) contains smooth paths, such as the constant
+path at zero. The theorem that Brownian paths are nowhere differentiable
+therefore cannot hold for every outcome. It shows instead that the
+outcomes where it fails, taken together, form a null set.</p>
+<p>A related technicality concerns completeness. A measure space is
+<strong>complete</strong> if every subset of a null set is measurable,
+with measure zero. Nothing in the axioms forces completeness, but
+subsets of null sets are negligible for every practical purpose.
+[Practice] Probability spaces are conventionally completed.
+Continuous-time texts usually also assume that <span class="math inline">\(\mathcal{F}_0\)</span> contains every null set and
+that the filtration is right-continuous, meaning <span class="math inline">\(\mathcal{F}_t = \bigcap_{u &gt; t}
+\mathcal{F}_u\)</span>. Together these two assumptions are called the
+<strong>usual conditions</strong>. They ensure, for example, that
+changing an adapted process on a null set, as passing to a modification
+does (<a href="#fdd">§7</a>), leaves it adapted.</p>
 <h3 id="the-build-up-in-one-table">The build-up, in one table</h3>
+<p>The table summarizes the steps from a bare set to a probability
+space.</p>
 <table>
 <colgroup>
 <col style="width: 33%" />
@@ -2066,172 +2707,229 @@ as part of the “usual conditions.”</p>
 </thead>
 <tbody>
 <tr>
-<td><span class="math inline">\(X\)</span></td>
+<td><span class="math inline">\(U\)</span></td>
 <td>A set</td>
-<td>No structure at all. You can say which elements exist and nothing
-else.</td>
+<td>No structure. It says which elements exist and nothing else.</td>
 </tr>
 <tr>
-<td><span class="math inline">\((X, \mathcal{A})\)</span></td>
+<td><span class="math inline">\((U, \mathcal{U})\)</span></td>
 <td>Measurable space</td>
 <td>A <span class="math inline">\(\sigma\)</span>-algebra: which subsets
 are legal to ask about. Still no numbers.</td>
 </tr>
 <tr>
-<td><span class="math inline">\((X, \mathcal{A}, \mu)\)</span></td>
+<td><span class="math inline">\((U, \mathcal{U}, \mu)\)</span></td>
 <td>Measure space</td>
-<td>Sizes. Each legal subset now has a number in <span class="math inline">\([0,\infty]\)</span>, consistently additive.</td>
+<td>Sizes. Each legal subset gets a number in <span class="math inline">\([0,\infty]\)</span>, and the sizes add up
+consistently.</td>
 </tr>
 <tr>
 <td><span class="math inline">\((\Omega, \mathcal{F},
 \mathbb{P})\)</span>, <span class="math inline">\(\mathbb{P}(\Omega)=1\)</span></td>
 <td>Probability space</td>
-<td>The same thing, normalized. “Size” is now read as “how likely.”</td>
+<td>The same structure, normalized. “Size” now reads as “how
+likely.”</td>
 </tr>
 </tbody>
 </table>
-<p>Each step adds exactly one thing, and none of the earlier structure
-is revised. Reading upward is also useful: probability theory is a
-special case, and every general measure-theoretic result applies to it
-unchanged.</p>
+<p>Each step adds one thing and revises none of the earlier structure.
+Read upward, the table says that probability theory is a special case of
+measure theory, so every result about measures applies to it unchanged.
+The probability space is Ingredient I of the definition (<a href="#probability-space">§2</a>).</p>
 <hr />
 <h2 id="app-g">G. Measurable functions, and what a random variable
 actually is</h2>
-<p><strong>Definition.</strong> <span class="math inline">\(f : (X,
-\mathcal{A}) \to (Y, \mathcal{B})\)</span> is
-<strong>measurable</strong> if <span class="math inline">\(f^{-1}(B) \in
-\mathcal{A}\)</span> for every <span class="math inline">\(B \in
-\mathcal{B}\)</span>. A <strong>random variable</strong> is a measurable
+<p>A measurable function turns every legal question about its output
+into a legal question about its input. A random variable is such a
 function on a probability space.</p>
-<p>The first question everyone has is why the condition is stated on
-preimages rather than images. The answer is structural: preimages
-commute with every set operation, and images do not.</p>
+<p><strong>Definition.</strong> A function <span class="math inline">\(f
+: (U, \mathcal{U}) \to (V, \mathcal{V})\)</span> is
+<strong>measurable</strong> if <span class="math inline">\(f^{-1}(B) \in
+\mathcal{U}\)</span> for every <span class="math inline">\(B \in
+\mathcal{V}\)</span>. A <strong>random variable</strong> is a measurable
+function on a probability space.</p>
+<p>A common first question is why the condition uses preimages rather
+than images. Preimages respect every set operation, and images do not.
+The identities</p>
 <p><span class="math display">\[f^{-1}(B^c) = \big(f^{-1}(B)\big)^c,
 \qquad f^{-1}\Big(\bigcup_n B_n\Big) = \bigcup_n
 f^{-1}(B_n)\]</span></p>
-<p>always hold. For images both can fail. So pulling a <span class="math inline">\(\sigma\)</span>-algebra back through a function
-yields a <span class="math inline">\(\sigma\)</span>-algebra; pushing
-one forward does not. Measurability has to be phrased in the direction
-that preserves the structure.</p>
-<p>That same fact gives the practical test. The collection <span class="math inline">\(\{B \subseteq Y : f^{-1}(B) \in
-\mathcal{A}\}\)</span> is itself a <span class="math inline">\(\sigma\)</span>-algebra, so if it contains a
-generating family it contains everything generated. For a real-valued
-function you therefore only need</p>
+<p>hold for every function <span class="math inline">\(f\)</span>. The
+image version of the first one fails unless <span class="math inline">\(f\)</span> is both one-to-one and onto. If <span class="math inline">\(f\)</span> is constant, for example, the image of
+any non-empty set is the same single point, so the image of a complement
+is not the complement of the image. As a result, pulling a <span class="math inline">\(\sigma\)</span>-algebra back through a function
+always gives a <span class="math inline">\(\sigma\)</span>-algebra,
+while pushing one forward need not. Measurability is stated in the
+direction that preserves the structure.</p>
+<p>The same fact gives a practical test. The collection <span class="math inline">\(\{B \subseteq V : f^{-1}(B) \in
+\mathcal{U}\}\)</span> is itself a <span class="math inline">\(\sigma\)</span>-algebra. If it contains a
+generating family, it contains the whole <span class="math inline">\(\sigma\)</span>-algebra that family generates. For
+a real-valued function, the rays generate <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span> (<a href="#app-c">Section C</a>), so it is enough to check</p>
 <p><span class="math display">\[\{f \le a\} = f^{-1}\big((-\infty,
-a]\big) \in \mathcal{A} \qquad \text{for every } a \in
-\mathbb{R},\]</span></p>
-<p>and Borel measurability follows. This is why measurability is almost
-never an obstacle in practice: every continuous function is Borel
-measurable, and the measurable functions are closed under sums,
-products, compositions with measurable maps, suprema and infima of
-countable families, and pointwise limits. The class is stable enough
-that anything you construct by ordinary means stays inside it.</p>
+a]\big) \in \mathcal{U} \qquad \text{for every } a \in
+\mathbb{R}.\]</span></p>
+<p>Borel measurability then follows. In practice, measurability rarely
+gets in the way. Every continuous function is Borel measurable.
+Measurable functions stay measurable under sums, products, composition
+with measurable maps, countable suprema and infima, and pointwise
+limits. Anything built by ordinary means stays measurable.</p>
 <blockquote>
-<p>A random variable is not a variable and it does not vary. It is a
-deterministic function <span class="math inline">\(X : \Omega \to
-E\)</span>, fixed once and for all. The only thing that varies is which
-<span class="math inline">\(\omega\)</span> was drawn. The name is a
-historical accident from before the measure-theoretic foundation, and it
-is responsible for a large share of the confusion beginners have with
-the subject.</p>
+<p>The name <em>random variable</em> is historical and misleading. A
+random variable is a fixed, deterministic function <span class="math inline">\(X : \Omega \to E\)</span>. The randomness lies
+entirely in which outcome <span class="math inline">\(\omega\)</span> is
+drawn. The name predates the measure-theoretic foundation, and it causes
+much of the early confusion in the subject.</p>
 </blockquote>
-<p><strong>Doob–Dynkin: information, made concrete.</strong> The claim
-that <span class="math inline">\(\sigma(X)\)</span> “is the information
-in <span class="math inline">\(X\)</span>” is not a metaphor. For
-real-valued <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, the random variable <span class="math inline">\(Y\)</span> is <span class="math inline">\(\sigma(X)\)</span>-measurable <em>if and only
-if</em> <span class="math inline">\(Y = g(X)\)</span> for some
-measurable <span class="math inline">\(g\)</span>. Being measurable with
-respect to the <span class="math inline">\(\sigma\)</span>-algebra
-generated by <span class="math inline">\(X\)</span> is exactly the same
-as being computable from <span class="math inline">\(X\)</span> (<a href="https://doi.org/10.1007/978-3-030-61871-1" target="_blank">Kallenberg, 2021</a>). Applied to a filtration: adapted
-means each <span class="math inline">\(X_t\)</span> is a function of
-what has already been observed.</p>
+<p><strong>Doob–Dynkin lemma: information as computability.</strong> <a href="#app-c">Section C</a> called <span class="math inline">\(\sigma(X)\)</span> the information in <span class="math inline">\(X\)</span>. The Doob–Dynkin lemma makes that
+statement exact. For a random variable <span class="math inline">\(X\)</span> with values in any measurable space
+<span class="math inline">\((E, \mathcal{E})\)</span> and a real-valued
+<span class="math inline">\(Y\)</span>, <span class="math inline">\(Y\)</span> is <span class="math inline">\(\sigma(X)\)</span>-measurable if and only if <span class="math inline">\(Y = g(X)\)</span> for some measurable function
+<span class="math inline">\(g : E \to \mathbb{R}\)</span> (<a href="https://doi.org/10.1007/978-3-030-61871-1" target="_blank">Kallenberg, 2021</a>). Measurability with respect to the
+<span class="math inline">\(\sigma\)</span>-algebra generated by <span class="math inline">\(X\)</span> means exactly “computable from <span class="math inline">\(X\)</span>.” To apply the lemma to the natural
+filtration, take <span class="math inline">\(X\)</span> to be the whole
+observed stretch of path <span class="math inline">\((X_s)_{s \le
+t}\)</span>. It is a random element of a path space, and the <span class="math inline">\(\sigma\)</span>-algebra it generates is <span class="math inline">\(\mathcal{F}_t^X\)</span> (<a href="#app-k">Section
+K</a>). So a real-valued <span class="math inline">\(\mathcal{F}_t^X\)</span>-measurable quantity is a
+function of the observed values <span class="math inline">\(X_s\)</span>
+for <span class="math inline">\(s \le t\)</span>. That is the precise
+sense of “known at time <span class="math inline">\(t\)</span>” in <a href="#filtrations">§8</a>.</p>
+<p>Part I treats each <span class="math inline">\(X_t\)</span> as a
+random variable in this sense (<a href="#definition">§1</a>, <a href="#measurability">§5</a>).</p>
 <hr />
 <h2 id="app-h">H. Distributions: pushing <span class="math inline">\(\mathbb{P}\)</span> forward, and forgetting <span class="math inline">\(\Omega\)</span></h2>
-<p>A random variable transports the probability measure from <span class="math inline">\(\Omega\)</span> over to the state space.</p>
-<p><strong>Definition — law / pushforward.</strong> The
-<strong>law</strong> (or distribution) of <span class="math inline">\(X\)</span> is the measure <span class="math inline">\(\mu_X = \mathbb{P} \circ X^{-1}\)</span> on <span class="math inline">\((E, \mathcal{E})\)</span>, that is</p>
+<p>A random variable carries the probability measure from <span class="math inline">\(\Omega\)</span> over to the state space.</p>
+<p><strong>Definition: law, or pushforward.</strong> The
+<strong>law</strong> of <span class="math inline">\(X\)</span>, also
+called its <strong>distribution</strong>, is the measure <span class="math inline">\(\mu_X = \mathbb{P} \circ X^{-1}\)</span> on <span class="math inline">\((E, \mathcal{E})\)</span>:</p>
 <p><span class="math display">\[\mu_X(B) = \mathbb{P}\big(X^{-1}(B)\big)
 = \mathbb{P}(X \in B).\]</span></p>
-<p>Measurability of <span class="math inline">\(X\)</span> is precisely
-what makes this well defined, and <span class="math inline">\(\mu_X\)</span> is again a probability measure.</p>
-<p>Note what the law throws away: everything about <span class="math inline">\(\Omega\)</span>. Two random variables defined on
-completely different probability spaces can have identical laws, and no
-statement phrased in terms of distributions can tell them apart. This is
-the practical reason nobody specifies <span class="math inline">\(\Omega\)</span> — a fair coin flip modelled on
-<span class="math inline">\(\{H, T\}\)</span> and one modelled on <span class="math inline">\([0,1]\)</span> with Lebesgue measure are
-indistinguishable for every purpose that only involves the law.</p>
-<p>On <span class="math inline">\(\mathbb{R}\)</span> the law is encoded
-by the <strong>cumulative distribution function</strong> <span class="math inline">\(F(a) = \mu_X((-\infty, a])\)</span>. Because the
-rays generate <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span> and form a <span class="math inline">\(\pi\)</span>-system, agreeing on them forces
-agreement everywhere: the CDF determines the law completely.</p>
-<p>Densities are the same story told against a reference measure. If
-<span class="math inline">\(\mu_X\)</span> is absolutely continuous with
-respect to a <span class="math inline">\(\sigma\)</span>-finite <span class="math inline">\(\nu\)</span> — meaning <span class="math inline">\(\nu(B) = 0\)</span> forces <span class="math inline">\(\mu_X(B) = 0\)</span>, written <span class="math inline">\(\mu_X \ll \nu\)</span> — the <strong>Radon–Nikodym
-theorem</strong> supplies a density <span class="math inline">\(f\)</span> with</p>
-<p><span class="math display">\[\mu_X(B) = \int_B f \,
-d\nu.\]</span></p>
-<p>Take <span class="math inline">\(\nu\)</span> = Lebesgue and <span class="math inline">\(f\)</span> is the probability density function;
-take <span class="math inline">\(\nu\)</span> = counting measure and
-<span class="math inline">\(f\)</span> is the probability mass function.
-The textbook split between “continuous” and “discrete” random variables
-is nothing more than a choice of reference measure, which is why the two
-theories are word-for-word identical.</p>
+<p>The law gives each set of values <span class="math inline">\(B\)</span> the probability of the outcomes that
+land in it. Measurability of <span class="math inline">\(X\)</span>
+makes this well defined, and <span class="math inline">\(\mu_X\)</span>
+is again a probability measure.</p>
+<p>The law discards everything about <span class="math inline">\(\Omega\)</span>. Two random variables on
+completely different probability spaces can have the same law, and no
+statement about distributions can tell them apart. For example, a fair
+coin can be modeled on <span class="math inline">\(\{0, 1\}\)</span>, or
+on <span class="math inline">\([0,1]\)</span> with Lebesgue measure as
+<span class="math inline">\(\mathbb{1}\{\omega \le \tfrac12\}\)</span>.
+The two models have the same law and serve every purpose that depends
+only on the law. Models rarely specify <span class="math inline">\(\Omega\)</span> explicitly for this reason. <a href="#fdd">§7</a> applies the same idea to a whole process, whose law
+is a measure on the path space <span class="math inline">\(E^T\)</span>.</p>
+<p>On <span class="math inline">\(\mathbb{R}\)</span>, the
+<strong>cumulative distribution function</strong> <span class="math inline">\(F_X(a) = \mu_X((-\infty, a])\)</span> encodes the
+law. The rays <span class="math inline">\((-\infty, a]\)</span> generate
+<span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>, and the
+intersection of two rays is again a ray; a family closed under
+intersection in this way is a <strong><span class="math inline">\(\pi\)</span>-system</strong>. A uniqueness theorem
+says that two probability measures that agree on a <span class="math inline">\(\pi\)</span>-system agree on the whole <span class="math inline">\(\sigma\)</span>-algebra it generates. So the CDF
+determines the law.</p>
+<p>A density describes a law relative to a reference measure <span class="math inline">\(\nu\)</span> on <span class="math inline">\(E\)</span>. Suppose <span class="math inline">\(\nu\)</span> is <strong><span class="math inline">\(\sigma\)</span>-finite</strong>, meaning <span class="math inline">\(E\)</span> is a countable union of sets of finite
+<span class="math inline">\(\nu\)</span>-measure. Suppose also that
+<span class="math inline">\(\mu_X\)</span> is <strong>absolutely
+continuous</strong> with respect to <span class="math inline">\(\nu\)</span>, written <span class="math inline">\(\mu_X \ll \nu\)</span>: every <span class="math inline">\(\nu\)</span>-null set is also <span class="math inline">\(\mu_X\)</span>-null. The <strong>Radon–Nikodym
+theorem</strong> then supplies a density <span class="math inline">\(f\)</span> with</p>
+<p><span class="math display">\[\mu_X(B) = \int_B f \, d\nu \qquad
+\text{for every } B \in \mathcal{E}.\]</span></p>
+<p>The density converts the reference measure into the law, one set at a
+time (<a href="#app-i">Section I</a> defines the integral). With <span class="math inline">\(\nu\)</span> equal to Lebesgue measure, <span class="math inline">\(f\)</span> is the probability density function.
+With <span class="math inline">\(\nu\)</span> equal to counting measure
+on a countable <span class="math inline">\(E\)</span>, <span class="math inline">\(f\)</span> is the probability mass function. The
+countability matters, because counting measure is <span class="math inline">\(\sigma\)</span>-finite only on a countable set.
+The textbook split between continuous and discrete random variables is a
+choice of reference measure, and the two theories are one theory with
+different <span class="math inline">\(\nu\)</span>.</p>
 <hr />
 <h2 id="app-i">I. Integration and expectation</h2>
-<p>The Lebesgue integral is built in four stages, each extending the
-previous one.</p>
+<p>The integral averages a function against a measure, and expectation
+is the integral against a probability measure. The Lebesgue integral is
+built in four stages. Each stage extends the previous one to a larger
+class of functions.</p>
 <ol type="1">
-<li><strong>Indicators.</strong> <span class="math inline">\(\int
-\mathbb{1}_A \, d\mu = \mu(A)\)</span>. The integral <em>is</em> the
-measure, restated.</li>
-<li><strong>Simple functions</strong> — finite combinations <span class="math inline">\(\sum_i c_i \mathbb{1}_{A_i}\)</span> — integrate
-to <span class="math inline">\(\sum_i c_i \mu(A_i)\)</span>, and one
-checks this does not depend on the representation.</li>
-<li><strong>Non-negative measurable <span class="math inline">\(f\)</span>:</strong> <span class="math inline">\(\int f \, d\mu = \sup\{\int s \, d\mu : s \text{
-simple}, \, 0 \le s \le f\}\)</span>, allowed to be <span class="math inline">\(+\infty\)</span>.</li>
-<li><strong>General <span class="math inline">\(f\)</span>:</strong>
-split <span class="math inline">\(f = f^+ - f^-\)</span> and subtract,
-provided both parts are finite — that is, provided <span class="math inline">\(\int |f| \, d\mu &lt; \infty\)</span>.</li>
+<li><strong>Indicators.</strong> The indicator <span class="math inline">\(\mathbb{1}_A\)</span> of a measurable set <span class="math inline">\(A\)</span> equals 1 on <span class="math inline">\(A\)</span> and 0 elsewhere, and <span class="math inline">\(\int \mathbb{1}_A \, d\mu = \mu(A)\)</span>.
+Integrating an indicator returns the measure of its set.</li>
+<li><strong>Simple functions.</strong> A simple function is a finite
+combination <span class="math inline">\(\varphi = \sum_i c_i
+\mathbb{1}_{A_i}\)</span> of indicators of measurable sets <span class="math inline">\(A_i\)</span>, with constants <span class="math inline">\(c_i \ge 0\)</span>, and its integral is <span class="math inline">\(\sum_i c_i \mu(A_i)\)</span>. One checks that the
+value does not depend on how <span class="math inline">\(\varphi\)</span> is written.</li>
+<li><strong>Non-negative measurable <span class="math inline">\(f\)</span>.</strong> <span class="math inline">\(\int f \, d\mu = \sup\{\int \varphi \, d\mu :
+\varphi \text{ simple}, \, 0 \le \varphi \le f\}\)</span>. The integral
+is the best approximation from below by simple functions, and it may be
+<span class="math inline">\(+\infty\)</span>.</li>
+<li><strong>General <span class="math inline">\(f\)</span>.</strong>
+Split <span class="math inline">\(f = f^+ - f^-\)</span> into its
+positive and negative parts, <span class="math inline">\(f^+ = \max(f,
+0)\)</span> and <span class="math inline">\(f^- = \max(-f, 0)\)</span>,
+and set <span class="math inline">\(\int f \, d\mu = \int f^+ \, d\mu -
+\int f^- \, d\mu\)</span>. Both parts must be finite, which holds
+exactly when <span class="math inline">\(\int |f| \, d\mu &lt;
+\infty\)</span>.</li>
 </ol>
-<p>Expectation is this integral with <span class="math inline">\(\mu =
-\mathbb{P}\)</span>:</p>
+<p>An integral over a measurable set <span class="math inline">\(A\)</span> restricts the function to that set:
+<span class="math inline">\(\int_A f \, d\mu = \int f \mathbb{1}_A \,
+d\mu\)</span>. <a href="#app-h">Section H</a> and <a href="#app-j">Section J</a> use this form.</p>
+<p><strong>Expectation</strong> is this integral with <span class="math inline">\(\mu = \mathbb{P}\)</span>:</p>
 <p><span class="math display">\[\mathbb{E}[X] = \int_\Omega X(\omega) \,
-\mathbb{P}(d\omega)\]</span></p>
-<p>— an average over outcomes, each weighted by its probability. And the
-<strong>change-of-variables</strong> formula moves the computation to
-where the data actually lives:</p>
+\mathbb{P}(d\omega).\]</span></p>
+<p>The expectation averages <span class="math inline">\(X\)</span> over
+outcomes, with <span class="math inline">\(\mathbb{P}\)</span> supplying
+the weights. As <a href="#app-a">Section A</a> requires, the weights
+attach to sets of outcomes, through the simple functions of stage 2,
+rather than to single outcomes. The <strong>change-of-variables
+formula</strong> moves the computation from <span class="math inline">\(\Omega\)</span> to the state space, where the law
+lives:</p>
 <p><span class="math display">\[\int_\Omega g(X) \, d\mathbb{P} = \int_E
-g \, d\mu_X,\]</span></p>
-<p>which is why you can evaluate <span class="math inline">\(\mathbb{E}[g(X)]\)</span> from a density or a mass
-function alone and never think about <span class="math inline">\(\Omega\)</span> again.</p>
+g \, d\mu_X.\]</span></p>
+<p>It holds for every measurable <span class="math inline">\(g : E \to
+\mathbb{R}\)</span> that is non-negative or satisfies <span class="math inline">\(\mathbb{E}|g(X)| &lt; \infty\)</span>. The formula
+is why <span class="math inline">\(\mathbb{E}[g(X)]\)</span> can be
+computed from a density or a mass function alone, without reference to
+<span class="math inline">\(\Omega\)</span>. When <span class="math inline">\(\mu_X\)</span> has density <span class="math inline">\(f\)</span> with respect to <span class="math inline">\(\nu\)</span> (<a href="#app-h">Section H</a>), the
+right side becomes <span class="math inline">\(\int_E g f \,
+d\nu\)</span>: the familiar <span class="math inline">\(\int g(x) f(x)
+\, dx\)</span> for Lebesgue measure, and the sum <span class="math inline">\(\sum_x g(x) f(x)\)</span> for counting measure. A
+Monte Carlo estimate approximates the left side directly: it averages
+<span class="math inline">\(g(X(\omega))\)</span> over many simulated
+outcomes. The mean of a slice in <a href="#readings">§6</a> is an
+expectation in this sense.</p>
 <blockquote>
-<p>The reason to prefer Lebesgue over Riemann is not exotic sets — it is
-limits. Riemann integration is not closed under pointwise limits: a
-pointwise limit of Riemann-integrable functions need not be Riemann
-integrable. Lebesgue’s theory supports monotone convergence, Fatou’s
-lemma, and dominated convergence, each letting you exchange a limit with
-an integral under weak hypotheses. Since probability is almost entirely
-about limits of sequences of random variables, this is not a refinement
-— it is the reason the foundation was rebuilt.</p>
+<p>Lebesgue integration replaced Riemann integration because of limits.
+A pointwise limit of Riemann-integrable functions need not be Riemann
+integrable. The indicator of the rationals in <span class="math inline">\([0,1]\)</span> is the pointwise limit of
+indicators of finite sets, each with Riemann integral zero, yet it has
+no Riemann integral; its Lebesgue integral is zero. Lebesgue’s theory
+provides monotone convergence, for non-negative functions that increase
+to a limit, and dominated convergence, for functions bounded in absolute
+value by one integrable function. Each lets a limit and an integral be
+exchanged. Fatou’s lemma covers other non-negative sequences with an
+inequality: the integral of the limit inferior is at most the limit
+inferior of the integrals. Probability works mostly with limits of
+sequences of random variables, and these theorems are the main reason
+its foundation moved to measure theory.</p>
 </blockquote>
 <hr />
 <h2 id="app-j">J. Independence and conditioning</h2>
-<p>Events <span class="math inline">\(A, B\)</span> are
-<strong>independent</strong> when <span class="math inline">\(\mathbb{P}(A \cap B) =
-\mathbb{P}(A)\mathbb{P}(B)\)</span>. Sub-<span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\(\mathcal{G}, \mathcal{H} \subseteq
-\mathcal{F}\)</span> are independent when that holds for every <span class="math inline">\(A \in \mathcal{G}\)</span> and <span class="math inline">\(B \in \mathcal{H}\)</span>, and random variables
-are independent when the <span class="math inline">\(\sigma\)</span>-algebras they generate are. Note
-that independence is a property of the <em>measure</em>, not of the
-sets: the same two events can be independent under one <span class="math inline">\(\mathbb{P}\)</span> and dependent under another.
-It is a numerical coincidence promoted to a definition, not a structural
-feature.</p>
-<p>Conditioning is where the information reading earns its keep.
-Conditional expectation given an event is elementary; conditional
-expectation given a <span class="math inline">\(\sigma\)</span>-algebra
-is the object the theory actually uses.</p>
-<p><strong>Definition — conditional expectation.</strong> For integrable
-<span class="math inline">\(X\)</span> and a sub-<span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{G} \subseteq \mathcal{F}\)</span>, <span class="math inline">\(\mathbb{E}[X \mid \mathcal{G}]\)</span> is
+<p>Independence says that learning one event does not change the
+probability of another. Conditioning says how to update an estimate when
+partial information arrives.</p>
+<p>Events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are <strong>independent</strong> when
+<span class="math inline">\(\mathbb{P}(A \cap B) =
+\mathbb{P}(A)\mathbb{P}(B)\)</span>. Two sub-<span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\(\mathcal{G}, \mathcal{H} \subseteq
+\mathcal{F}\)</span> are independent when this holds for every <span class="math inline">\(A \in \mathcal{G}\)</span> and <span class="math inline">\(B \in \mathcal{H}\)</span>. Random variables are
+independent when the <span class="math inline">\(\sigma\)</span>-algebras they generate are
+independent.</p>
+<p>Independence is a property of the measure, not of the sets. The same
+two events can be independent under one <span class="math inline">\(\mathbb{P}\)</span> and dependent under another.
+“The first flip is heads” and “the second flip is heads” are independent
+for fair, independent coins, and dependent under a measure in which the
+second flip tends to repeat the first.</p>
+<p>Conditioning uses the information reading of <span class="math inline">\(\sigma\)</span>-algebras (<a href="#app-b">Section
+B</a>). Conditional expectation given a single event <span class="math inline">\(A\)</span> with <span class="math inline">\(\mathbb{P}(A) &gt; 0\)</span> is elementary: <span class="math inline">\(\mathbb{E}[X \mid A] = \mathbb{E}[X \mathbb{1}_A]
+/ \mathbb{P}(A)\)</span>, the average of <span class="math inline">\(X\)</span> over <span class="math inline">\(A\)</span>. The theory uses conditional
+expectation given a <span class="math inline">\(\sigma\)</span>-algebra,
+which applies that idea to every event the <span class="math inline">\(\sigma\)</span>-algebra resolves at once.</p>
+<p><strong>Definition: conditional expectation.</strong> For an
+integrable <span class="math inline">\(X\)</span> and a sub-<span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{G} \subseteq \mathcal{F}\)</span>, <span class="math inline">\(\mathbb{E}[X \mid \mathcal{G}]\)</span> is
 <em>any</em> random variable <span class="math inline">\(Z\)</span> that
 is</p>
 <ol type="i">
@@ -2242,56 +2940,100 @@ and</li>
 \in \mathcal{G}\)</span>.</li>
 </ol>
 <p>Such a <span class="math inline">\(Z\)</span> exists and is unique up
-to a null set, by Radon–Nikodym.</p>
-<p>Read the two clauses. The first says the answer may only use
-information available in <span class="math inline">\(\mathcal{G}\)</span> — you are not allowed to
-peek. The second says that on every set <span class="math inline">\(\mathcal{G}\)</span> can resolve, the answer has
-the same total mass as <span class="math inline">\(X\)</span> itself —
-it gets the averages right at the resolution available. Together: <span class="math inline">\(\mathbb{E}[X \mid \mathcal{G}]\)</span> is the
-best estimate of <span class="math inline">\(X\)</span> using only what
-<span class="math inline">\(\mathcal{G}\)</span> knows. For
-square-integrable <span class="math inline">\(X\)</span> this is
-literally an orthogonal projection onto the subspace of <span class="math inline">\(\mathcal{G}\)</span>-measurable functions.</p>
-<p>Note that <span class="math inline">\(\mathbb{E}[X \mid
-\mathcal{G}]\)</span> is a random variable, not a number — it still
-depends on <span class="math inline">\(\omega\)</span>, just at coarser
-resolution. That is what makes the <strong>martingale</strong>
-condition</p>
+to a null set. The Radon–Nikodym theorem (<a href="#app-h">Section
+H</a>) supplies it. For non-negative <span class="math inline">\(X\)</span>, the map <span class="math inline">\(G
+\mapsto \int_G X \, d\mathbb{P}\)</span> is a measure on <span class="math inline">\(\mathcal{G}\)</span> that is absolutely continuous
+with respect to <span class="math inline">\(\mathbb{P}\)</span>
+restricted to <span class="math inline">\(\mathcal{G}\)</span>. Its
+density is <span class="math inline">\(\mathcal{G}\)</span>-measurable
+and satisfies clause (ii), so it is <span class="math inline">\(Z\)</span>. A general <span class="math inline">\(X\)</span> is handled through its positive and
+negative parts.</p>
+<p>The two clauses have plain meanings. Clause (i) says the answer may
+use only the information in <span class="math inline">\(\mathcal{G}\)</span>. Clause (ii) says that on
+every event <span class="math inline">\(\mathcal{G}\)</span> can
+resolve, the answer has the same integral as <span class="math inline">\(X\)</span>, so it gets the averages right at the
+available resolution. Together they make <span class="math inline">\(\mathbb{E}[X \mid \mathcal{G}]\)</span> the best
+estimate of <span class="math inline">\(X\)</span> that uses only what
+<span class="math inline">\(\mathcal{G}\)</span> knows. For a
+square-integrable <span class="math inline">\(X\)</span>, meaning <span class="math inline">\(\mathbb{E}[X^2] &lt; \infty\)</span>, “best” has
+an exact meaning. Take the inner product of two square-integrable random
+variables to be the expectation of their product. <span class="math inline">\(\mathbb{E}[X \mid \mathcal{G}]\)</span> is then
+the orthogonal projection of <span class="math inline">\(X\)</span> onto
+the square-integrable <span class="math inline">\(\mathcal{G}\)</span>-measurable random variables,
+so it has the smallest mean squared error among them.</p>
+<p>In the two-coin example of <a href="#app-b">Section B</a>, let the
+flips be fair and independent, so each outcome has probability <span class="math inline">\(\tfrac14\)</span>. Let <span class="math inline">\(X\)</span> be the number of heads and take <span class="math inline">\(\mathcal{G} = \mathcal{F}_1\)</span>. On the block
+<span class="math inline">\(\{\mathrm{HH}, \mathrm{HT}\}\)</span>, <span class="math inline">\(X\)</span> equals 2 or 1 with equal probability,
+so its average there is 1.5. On <span class="math inline">\(\{\mathrm{TH}, \mathrm{TT}\}\)</span> the average
+is 0.5. So <span class="math inline">\(\mathbb{E}[X \mid
+\mathcal{F}_1]\)</span> equals 1.5 on the outcomes where the first flip
+is heads and 0.5 where it is tails.</p>
+<p><span class="math inline">\(\mathbb{E}[X \mid \mathcal{G}]\)</span>
+is a random variable, not a number. It still depends on <span class="math inline">\(\omega\)</span>, at the coarser resolution of
+<span class="math inline">\(\mathcal{G}\)</span>; in the example, it
+takes one value on each block of the partition. That property lets the
+<strong>martingale</strong> condition describe a process. An adapted,
+integrable process is a martingale when</p>
 <p><span class="math display">\[\mathbb{E}[X_t \mid \mathcal{F}_s] = X_s
-\qquad (s \le t)\]</span></p>
-<p>a statement about processes: given everything known at time <span class="math inline">\(s\)</span>, the best forecast of the future value
-is the present one.</p>
+\qquad \text{for all } s \le t.\]</span></p>
+<p>In words: given everything known at time <span class="math inline">\(s\)</span>, the best forecast of the value at time
+<span class="math inline">\(t\)</span> is the value at time <span class="math inline">\(s\)</span>. <a href="#filtrations">§8</a> names
+martingales among the objects built on adaptedness.</p>
 <hr />
 <h2 id="app-k">K. Product spaces</h2>
-<p>Given <span class="math inline">\((X, \mathcal{A}, \mu)\)</span> and
-<span class="math inline">\((Y, \mathcal{B}, \nu)\)</span>, the
-<strong>product <span class="math inline">\(\sigma\)</span>-algebra</strong> <span class="math inline">\(\mathcal{A} \otimes \mathcal{B}\)</span> is
-generated by the rectangles <span class="math inline">\(A \times
-B\)</span>, and for <span class="math inline">\(\sigma\)</span>-finite
-measures there is a unique product measure with <span class="math inline">\((\mu \otimes \nu)(A \times B) =
-\mu(A)\nu(B)\)</span>. <strong>Fubini–Tonelli</strong> then licenses
-swapping the order of a double integral — for non-negative integrands
-unconditionally, and in general once absolute integrability holds.</p>
-<p>Two places in Part I quietly depended on this construction.</p>
+<p>A product space puts two measurable spaces side by side. Given <span class="math inline">\((U, \mathcal{U}, \mu)\)</span> and <span class="math inline">\((V, \mathcal{V}, \nu)\)</span>, the
+<strong>product <span class="math inline">\(\sigma\)</span>-algebra</strong> <span class="math inline">\(\mathcal{U} \otimes \mathcal{V}\)</span> is the
+<span class="math inline">\(\sigma\)</span>-algebra on <span class="math inline">\(U \times V\)</span> generated by the rectangles
+<span class="math inline">\(A \times B\)</span> with <span class="math inline">\(A \in \mathcal{U}\)</span> and <span class="math inline">\(B \in \mathcal{V}\)</span>. When <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\nu\)</span> are <span class="math inline">\(\sigma\)</span>-finite, exactly one
+<strong>product measure</strong> <span class="math inline">\(\mu \otimes
+\nu\)</span> satisfies <span class="math inline">\((\mu \otimes \nu)(A
+\times B) = \mu(A)\nu(B)\)</span>. The <strong>Fubini–Tonelli
+theorem</strong> then permits swapping the order of a double integral:
+always for non-negative integrands, and for general integrands once the
+absolute value is integrable.</p>
+<p>Part I relied on this construction in two places.</p>
 <ul>
-<li><strong>Joint measurability.</strong> Saying <span class="math inline">\((t, \omega) \mapsto X_t(\omega)\)</span> is
-measurable requires a <span class="math inline">\(\sigma\)</span>-algebra on <span class="math inline">\(T \times \Omega\)</span>, and the product <span class="math inline">\(\sigma\)</span>-algebra is it. Only then can you
-integrate along a path, which is what stochastic integration and
-occupation-time arguments need.</li>
-<li><strong>Path space.</strong> The law of the whole process lives on
-<span class="math inline">\(E^T\)</span> with the product <span class="math inline">\(\sigma\)</span>-algebra, generated by
-<strong>cylinder sets</strong> — sets that constrain the path at
-finitely many indices only.</li>
+<li><strong>Joint measurability (<a href="#measurability">§5</a>).</strong> To call <span class="math inline">\((t, \omega) \mapsto X_t(\omega)\)</span>
+measurable, <span class="math inline">\(T \times \Omega\)</span> needs a
+<span class="math inline">\(\sigma\)</span>-algebra. The standard choice
+is the product of the Borel <span class="math inline">\(\sigma\)</span>-algebra on <span class="math inline">\(T\)</span> with <span class="math inline">\(\mathcal{F}\)</span>. Joint measurability lets
+Fubini–Tonelli exchange a time integral with an expectation, as in <span class="math inline">\(\mathbb{E}\big[\int_0^1 X_t \, dt\big] = \int_0^1
+\mathbb{E}[X_t] \, dt\)</span>, for non-negative <span class="math inline">\(X\)</span> or when <span class="math inline">\(\mathbb{E}\big[\int_0^1 |X_t| \, dt\big] &lt;
+\infty\)</span>. Occupation-time arguments, which measure how long a
+path spends in a set of values, need it. Stochastic integration needs it
+too, in a stronger form that also respects the filtration.</li>
+<li><strong>Path space (<a href="#fdd">§7</a>).</strong> The law of the
+whole process lives on <span class="math inline">\(E^T\)</span> with the
+product <span class="math inline">\(\sigma\)</span>-algebra. This <span class="math inline">\(\sigma\)</span>-algebra is generated by the
+<strong>cylinder sets</strong>: sets of paths that constrain the value
+at finitely many indices only, such as <span class="math inline">\(\{x
+\in E^T : x(t_1) \in B_1, \dots, x(t_n) \in B_n\}\)</span>. A cylinder
+set is a finite intersection of sets of the form <span class="math inline">\(\{x : x(t) \in B\}\)</span>, so the product <span class="math inline">\(\sigma\)</span>-algebra is also the smallest one
+for which every coordinate map <span class="math inline">\(x \mapsto
+x(t)\)</span> is measurable. Two consequences follow. The map <span class="math inline">\(\omega \mapsto (X_t(\omega))_{t \in T}\)</span> is
+measurable exactly when every <span class="math inline">\(X_t\)</span>
+is, so a process is the same thing as a random element of <span class="math inline">\(E^T\)</span>. And the <span class="math inline">\(\sigma\)</span>-algebra that random element
+generates is <span class="math inline">\(\sigma(X_t : t \in
+T)\)</span>.</li>
 </ul>
 <blockquote>
-<p>This is the technical reason the finite-dimensional distributions
-determine the law: the fdds are exactly the measures of cylinder sets,
-and cylinders generate the product <span class="math inline">\(\sigma\)</span>-algebra. It is also the reason
-path properties escape. The set of continuous paths constrains
-uncountably many coordinates at once and is <em>not</em> in the product
-<span class="math inline">\(\sigma\)</span>-algebra — so “the process
-has continuous paths” is not an event there, and continuity has to be
-obtained by choosing a good modification rather than by computing a
+<p>This construction explains both results of <a href="#fdd">§7</a>. The
+finite-dimensional distributions are exactly the probabilities of
+cylinder sets, and the cylinder sets generate the product <span class="math inline">\(\sigma\)</span>-algebra. The intersection of two
+cylinder sets is again a cylinder set, so the cylinder sets form a <span class="math inline">\(\pi\)</span>-system. By the uniqueness theorem of
+<a href="#app-h">Section H</a>, the finite-dimensional distributions
+therefore determine the law.</p>
+<p>Path properties escape for a related reason. Every event in the
+product <span class="math inline">\(\sigma\)</span>-algebra depends on
+the path at only countably many indices. The sets with that property
+form a <span class="math inline">\(\sigma\)</span>-algebra, because a
+countable union of countable index sets is countable, and that <span class="math inline">\(\sigma\)</span>-algebra contains every cylinder
+set. So it contains the whole product <span class="math inline">\(\sigma\)</span>-algebra. When <span class="math inline">\(T\)</span> is an interval, no countable set of
+indices can decide continuity: any countable set of values is consistent
+with both a continuous path and a discontinuous one. So the set of
+continuous paths is not in the product <span class="math inline">\(\sigma\)</span>-algebra. “The process has
+continuous paths” is therefore not an event there. Continuity has to
+come from choosing a good modification, not from computing a
 probability.</p>
 </blockquote>
 <h2 id="glossary">Glossary</h2>
@@ -2317,41 +3059,41 @@ probability.</p>
 <tr>
 <td><span class="math inline">\(\mathcal{F}\)</span></td>
 <td><span class="math inline">\(\sigma\)</span>-algebra</td>
-<td>The events we may assign probability to — equivalently, the
-information available</td>
+<td>The events that receive a probability; equivalently, the information
+available</td>
 </tr>
 <tr>
 <td><span class="math inline">\(\mathbb{P}\)</span></td>
 <td>Probability measure</td>
-<td>Countably additive size on <span class="math inline">\(\mathcal{F}\)</span>, normalized so <span class="math inline">\(\mathbb{P}(\Omega) = 1\)</span></td>
+<td>A countably additive size on <span class="math inline">\(\mathcal{F}\)</span>, normalized so that <span class="math inline">\(\mathbb{P}(\Omega) = 1\)</span></td>
 </tr>
 <tr>
-<td><span class="math inline">\((X, \mathcal{A})\)</span></td>
+<td><span class="math inline">\((U, \mathcal{U})\)</span></td>
 <td>Measurable space</td>
 <td>A set plus its legal subsets; no numbers yet</td>
 </tr>
 <tr>
-<td><span class="math inline">\((X, \mathcal{A}, \mu)\)</span></td>
+<td><span class="math inline">\((U, \mathcal{U}, \mu)\)</span></td>
 <td>Measure space</td>
-<td>The above, plus sizes in <span class="math inline">\([0,
+<td>A measurable space plus sizes in <span class="math inline">\([0,
 \infty]\)</span></td>
 </tr>
 <tr>
 <td><span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span></td>
 <td>Borel <span class="math inline">\(\sigma\)</span>-algebra</td>
-<td>Generated by the open sets — the default measurable subsets of <span class="math inline">\(\mathbb{R}\)</span></td>
+<td>Generated by the open sets; the default measurable subsets of <span class="math inline">\(\mathbb{R}\)</span></td>
 </tr>
 <tr>
 <td><span class="math inline">\(\sigma(\mathcal{C})\)</span></td>
 <td>Generated <span class="math inline">\(\sigma\)</span>-algebra</td>
-<td>Smallest <span class="math inline">\(\sigma\)</span>-algebra
+<td>The smallest <span class="math inline">\(\sigma\)</span>-algebra
 containing <span class="math inline">\(\mathcal{C}\)</span></td>
 </tr>
 <tr>
 <td><span class="math inline">\(\sigma(X)\)</span></td>
 <td><span class="math inline">\(\sigma\)</span>-algebra of <span class="math inline">\(X\)</span></td>
-<td><span class="math inline">\(X^{-1}(\mathcal{E})\)</span> —
-everything computable from observing <span class="math inline">\(X\)</span></td>
+<td><span class="math inline">\(\{X^{-1}(B) : B \in
+\mathcal{E}\}\)</span>; the events settled by observing <span class="math inline">\(X\)</span></td>
 </tr>
 <tr>
 <td><span class="math inline">\(X : \Omega \to E\)</span></td>
@@ -2361,7 +3103,7 @@ everything computable from observing <span class="math inline">\(X\)</span></td>
 <tr>
 <td><span class="math inline">\(\mu_X = \mathbb{P} \circ
 X^{-1}\)</span></td>
-<td>Law / distribution</td>
+<td>Law, or distribution</td>
 <td><span class="math inline">\(\mathbb{P}\)</span> pushed onto the
 state space; forgets <span class="math inline">\(\Omega\)</span>
 entirely</td>
@@ -2370,20 +3112,20 @@ entirely</td>
 <td><span class="math inline">\(\mathbb{E}[X] = \int X \,
 d\mathbb{P}\)</span></td>
 <td>Expectation</td>
-<td>Average over outcomes weighted by probability</td>
+<td>The average over outcomes, weighted by probability</td>
 </tr>
 <tr>
 <td><span class="math inline">\(\mathbb{E}[X \mid
 \mathcal{G}]\)</span></td>
 <td>Conditional expectation</td>
-<td>Best estimate of <span class="math inline">\(X\)</span> using only
-what <span class="math inline">\(\mathcal{G}\)</span> resolves; itself
-random</td>
+<td>The best estimate of <span class="math inline">\(X\)</span> using
+only what <span class="math inline">\(\mathcal{G}\)</span> resolves;
+itself random</td>
 </tr>
 <tr>
 <td><span class="math inline">\((\mathcal{F}_t)_{t \in T}\)</span></td>
 <td>Filtration</td>
-<td>Information increasing with time; <span class="math inline">\(\mathcal{F}_s \subseteq \mathcal{F}_t\)</span> for
+<td>Information growing with time; <span class="math inline">\(\mathcal{F}_s \subseteq \mathcal{F}_t\)</span> for
 <span class="math inline">\(s \le t\)</span></td>
 </tr>
 <tr>
@@ -2394,31 +3136,32 @@ random</td>
 <tr>
 <td><span class="math inline">\(\mu \ll \nu\)</span></td>
 <td>Absolute continuity</td>
-<td><span class="math inline">\(\nu\)</span>-null implies <span class="math inline">\(\mu\)</span>-null; the condition for a density to
+<td>Every <span class="math inline">\(\nu\)</span>-null set is <span class="math inline">\(\mu\)</span>-null; for <span class="math inline">\(\sigma\)</span>-finite <span class="math inline">\(\nu\)</span>, the condition for a density to
 exist</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="further-reading">Further reading</h2>
-<p>Everything above is standard material; none of it is mine. What
-follows is where to go for the proofs, ordered roughly by how much
-measure theory they assume.</p>
+<p>All of the material in this chapter is standard. The texts below
+supply the proofs, ordered roughly by how much measure theory they
+assume.</p>
 <p><strong>The measure-theoretic foundation.</strong></p>
 <ul>
 <li><strong>Williams, D. (1991).</strong> <a href="https://doi.org/10.1017/CBO9780511813658"><em>Probability with
 Martingales.</em></a> Cambridge University Press. — The gentlest serious
-entry point, and the one to read if Part II moved too fast. Builds <span class="math inline">\(\sigma\)</span>-algebras, measure, integration and
-conditional expectation in about a hundred pages, then spends the rest
-on discrete-time martingales.</li>
+entry point, and the one to read if Part II moved too fast. It builds
+<span class="math inline">\(\sigma\)</span>-algebras, measure,
+integration, and conditional expectation in about a hundred pages, then
+spends the rest on discrete-time martingales.</li>
 <li><strong>Billingsley, P. (2012).</strong> <a href="https://www.wiley.com/en-us/Probability+and+Measure,+Anniversary+Edition-p-9781118122372"><em>Probability
 and Measure</em>, Anniversary ed.</a> Wiley. [[paywalled]] — The
 standard graduate reference for the measure theory itself. Slower and
-more complete than Williams; the place to look when you want a
-construction rather than a statement.</li>
+more complete than Williams, and the place to look for a construction
+rather than a statement.</li>
 <li><strong>Durrett, R. (2019).</strong> <a href="https://sites.math.duke.edu/~rtd/PTE/pte.html"><em>Probability:
 Theory and Examples</em>, 5th ed.</a> Cambridge University Press. —
-Covers the same ground and then continues into Brownian motion and
+Covers the same ground, then continues into Brownian motion and
 martingales. The author posts the full text free, which makes it the
 most practical of the three to keep open while reading.</li>
 </ul>
@@ -2426,22 +3169,22 @@ most practical of the three to keep open while reading.</li>
 <ul>
 <li><strong>Çınlar, E. (2011).</strong> <a href="https://doi.org/10.1007/978-0-387-87859-1"><em>Probability and
 Stochastics.</em></a> Springer, Graduate Texts in Mathematics 261.
-[[paywalled]] — Written from the process point of view from the first
-page rather than arriving at processes after a measure-theory course.
-The closest match in spirit to how this document frames the
+[[paywalled]] — Written from the point of view of processes from the
+first page, rather than reaching processes after a measure-theory
+course. The closest match to how this chapter frames the
 definition.</li>
 <li><strong>Kallenberg, O. (2021).</strong> <a href="https://doi.org/10.1007/978-3-030-61871-1"><em>Foundations of
 Modern Probability</em>, 3rd ed.</a> Springer. [[paywalled]] — The
-comprehensive reference. Terse to the point of being unreadable as a
-first text, and the right place to find the Kolmogorov extension theorem
-(<a href="#fdd">§7</a>), the Kolmogorov–Chentsov continuity criterion,
-and Doob–Dynkin (<a href="#app-g">§G</a>) stated in their general
-forms.</li>
+comprehensive reference. Too terse for a first reading, and the right
+place to find the Kolmogorov extension theorem (<a href="#fdd">§7</a>),
+the Kolmogorov–Chentsov continuity criterion, and the Doob–Dynkin lemma
+(<a href="#app-g">Section G</a>) in their general forms.</li>
 <li><strong>Øksendal, B. (2003).</strong> <a href="https://doi.org/10.1007/978-3-642-14394-6"><em>Stochastic
 Differential Equations: An Introduction with Applications</em>, 6th
-ed.</a> Springer. [[paywalled]] — Where to go once the objects here are
-in place and you want the Itô calculus built on them. Deliberately light
-on measure-theoretic detail, which is a feature after Part II.</li>
+ed.</a> Springer. [[paywalled]] — The next step once the objects here
+are in place: the Itô calculus built on them. Deliberately light on
+measure-theoretic detail, which suits a reader who has finished Part
+II.</li>
 </ul>
 <p><strong>The historical source.</strong></p>
 <ul>
@@ -2449,10 +3192,12 @@ on measure-theoretic detail, which is a feature after Part II.</li>
 der Wahrscheinlichkeitsrechnung</em></a> (trans. <em>Foundations of the
 Theory of Probability</em>, Chelsea, 1956). Springer. — The monograph
 that made probability a branch of measure theory, and the source of the
-axioms in <a href="#app-f">§F</a>. Short, and more readable than its
-reputation suggests; the definition this whole document unpacks is
-essentially on its first few pages.</li>
+axioms in <a href="#app-f">Section F</a>. Short, and more readable than
+its reputation suggests.</li>
 </ul>
+<p><strong>If you only read these.</strong> Recommendation: <a href="https://doi.org/10.1017/CBO9780511813658" target="_blank">Williams
+(1991)</a> for the foundation, then <a href="https://doi.org/10.1007/978-0-387-87859-1" target="_blank">Çınlar
+(2011)</a> for processes. <a href="https://sites.math.duke.edu/~rtd/PTE/pte.html" target="_blank">Durrett (2019)</a> is the free alternative to both.</p>
 <hr />
 <p>These documents were generated in whole or in part with the help of a
 large language model. Dedicated to the public domain under the <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0

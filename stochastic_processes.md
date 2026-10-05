@@ -22,27 +22,27 @@ lang: en
 \begin{eli5}
 ```
 
-**In one sentence.** A stochastic process is a *random function*: rather than drawing a number, you draw an entire path — a whole history, all at once — and everything below is the machinery that makes that sentence precise.
+**In one sentence.** A stochastic process is a *random function*: one random draw picks out an entire history of values, past and future together, rather than a single number.
 
-**1. The picture to hold** ([§6](#readings)). Imagine a fan of wiggly lines spreading out from a single starting point, each line one possible history of a price. The process is the whole fan, together with the rules for how likely each line is. There are two ways to read it. Cut down through the fan at one moment and you have an ordinary random variable — a spread of values that might occur at that instant. Follow one line from left to right and you have a *sample path*: an entirely ordinary function, with nothing random left in it.
+**1. The picture to hold** ([§6](#readings)). Picture many wiggly lines fanning out from one starting point. Each line is one possible history of a price. The process is the whole fan, together with the rule for how likely each line is. The fan can be read two ways. A vertical cut at one moment shows the spread of values the price might take at that moment. Following one line from left to right gives a single history, which is an ordinary curve with nothing random left in it.
 
-**2. The randomness happens once, not repeatedly** ([§9](#instantiated)). "Take a step, roll the dice, take another step" is how you *build* a process on a computer, but it is not what the definition says. One draw fixes the entire path, past and future together. Nothing is rolled again later; the line was already there when you picked it.
+**2. The randomness happens once** ([§6](#readings)). A computer simulation builds a path step by step: take a step, roll the dice, take another step. The definition works differently. One draw fixes the entire path at once, and nothing is rolled again later. The step-by-step loop is a way to produce that draw, not the definition of the process.
 
-**3. Four ingredients and one condition** ([§1](#definition)). Where the randomness lives, what labels the family (usually time, but it can be position on a map), where the values land, and a rule that the questions you want to ask are ones probability is able to answer. That is the whole definition. Everything else in the subject is extra structure added later to get theorems.
+**3. Four ingredients** ([§1](#definition)). The definition needs four things: a source of randomness, a set of labels for the moments (usually times, but they can be places on a map), a set where the values land, and a rule that every question about the values is one that probability can answer. Familiar properties, such as "the future depends only on the present," are extra assumptions added on top of this definition.
 
-**4. The load-bearing word is "one"** ([§2](#probability-space)). Every moment of the process reads the *same* draw. That shared source is the entire difference between a process and an unrelated pile of random variables: it is why "low today *and* high next month" has a probability at all. Remove it and dependence across time cannot even be stated.
+**4. Every moment reads the same draw** ([§2](#probability-space)). The values at all times come from one shared draw. The shared draw is what distinguishes a process from a pile of random numbers produced by unconnected experiments. Because every moment reads the same draw, a combined event such as "low today and high next month" has a probability, and the theory can describe how one moment relates to another.
 
-**5. Probability sizes collections, not outcomes** ([Section A](#app-a)). Pick a random number between 0 and 1. Every individual number has probability zero, yet something happens — so probability cannot be a rule about single outcomes. It has to assign sizes to *collections* of them, and once you are doing that you are doing measure theory: length, area, mass and probability are one mathematical object, with probability normalized so the whole space weighs exactly 1. One awkward fact forces the last piece of apparatus — you cannot consistently size *every* collection — so the theory names in advance the ones it promises to handle.
+**5. Probability measures collections, not single outcomes** ([Section A](#app-a)). Pick a random number between 0 and 1. Each individual number has probability zero, yet some number always comes up. So probability cannot work by giving each outcome a weight and adding the weights. Instead it assigns sizes to collections of outcomes: "somewhere in the first quarter" has probability one quarter. Assigning sizes to collections is the subject of measure theory. Length, area, mass, and probability are one mathematical idea, and probability is the version in which the whole space has size one. One complication remains: for a number picked evenly between 0 and 1, no consistent rule can size every possible collection, so the theory lists in advance the collections it will size.
 
-**6. "Measurable" means the question is answerable** ([§5](#measurability)). The clause everybody skims is the one that makes the rest legal. It says that "which histories put the price below 90?" picks out a collection the theory promised to size. Without it, the probability of that event is not false or unknown — it is undefined.
+**6. Every question must have an answer** ([§5](#measurability)). The definition contains a condition that readers tend to skip. Mathematicians call it *measurability*. It says that each question about the values, such as "which histories put the price below 90?", must pick out one of the collections the theory sizes. If the condition fails, the probability that the price is below 90 is undefined. It is not zero, and it is not unknown.
 
-**7. Nobody ever builds the space of all histories** ([§7](#fdd)). In practice you describe what happens at any handful of times — Brownian motion is "starts at zero, separate stretches are independent, each one bell-shaped" — and a theorem promises that some process with exactly those properties exists. The catch is that those snapshots do not settle whether the path is continuous or jumpy; smoothness is a separate question with a separate proof.
+**7. Snapshots define the process** ([§7](#fdd)). Nobody writes down the space of all histories. A model describes how the values behave jointly at any handful of times. Provided the descriptions for different handfuls agree with one another, a theorem guarantees that a process with exactly that behavior exists. The standard model of a random path, Brownian motion, is specified this way: it starts at zero, separate stretches are independent, and each stretch is bell-shaped. Snapshots at single moments are not enough, because two processes can look identical at every moment and still move together differently. Snapshots also do not settle whether a path is smooth or jumpy. That question needs its own proof.
 
-**8. Filtrations are lookahead bias, formalized** ([§8](#filtrations)). A filtration is the growing list of what is settled by each moment, and a process is *adapted* when its value at each time is knowable at that time. That is exactly the backtesting rule: a signal computed from something outside the information set at time $t$ is one you could not have had, however good the results look.
+**8. Lookahead bias has a formal definition** ([§8](#filtrations)). A *filtration* is the list of what is known at each moment, and the list only grows. A process is *adapted* when its value at each moment is known at that moment. Adaptedness is the backtesting rule in mathematical form. A signal that uses information not yet available at its timestamp could not have been traded, however good its results look.
 
 ---
 
-**If you remember three things:** a process is one random function rather than a sequence of separate rolls; the single shared probability space is what makes dependence across time expressible; and measurability is not bookkeeping — it is the condition under which probabilities exist at all.
+**If you remember three things:** a process is one random function, not a sequence of separate rolls; the single shared source of randomness is what lets the theory describe how different moments relate; and the measurability condition is what makes the probabilities exist.
 
 ```{=latex}
 \end{eli5}
@@ -54,9 +54,55 @@ lang: en
 
 ---
 
-**How to read this document.** Sections 1–5 unpack the formal definition of a stochastic process: four objects and one condition, each taken in turn. Sections 6–8 cover the machinery that identifies a process (finite-dimensional distributions, the Kolmogorov extension theorem) and the filtration that almost every application adds on top. The appendix, Sections A–K, builds the measure-theoretic vocabulary from scratch — $\sigma$-algebras, measurable spaces, measures, probability spaces, random variables, integration — for readers who want the foundations rather than the summary.
+**How to read this document.** Part I (Sections 1–9) is the main text. Sections 1–5 unpack the formal definition of a stochastic process. The definition has four ingredients, and each one gets a section. Sections 6–8 cover how the definition is used: the two ways to read a process, the finite-dimensional distributions that identify it, and the filtration that almost every application adds. Section 9 runs five standard processes through the definition and collects the equivalences between its objects. Part II, the appendix (Sections A–K), builds the measure-theoretic vocabulary from scratch: $\sigma$-algebras, measurable spaces, measures, probability spaces, random variables, integration, conditioning, and product spaces. A reader who knows measure theory can skip Part II. A reader who does not can read it first, or consult it whenever Part I uses an unfamiliar term.
 
-**Notation.** $(\Omega, \mathcal{F}, \mathbb{P})$ is a probability space, $\omega \in \Omega$ an outcome, $T$ an index set, $(E, \mathcal{E})$ a measurable state space. $\mathcal{B}(\mathbb{R})$ is the Borel $\sigma$-algebra, $\lambda$ Lebesgue measure, $\mu_X$ the law of $X$. $\mathbb{1}_A$ is the indicator of $A$, and a.s. abbreviates *almost surely*.
+**Objectives.** After this chapter, you should be able to:
+
+- state the definition of a stochastic process and name the job of each ingredient;
+- read a process two ways, as a random variable at each time and as a random function of time;
+- explain why measurability decides whether a probability exists at all;
+- say what the finite-dimensional distributions determine about a process, and what they leave open;
+- express "no lookahead" as adaptedness to a filtration, and check a backtest signal against it.
+
+**Epistemic tags.** The chapters in this collection flag claims by status:
+
+- **[Fact]** — replicated across independent datasets or implementations; broad agreement.
+- **[Contested]** — documented, but with live disagreement about magnitude, robustness, or cause.
+- **[Hypothesis]** — a proposed mechanism, not decisively tested.
+- **[Practice]** — practitioner convention; the evidence may be private or absent. A [Practice] claim is not a debunked one.
+
+This chapter is mathematics. Its definitions and theorems are facts by construction, so they carry no tag. The one tag that appears is [Practice], on conventions that textbooks assume rather than prove.
+
+**Notation.** The table lists every symbol that recurs in the chapter, with the section that defines it. Symbols used in a single example are defined where they appear.
+
+| Symbol | Meaning | Defined in |
+|---|---|---|
+| $(\Omega, \mathcal{F}, \mathbb{P})$ | Probability space: sample space, $\sigma$-algebra of events, probability measure | [§2](#probability-space) |
+| $\omega$ | An outcome, one element of $\Omega$: a complete realization of everything random | [§2](#probability-space) |
+| $T$; $s, t$; $n$ | Index set; indices in it (times, with $s \le t$ when ordered); an index in discrete time, or the number of times $t_1, \dots, t_n$ in [§7](#fdd) | [§3](#index-set) |
+| $(E, \mathcal{E})$ | State space: the set of possible values, with its $\sigma$-algebra | [§4](#state-space) |
+| $X = (X_t)_{t \in T}$ | The stochastic process; $X_t : \Omega \to E$ is its value at index $t$ | [§1](#definition) |
+| $A$, $B$, $A_n$ | Measurable sets; in Part I, $B$ is a set of values: a member of $\mathcal{E}$, or in [§7](#fdd) a measurable subset of $E^n$ | [§5](#measurability), [B](#app-b) |
+| $X_t^{-1}(B)$ | Preimage: the outcomes $\omega$ with $X_t(\omega) \in B$ | [§5](#measurability) |
+| $E^T$ | Path space: all functions from $T$ to $E$, with the product $\sigma$-algebra | [§7](#fdd), [K](#app-k) |
+| $\mu_{t_1 \dots t_n}$ | Finite-dimensional distribution: the joint law of $(X_{t_1}, \dots, X_{t_n})$ | [§7](#fdd) |
+| $\mathcal{N}(m, v)$ | Normal distribution with mean $m$ and variance $v$ | [§7](#fdd) |
+| $W_t$; $N_t$ | Brownian motion; a counting process, such as the Poisson process | [§7](#fdd), [§4](#state-space) |
+| $(\mathcal{F}_t)_{t \in T}$; $\mathcal{F}_t^X$ | Filtration; natural filtration of $X$ | [§8](#filtrations) |
+| $(U, \mathcal{U}, \mu)$, $(V, \mathcal{V}, \nu)$ | Generic measurable spaces with measures, used in Part II | [B](#app-b), [E](#app-e) |
+| $2^U$ | Power set: every subset of $U$ | [B](#app-b) |
+| $\sigma(\mathcal{C})$; $\sigma(X)$ | $\sigma$-algebra generated by a collection of sets $\mathcal{C}$; by a random variable $X$, or by a family such as $(X_s)_{s \le t}$ | [C](#app-c) |
+| $\mathcal{B}(\mathbb{R})$ | Borel $\sigma$-algebra: generated by the open subsets of $\mathbb{R}$ | [C](#app-c) |
+| $\lambda$; $\delta_x$ | Lebesgue measure (length); Dirac measure at the point $x$ | [E](#app-e) |
+| a.s. | Almost surely: outside a set of probability zero | [F](#app-f) |
+| $f$, $g$ | Generic measurable functions; in [H](#app-h), $f$ is a density | [G](#app-g) |
+| $\mu_X$; $F_X$ | Law of $X$; its cumulative distribution function | [H](#app-h) |
+| $\mu \ll \nu$ | $\mu$ is absolutely continuous with respect to $\nu$ | [H](#app-h) |
+| $\mathbb{1}_A$; $\mathbb{1}\{\cdot\}$ | Indicator of $A$: equal to 1 on $A$ and 0 elsewhere; indicator of the condition in braces | [§7](#fdd), [I](#app-i) |
+| $\mathbb{E}[X]$; $\mathbb{E}[X \mid \mathcal{G}]$ | Expectation; conditional expectation given a $\sigma$-algebra $\mathcal{G}$ | [I](#app-i), [J](#app-j) |
+| $\mathbb{N}$; $\mathbb{N}_0$; $\mathbb{Z}$ | $\{1, 2, \dots\}$; $\{0, 1, 2, \dots\}$; the integers | — |
+
+Two symbols need a warning. In this chapter, $\sigma$ appears only in the names "$\sigma$-algebra" and "$\sigma$-finite" and in the operator $\sigma(\cdot)$. It never denotes volatility, which this chapter does not use. And $\mathbb{E}$, in blackboard bold, is expectation, while the italic $E$ is the state space.
 
 ---
 
@@ -98,39 +144,62 @@ lang: en
 
 ## 1. The definition {#definition}
 
-Let $(\Omega, \mathcal{F}, \mathbb{P})$ be a probability space, let $(E, \mathcal{E})$ be a measurable space, and let $T$ be a non-empty set. A **stochastic process** with index set $T$ and state space $(E, \mathcal{E})$ is a family
+A stochastic process is a collection of random quantities, one for each index, all driven by the same source of randomness. The formal definition makes each part of that sentence precise.
 
-$$X = (X_t)_{t \in T}, \qquad X_t : \Omega \longrightarrow E$$
+Let $(\Omega, \mathcal{F}, \mathbb{P})$ be a probability space, let $(E, \mathcal{E})$ be a measurable space, and let $T$ be a non-empty set. A **stochastic process** with index set $T$ and state space $(E, \mathcal{E})$ is a family of maps
 
-of maps such that each $X_t$ is $\mathcal{F}/\mathcal{E}$-measurable — that is,
+$$X = (X_t)_{t \in T}, \qquad X_t : \Omega \longrightarrow E,$$
+
+such that each $X_t$ is $\mathcal{F}/\mathcal{E}$-measurable:
 
 $$X_t^{-1}(B) \in \mathcal{F} \quad \text{for every } B \in \mathcal{E} \text{ and every } t \in T.$$
 
-Equivalently, and sometimes more usefully: a stochastic process is a single map $X : T \times \Omega \to E$ such that $X(t, \cdot)$ is measurable for each fixed $t$.
+In words, each $X_t$ turns an outcome $\omega$ into a value in $E$. The measurability condition says that for every set of values $B$ the theory admits, the outcomes that land in $B$ form an event, so they have a probability.
 
-Four objects and one condition. The rest of Part I takes them one at a time.
+An equivalent form is often more convenient. A stochastic process is a single map $X : T \times \Omega \to E$ such that $X(t, \cdot)$ is measurable for each fixed $t$. Fixing the first argument at $t$ recovers the map $X_t$ above.
+
+The definition has four ingredients: three spaces and one condition on the maps between them. Sections 2–5 take them in order.
+
+| Ingredient | Symbol | Job | Section |
+|---|---|---|---|
+| Probability space | $(\Omega, \mathcal{F}, \mathbb{P})$ | Holds the randomness | [§2](#probability-space) |
+| Index set | $T$ | Labels the members of the family, usually by time | [§3](#index-set) |
+| State space | $(E, \mathcal{E})$ | Holds the values, and fixes which sets of values can be asked about | [§4](#state-space) |
+| Measurability | $X_t^{-1}(B) \in \mathcal{F}$ | Makes every probability about $X_t$ defined | [§5](#measurability) |
+
+Three ideas run through the rest of the chapter, and every section returns to them:
+
+1. **One draw fixes the whole path.** A single outcome $\omega$ determines $X_t(\omega)$ for every $t$ at once. A process is a random function, not a sequence of separate random draws.
+2. **Every $X_t$ reads the same $\Omega$.** Because all the $X_t$ share one probability space, a joint event across times, such as "low today and high next month," has a probability. Dependence across time is defined through it.
+3. **A $\sigma$-algebra is a list of answerable questions, and also a body of information.** Measurability makes $\mathbb{P}(X_t \in B)$ defined. A filtration, a growing family of $\sigma$-algebras, records what is known at each time.
 
 ---
 
 ## 2. Ingredient I: the probability space {#probability-space}
 
-### $(\Omega, \mathcal{F}, \mathbb{P})$ — where the randomness lives, and it is drawn only once
+### $(\Omega, \mathcal{F}, \mathbb{P})$: where the randomness lives, drawn once
 
-Three objects, each with a distinct job.
+The probability space has three parts, and each has its own job.
 
 | Object | Name | What it does |
 |---|---|---|
-| $\Omega$ | Sample space | A single point $\omega \in \Omega$ is one complete description of how everything turned out — the entire history, all at once, not the value at one moment. |
-| $\mathcal{F}$ | $\sigma$-algebra | The collection of subsets of $\Omega$ we are allowed to call events. Contains $\Omega$, closed under complement and countable union. |
-| $\mathbb{P}$ | Probability measure | A map $\mathcal{F} \to [0,1]$ with $\mathbb{P}(\Omega) = 1$, countably additive over disjoint events. |
+| $\Omega$ | Sample space | The set of all possible outcomes. One outcome $\omega \in \Omega$ describes how everything turned out: the entire history, not the value at one moment. |
+| $\mathcal{F}$ | $\sigma$-algebra | The subsets of $\Omega$ that count as events, meaning the subsets that receive a probability. It contains $\Omega$ and is closed under complement and countable union. |
+| $\mathbb{P}$ | Probability measure | Assigns each event a number in $[0,1]$, with $\mathbb{P}(\Omega) = 1$. The probabilities of countably many disjoint events add up. |
 
-The subtlety in $\mathcal{F}$ is that it usually cannot be *all* subsets of $\Omega$. Once $\Omega$ is uncountable — as it is for anything in continuous time — there exist subsets to which no translation-invariant measure can consistently assign a probability. So $\mathcal{F}$ is deliberately smaller than the power set, and $\mathbb{P}$ is only ever asked about members of $\mathcal{F}$. (See [Section A](#app-a).)
+$\mathcal{F}$ usually cannot contain every subset of $\Omega$. The uniform probability on $[0,1]$ shows why. It gives a set the same probability after the set is shifted along $[0,1]$, and no countably additive extension of it to every subset of $[0,1]$ keeps that property ([Section A](#app-a)). So $\mathcal{F}$ is deliberately smaller than the set of all subsets, and $\mathbb{P}$ answers questions only about members of $\mathcal{F}$.
 
-> **The load-bearing word in the definition is *one*.** Every $X_t$ is defined on the *same* $(\Omega, \mathcal{F}, \mathbb{P})$. That single shared space is the entire difference between a stochastic process and an unrelated pile of random variables.
+> **Every $X_t$ is defined on the same $(\Omega, \mathcal{F}, \mathbb{P})$.** The shared space distinguishes a stochastic process from a collection of random variables defined on separate spaces.
 
-Because the space is shared, joint events like $\{X_1 \le 3\} \cap \{X_5 > 7\}$ are subsets of the same $\Omega$, live in $\mathcal{F}$, and therefore have probabilities. Dependence across time is expressible — which is the only reason the theory is interesting.
+Because the space is shared, a joint event such as $\{X_1 \le 3\} \cap \{X_5 > 7\}$ is a subset of the same $\Omega$. Each of the two sets is an event, because $X_1$ and $X_5$ are measurable ([§5](#measurability)), and $\mathcal{F}$ is closed under intersection. So the joint event belongs to $\mathcal{F}$ and has a probability. Dependence across time lives here. The correlation between $X_1$ and $X_5$, or the probability that a price falls and then recovers, describes how events in a single $\Omega$ overlap.
 
-**Concretely.** Take $\Omega = \{H, T\}^{\mathbb{N}}$, the set of all infinite coin-flip sequences, with $\mathbb{P}$ the fair-coin measure. One $\omega$ is an entire infinite sequence, fixed the moment it is drawn. Define $X_n(\omega)$ = number of heads in the first $n$ flips of $\omega$. Nothing further is randomized: $X_{10}$ and $X_{11}$ are correlated automatically, because they read the same $\omega$.
+**Example: coin flips.** Let $\Omega = \{0, 1\}^{\mathbb{N}}$ be the set of all infinite sequences of coin flips, with 1 for heads and 0 for tails. Let $\mathbb{P}$ make the flips fair and independent. One outcome $\omega$ is an entire infinite sequence. Define $X_n(\omega)$ as the number of heads among the first $n$ flips of $\omega$. Nothing further is drawn. $X_{10}$ and $X_{11}$ are correlated because both read the same $\omega$ and share its first ten flips. Their correlation is $\sqrt{10/11} \approx 0.95$.
+
+> ### §2 Key takeaways
+>
+> 1. One outcome $\omega$ is one complete history. Drawing $\omega$ once fixes the value of the process at every time.
+> 2. All the $X_t$ live on the same probability space. Joint events across times are therefore events with probabilities, and dependence across time can be measured.
+> 3. The $\sigma$-algebra $\mathcal{F}$ lists the subsets of $\Omega$ that receive a probability. In continuous models it is smaller than the set of all subsets, because some subsets cannot be given a consistent probability.
 
 ---
 
@@ -138,60 +207,88 @@ Because the space is shared, joint events like $\{X_1 \le 3\} \cap \{X_5 > 7\}$ 
 
 ### Usually time, but the definition never says so
 
-$T$ is just a set that labels the family. Nothing about ordering, continuity, or time appears in the axioms; those are conventions we impose because the label is normally a clock.
+$T$ is any set that labels the members of the family. The axioms say nothing about order, continuity, or time. Applications add those properties because the index is usually a clock.
+
+The table lists the common choices.
 
 | $T$ | Regime | Examples |
 |---|---|---|
-| $\{0, 1, 2, \dots\}$ | Discrete time | Daily closing prices, steps of a Markov chain, terms of a time series |
+| $\{0, 1, 2, \dots\}$ | Discrete time | Daily closing prices, the steps of a Markov chain, the terms of a time series |
 | $[0, \infty)$ | Continuous time | Brownian motion, the Poisson process, a diffusion |
-| $\mathbb{R}^2$ or $\mathbb{Z}^2$ | Random field | Ore grade across a deposit, pixel noise, temperature over a map — the index is space, not time |
-| $\{1, \dots, d\}$ | Finite | Exactly a random vector. A random vector *is* a stochastic process; the general definition only widens $T$. |
+| $\mathbb{R}^2$ or $\mathbb{Z}^2$ | Random field | Ore grade across a deposit, pixel noise, temperature over a map; the index is a location, not a time |
+| $\{1, \dots, d\}$ | Finite | A random vector with $d$ components. A random vector *is* a stochastic process, and the general definition only widens $T$. |
 
-> Nearly all the technical difficulty in the subject is a function of how big $T$ is. With $T$ countable, the definition is almost free. With $T$ uncountable, statements like "the path is continuous" involve uncountably many conditions at once and need not be measurable — which is why continuous-time theory carries so much machinery.
+> Most of the technical difficulty in the subject grows with the size of $T$. With $T$ countable, the definition causes no trouble. A statement about the whole path, such as "the path stays below 5," is a countable intersection of statements about single times, and $\sigma$-algebras are closed under countable operations. With $T$ uncountable, a statement such as "the path is continuous" constrains uncountably many values at once. Such a statement need not define an event, and continuous-time theory needs extra machinery to handle it ([§7](#fdd), [Section K](#app-k)).
+
+> ### §3 Key takeaways
+>
+> 1. The index set $T$ can be any set. Time, order, and continuity come from the application, not from the definition.
+> 2. A random vector is a process with a finite index set, and a random field is a process indexed by location.
+> 3. A countable $T$ keeps every statement about the path inside the $\sigma$-algebra. An uncountable $T$ does not, and that gap drives most of the continuous-time machinery.
 
 ---
 
 ## 4. Ingredient III: the state space {#state-space}
 
-### $(E, \mathcal{E})$ — where the values land, and which subsets of it we can ask about
+### $(E, \mathcal{E})$: where the values land, and which sets of values can be asked about
 
-The target has to be a *measurable* space, not merely a set: we need a $\sigma$-algebra $\mathcal{E}$ of subsets of $E$ so that questions like "is the value in $B$?" are the kind of question probability can answer.
+The state space holds the values of the process. It must be a *measurable* space, not just a set. The $\sigma$-algebra $\mathcal{E}$ lists the sets of values $B$ for which "is $X_t$ in $B$?" is a question probability can answer.
+
+The table lists the common choices.
 
 | $(E, \mathcal{E})$ | Use |
 |---|---|
-| $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ | The default. Real-valued process with the Borel $\sigma$-algebra — a price, a temperature, a residual. |
-| $(\mathbb{R}^d, \mathcal{B}(\mathbb{R}^d))$ | Vector-valued: a particle's position, a whole yield curve observed at one instant. |
-| $(\{\text{sun}, \text{rain}\}, 2^E)$ | A finite state space with the power set — the weather Markov chain. No measure-theoretic subtlety at all here. |
-| $(\mathbb{N}_0, 2^{\mathbb{N}_0})$ | Counting processes: $N_t$ = number of arrivals by time $t$. |
+| $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ | The default: a real-valued process with the Borel $\sigma$-algebra, such as a price, a temperature, or a residual. |
+| $(\mathbb{R}^d, \mathcal{B}(\mathbb{R}^d))$ | Vector-valued: a particle's position, or the yields at $d$ fixed maturities observed at one instant. |
+| $(\{\text{sun}, \text{rain}\}, 2^E)$ | A finite state space with the power set, as in a two-state weather Markov chain. Because $E$ is finite, every subset can be measured and no subtlety arises. |
+| $(\mathbb{N}_0, 2^{\mathbb{N}_0})$ | Counting processes: $N_t$ is the number of arrivals by time $t$. |
 
-$E$ need not be numeric. It can be a space of functions, of graphs, or of measures — giving function-valued or measure-valued processes. The definition is indifferent; only $\mathcal{E}$ has to exist.
+$E$ need not be numeric. It can be a space of functions, graphs, or measures, which gives function-valued or measure-valued processes. A whole yield curve that evolves over time is a function-valued process. The definition asks nothing of $E$ beyond the existence of $\mathcal{E}$.
+
+> ### §4 Key takeaways
+>
+> 1. The state space must carry a $\sigma$-algebra. $\mathcal{E}$ fixes which sets of values a question about $X_t$ can name.
+> 2. Real values default to the Borel $\sigma$-algebra; finite or countable values use the power set.
+> 3. Values need not be numbers. A curve, a graph, or a measure works, provided $\mathcal{E}$ exists.
 
 ---
 
 ## 5. Ingredient IV: measurability {#measurability}
 
-### The clause that makes the probabilities exist
+### The condition that makes the probabilities exist
 
-$$X_t^{-1}(B) = \{\, \omega \in \Omega : X_t(\omega) \in B \,\} \in \mathcal{F} \qquad \text{for all } B \in \mathcal{E}$$
+Measurability says that every question about the value of $X_t$ translates into an event:
 
-This is the one part people skim, and it is the part that makes the rest legal. $\mathbb{P}$ only accepts arguments from $\mathcal{F}$. Measurability says: the set of outcomes for which $X_t$ lands in $B$ is one of the sets $\mathbb{P}$ can measure. Without it, the expression $\mathbb{P}(X_t \in B)$ is not false — it is *undefined*.
+$$X_t^{-1}(B) = \{\, \omega \in \Omega : X_t(\omega) \in B \,\} \in \mathcal{F} \qquad \text{for all } B \in \mathcal{E}.$$
 
-Read it as a translation between two worlds. A question about *values* ("is the price below 90?") is pulled back into a question about *outcomes* ("which $\omega$ produce that?"), and measurability guarantees the pulled-back question is one we already agreed to answer.
+The left side is the **preimage** of $B$: the set of outcomes $\omega$ for which $X_t$ lands in $B$. The condition requires that set to be an event.
 
-**A distinction worth keeping.** The definition demands measurability of $X_t$ for each $t$ separately. It does *not* follow that the map $(t, \omega) \mapsto X_t(\omega)$ is jointly measurable on $T \times \Omega$. Joint measurability is a strictly stronger property, and it is what you need before integrating along a path — so in continuous time it is usually assumed on top, not derived. (See [Section K](#app-k).)
+The condition matters because $\mathbb{P}$ is defined only on $\mathcal{F}$. The expression $\mathbb{P}(X_t \in B)$ is shorthand for $\mathbb{P}\big(X_t^{-1}(B)\big)$. If the preimage is not in $\mathcal{F}$, $\mathbb{P}$ has no value there, and $\mathbb{P}(X_t \in B)$ is undefined. It is not zero, and it is not unknown.
+
+Measurability translates between two kinds of question. A question about values, such as "is the price below 90?", becomes a question about outcomes: "which $\omega$ produce a price below 90?" Measurability guarantees that $\mathbb{P}$ answers the second question.
+
+**Measurable at each $t$ versus jointly measurable.** The definition requires each $X_t$ to be measurable on its own. That does not make the map $(t, \omega) \mapsto X_t(\omega)$ measurable on $T \times \Omega$. Joint measurability is a strictly stronger property. For an example, take $T = [0,1]$, let $V \subseteq [0,1]$ be a set that has no length ([Section A](#app-a)), and set $X_t(\omega) = 1$ if $t \in V$ and 0 otherwise. Each $X_t$ is constant in $\omega$, so it is measurable, yet no path can be integrated in $t$. A path integral such as $\int_0^1 X_t \, dt$ relies on the joint version, which makes every path a measurable function of $t$ and makes the integral a random variable. [Practice] Continuous-time texts usually assume joint measurability rather than derive it. A common route is to assume right-continuous paths, which imply it. [Section K](#app-k) defines the $\sigma$-algebra on $T \times \Omega$.
+
+> ### §5 Key takeaways
+>
+> 1. $\mathbb{P}(X_t \in B)$ means $\mathbb{P}$ of the preimage $X_t^{-1}(B)$. Measurability guarantees the preimage is an event; without it, the probability is undefined.
+> 2. Measurability is a precondition for every probability statement about the process, not a technicality.
+> 3. Measurability at each $t$ is weaker than joint measurability in $(t, \omega)$. Integrals along a path rely on the joint version, which makes them random variables.
 
 ---
 
 ## 6. Two readings: slices and paths {#readings}
 
-The object has two free arguments. Fixing either one gives a completely different — and equally standard — mental picture.
+A process $X_t(\omega)$ has two arguments, $t$ and $\omega$. Fixing either one gives a different object, and both views are standard.
 
-- **Fix $t$, let $\omega$ vary.** You get $X_t(\cdot)$, a single random variable: a snapshot across the ensemble, with a distribution, a mean, a variance. This is the vertical slice.
-- **Fix $\omega$, let $t$ vary.** You get $t \mapsto X_t(\omega)$, a **sample path** — one ordinary, fully deterministic function. This is the horizontal read.
+- **Fix $t$, vary $\omega$.** The result is $X_t(\cdot)$, a single random variable. It describes the value at time $t$ across all possible outcomes, and it has a distribution, a mean, and a variance. This chapter calls it the **slice** at $t$.
+- **Fix $\omega$, vary $t$.** The result is $t \mapsto X_t(\omega)$, a **sample path**, or **path** for short. A path is an ordinary deterministic function of time.
 
-> Which is why the honest one-sentence summary is: **a stochastic process is a random function.** $\Omega$ is the set of functions you might have been handed, $\mathcal{F}$ and $\mathbb{P}$ say how likely each collection of them is, and drawing a single $\omega$ hands you exactly one path — all of it at once, past and future together.
+> **A stochastic process is a random function.** $\Omega$ indexes the functions you might receive. $\mathcal{F}$ and $\mathbb{P}$ say how likely each collection of them is. Drawing one $\omega$ delivers one path, complete for all times at once.
 
-The picture to hold is an ensemble of sample paths fanning out from a common origin. Every line is one $\omega$ drawn from the same $\Omega$. Cut vertically at a fixed $t$ and the spread of crossing points *is* the distribution of the single random variable $X_t$ — for a random walk, widening as $\sqrt{t}$.
+Both readings appear in practice. A Monte Carlo simulation draws many outcomes and generates one path for each. A risk measure at a fixed horizon, such as a 10-day value at risk, reads a slice. A rule that depends on the route the price takes, such as a stop-loss, a drawdown limit, or a barrier option, reads whole paths.
+
+The figure below shows both readings for a **simple random walk**: the walk starts at 0 and moves up or down by 1 at each step, with equal probability and independently across steps. Each faint line is one path, produced by one $\omega$ from the same $\Omega$. A vertical cut at a fixed $t$ crosses every path, and the spread of the crossing points is the distribution of the single random variable $X_t$, also called the **marginal** distribution at $t$. That spread has standard deviation $\sqrt{t}$. After 100 steps, the standard deviation is 10 steps, not 100.
 
 ```{=html}
 <style>
@@ -402,31 +499,65 @@ The picture to hold is an ensemble of sample paths fanning out from a common ori
 \end{center}
 ```
 
+> ### §6 Key takeaways
+>
+> 1. Fixing the time gives a random variable, the slice. Fixing the outcome gives a deterministic function of time, the path.
+> 2. A process is a random function: one $\omega$ delivers one complete path.
+> 3. Risk at a fixed horizon reads slices. Path-dependent rules and payoffs read paths, and a model can match every slice while getting the joint behavior across times wrong ([§7](#fdd)).
+
 ---
 
 ## 7. Finite-dimensional distributions {#fdd}
 
-The **law** of the process is the pushforward of $\mathbb{P}$ onto the path space $E^T$. In practice we never specify it directly; we specify the family of finite-dimensional distributions, for every finite set of indices $t_1, \dots, t_n \in T$:
+A process is identified by its **law**: the probability measure it induces on the **path space** $E^T$, the set of all functions from $T$ to $E$, equipped with the product $\sigma$-algebra of [Section K](#app-k). Formally, the law is the pushforward of $\mathbb{P}$ through the map $\omega \mapsto (X_t(\omega))_{t \in T}$, which sends each outcome to its path ([Section H](#app-h) defines pushforwards). In practice nobody specifies the law directly. A model instead states the joint distribution of the process at every finite set of distinct times $t_1, \dots, t_n \in T$:
 
-$$\mu_{t_1 \dots t_n}(B) = \mathbb{P}\big((X_{t_1}, \dots, X_{t_n}) \in B\big).$$
+$$\mu_{t_1 \dots t_n}(B) = \mathbb{P}\big((X_{t_1}, \dots, X_{t_n}) \in B\big) \qquad \text{for measurable } B \subseteq E^n.$$
 
-The **Kolmogorov extension theorem** ([Kallenberg, 2021](https://doi.org/10.1007/978-3-030-61871-1){target="_blank"}) says the converse holds: given any family of finite-dimensional distributions that is *consistent* — marginalizing one index out of $\mu_{t_1 \dots t_n}$ reproduces the smaller one, and permuting indices permutes the measure — there *exists* a probability space and a process realizing them.
+Each $\mu_{t_1 \dots t_n}$ is an ordinary probability distribution on $E^n$: the joint distribution of $n$ snapshots of the process. The family of all of them, over every finite choice of times, is the process's **finite-dimensional distributions**.
 
-That theorem is why you can define Brownian motion by saying "$W_0 = 0$, increments are independent, and $W_t - W_s \sim \mathcal{N}(0, t - s)$" and never exhibit $\Omega$. Existence is delegated.
+The **Kolmogorov extension theorem** ([Kallenberg, 2021](https://doi.org/10.1007/978-3-030-61871-1){target="_blank"}) runs the other way. Start from a family of finite-dimensional distributions that is *consistent*, which means two things. First, dropping a time gives the smaller distribution:
 
-**What the finite-dimensional distributions do not pin down: path properties.** Two processes can share every finite-dimensional distribution while one has continuous paths and the other does not — they are *modifications* of each other, agreeing at each fixed $t$ almost surely, yet differing on an event that involves uncountably many $t$ at once. Continuous versions have to be produced separately, e.g. by the Kolmogorov–Chentsov criterion ([Kallenberg, 2021](https://doi.org/10.1007/978-3-030-61871-1){target="_blank"}; [Çınlar, 2011](https://doi.org/10.1007/978-0-387-87859-1){target="_blank"}). [Section K](#app-k) explains why this gap is structural rather than accidental.
+$$\mu_{t_1 \dots t_n}(B \times E) = \mu_{t_1 \dots t_{n-1}}(B) \qquad \text{for measurable } B \subseteq E^{n-1}.$$
+
+The left side places no condition on the value at $t_n$, so it must equal the distribution of the first $n - 1$ values. Second, listing the same times in a different order permutes the coordinates of the measure to match. Every process satisfies both conditions automatically, because all of its finite-dimensional distributions come from the same random variables. The theorem says the conditions are also sufficient. For state spaces such as $\mathbb{R}^d$, and more generally any complete separable metric space with its Borel $\sigma$-algebra, it guarantees a probability space and a process with exactly those finite-dimensional distributions.
+
+The theorem is why Brownian motion can be defined by three properties, without ever writing down $\Omega$: $W_0 = 0$; increments over non-overlapping time intervals are independent; and $W_t - W_s \sim \mathcal{N}(0, t - s)$ for $s \le t$. These properties fix every finite-dimensional distribution. For times $t_1 < \dots < t_n$, each $W_{t_k}$ is a sum of independent normal increments, so the vector $(W_{t_1}, \dots, W_{t_n})$ is jointly normal with mean zero and covariance $\operatorname{Cov}(W_s, W_t) = \min(s, t)$. The resulting family is consistent, and the theorem supplies a process.
+
+**Distributions at single times are not enough.** The finite-dimensional distributions include joint distributions across times, not only the distribution at each single time. To see the difference, let $Z$ be one standard normal draw and set $Y_t = \sqrt{t}\, Z$. At every $t$, $Y_t \sim \mathcal{N}(0, t)$, the same distribution as $W_t$. But every path of $Y$ is the same curve rescaled by one draw, so the correlation between $Y_1$ and $Y_4$ is 1. For Brownian motion, the covariance formula above gives a correlation between $W_1$ and $W_4$ of $1 / \sqrt{1 \cdot 4} = 0.5$. The two processes agree at every single time and disagree about every pair of distinct positive times. Derivatives pricing has the same gap. Vanilla option prices across all strikes at each expiry pin down the risk-neutral distribution of the asset price at that expiry, one expiry at a time. A barrier or forward-start option depends on the joint distribution across dates, so two models calibrated to the same vanilla prices can still disagree about its price.
+
+**The finite-dimensional distributions do not determine path properties.** Two processes can share every finite-dimensional distribution while one has continuous paths and the other does not. For an example, let $T = [0,1]$, let $\tau$ be uniform on $[0,1]$, and compare the zero process with $J_t = \mathbb{1}\{t = \tau\}$, which equals 1 when $t = \tau$ and 0 otherwise. At each fixed $t$, $J_t$ differs from 0 only when $\tau = t$, which has probability zero. At any $n$ fixed times, the probability that $J$ is non-zero at one of them is at most a sum of $n$ zeros. So the two processes have the same finite-dimensional distributions. Yet every path of the zero process is continuous, and every path of $J$ jumps to 1 at the time $\tau$.
+
+Processes that agree at each fixed $t$ with probability one are called **modifications** of each other. They can still differ in a property that involves uncountably many times at once, such as continuity of the path. A continuous modification therefore needs a separate argument, such as the Kolmogorov–Chentsov criterion, which produces one when the increments $X_t - X_s$ shrink fast enough, on average, as $s$ approaches $t$ ([Kallenberg, 2021](https://doi.org/10.1007/978-3-030-61871-1){target="_blank"}; [Çınlar, 2011](https://doi.org/10.1007/978-0-387-87859-1){target="_blank"}). [Section K](#app-k) explains why the finite-dimensional distributions cannot see path properties.
+
+> ### §7 Key takeaways
+>
+> 1. A model specifies a process through its finite-dimensional distributions, the joint laws at every finite set of times. The Kolmogorov extension theorem turns a consistent family into a process.
+> 2. Distributions at single times do not determine the finite-dimensional distributions. $\sqrt{t}\,Z$ and Brownian motion agree at every time and differ at every pair of distinct positive times.
+> 3. The finite-dimensional distributions do not determine path properties such as continuity. Path regularity needs its own argument.
 
 ---
 
 ## 8. Filtrations and adaptedness {#filtrations}
 
-The bare definition has no notion of information accumulating. Almost every applied use adds one. A **filtration** is an increasing family of sub-$\sigma$-algebras
+The bare definition has no notion of information arriving over time. Almost every application adds one through a filtration.
 
-$$\mathcal{F}_s \subseteq \mathcal{F}_t \subseteq \mathcal{F} \qquad \text{for all } s \le t,$$
+When the index set $T$ is ordered, a **filtration** is a family of $\sigma$-algebras $(\mathcal{F}_t)_{t \in T}$ inside $\mathcal{F}$ that grows with time:
 
-with $\mathcal{F}_t$ read as "the events whose truth is settled by time $t$." The quadruple $(\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \in T}, \mathbb{P})$ is a *filtered* probability space. A process is **adapted** if $X_t$ is $\mathcal{F}_t$-measurable for every $t$ — its value is known once time $t$ arrives. The smallest such choice is the natural filtration $\mathcal{F}_t^X = \sigma(X_s : s \le t)$.
+$$\mathcal{F}_s \subseteq \mathcal{F}_t \subseteq \mathcal{F} \qquad \text{for all } s \le t.$$
 
-Adaptedness is what makes martingales, stopping times, and stochastic integration expressible, since each is a statement about not seeing the future. It is also the formal statement of lookahead bias: a quantity computed from data that is not $\mathcal{F}_t$-measurable is precisely one you could not have known at time $t$, however plausible the backtest looks.
+Read $\mathcal{F}_t$ as the events whose truth is settled by time $t$. The inclusion says that information is never lost: an event settled at time $s$ stays settled at every later time $t$. A probability space together with a filtration, $(\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \in T}, \mathbb{P})$, is a **filtered probability space**. [Section B](#app-b) works through a small filtration in full.
+
+A process is **adapted** to the filtration if $X_t$ is $\mathcal{F}_t$-measurable for every $t$, meaning $X_t^{-1}(B) \in \mathcal{F}_t$ for every $B \in \mathcal{E}$. Every question about the value at time $t$ is then settled by time $t$, so the value is known by time $t$. Every process is adapted to its own **natural filtration** $\mathcal{F}_t^X = \sigma(X_s : s \le t)$, the information revealed by observing $X$ up to time $t$. Here $\sigma(\cdot)$ denotes the smallest $\sigma$-algebra for which every listed random variable is measurable ([Section C](#app-c)). [Section G](#app-g) makes "known by time $t$" concrete: an $\mathcal{F}_t^X$-measurable quantity is a function of the observed values $X_s$ for $s \le t$.
+
+Martingales, stopping times, and stochastic integrals are all built on adaptedness, because each one is a statement about not seeing the future. A **martingale** is an adapted process whose best forecast of any later value, given the information at time $s$, is its value at $s$ ([Section J](#app-j)). A **stopping time** is a random time whose arrival is known when it happens, such as the first time a price touches a barrier: the event that it has occurred by time $t$ belongs to $\mathcal{F}_t$. A **stochastic integral** accumulates the gains of a position that is chosen from the information available before each move of the price.
+
+Adaptedness is also the formal version of the rule against lookahead bias in a backtest. A signal at time $t$ must be $\mathcal{F}_t$-measurable, where $\mathcal{F}_t$ is the information actually available at $t$. A signal computed from anything outside $\mathcal{F}_t$ could not have been known at time $t$, however good its backtest looks. Typical violations include a signal that uses a day's closing price to trade at that same close, fundamentals stamped with the fiscal period end rather than the release date, and a feature standardized with statistics from the full sample.
+
+> ### §8 Key takeaways
+>
+> 1. A filtration is a growing family of $\sigma$-algebras. $\mathcal{F}_t$ holds the events settled by time $t$.
+> 2. A process is adapted when its value at each time is known at that time. Martingales, stopping times, and stochastic integrals all require it.
+> 3. Lookahead bias is a failure of adaptedness: a signal that is not measurable with respect to the information available at its timestamp.
 
 ```{=latex}
 \newpage
@@ -434,24 +565,46 @@ Adaptedness is what makes martingales, stopping times, and stochastic integratio
 
 ## 9. Instantiated {#instantiated}
 
-The same four objects, five times over.
+The table runs five standard processes through the definition. Each row names the sample space, the index set, and the state space, then the property that characterizes the process.
 
 | Process | $\Omega$ | $T$ | $(E, \mathcal{E})$ | Character |
 |---|---|---|---|---|
-| Simple random walk | $\{-1, +1\}^{\mathbb{N}}$ | $\{0,1,2,\dots\}$ | $(\mathbb{Z}, 2^{\mathbb{Z}})$ | $S_n$ sums the first $n$ steps of $\omega$; increments independent |
-| Brownian motion | $C([0,\infty), \mathbb{R})$ with Wiener measure | $[0,\infty)$ | $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ | $W_t \sim \mathcal{N}(0,t)$; continuous paths, nowhere differentiable |
-| Poisson process | Increasing arrival-time sequences | $[0,\infty)$ | $(\mathbb{N}_0, 2^{\mathbb{N}_0})$ | $N_t$ counts arrivals; right-continuous, jumps of size 1 |
-| Weather chain | $\{\text{sun},\text{rain}\}^{\mathbb{N}}$ | $\{0,1,2,\dots\}$ | $(\{\text{sun},\text{rain}\}, 2^E)$ | Markov: the next state depends on the present one only |
-| i.i.d. noise | $\mathbb{R}^{\mathbb{Z}}$ with a product measure | $\mathbb{Z}$ | $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ | No dependence whatsoever — still a stochastic process |
+| Simple random walk | $\{-1, +1\}^{\mathbb{N}}$ | $\{0,1,2,\dots\}$ | $(\mathbb{Z}, 2^{\mathbb{Z}})$ | $X_n$ sums the first $n$ steps of $\omega$; increments independent |
+| Brownian motion | $C([0,\infty), \mathbb{R})$ with Wiener measure | $[0,\infty)$ | $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ | $W_0 = 0$; independent increments, $W_t - W_s \sim \mathcal{N}(0, t-s)$; continuous paths, almost surely nowhere differentiable |
+| Poisson process | Increasing sequences of arrival times | $[0,\infty)$ | $(\mathbb{N}_0, 2^{\mathbb{N}_0})$ | $N_t$ counts arrivals; independent increments whose distribution depends only on the interval length; right-continuous paths, jumps of size 1 |
+| Weather chain | $\{\text{sun},\text{rain}\}^{\mathbb{N}_0}$ | $\{0,1,2,\dots\}$ | $(\{\text{sun},\text{rain}\}, 2^E)$ | Markov: the next state depends only on the present state |
+| i.i.d. noise | $\mathbb{R}^{\mathbb{Z}}$ with a product measure | $\mathbb{Z}$ | $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ | No dependence at all, yet still a stochastic process |
 
-Note the last row. Nothing in the definition requires the $X_t$ to be dependent, or identically distributed, or ordered in any meaningful way. Those are extra structure, imposed to get theorems.
+In the Brownian row, $C([0,\infty), \mathbb{R})$ is the set of continuous functions from $[0,\infty)$ to $\mathbb{R}$, and Wiener measure is the law of Brownian motion on that set. In the last row, i.i.d. means independent and identically distributed.
 
-### Four things the definition quietly settles
+The last row shows that the definition requires no dependence between the $X_t$. It also requires no common distribution and no meaningful order. Each named class of processes adds one such property, and its theorems follow from that addition: Markov chains add a rule for how the next state depends on the present one, and stationary processes add invariance under shifts in time.
 
-- A process is not a sequence of numbers. It is a family of *functions on $\Omega$*. The numbers appear only after an $\omega$ is drawn.
-- Randomness is resolved once, not repeatedly. "Step forward, draw a shock, step again" is a construction recipe; in the definition the whole path is already determined by a single $\omega$.
-- The shared probability space is what makes dependence across $T$ even statable. Drop it and there is no process, only a collection.
-- Measurability is not bookkeeping. It is the condition under which $\mathbb{P}(X_t \in B)$ denotes anything at all.
+### Equivalences
+
+Several objects in this chapter have more than one description, and a few pairs that look alike are different. The table collects both kinds.
+
+| Objects | Relationship | Section |
+|---|---|---|
+| A family $(X_t)_{t \in T}$; a single map on $T \times \Omega$; a random element of $E^T$ with the product $\sigma$-algebra | One process, three descriptions | [§1](#definition), [§7](#fdd), [K](#app-k) |
+| A random vector in $\mathbb{R}^d$; a process with $T = \{1, \dots, d\}$ | The same object | [§3](#index-set) |
+| A $\sigma$-algebra on a finite set; a partition of that set | Same information | [B](#app-b) |
+| A $\sigma$-algebra; a list of answerable questions; an observer's information | One object, three readings | [B](#app-b) |
+| $Y$ is $\sigma(X)$-measurable; $Y = g(X)$ for a measurable $g$ | Equivalent for real-valued $Y$ (Doob–Dynkin) | [G](#app-g) |
+| Adapted to the available information; free of lookahead | Equivalent | [§8](#filtrations) |
+| Law; distribution | Two names for $\mathbb{P} \circ X^{-1}$ | [H](#app-h) |
+| Probability density function; probability mass function | One Radon–Nikodym density, against Lebesgue measure or against counting measure on a countable set | [H](#app-h) |
+| $\mathbb{E}[X \mid \mathcal{G}]$ for square-integrable $X$; orthogonal projection onto square-integrable $\mathcal{G}$-measurable variables | Equal, up to a null set | [J](#app-j) |
+| Measurable at each $t$; jointly measurable in $(t, \omega)$ | Different: joint is strictly stronger | [§5](#measurability) |
+| Same distribution at each time; same finite-dimensional distributions | Different: the second is strictly stronger | [§7](#fdd) |
+| Same finite-dimensional distributions; same path properties | Different: the first does not imply the second | [§7](#fdd), [K](#app-k) |
+
+> ### Part I key takeaways
+>
+> 1. A process is a family of functions on $\Omega$, not a sequence of numbers. Numbers appear only after an outcome $\omega$ is drawn.
+> 2. Randomness is resolved once. "Step forward, draw a shock, step again" is how a simulation constructs a path. In the definition, one $\omega$ fixes the whole path.
+> 3. The shared probability space turns joint statements across times into events. Random variables on separate spaces have no joint distribution, so dependence between them is undefined.
+> 4. Measurability decides whether $\mathbb{P}(X_t \in B)$ is defined at all.
+> 5. The finite-dimensional distributions identify the law but not the path properties. Information enters through a filtration, and adaptedness is the formal ban on lookahead.
 
 ```{=latex}
 \newpage
@@ -459,49 +612,61 @@ Note the last row. Nothing in the definition requires the $X_t$ to be dependent,
 
 # Part II — Appendix: the measure-theoretic vocabulary {#part-ii}
 
-Everything Part I leaned on, built from the ground up. Sections A–F build the container: sets $\to$ $\sigma$-algebras $\to$ measurable spaces $\to$ measures $\to$ probability spaces. Sections G–I put things inside it: measurable functions, distributions, expectation. Sections J–K cover independence, conditioning, and product spaces. A glossary closes it out.
+Part II builds the vocabulary that Part I uses, starting from bare sets. Sections A–F build the container in steps: sets, $\sigma$-algebras, measurable spaces, measures, and probability spaces. Sections G–I describe what goes inside it: measurable functions, distributions, and expectation. Sections J and K cover independence, conditioning, and product spaces. A glossary follows.
+
+Each entry starts with the idea in words, gives the formal definition, and then points back to the place in Part I that relies on it. For proofs, [Further reading](#further-reading) lists the standard texts in order of difficulty.
+
+Part II uses $(U, \mathcal{U})$ and $(V, \mathcal{V})$ for generic measurable spaces, so that $X$ stays reserved for random variables and processes.
 
 ---
 
 ## A. Why probability is a theory of sets, not of points {#app-a}
 
-The elementary definition — probability equals favourable outcomes over total outcomes — works only while you can count. Move to a continuum and it collapses immediately. Drop a point uniformly on $[0,1]$: every individual point has probability zero, there are uncountably many of them, and yet the total is one. Zero cannot be summed into one, so probability simply cannot be a function on outcomes.
+The elementary definition of probability, favorable outcomes divided by total outcomes, needs finitely many equally likely outcomes. Its natural extension gives each outcome a weight and adds the weights, which works whenever the outcomes can be listed one by one. Both fail on a continuum. Drop a point uniformly on $[0,1]$. Each individual point has probability zero, yet the total probability is one, and no sum of zeros reaches one.
 
-The repair is to assign numbers to *sets* of outcomes rather than to outcomes. "The point lands in $[0, \tfrac14]$" has probability $\tfrac14$ with no paradox. And once you are assigning sizes to sets, you have walked into a subject that already existed: measure theory, the general study of how to attach a consistent notion of size to subsets of something.
+The fix assigns numbers to *sets* of outcomes. The event "the point lands in $[0, \tfrac14]$" has probability $\tfrac14$, with no contradiction. Assigning sizes to sets is the subject of measure theory, which studies consistent notions of size for the subsets of a space.
 
-> Length, area, volume, mass, charge and probability are the same mathematical object — a **measure** — differing only in normalization and interpretation. Probability is measure theory with the extra requirement that the whole space has size 1. That single constraint is the entire specialization; every theorem about integration and limits comes along for free.
+> Length, area, volume, mass, and probability are all **measures**. They differ only in normalization and interpretation. Probability is a measure with one extra requirement: the whole space has size 1. Every theorem about measures, integrals, and limits therefore applies to probability unchanged.
 
-The awkward part is that you cannot hand out sizes to *every* subset. Assuming the axiom of choice, there exist subsets of $[0,1]$ — Vitali's construction — that no translation-invariant, countably additive measure can consistently size. Rather than abandon countable additivity (which is what makes limits work), the theory abandons universality: we declare in advance a restricted collection of sets we promise to measure, and refuse the rest. That collection is the $\sigma$-algebra.
+The complication is that sizes cannot be assigned to every subset. Vitali's construction produces subsets of $[0,1]$ that cannot be given a length: no countably additive, translation-invariant measure that gives $[0,1]$ length 1 extends to them. Translation-invariant means that shifting a set does not change its size.
+
+The construction runs as follows. Call two numbers in $[0,1)$ equivalent when their difference is rational. The construction uses the axiom of choice to pick one number from each equivalence class. Shifting the chosen set by each rational in $[0,1)$, wrapping around at 1, gives countably many disjoint copies that together fill $[0,1)$. Translation invariance forces every copy to have the same length, and countable additivity then makes the total either 0 or infinite, never 1.
+
+The theory keeps countable additivity, because limits depend on it, and gives up measuring every set. It fixes in advance a collection of sets it promises to measure. That collection is a $\sigma$-algebra ([Section B](#app-b)).
+
+[§2](#probability-space) relies on this restriction: in continuous models, $\mathcal{F}$ is smaller than the set of all subsets.
 
 ---
 
-## B. $\sigma$-algebras: the catalogue of answerable questions {#app-b}
+## B. $\sigma$-algebras: the catalog of answerable questions {#app-b}
 
-**Definition.** Let $X$ be a set. A collection $\mathcal{A}$ of subsets of $X$ is a **$\sigma$-algebra** on $X$ if:
+A $\sigma$-algebra is the list of subsets that a theory agrees to measure. The list must be closed under the operations that combine questions, so that combining answerable questions never produces an unanswerable one.
 
-  (i) $X \in \mathcal{A}$;
-  (ii) $A \in \mathcal{A} \implies X \setminus A \in \mathcal{A}$ (closed under complement);
-  (iii) $A_1, A_2, \dots \in \mathcal{A} \implies \bigcup_n A_n \in \mathcal{A}$ (closed under *countable* union).
+**Definition.** Let $U$ be a set. A collection $\mathcal{U}$ of subsets of $U$ is a **$\sigma$-algebra** on $U$ if:
 
-Members of $\mathcal{A}$ are called **measurable sets**; in a probability context, **events**. The $\sigma$ is for countability.
+  (i) $U \in \mathcal{U}$;
+  (ii) $A \in \mathcal{U} \implies U \setminus A \in \mathcal{U}$ (closed under complement);
+  (iii) $A_1, A_2, \dots \in \mathcal{U} \implies \bigcup_n A_n \in \mathcal{U}$ (closed under *countable* union).
 
-From these three, $\emptyset \in \mathcal{A}$ follows from (i) and (ii), and closure under countable intersection follows via De Morgan, as does closure under set difference. So the axioms are minimal, not restrictive: what looks like three rules is really "closed under everything you can do with countably many sets."
+Members of $\mathcal{U}$ are called **measurable sets**, and in probability they are called **events**. The $\sigma$ signals countability.
 
-### Reading one: what you are allowed to ask
+The three axioms imply more. Axioms (i) and (ii) give $\emptyset \in \mathcal{U}$. De Morgan's laws turn countable unions into countable intersections, so $\mathcal{U}$ is also closed under countable intersection and under set difference. The axioms are a minimal list: together they say that $\mathcal{U}$ is closed under every operation built from countably many of its sets.
 
-Identify a subset $A \subseteq X$ with the yes/no question "is the outcome in $A$?" The axioms then say something very natural. If you can ask $A$, you can ask *not*-$A$. If you can ask $A_1, A_2, \dots$, you can ask *at least one of them*. A $\sigma$-algebra is a catalogue of questions closed under the logical operations, so that any question you can build from countably many admissible questions is itself admissible.
+### Reading one: the questions you can ask
 
-The restriction to *countable* unions is the load-bearing choice. Allow arbitrary unions and the theory dies instantly: every subset is a union of its singletons, so closure under arbitrary unions of singletons forces $\mathcal{A}$ to be the full power set — the very thing that cannot be measured. Countability is precisely the amount of closure needed to take limits without admitting the pathological sets.
+Identify each subset $A \subseteq U$ with the yes-or-no question "is the outcome in $A$?" The axioms then become rules about questions. If $A$ can be asked, so can "not $A$." If $A_1, A_2, \dots$ can be asked, so can "at least one of them." A $\sigma$-algebra is a catalog of questions closed under these logical operations: any question built from countably many admissible questions is admissible.
+
+The restriction to *countable* unions matters. Suppose the axioms allowed arbitrary unions, and suppose every single point is measurable, as it is in any reasonable model of a continuum. Every subset is the union of its points, so $\mathcal{U}$ would contain every subset. That is the power set, which [Section A](#app-a) showed cannot carry length. Countable unions are enough to take limits and few enough to exclude the pathological sets.
 
 ### Reading two: information
 
-The second reading is the one that makes filtrations obvious. Think of $\mathcal{A}$ as the resolving power of an observer: the events they can determine the truth of. A coarse $\sigma$-algebra is an observer who knows little; a fine one is an observer who knows more.
+The second reading explains filtrations. Treat $\mathcal{U}$ as the resolving power of an observer: the collection of events whose truth the observer can determine. A coarse $\sigma$-algebra describes an observer who knows little, and a fine one describes an observer who knows more.
 
-- $\{\emptyset, X\}$, the **trivial** $\sigma$-algebra: an observer who knows only that *something* happened. Every random variable measurable with respect to it is constant.
-- $2^X$, the **power set**: total knowledge. Fine for countable $X$, unusable on a continuum.
-- **$\sigma$ of a partition**: given a partition of $X$ into blocks, the $\sigma$-algebra of all unions of blocks. The observer can tell which block occurred but cannot distinguish points inside a block. Every finite $\sigma$-algebra is of this form — so on finite spaces, "$\sigma$-algebra" and "partition" are the same idea.
+- $\{\emptyset, U\}$, the **trivial** $\sigma$-algebra, describes an observer who knows only that some outcome occurred. Every real-valued random variable measurable with respect to it is constant.
+- $2^U$, the **power set**, describes total knowledge. It works for a countable $U$. On a continuum it is too large to carry length ([Section A](#app-a)).
+- **The $\sigma$-algebra of a partition.** Split $U$ into blocks, and take all unions of blocks. The observer can tell which block occurred, but not which point inside the block. Every finite $\sigma$-algebra has this form, so on a finite set a $\sigma$-algebra and a partition carry the same information.
 
-**Worked example — two coin flips.** Let $\Omega = \{HH, HT, TH, TT\}$. Before any flip you cannot distinguish outcomes at all. After the first flip you know which half you are in. After the second, everything:
+**Worked example: two coin flips.** Let $\Omega = \{\mathrm{HH}, \mathrm{HT}, \mathrm{TH}, \mathrm{TT}\}$. Before any flip, the observer cannot tell any outcomes apart. After the first flip, the observer knows which half contains the outcome. After the second flip, the observer knows the outcome.
 
 ```
 F0    [ HH  HT  TH  TT ]                 knows nothing
@@ -509,190 +674,220 @@ F1    [ HH  HT ][ TH  TT ]               knows the first flip
 F2    [ HH ][ HT ][ TH ][ TT ]           knows everything
 ```
 
-The partition *refines*, the $\sigma$-algebra *grows* — $\mathcal{F}_0 \subset \mathcal{F}_1 \subset \mathcal{F}_2$ — and that increasing chain is exactly a filtration ([Section 8](#filtrations)).
+The partition gets finer and the $\sigma$-algebra grows: $\mathcal{F}_0 \subset \mathcal{F}_1 \subset \mathcal{F}_2$. $\mathcal{F}_0$ contains two events, $\mathcal{F}_1$ contains four, and $\mathcal{F}_2$ contains all 16 subsets of $\Omega$. That increasing chain is a filtration ([§8](#filtrations)).
+
+Part I uses both readings. The $\mathcal{F}$ of [§2](#probability-space) and the $\mathcal{E}$ of [§4](#state-space) are catalogs of answerable questions, and the filtration of [§8](#filtrations) is the information reading.
 
 ---
 
 ## C. Generation and Borel sets {#app-c}
 
-On a continuum you can never enumerate the measurable sets. Instead you name a few you insist on having and take the closure.
+On a continuum, nobody can list the measurable sets one by one. Instead, one names a few sets that must be measurable and takes the smallest $\sigma$-algebra that contains them.
 
-**Definition — generated $\sigma$-algebra.** For any collection $\mathcal{C}$ of subsets of $X$, $\sigma(\mathcal{C})$ is the smallest $\sigma$-algebra containing $\mathcal{C}$ — equivalently, the intersection of all $\sigma$-algebras containing $\mathcal{C}$.
+**Definition: generated $\sigma$-algebra.** For any collection $\mathcal{C}$ of subsets of $U$, $\sigma(\mathcal{C})$ is the smallest $\sigma$-algebra that contains $\mathcal{C}$. Equivalently, it is the intersection of all $\sigma$-algebras that contain $\mathcal{C}$.
 
-That definition is legitimate for two reasons: the power set is always a $\sigma$-algebra containing $\mathcal{C}$, so the family being intersected is non-empty; and an arbitrary intersection of $\sigma$-algebras is again a $\sigma$-algebra, since each axiom is preserved under intersection. So a smallest one exists and is unique.
+Two facts make the definition work. The power set is a $\sigma$-algebra that contains $\mathcal{C}$, so at least one such $\sigma$-algebra exists. And any intersection of $\sigma$-algebras is again a $\sigma$-algebra, because each axiom survives intersection. So the smallest one exists and is unique.
 
-**Definition — Borel $\sigma$-algebra.** $\mathcal{B}(\mathbb{R}) = \sigma(\{\text{open subsets of } \mathbb{R}\})$. Equivalently, generated by the open intervals, or by the rays $(-\infty, a]$ for $a \in \mathbb{Q}$. More generally $\mathcal{B}(S)$ is defined for any topological space $S$.
+**Definition: Borel $\sigma$-algebra.** $\mathcal{B}(\mathbb{R}) = \sigma(\{\text{open subsets of } \mathbb{R}\})$. The open intervals generate the same $\sigma$-algebra, and so do the rays $(-\infty, a]$ with $a \in \mathbb{Q}$. The same construction defines the Borel $\sigma$-algebra of any topological space.
 
-The Borel sets are the default answer to "which subsets of $\mathbb{R}$ are we willing to measure." They contain every interval, every open and closed set, every countable set, every countable intersection of opens and union of closeds, and essentially everything you will ever write down. They are nonetheless a vanishingly small part of the power set: $\mathcal{B}(\mathbb{R})$ has the cardinality of the continuum, while $2^{\mathbb{R}}$ is strictly larger. Almost every subset of $\mathbb{R}$ is non-Borel — you just cannot exhibit one without the axiom of choice.
+The Borel sets are the default answer to the question of which subsets of $\mathbb{R}$ to measure. They include every interval, every open set, every closed set, every countable set, and every set built from these by countable operations. Nearly every set that arises in modeling is Borel. Even so, the Borel sets are a small part of the power set. $\mathcal{B}(\mathbb{R})$ has the cardinality of the continuum, while $2^{\mathbb{R}}$ is strictly larger, so most subsets of $\mathbb{R}$ are not Borel.
 
-> The generation idea is also what gives "information" a formal home. For a random variable $X$, the $\sigma$-algebra $\sigma(X) = X^{-1}(\mathcal{E})$ is *the information carried by knowing $X$*, and the natural filtration $\mathcal{F}_t^X = \sigma(X_s : s \le t)$ is the information accumulated by observing the process up to time $t$.
+> Generation also gives "information" a formal definition. For a random variable $X$ with values in $(E, \mathcal{E})$, the $\sigma$-algebra $\sigma(X) = \{X^{-1}(B) : B \in \mathcal{E}\}$ is the information carried by knowing $X$. The preimages already form a $\sigma$-algebra ([Section G](#app-g) shows why), and it is the smallest $\sigma$-algebra on $\Omega$ for which $X$ is measurable. For a family of random variables, the preimages of all of them together need not form a $\sigma$-algebra, so $\sigma(X_s : s \le t)$ is the $\sigma$-algebra they generate: the smallest one for which every $X_s$ with $s \le t$ is measurable. The natural filtration $\mathcal{F}_t^X = \sigma(X_s : s \le t)$ is the information gathered by observing the process up to time $t$ ([§8](#filtrations)).
+
+The default state space of [§4](#state-space), $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$, uses the Borel $\sigma$-algebra.
 
 ---
 
 ## D. Measurable space: structure without numbers {#app-d}
 
-**Definition.** A **measurable space** is a pair $(X, \mathcal{A})$ where $X$ is a set and $\mathcal{A}$ is a $\sigma$-algebra on $X$.
+A measurable space is a set together with its list of measurable subsets, before any sizes are assigned.
 
-That is the whole definition, and the notable thing is what is absent: no numbers, no sizes, no probabilities. A measurable space only declares *which questions are legal*. It is the type signature before the implementation — the domain of discourse fixed in advance, so that when a measure arrives later it knows exactly what it is expected to evaluate.
+**Definition.** A **measurable space** is a pair $(U, \mathcal{U})$, where $U$ is a set and $\mathcal{U}$ is a $\sigma$-algebra on $U$.
 
-The analogy worth carrying is with topology. A topological space is a set plus a distinguished family of subsets (the opens) that makes continuity expressible. A measurable space is a set plus a distinguished family of subsets (the measurable sets) that makes measurement expressible. Same move, different closure axioms, different purpose.
+The definition contains no numbers, sizes, or probabilities. A measurable space only declares which questions are legal. It plays the role of a type signature in code. It fixes the domain in advance, so that a measure added later knows exactly which sets it must evaluate.
 
-This is why the definition of a stochastic process requires the state space to be a measurable space $(E, \mathcal{E})$ and not merely a set $E$. Without $\mathcal{E}$ there is no way to state what "the value lands in $B$" is even allowed to mean.
+Topology offers a useful parallel. A topological space is a set plus a chosen family of subsets, the open sets, which makes continuity expressible. A measurable space is a set plus a chosen family of subsets, the measurable sets, which makes measurement expressible. The construction is the same; the closure axioms and the purpose differ.
+
+For this reason the definition of a stochastic process requires the state space to be a measurable space $(E, \mathcal{E})$ rather than a bare set $E$ ([§4](#state-space)). Without $\mathcal{E}$, there is no list of sets $B$ for which "$X_t \in B$" is a valid question.
 
 ---
 
 ## E. Measure: a consistent notion of size {#app-e}
 
-**Definition.** Given $(X, \mathcal{A})$, a **measure** is a function $\mu : \mathcal{A} \to [0, \infty]$ with
+A measure assigns a size to each measurable set, and the sizes of disjoint pieces add up to the size of the whole.
+
+**Definition.** Given a measurable space $(U, \mathcal{U})$, a **measure** is a function $\mu : \mathcal{U} \to [0, \infty]$ with
 
   (i) $\mu(\emptyset) = 0$;
-  (ii) $\mu\big(\bigcup_n A_n\big) = \sum_n \mu(A_n)$ for every sequence of *pairwise disjoint* $A_n \in \mathcal{A}$ (**countable additivity**).
+  (ii) $\mu\big(\bigcup_n A_n\big) = \sum_n \mu(A_n)$ for every sequence of *pairwise disjoint* $A_n \in \mathcal{U}$ (**countable additivity**).
 
-The triple $(X, \mathcal{A}, \mu)$ is a **measure space**.
+The triple $(U, \mathcal{U}, \mu)$ is a **measure space**.
 
-Countable additivity does all the work. Finite additivity alone — disjoint pieces of a set have sizes that add — would be the obvious axiom, and it is not enough. What countable additivity buys is **continuity of measure**: if $A_1 \subseteq A_2 \subseteq \cdots$ increase to $A$, then $\mu(A_n) \uparrow \mu(A)$. Sizes respect limits. Every limit theorem downstream — laws of large numbers, martingale convergence, the construction of the integral itself — reduces to that property.
+Countable additivity is the axiom that matters. Finite additivity, under which the sizes of finitely many disjoint pieces add up, is the obvious axiom, but it is too weak. Countable additivity gives **continuity of measure**: if $A_1 \subseteq A_2 \subseteq \cdots$ increase to $A$, then $\mu(A_n) \uparrow \mu(A)$. In words, the size of a limit is the limit of the sizes. The laws of large numbers, martingale convergence, and the construction of the integral all rest on this property.
 
-Immediate consequences: monotonicity ($A \subseteq B \implies \mu(A) \le \mu(B)$) and countable subadditivity ($\mu(\bigcup A_n) \le \sum \mu(A_n)$, with no disjointness needed). Continuity from above holds too, but only for sets of finite measure.
+Two consequences follow at once. **Monotonicity:** $A \subseteq B$ implies $\mu(A) \le \mu(B)$. **Countable subadditivity:** $\mu(\bigcup_n A_n) \le \sum_n \mu(A_n)$, with no disjointness required. Continuity also holds for decreasing sequences of sets, provided the first set has finite measure. Without that proviso it can fail: the rays $[n, \infty)$ all have infinite length, yet they decrease to the empty set.
+
+The table lists four standard measures.
 
 | Measure | Definition | Role |
 |---|---|---|
-| Counting measure | $\mu(A) = \#A$ | Makes integration into summation |
+| Counting measure | $\mu(A) = \#A$, the number of elements of $A$ | Turns integration into summation |
 | Lebesgue $\lambda$ | On $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$, the unique translation-invariant measure with $\lambda([0,1]) = 1$ | Formalizes length; in $\mathbb{R}^d$, volume |
-| Dirac $\delta_x$ | $\delta_x(A) = \mathbb{1}\{x \in A\}$ | All the mass at one point |
-| Probability | Any measure with $\mu(X) = 1$ | Nothing else distinguishes it |
+| Dirac $\delta_x$ | $\delta_x(A) = 1$ if $x \in A$, and 0 otherwise | Puts all the mass at one point |
+| Probability | Any measure with $\mu(U) = 1$ | Normalization is its only distinguishing feature |
+
+The probability measure $\mathbb{P}$ of [§2](#probability-space) is a measure of this kind.
 
 ---
 
 ## F. Probability space: a measure normalized to one {#app-f}
 
-**Definition.** A **probability space** is a measure space $(\Omega, \mathcal{F}, \mathbb{P})$ with $\mathbb{P}(\Omega) = 1$. Explicitly, the axioms of [Kolmogorov (1933)](https://archive.org/details/kolmogorov_202112){target="_blank"}: $\mathbb{P}(A) \ge 0$ for all $A \in \mathcal{F}$; $\mathbb{P}(\Omega) = 1$; and $\mathbb{P}$ is countably additive on disjoint sequences.
+A probability space is a measure space whose total size is one, with the sizes read as probabilities.
 
-The renaming that comes with it is the only real content of the specialization:
+**Definition.** A **probability space** is a measure space $(\Omega, \mathcal{F}, \mathbb{P})$ with $\mathbb{P}(\Omega) = 1$. In modern form, these are the axioms of [Kolmogorov (1933)](https://archive.org/details/kolmogorov_202112){target="_blank"}, who stated finite additivity plus a continuity axiom that together amount to countable additivity: $\mathbb{P}(A) \ge 0$ for all $A \in \mathcal{F}$; $\mathbb{P}(\Omega) = 1$; and $\mathbb{P}$ is countably additive over disjoint sequences.
+
+The specialization adds a vocabulary and nothing else:
 
 | Symbol | Name | Meaning |
 |---|---|---|
 | $\Omega$ | Sample space | The set of all possible complete outcomes |
-| $\omega \in \Omega$ | Outcome / sample point | One fully specified way the world could turn out |
-| $A \in \mathcal{F}$ | Event | A set of outcomes whose probability we have agreed to define |
+| $\omega \in \Omega$ | Outcome | One fully specified way the world could turn out |
+| $A \in \mathcal{F}$ | Event | A set of outcomes that receives a probability |
 | $\mathbb{P}(A)$ | Probability | A number in $[0,1]$, by monotonicity and normalization |
 
-Two pieces of vocabulary follow directly and are used constantly. A **null set** is an $N \in \mathcal{F}$ with $\mathbb{P}(N) = 0$. A statement holds **almost surely** (a.s.) if the set where it fails is null. In continuous settings almost every theorem is an a.s. statement, because individual outcomes routinely have probability zero and cannot be excluded individually.
+Two terms follow directly and appear constantly. A **null set** is an event $A$ with $\mathbb{P}(A) = 0$. A statement holds **almost surely** (a.s.) if the outcomes where it fails lie inside a null set. In continuous models nearly every theorem is an almost-sure statement, because exceptional outcomes usually exist. The space of continuous paths that carries Brownian motion ([§9](#instantiated)) contains smooth paths, such as the constant path at zero. The theorem that Brownian paths are nowhere differentiable therefore cannot hold for every outcome. It shows instead that the outcomes where it fails, taken together, form a null set.
 
-A related technicality: a measure space is **complete** if every subset of a null set is itself measurable (necessarily with measure 0). Nothing forces this, but subsets of null sets are morally negligible, so probability spaces are conventionally completed — and continuous-time theory usually assumes the filtration is completed too, as part of the "usual conditions."
+A related technicality concerns completeness. A measure space is **complete** if every subset of a null set is measurable, with measure zero. Nothing in the axioms forces completeness, but subsets of null sets are negligible for every practical purpose. [Practice] Probability spaces are conventionally completed. Continuous-time texts usually also assume that $\mathcal{F}_0$ contains every null set and that the filtration is right-continuous, meaning $\mathcal{F}_t = \bigcap_{u > t} \mathcal{F}_u$. Together these two assumptions are called the **usual conditions**. They ensure, for example, that changing an adapted process on a null set, as passing to a modification does ([§7](#fdd)), leaves it adapted.
 
 ### The build-up, in one table
 
+The table summarizes the steps from a bare set to a probability space.
+
 | Object | Name | What it adds |
 |---|---|---|
-| $X$ | A set | No structure at all. You can say which elements exist and nothing else. |
-| $(X, \mathcal{A})$ | Measurable space | A $\sigma$-algebra: which subsets are legal to ask about. Still no numbers. |
-| $(X, \mathcal{A}, \mu)$ | Measure space | Sizes. Each legal subset now has a number in $[0,\infty]$, consistently additive. |
-| $(\Omega, \mathcal{F}, \mathbb{P})$, $\mathbb{P}(\Omega)=1$ | Probability space | The same thing, normalized. "Size" is now read as "how likely." |
+| $U$ | A set | No structure. It says which elements exist and nothing else. |
+| $(U, \mathcal{U})$ | Measurable space | A $\sigma$-algebra: which subsets are legal to ask about. Still no numbers. |
+| $(U, \mathcal{U}, \mu)$ | Measure space | Sizes. Each legal subset gets a number in $[0,\infty]$, and the sizes add up consistently. |
+| $(\Omega, \mathcal{F}, \mathbb{P})$, $\mathbb{P}(\Omega)=1$ | Probability space | The same structure, normalized. "Size" now reads as "how likely." |
 
-Each step adds exactly one thing, and none of the earlier structure is revised. Reading upward is also useful: probability theory is a special case, and every general measure-theoretic result applies to it unchanged.
+Each step adds one thing and revises none of the earlier structure. Read upward, the table says that probability theory is a special case of measure theory, so every result about measures applies to it unchanged. The probability space is Ingredient I of the definition ([§2](#probability-space)).
 
 ---
 
 ## G. Measurable functions, and what a random variable actually is {#app-g}
 
-**Definition.** $f : (X, \mathcal{A}) \to (Y, \mathcal{B})$ is **measurable** if $f^{-1}(B) \in \mathcal{A}$ for every $B \in \mathcal{B}$. A **random variable** is a measurable function on a probability space.
+A measurable function turns every legal question about its output into a legal question about its input. A random variable is such a function on a probability space.
 
-The first question everyone has is why the condition is stated on preimages rather than images. The answer is structural: preimages commute with every set operation, and images do not.
+**Definition.** A function $f : (U, \mathcal{U}) \to (V, \mathcal{V})$ is **measurable** if $f^{-1}(B) \in \mathcal{U}$ for every $B \in \mathcal{V}$. A **random variable** is a measurable function on a probability space.
+
+A common first question is why the condition uses preimages rather than images. Preimages respect every set operation, and images do not. The identities
 
 $$f^{-1}(B^c) = \big(f^{-1}(B)\big)^c, \qquad f^{-1}\Big(\bigcup_n B_n\Big) = \bigcup_n f^{-1}(B_n)$$
 
-always hold. For images both can fail. So pulling a $\sigma$-algebra back through a function yields a $\sigma$-algebra; pushing one forward does not. Measurability has to be phrased in the direction that preserves the structure.
+hold for every function $f$. The image version of the first one fails unless $f$ is both one-to-one and onto. If $f$ is constant, for example, the image of any non-empty set is the same single point, so the image of a complement is not the complement of the image. As a result, pulling a $\sigma$-algebra back through a function always gives a $\sigma$-algebra, while pushing one forward need not. Measurability is stated in the direction that preserves the structure.
 
-That same fact gives the practical test. The collection $\{B \subseteq Y : f^{-1}(B) \in \mathcal{A}\}$ is itself a $\sigma$-algebra, so if it contains a generating family it contains everything generated. For a real-valued function you therefore only need
+The same fact gives a practical test. The collection $\{B \subseteq V : f^{-1}(B) \in \mathcal{U}\}$ is itself a $\sigma$-algebra. If it contains a generating family, it contains the whole $\sigma$-algebra that family generates. For a real-valued function, the rays generate $\mathcal{B}(\mathbb{R})$ ([Section C](#app-c)), so it is enough to check
 
-$$\{f \le a\} = f^{-1}\big((-\infty, a]\big) \in \mathcal{A} \qquad \text{for every } a \in \mathbb{R},$$
+$$\{f \le a\} = f^{-1}\big((-\infty, a]\big) \in \mathcal{U} \qquad \text{for every } a \in \mathbb{R}.$$
 
-and Borel measurability follows. This is why measurability is almost never an obstacle in practice: every continuous function is Borel measurable, and the measurable functions are closed under sums, products, compositions with measurable maps, suprema and infima of countable families, and pointwise limits. The class is stable enough that anything you construct by ordinary means stays inside it.
+Borel measurability then follows. In practice, measurability rarely gets in the way. Every continuous function is Borel measurable. Measurable functions stay measurable under sums, products, composition with measurable maps, countable suprema and infima, and pointwise limits. Anything built by ordinary means stays measurable.
 
-> A random variable is not a variable and it does not vary. It is a deterministic function $X : \Omega \to E$, fixed once and for all. The only thing that varies is which $\omega$ was drawn. The name is a historical accident from before the measure-theoretic foundation, and it is responsible for a large share of the confusion beginners have with the subject.
+> The name *random variable* is historical and misleading. A random variable is a fixed, deterministic function $X : \Omega \to E$. The randomness lies entirely in which outcome $\omega$ is drawn. The name predates the measure-theoretic foundation, and it causes much of the early confusion in the subject.
 
-**Doob–Dynkin: information, made concrete.** The claim that $\sigma(X)$ "is the information in $X$" is not a metaphor. For real-valued $X$ and $Y$, the random variable $Y$ is $\sigma(X)$-measurable *if and only if* $Y = g(X)$ for some measurable $g$. Being measurable with respect to the $\sigma$-algebra generated by $X$ is exactly the same as being computable from $X$ ([Kallenberg, 2021](https://doi.org/10.1007/978-3-030-61871-1){target="_blank"}). Applied to a filtration: adapted means each $X_t$ is a function of what has already been observed.
+**Doob–Dynkin lemma: information as computability.** [Section C](#app-c) called $\sigma(X)$ the information in $X$. The Doob–Dynkin lemma makes that statement exact. For a random variable $X$ with values in any measurable space $(E, \mathcal{E})$ and a real-valued $Y$, $Y$ is $\sigma(X)$-measurable if and only if $Y = g(X)$ for some measurable function $g : E \to \mathbb{R}$ ([Kallenberg, 2021](https://doi.org/10.1007/978-3-030-61871-1){target="_blank"}). Measurability with respect to the $\sigma$-algebra generated by $X$ means exactly "computable from $X$." To apply the lemma to the natural filtration, take $X$ to be the whole observed stretch of path $(X_s)_{s \le t}$. It is a random element of a path space, and the $\sigma$-algebra it generates is $\mathcal{F}_t^X$ ([Section K](#app-k)). So a real-valued $\mathcal{F}_t^X$-measurable quantity is a function of the observed values $X_s$ for $s \le t$. That is the precise sense of "known at time $t$" in [§8](#filtrations).
+
+Part I treats each $X_t$ as a random variable in this sense ([§1](#definition), [§5](#measurability)).
 
 ---
 
 ## H. Distributions: pushing $\mathbb{P}$ forward, and forgetting $\Omega$ {#app-h}
 
-A random variable transports the probability measure from $\Omega$ over to the state space.
+A random variable carries the probability measure from $\Omega$ over to the state space.
 
-**Definition — law / pushforward.** The **law** (or distribution) of $X$ is the measure $\mu_X = \mathbb{P} \circ X^{-1}$ on $(E, \mathcal{E})$, that is
+**Definition: law, or pushforward.** The **law** of $X$, also called its **distribution**, is the measure $\mu_X = \mathbb{P} \circ X^{-1}$ on $(E, \mathcal{E})$:
 
 $$\mu_X(B) = \mathbb{P}\big(X^{-1}(B)\big) = \mathbb{P}(X \in B).$$
 
-Measurability of $X$ is precisely what makes this well defined, and $\mu_X$ is again a probability measure.
+The law gives each set of values $B$ the probability of the outcomes that land in it. Measurability of $X$ makes this well defined, and $\mu_X$ is again a probability measure.
 
-Note what the law throws away: everything about $\Omega$. Two random variables defined on completely different probability spaces can have identical laws, and no statement phrased in terms of distributions can tell them apart. This is the practical reason nobody specifies $\Omega$ — a fair coin flip modelled on $\{H, T\}$ and one modelled on $[0,1]$ with Lebesgue measure are indistinguishable for every purpose that only involves the law.
+The law discards everything about $\Omega$. Two random variables on completely different probability spaces can have the same law, and no statement about distributions can tell them apart. For example, a fair coin can be modeled on $\{0, 1\}$, or on $[0,1]$ with Lebesgue measure as $\mathbb{1}\{\omega \le \tfrac12\}$. The two models have the same law and serve every purpose that depends only on the law. Models rarely specify $\Omega$ explicitly for this reason. [§7](#fdd) applies the same idea to a whole process, whose law is a measure on the path space $E^T$.
 
-On $\mathbb{R}$ the law is encoded by the **cumulative distribution function** $F(a) = \mu_X((-\infty, a])$. Because the rays generate $\mathcal{B}(\mathbb{R})$ and form a $\pi$-system, agreeing on them forces agreement everywhere: the CDF determines the law completely.
+On $\mathbb{R}$, the **cumulative distribution function** $F_X(a) = \mu_X((-\infty, a])$ encodes the law. The rays $(-\infty, a]$ generate $\mathcal{B}(\mathbb{R})$, and the intersection of two rays is again a ray; a family closed under intersection in this way is a **$\pi$-system**. A uniqueness theorem says that two probability measures that agree on a $\pi$-system agree on the whole $\sigma$-algebra it generates. So the CDF determines the law.
 
-Densities are the same story told against a reference measure. If $\mu_X$ is absolutely continuous with respect to a $\sigma$-finite $\nu$ — meaning $\nu(B) = 0$ forces $\mu_X(B) = 0$, written $\mu_X \ll \nu$ — the **Radon–Nikodym theorem** supplies a density $f$ with
+A density describes a law relative to a reference measure $\nu$ on $E$. Suppose $\nu$ is **$\sigma$-finite**, meaning $E$ is a countable union of sets of finite $\nu$-measure. Suppose also that $\mu_X$ is **absolutely continuous** with respect to $\nu$, written $\mu_X \ll \nu$: every $\nu$-null set is also $\mu_X$-null. The **Radon–Nikodym theorem** then supplies a density $f$ with
 
-$$\mu_X(B) = \int_B f \, d\nu.$$
+$$\mu_X(B) = \int_B f \, d\nu \qquad \text{for every } B \in \mathcal{E}.$$
 
-Take $\nu$ = Lebesgue and $f$ is the probability density function; take $\nu$ = counting measure and $f$ is the probability mass function. The textbook split between "continuous" and "discrete" random variables is nothing more than a choice of reference measure, which is why the two theories are word-for-word identical.
+The density converts the reference measure into the law, one set at a time ([Section I](#app-i) defines the integral). With $\nu$ equal to Lebesgue measure, $f$ is the probability density function. With $\nu$ equal to counting measure on a countable $E$, $f$ is the probability mass function. The countability matters, because counting measure is $\sigma$-finite only on a countable set. The textbook split between continuous and discrete random variables is a choice of reference measure, and the two theories are one theory with different $\nu$.
 
 ---
 
 ## I. Integration and expectation {#app-i}
 
-The Lebesgue integral is built in four stages, each extending the previous one.
+The integral averages a function against a measure, and expectation is the integral against a probability measure. The Lebesgue integral is built in four stages. Each stage extends the previous one to a larger class of functions.
 
-1. **Indicators.** $\int \mathbb{1}_A \, d\mu = \mu(A)$. The integral *is* the measure, restated.
-2. **Simple functions** — finite combinations $\sum_i c_i \mathbb{1}_{A_i}$ — integrate to $\sum_i c_i \mu(A_i)$, and one checks this does not depend on the representation.
-3. **Non-negative measurable $f$:** $\int f \, d\mu = \sup\{\int s \, d\mu : s \text{ simple}, \, 0 \le s \le f\}$, allowed to be $+\infty$.
-4. **General $f$:** split $f = f^+ - f^-$ and subtract, provided both parts are finite — that is, provided $\int |f| \, d\mu < \infty$.
+1. **Indicators.** The indicator $\mathbb{1}_A$ of a measurable set $A$ equals 1 on $A$ and 0 elsewhere, and $\int \mathbb{1}_A \, d\mu = \mu(A)$. Integrating an indicator returns the measure of its set.
+2. **Simple functions.** A simple function is a finite combination $\varphi = \sum_i c_i \mathbb{1}_{A_i}$ of indicators of measurable sets $A_i$, with constants $c_i \ge 0$, and its integral is $\sum_i c_i \mu(A_i)$. One checks that the value does not depend on how $\varphi$ is written.
+3. **Non-negative measurable $f$.** $\int f \, d\mu = \sup\{\int \varphi \, d\mu : \varphi \text{ simple}, \, 0 \le \varphi \le f\}$. The integral is the best approximation from below by simple functions, and it may be $+\infty$.
+4. **General $f$.** Split $f = f^+ - f^-$ into its positive and negative parts, $f^+ = \max(f, 0)$ and $f^- = \max(-f, 0)$, and set $\int f \, d\mu = \int f^+ \, d\mu - \int f^- \, d\mu$. Both parts must be finite, which holds exactly when $\int |f| \, d\mu < \infty$.
 
-Expectation is this integral with $\mu = \mathbb{P}$:
+An integral over a measurable set $A$ restricts the function to that set: $\int_A f \, d\mu = \int f \mathbb{1}_A \, d\mu$. [Section H](#app-h) and [Section J](#app-j) use this form.
 
-$$\mathbb{E}[X] = \int_\Omega X(\omega) \, \mathbb{P}(d\omega)$$
+**Expectation** is this integral with $\mu = \mathbb{P}$:
 
-— an average over outcomes, each weighted by its probability. And the **change-of-variables** formula moves the computation to where the data actually lives:
+$$\mathbb{E}[X] = \int_\Omega X(\omega) \, \mathbb{P}(d\omega).$$
 
-$$\int_\Omega g(X) \, d\mathbb{P} = \int_E g \, d\mu_X,$$
+The expectation averages $X$ over outcomes, with $\mathbb{P}$ supplying the weights. As [Section A](#app-a) requires, the weights attach to sets of outcomes, through the simple functions of stage 2, rather than to single outcomes. The **change-of-variables formula** moves the computation from $\Omega$ to the state space, where the law lives:
 
-which is why you can evaluate $\mathbb{E}[g(X)]$ from a density or a mass function alone and never think about $\Omega$ again.
+$$\int_\Omega g(X) \, d\mathbb{P} = \int_E g \, d\mu_X.$$
 
-> The reason to prefer Lebesgue over Riemann is not exotic sets — it is limits. Riemann integration is not closed under pointwise limits: a pointwise limit of Riemann-integrable functions need not be Riemann integrable. Lebesgue's theory supports monotone convergence, Fatou's lemma, and dominated convergence, each letting you exchange a limit with an integral under weak hypotheses. Since probability is almost entirely about limits of sequences of random variables, this is not a refinement — it is the reason the foundation was rebuilt.
+It holds for every measurable $g : E \to \mathbb{R}$ that is non-negative or satisfies $\mathbb{E}|g(X)| < \infty$. The formula is why $\mathbb{E}[g(X)]$ can be computed from a density or a mass function alone, without reference to $\Omega$. When $\mu_X$ has density $f$ with respect to $\nu$ ([Section H](#app-h)), the right side becomes $\int_E g f \, d\nu$: the familiar $\int g(x) f(x) \, dx$ for Lebesgue measure, and the sum $\sum_x g(x) f(x)$ for counting measure. A Monte Carlo estimate approximates the left side directly: it averages $g(X(\omega))$ over many simulated outcomes. The mean of a slice in [§6](#readings) is an expectation in this sense.
+
+> Lebesgue integration replaced Riemann integration because of limits. A pointwise limit of Riemann-integrable functions need not be Riemann integrable. The indicator of the rationals in $[0,1]$ is the pointwise limit of indicators of finite sets, each with Riemann integral zero, yet it has no Riemann integral; its Lebesgue integral is zero. Lebesgue's theory provides monotone convergence, for non-negative functions that increase to a limit, and dominated convergence, for functions bounded in absolute value by one integrable function. Each lets a limit and an integral be exchanged. Fatou's lemma covers other non-negative sequences with an inequality: the integral of the limit inferior is at most the limit inferior of the integrals. Probability works mostly with limits of sequences of random variables, and these theorems are the main reason its foundation moved to measure theory.
 
 ---
 
 ## J. Independence and conditioning {#app-j}
 
-Events $A, B$ are **independent** when $\mathbb{P}(A \cap B) = \mathbb{P}(A)\mathbb{P}(B)$. Sub-$\sigma$-algebras $\mathcal{G}, \mathcal{H} \subseteq \mathcal{F}$ are independent when that holds for every $A \in \mathcal{G}$ and $B \in \mathcal{H}$, and random variables are independent when the $\sigma$-algebras they generate are. Note that independence is a property of the *measure*, not of the sets: the same two events can be independent under one $\mathbb{P}$ and dependent under another. It is a numerical coincidence promoted to a definition, not a structural feature.
+Independence says that learning one event does not change the probability of another. Conditioning says how to update an estimate when partial information arrives.
 
-Conditioning is where the information reading earns its keep. Conditional expectation given an event is elementary; conditional expectation given a $\sigma$-algebra is the object the theory actually uses.
+Events $A$ and $B$ are **independent** when $\mathbb{P}(A \cap B) = \mathbb{P}(A)\mathbb{P}(B)$. Two sub-$\sigma$-algebras $\mathcal{G}, \mathcal{H} \subseteq \mathcal{F}$ are independent when this holds for every $A \in \mathcal{G}$ and $B \in \mathcal{H}$. Random variables are independent when the $\sigma$-algebras they generate are independent.
 
-**Definition — conditional expectation.** For integrable $X$ and a sub-$\sigma$-algebra $\mathcal{G} \subseteq \mathcal{F}$, $\mathbb{E}[X \mid \mathcal{G}]$ is *any* random variable $Z$ that is
+Independence is a property of the measure, not of the sets. The same two events can be independent under one $\mathbb{P}$ and dependent under another. "The first flip is heads" and "the second flip is heads" are independent for fair, independent coins, and dependent under a measure in which the second flip tends to repeat the first.
+
+Conditioning uses the information reading of $\sigma$-algebras ([Section B](#app-b)). Conditional expectation given a single event $A$ with $\mathbb{P}(A) > 0$ is elementary: $\mathbb{E}[X \mid A] = \mathbb{E}[X \mathbb{1}_A] / \mathbb{P}(A)$, the average of $X$ over $A$. The theory uses conditional expectation given a $\sigma$-algebra, which applies that idea to every event the $\sigma$-algebra resolves at once.
+
+**Definition: conditional expectation.** For an integrable $X$ and a sub-$\sigma$-algebra $\mathcal{G} \subseteq \mathcal{F}$, $\mathbb{E}[X \mid \mathcal{G}]$ is *any* random variable $Z$ that is
 
   (i) $\mathcal{G}$-measurable, and
   (ii) satisfies $\int_G Z \, d\mathbb{P} = \int_G X \, d\mathbb{P}$ for every $G \in \mathcal{G}$.
 
-Such a $Z$ exists and is unique up to a null set, by Radon–Nikodym.
+Such a $Z$ exists and is unique up to a null set. The Radon–Nikodym theorem ([Section H](#app-h)) supplies it. For non-negative $X$, the map $G \mapsto \int_G X \, d\mathbb{P}$ is a measure on $\mathcal{G}$ that is absolutely continuous with respect to $\mathbb{P}$ restricted to $\mathcal{G}$. Its density is $\mathcal{G}$-measurable and satisfies clause (ii), so it is $Z$. A general $X$ is handled through its positive and negative parts.
 
-Read the two clauses. The first says the answer may only use information available in $\mathcal{G}$ — you are not allowed to peek. The second says that on every set $\mathcal{G}$ can resolve, the answer has the same total mass as $X$ itself — it gets the averages right at the resolution available. Together: $\mathbb{E}[X \mid \mathcal{G}]$ is the best estimate of $X$ using only what $\mathcal{G}$ knows. For square-integrable $X$ this is literally an orthogonal projection onto the subspace of $\mathcal{G}$-measurable functions.
+The two clauses have plain meanings. Clause (i) says the answer may use only the information in $\mathcal{G}$. Clause (ii) says that on every event $\mathcal{G}$ can resolve, the answer has the same integral as $X$, so it gets the averages right at the available resolution. Together they make $\mathbb{E}[X \mid \mathcal{G}]$ the best estimate of $X$ that uses only what $\mathcal{G}$ knows. For a square-integrable $X$, meaning $\mathbb{E}[X^2] < \infty$, "best" has an exact meaning. Take the inner product of two square-integrable random variables to be the expectation of their product. $\mathbb{E}[X \mid \mathcal{G}]$ is then the orthogonal projection of $X$ onto the square-integrable $\mathcal{G}$-measurable random variables, so it has the smallest mean squared error among them.
 
-Note that $\mathbb{E}[X \mid \mathcal{G}]$ is a random variable, not a number — it still depends on $\omega$, just at coarser resolution. That is what makes the **martingale** condition
+In the two-coin example of [Section B](#app-b), let the flips be fair and independent, so each outcome has probability $\tfrac14$. Let $X$ be the number of heads and take $\mathcal{G} = \mathcal{F}_1$. On the block $\{\mathrm{HH}, \mathrm{HT}\}$, $X$ equals 2 or 1 with equal probability, so its average there is 1.5. On $\{\mathrm{TH}, \mathrm{TT}\}$ the average is 0.5. So $\mathbb{E}[X \mid \mathcal{F}_1]$ equals 1.5 on the outcomes where the first flip is heads and 0.5 where it is tails.
 
-$$\mathbb{E}[X_t \mid \mathcal{F}_s] = X_s \qquad (s \le t)$$
+$\mathbb{E}[X \mid \mathcal{G}]$ is a random variable, not a number. It still depends on $\omega$, at the coarser resolution of $\mathcal{G}$; in the example, it takes one value on each block of the partition. That property lets the **martingale** condition describe a process. An adapted, integrable process is a martingale when
 
-a statement about processes: given everything known at time $s$, the best forecast of the future value is the present one.
+$$\mathbb{E}[X_t \mid \mathcal{F}_s] = X_s \qquad \text{for all } s \le t.$$
+
+In words: given everything known at time $s$, the best forecast of the value at time $t$ is the value at time $s$. [§8](#filtrations) names martingales among the objects built on adaptedness.
 
 ---
 
 ## K. Product spaces {#app-k}
 
-Given $(X, \mathcal{A}, \mu)$ and $(Y, \mathcal{B}, \nu)$, the **product $\sigma$-algebra** $\mathcal{A} \otimes \mathcal{B}$ is generated by the rectangles $A \times B$, and for $\sigma$-finite measures there is a unique product measure with $(\mu \otimes \nu)(A \times B) = \mu(A)\nu(B)$. **Fubini–Tonelli** then licenses swapping the order of a double integral — for non-negative integrands unconditionally, and in general once absolute integrability holds.
+A product space puts two measurable spaces side by side. Given $(U, \mathcal{U}, \mu)$ and $(V, \mathcal{V}, \nu)$, the **product $\sigma$-algebra** $\mathcal{U} \otimes \mathcal{V}$ is the $\sigma$-algebra on $U \times V$ generated by the rectangles $A \times B$ with $A \in \mathcal{U}$ and $B \in \mathcal{V}$. When $\mu$ and $\nu$ are $\sigma$-finite, exactly one **product measure** $\mu \otimes \nu$ satisfies $(\mu \otimes \nu)(A \times B) = \mu(A)\nu(B)$. The **Fubini–Tonelli theorem** then permits swapping the order of a double integral: always for non-negative integrands, and for general integrands once the absolute value is integrable.
 
-Two places in Part I quietly depended on this construction.
+Part I relied on this construction in two places.
 
-- **Joint measurability.** Saying $(t, \omega) \mapsto X_t(\omega)$ is measurable requires a $\sigma$-algebra on $T \times \Omega$, and the product $\sigma$-algebra is it. Only then can you integrate along a path, which is what stochastic integration and occupation-time arguments need.
-- **Path space.** The law of the whole process lives on $E^T$ with the product $\sigma$-algebra, generated by **cylinder sets** — sets that constrain the path at finitely many indices only.
+- **Joint measurability ([§5](#measurability)).** To call $(t, \omega) \mapsto X_t(\omega)$ measurable, $T \times \Omega$ needs a $\sigma$-algebra. The standard choice is the product of the Borel $\sigma$-algebra on $T$ with $\mathcal{F}$. Joint measurability lets Fubini–Tonelli exchange a time integral with an expectation, as in $\mathbb{E}\big[\int_0^1 X_t \, dt\big] = \int_0^1 \mathbb{E}[X_t] \, dt$, for non-negative $X$ or when $\mathbb{E}\big[\int_0^1 |X_t| \, dt\big] < \infty$. Occupation-time arguments, which measure how long a path spends in a set of values, need it. Stochastic integration needs it too, in a stronger form that also respects the filtration.
+- **Path space ([§7](#fdd)).** The law of the whole process lives on $E^T$ with the product $\sigma$-algebra. This $\sigma$-algebra is generated by the **cylinder sets**: sets of paths that constrain the value at finitely many indices only, such as $\{x \in E^T : x(t_1) \in B_1, \dots, x(t_n) \in B_n\}$. A cylinder set is a finite intersection of sets of the form $\{x : x(t) \in B\}$, so the product $\sigma$-algebra is also the smallest one for which every coordinate map $x \mapsto x(t)$ is measurable. Two consequences follow. The map $\omega \mapsto (X_t(\omega))_{t \in T}$ is measurable exactly when every $X_t$ is, so a process is the same thing as a random element of $E^T$. And the $\sigma$-algebra that random element generates is $\sigma(X_t : t \in T)$.
 
-> This is the technical reason the finite-dimensional distributions determine the law: the fdds are exactly the measures of cylinder sets, and cylinders generate the product $\sigma$-algebra. It is also the reason path properties escape. The set of continuous paths constrains uncountably many coordinates at once and is *not* in the product $\sigma$-algebra — so "the process has continuous paths" is not an event there, and continuity has to be obtained by choosing a good modification rather than by computing a probability.
+> This construction explains both results of [§7](#fdd). The finite-dimensional distributions are exactly the probabilities of cylinder sets, and the cylinder sets generate the product $\sigma$-algebra. The intersection of two cylinder sets is again a cylinder set, so the cylinder sets form a $\pi$-system. By the uniqueness theorem of [Section H](#app-h), the finite-dimensional distributions therefore determine the law.
+>
+> Path properties escape for a related reason. Every event in the product $\sigma$-algebra depends on the path at only countably many indices. The sets with that property form a $\sigma$-algebra, because a countable union of countable index sets is countable, and that $\sigma$-algebra contains every cylinder set. So it contains the whole product $\sigma$-algebra. When $T$ is an interval, no countable set of indices can decide continuity: any countable set of values is consistent with both a continuous path and a discontinuous one. So the set of continuous paths is not in the product $\sigma$-algebra. "The process has continuous paths" is therefore not an event there. Continuity has to come from choosing a good modification, not from computing a probability.
 
 ```{=latex}
 \newpage
@@ -703,43 +898,44 @@ Two places in Part I quietly depended on this construction.
 | Symbol | Name | Read it as |
 |---|---|---|
 | $\Omega$ | Sample space | The set of complete outcomes; one $\omega$ is one whole history |
-| $\mathcal{F}$ | $\sigma$-algebra | The events we may assign probability to — equivalently, the information available |
-| $\mathbb{P}$ | Probability measure | Countably additive size on $\mathcal{F}$, normalized so $\mathbb{P}(\Omega) = 1$ |
-| $(X, \mathcal{A})$ | Measurable space | A set plus its legal subsets; no numbers yet |
-| $(X, \mathcal{A}, \mu)$ | Measure space | The above, plus sizes in $[0, \infty]$ |
-| $\mathcal{B}(\mathbb{R})$ | Borel $\sigma$-algebra | Generated by the open sets — the default measurable subsets of $\mathbb{R}$ |
-| $\sigma(\mathcal{C})$ | Generated $\sigma$-algebra | Smallest $\sigma$-algebra containing $\mathcal{C}$ |
-| $\sigma(X)$ | $\sigma$-algebra of $X$ | $X^{-1}(\mathcal{E})$ — everything computable from observing $X$ |
+| $\mathcal{F}$ | $\sigma$-algebra | The events that receive a probability; equivalently, the information available |
+| $\mathbb{P}$ | Probability measure | A countably additive size on $\mathcal{F}$, normalized so that $\mathbb{P}(\Omega) = 1$ |
+| $(U, \mathcal{U})$ | Measurable space | A set plus its legal subsets; no numbers yet |
+| $(U, \mathcal{U}, \mu)$ | Measure space | A measurable space plus sizes in $[0, \infty]$ |
+| $\mathcal{B}(\mathbb{R})$ | Borel $\sigma$-algebra | Generated by the open sets; the default measurable subsets of $\mathbb{R}$ |
+| $\sigma(\mathcal{C})$ | Generated $\sigma$-algebra | The smallest $\sigma$-algebra containing $\mathcal{C}$ |
+| $\sigma(X)$ | $\sigma$-algebra of $X$ | $\{X^{-1}(B) : B \in \mathcal{E}\}$; the events settled by observing $X$ |
 | $X : \Omega \to E$ | Random variable | A measurable function; deterministic, with $\omega$ the only thing that varies |
-| $\mu_X = \mathbb{P} \circ X^{-1}$ | Law / distribution | $\mathbb{P}$ pushed onto the state space; forgets $\Omega$ entirely |
-| $\mathbb{E}[X] = \int X \, d\mathbb{P}$ | Expectation | Average over outcomes weighted by probability |
-| $\mathbb{E}[X \mid \mathcal{G}]$ | Conditional expectation | Best estimate of $X$ using only what $\mathcal{G}$ resolves; itself random |
-| $(\mathcal{F}_t)_{t \in T}$ | Filtration | Information increasing with time; $\mathcal{F}_s \subseteq \mathcal{F}_t$ for $s \le t$ |
+| $\mu_X = \mathbb{P} \circ X^{-1}$ | Law, or distribution | $\mathbb{P}$ pushed onto the state space; forgets $\Omega$ entirely |
+| $\mathbb{E}[X] = \int X \, d\mathbb{P}$ | Expectation | The average over outcomes, weighted by probability |
+| $\mathbb{E}[X \mid \mathcal{G}]$ | Conditional expectation | The best estimate of $X$ using only what $\mathcal{G}$ resolves; itself random |
+| $(\mathcal{F}_t)_{t \in T}$ | Filtration | Information growing with time; $\mathcal{F}_s \subseteq \mathcal{F}_t$ for $s \le t$ |
 | a.s. | Almost surely | True outside a set of probability zero |
-| $\mu \ll \nu$ | Absolute continuity | $\nu$-null implies $\mu$-null; the condition for a density to exist |
+| $\mu \ll \nu$ | Absolute continuity | Every $\nu$-null set is $\mu$-null; for $\sigma$-finite $\nu$, the condition for a density to exist |
 
 ---
 
 ## Further reading {#further-reading}
 
-Everything above is standard material; none of it is mine. What follows is where to
-go for the proofs, ordered roughly by how much measure theory they assume.
+All of the material in this chapter is standard. The texts below supply the proofs, ordered roughly by how much measure theory they assume.
 
 **The measure-theoretic foundation.**
 
-- **Williams, D. (1991).** [*Probability with Martingales.*](https://doi.org/10.1017/CBO9780511813658) Cambridge University Press. — The gentlest serious entry point, and the one to read if Part II moved too fast. Builds $\sigma$-algebras, measure, integration and conditional expectation in about a hundred pages, then spends the rest on discrete-time martingales.
-- **Billingsley, P. (2012).** [*Probability and Measure*, Anniversary ed.](https://www.wiley.com/en-us/Probability+and+Measure,+Anniversary+Edition-p-9781118122372) Wiley. [[paywalled]] — The standard graduate reference for the measure theory itself. Slower and more complete than Williams; the place to look when you want a construction rather than a statement.
-- **Durrett, R. (2019).** [*Probability: Theory and Examples*, 5th ed.](https://sites.math.duke.edu/~rtd/PTE/pte.html) Cambridge University Press. — Covers the same ground and then continues into Brownian motion and martingales. The author posts the full text free, which makes it the most practical of the three to keep open while reading.
+- **Williams, D. (1991).** [*Probability with Martingales.*](https://doi.org/10.1017/CBO9780511813658) Cambridge University Press. — The gentlest serious entry point, and the one to read if Part II moved too fast. It builds $\sigma$-algebras, measure, integration, and conditional expectation in about a hundred pages, then spends the rest on discrete-time martingales.
+- **Billingsley, P. (2012).** [*Probability and Measure*, Anniversary ed.](https://www.wiley.com/en-us/Probability+and+Measure,+Anniversary+Edition-p-9781118122372) Wiley. [[paywalled]] — The standard graduate reference for the measure theory itself. Slower and more complete than Williams, and the place to look for a construction rather than a statement.
+- **Durrett, R. (2019).** [*Probability: Theory and Examples*, 5th ed.](https://sites.math.duke.edu/~rtd/PTE/pte.html) Cambridge University Press. — Covers the same ground, then continues into Brownian motion and martingales. The author posts the full text free, which makes it the most practical of the three to keep open while reading.
 
 **Processes proper.**
 
-- **Çınlar, E. (2011).** [*Probability and Stochastics.*](https://doi.org/10.1007/978-0-387-87859-1) Springer, Graduate Texts in Mathematics 261. [[paywalled]] — Written from the process point of view from the first page rather than arriving at processes after a measure-theory course. The closest match in spirit to how this document frames the definition.
-- **Kallenberg, O. (2021).** [*Foundations of Modern Probability*, 3rd ed.](https://doi.org/10.1007/978-3-030-61871-1) Springer. [[paywalled]] — The comprehensive reference. Terse to the point of being unreadable as a first text, and the right place to find the Kolmogorov extension theorem ([§7](#fdd)), the Kolmogorov–Chentsov continuity criterion, and Doob–Dynkin ([§G](#app-g)) stated in their general forms.
-- **Øksendal, B. (2003).** [*Stochastic Differential Equations: An Introduction with Applications*, 6th ed.](https://doi.org/10.1007/978-3-642-14394-6) Springer. [[paywalled]] — Where to go once the objects here are in place and you want the Itô calculus built on them. Deliberately light on measure-theoretic detail, which is a feature after Part II.
+- **Çınlar, E. (2011).** [*Probability and Stochastics.*](https://doi.org/10.1007/978-0-387-87859-1) Springer, Graduate Texts in Mathematics 261. [[paywalled]] — Written from the point of view of processes from the first page, rather than reaching processes after a measure-theory course. The closest match to how this chapter frames the definition.
+- **Kallenberg, O. (2021).** [*Foundations of Modern Probability*, 3rd ed.](https://doi.org/10.1007/978-3-030-61871-1) Springer. [[paywalled]] — The comprehensive reference. Too terse for a first reading, and the right place to find the Kolmogorov extension theorem ([§7](#fdd)), the Kolmogorov–Chentsov continuity criterion, and the Doob–Dynkin lemma ([Section G](#app-g)) in their general forms.
+- **Øksendal, B. (2003).** [*Stochastic Differential Equations: An Introduction with Applications*, 6th ed.](https://doi.org/10.1007/978-3-642-14394-6) Springer. [[paywalled]] — The next step once the objects here are in place: the Itô calculus built on them. Deliberately light on measure-theoretic detail, which suits a reader who has finished Part II.
 
 **The historical source.**
 
-- **Kolmogorov, A. N. (1933).** [*Grundbegriffe der Wahrscheinlichkeitsrechnung*](https://archive.org/details/kolmogorov_202112) (trans. *Foundations of the Theory of Probability*, Chelsea, 1956). Springer. — The monograph that made probability a branch of measure theory, and the source of the axioms in [§F](#app-f). Short, and more readable than its reputation suggests; the definition this whole document unpacks is essentially on its first few pages.
+- **Kolmogorov, A. N. (1933).** [*Grundbegriffe der Wahrscheinlichkeitsrechnung*](https://archive.org/details/kolmogorov_202112) (trans. *Foundations of the Theory of Probability*, Chelsea, 1956). Springer. — The monograph that made probability a branch of measure theory, and the source of the axioms in [Section F](#app-f). Short, and more readable than its reputation suggests.
+
+**If you only read these.** Recommendation: [Williams (1991)](https://doi.org/10.1017/CBO9780511813658){target="_blank"} for the foundation, then [Çınlar (2011)](https://doi.org/10.1007/978-0-387-87859-1){target="_blank"} for processes. [Durrett (2019)](https://sites.math.duke.edu/~rtd/PTE/pte.html){target="_blank"} is the free alternative to both.
 
 ---
 

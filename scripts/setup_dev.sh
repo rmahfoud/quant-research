@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Installs tools needed to render these docs
-# (pandoc, mermaid-filter, rsvg-convert, TeX, uv).
+# (pandoc, mermaid-filter, MathJax, rsvg-convert, TeX, uv).
 
 QR_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$QR_DIR"
@@ -59,7 +59,9 @@ if ! command -v uv >/dev/null 2>&1; then
     export PATH="${HOME}/.local/bin:${PATH}"
 fi
 
-npm install -g mermaid-filter
+# MathJax draws the e-book's equations (render_epub.py). Pinned: a different
+# version redraws every equation, so the rebuilt EPUB would differ byte-wise.
+npm install -g mermaid-filter mathjax@4.1.3
 
 if is_mac && [[ -d /Library/TeX/texbin ]]; then
     echo "Note: ensure /Library/TeX/texbin is on your PATH (open a new shell if needed)."

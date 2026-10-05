@@ -45,7 +45,7 @@ The whole collection is also published as one EPUB book for e-readers, in chapte
 python3 scripts/render_epub.py [--force]
 ```
 
-Output lands in `docs/quant_research.epub`. It is rebuilt only when a chapter, the index, a figure or the e-book build itself is newer than it (`--force` rebuilds anyway), and the build is reproducible, so a rebuild from unchanged sources leaves the file byte-identical. Equations are MathML, figures SVG and mermaid diagrams PNG.
+Output lands in `docs/quant_research.epub`. It is rebuilt only when a chapter, the index, a figure or the e-book build itself is newer than it (`--force` rebuilds anyway), and the build is reproducible, so a rebuild from unchanged sources leaves the file byte-identical. Figures are SVG and mermaid diagrams PNG. Equations avoid MathML, which many e-readers (Google Play Books among them) cannot lay out: simple inline math is set as text, so it follows the reader's font and night theme, and the rest becomes SVG drawn by MathJax, as on the site.
 
 Each document opens with a YAML front-matter block (`pagetitle`, `description`, `keywords`, `author`, `lang`). Pandoc turns it into the page title, meta description and PDF document properties. [`scripts/og_cards.py`](https://github.com/rmahfoud/quant-research/blob/master/scripts/og_cards.py) then draws the document's share card (`docs/og/<doc>.png`, the image a pasted link previews with) from its title and subtitle, and [`scripts/inject_seo.py`](https://github.com/rmahfoud/quant-research/blob/master/scripts/inject_seo.py) adds the canonical URL, Open Graph tags, JSON-LD and `docs/sitemap.xml`.
 

@@ -842,7 +842,7 @@ There is a twist with no counterpart in the main document. Monthly momentum is n
 
 **In the main document.** Machine learning in a low-signal setting; order-book tensors for intraday prediction (section 4.9 of the [main document](momentum_deep_dive.html#machine-learning-feature-representations)).
 
-**Inside the day.** The features that the evidence supports are few: time of day, the day's return so far and its components, the day-level state (overnight gap, opening range, realised volatility), flow proxies (dealers' gamma, leveraged-ETF assets, published closing imbalances) and the event calendar. The labels are the return to the close, or over the last half hour. The dangerous part is validation. Bars from the same day are strongly dependent through the day's shared state, so cross-validation that shuffles bars leaks information between training and test sets. Purge and embargo by *day* (section 10.3 of [Market Regimes](market_regimes.html#cross-validation-design) covers the machinery).
+**Inside the day.** The features that the evidence supports are few: time of day, the day's return so far and its components, the day-level state (overnight gap, opening range, realised volatility), flow proxies (dealers' gamma, leveraged-ETF assets, published closing imbalances) and the event calendar. The labels are the return to the close, or over the last half hour. The dangerous part is validation. Bars from the same day are strongly dependent through the day's shared state, so cross-validation that shuffles bars leaks information between training and test sets. Purge and embargo by *day* (section 11.3 of [Market Regimes](market_regimes.html#cross-validation-design) covers the machinery).
 
 **Evidence.** The published intraday momentum effects are low-dimensional and conditional; nothing in §4 suggests that a high-capacity model would find a large effect a regression misses, outside order-book prediction at horizons of seconds.
 
@@ -1756,7 +1756,7 @@ and tests whether its mean is positive with a one-sided $t$-test; the subtracted
 
 **Why it appears here.** §5.9: intraday bars must be purged by day.
 
-**Deeper.** [López de Prado (2018)](https://www.wiley.com/en-us/Advances+in+Financial+Machine+Learning-p-9781119482086){target="_blank"}, *Advances in Financial Machine Learning*, chapter 7; section 10.3 of [Market Regimes](market_regimes.html#cross-validation-design).
+**Deeper.** [López de Prado (2018)](https://www.wiley.com/en-us/Advances+in+Financial+Machine+Learning-p-9781119482086){target="_blank"}, *Advances in Financial Machine Learning*, chapter 7; section 11.3 of [Market Regimes](market_regimes.html#cross-validation-design).
 
 ---
 

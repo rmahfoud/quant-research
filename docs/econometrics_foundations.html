@@ -19,7 +19,7 @@ inference, regression, time series" />
 <meta property="og:url" content="https://rmahfoud.github.io/quant-research/econometrics_foundations.html" />
 <meta property="og:locale" content="en_US" />
 <meta property="article:published_time" content="2026-09-18" />
-<meta property="article:modified_time" content="2026-10-04" />
+<meta property="article:modified_time" content="2026-10-09" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Foundations of Econometrics" />
 <meta name="twitter:description" content="Estimands, identification and inference as one framework: what a regression estimates, how designs make it causal, and why financial data overstate precision." />
@@ -50,7 +50,7 @@ inference, regression, time series" />
     "name": "Robert Mahfoud"
   },
   "datePublished": "2026-09-18",
-  "dateModified": "2026-10-04",
+  "dateModified": "2026-10-09",
   "inLanguage": "en",
   "license": "https://creativecommons.org/publicdomain/zero/1.0/",
   "isPartOf": {
@@ -1567,14 +1567,14 @@ multiple testing.</li>
 time-series econometrics of returns (unit roots, volatility models,
 cointegration, and long-horizon predictive regressions) from the side of
 the return convention. This chapter supplies the general machinery
-behind it. <a href="market_regimes.html">Market Regimes and Machine
-Learning</a> goes deep on structural breaks, regime-switching models,
-and time-series validation, which appear here only in outline (§8.7,
-§10.6). <a href="portfolio_construction.html">Portfolio Construction and
-the Covariance Matrix</a> covers covariance estimation, shrinkage, and
-the statistics of Sharpe ratios. The momentum and trend-following notes
-apply the tools of this chapter to specific signals. Each note stands
-alone.</p>
+behind it. <a href="market_regimes.html">Market Regimes and Hidden
+Markov Models</a> goes deep on structural breaks, regime-switching
+models, and time-series validation, which appear here only in outline
+(§8.7, §10.6). <a href="portfolio_construction.html">Portfolio
+Construction and the Covariance Matrix</a> covers covariance estimation,
+shrinkage, and the statistics of Sharpe ratios. The momentum and
+trend-following notes apply the tools of this chapter to specific
+signals. Each note stands alone.</p>
 <p><strong>A warning about scope.</strong> Nothing here is investment
 advice. The numerical illustrations are simulations built to isolate one
 mechanism at a time, not evidence about any market. Where a number comes
@@ -4233,8 +4233,8 @@ normality.</li>
 right tool in three situations. The first is when the distribution
 itself is the object of interest, as with volatility, tail risk,
 durations, and default probabilities. The second is when latent states
-must be filtered, as in the regime-switching models of <a href="market_regimes.html">Market Regimes and Machine Learning</a>. The
-third is when efficiency in a small sample is worth the risk of
+must be filtered, as in the regime-switching models of <a href="market_regimes.html">Market Regimes and Hidden Markov Models</a>.
+The third is when efficiency in a small sample is worth the risk of
 misspecification.</p>
 <h2 id="m-estimators-beyond-the-mean">5.5 M-estimators beyond the
 mean</h2>
@@ -5697,8 +5697,8 @@ reinterpreted. Observations are dependent, so the meat of every standard
 error changes. Variables can wander without limit, which breaks the
 asymptotic approximations of §2. This section covers the ideas a
 practitioner needs. <a href="log_returns.html">Simple and Log
-Returns</a> §6 applies several of them to returns specifically, and <a href="market_regimes.html">Market Regimes and Machine Learning</a> takes
-regime-switching and change-point models much further.</p>
+Returns</a> §6 applies several of them to returns specifically, and <a href="market_regimes.html">Market Regimes and Hidden Markov Models</a>
+takes regime-switching and change-point models much further.</p>
 <h2 id="what-changes-when-observations-are-ordered">8.1 What changes
 when observations are ordered</h2>
 <p><strong>Stationarity replaces random sampling.</strong> A process is
@@ -6104,7 +6104,7 @@ to include some pre-break data even after a break, trading a little bias
 for a large reduction in variance. [Practice] Averaging forecasts across
 several window lengths is a common robust alternative to choosing one.
 Regime-switching and change-point models treat instability as a process
-rather than an event, and they are the subject of <a href="market_regimes.html">Market Regimes and Machine Learning</a>
+rather than an event, and they are the subject of <a href="market_regimes.html">Market Regimes and Hidden Markov Models</a>
 §5.</p>
 <h2 id="forecasting-and-forecast-evaluation">8.8 Forecasting and
 forecast evaluation</h2>
@@ -6661,8 +6661,9 @@ expected out-of-sample performance of a strategy selected from a search
 is materially below its backtest, even if nothing was done wrong. <a href="portfolio_construction.html">Portfolio Construction</a>, Appendix
 A.45–A.46, gives the standard error of a Sharpe ratio and the deflated
 Sharpe ratio. <a href="momentum_deep_dive.html">Momentum in Financial
-Markets</a> and <a href="market_regimes.html">Market Regimes and Machine
-Learning</a> cover walk-forward and purged validation in detail.</p>
+Markets</a> and <a href="market_regimes.html">Market Regimes and Hidden
+Markov Models</a> cover walk-forward and purged validation in
+detail.</p>
 <blockquote>
 <h3 id="key-takeaways-8">§9 Key takeaways</h3>
 <ol type="1">
@@ -6939,7 +6940,7 @@ only on the past, and test on the future.</li>
 <li><strong>Purging and embargo.</strong> Remove training observations
 whose label windows overlap the test period, and a buffer after it (<a href="https://openlibrary.org/isbn/9781119482086" target="_blank">López
 de Prado, 2018</a>; <a href="market_regimes.html">Market Regimes and
-Machine Learning</a> §10.3 and Appendix A.33).</li>
+Hidden Markov Models</a> §11.3 and Appendix A.39).</li>
 <li><strong>Group by date</strong> when splitting panels.</li>
 <li><strong>Nested validation.</strong> Tune hyperparameters inside the
 training folds only, and keep a final holdout that is used once.</li>

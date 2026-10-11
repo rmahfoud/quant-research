@@ -75,7 +75,7 @@ Different readers can start in different places.
 - recognise shrinkage, constraints and transaction costs as one regularising act, and measure their combined strength;
 - evaluate a construction method honestly, with realised-over-predicted risk, matched volatility, a sweep over $q$ and paired comparisons.
 
-**Relationship to the other chapters.** This chapter treats the *cross-sectional* problem: given many assets, how much of each to hold. A companion chapter, [Trend-Following in Financial Markets](trend_following.html), covers the *scalar* problem of how large a single position should be. It treats portfolio construction only as far as a trend system needs it. Another, [Market Regimes and Machine Learning](market_regimes.html), argues in its section 11.4 that the covariance matrix is where regime information pays most reliably. This chapter gives the detail behind that claim. Those chapters ask *what to forecast*. This one assumes that the forecasts exist and asks what to do with them. Each stands alone.
+**Relationship to the other chapters.** This chapter treats the *cross-sectional* problem: given many assets, how much of each to hold. A companion chapter, [Trend-Following in Financial Markets](trend_following.html), covers the *scalar* problem of how large a single position should be. It treats portfolio construction only as far as a trend system needs it. Another, [Market Regimes and Hidden Markov Models](market_regimes.html), argues in its section 12.4 that the covariance matrix is where regime information pays most reliably. This chapter gives the detail behind that claim. Those chapters ask *what to forecast*. This one assumes that the forecasts exist and asks what to do with them. Each stands alone.
 
 **A warning about scope.** [Practice] Nothing here is investment advice. The numerical illustrations are simulations chosen to isolate a mechanism, not backtests of anything tradeable. Where a number comes from a simulation run for this chapter rather than from a published study, the text says so.
 
@@ -1039,7 +1039,7 @@ Here $\Phi$ is a target with few parameters. Common choices are the identity sca
 
 **Failure modes.** The two-parameter restriction is severe, and the data reject it. The correlation-targeting step is biased in high dimensions. [Contested] The practical advantage over a well-shrunk static estimator is disputed for *portfolio construction*, as opposed to risk forecasting. Correlation persistence is real, but the portfolio gain from tracking it is smaller than the turnover it generates. Combining DCC with nonlinear shrinkage (DCC-NLS) addresses the dimension problem, and is the modern form.
 
-**When preferred.** When correlation *dynamics* are themselves the object of interest: tail-risk work, stress testing, and anything where the spike in crisis correlation matters. Section 11.4 of [Market Regimes and Machine Learning](market_regimes.html) makes the same argument from a different angle. The case is weaker when a matrix is needed only for one inversion a month.
+**When preferred.** When correlation *dynamics* are themselves the object of interest: tail-risk work, stress testing, and anything where the spike in crisis correlation matters. Section 12.4 of [Market Regimes and Hidden Markov Models](market_regimes.html) makes the same argument from a different angle. The case is weaker when a matrix is needed only for one inversion a month.
 
 ## 6.11 Hierarchical and clustering-based estimators
 
@@ -2200,7 +2200,7 @@ The **Sherman–Morrison** special case is $K = 1$. Apply the identity to the fa
 
 **Why it appears here.** The demonstration of §2.1 runs on data that are IID, multivariate normal and stationary, with no fat tails and no regime changes. That design ensures the damage it measures can only be estimation error. Without it, the argument would be worthless. §6.2 lists IID with finite fourth moments as the assumption of the sample covariance. §9.4 warns that "beyond roughly five years of daily data, equity correlations average over structurally different regimes". That warning states that stationarity, not sample size, caps $T$.
 
-**Deeper.** Hamilton, *Time Series Analysis* (Princeton, 1994), chapter 3. The companion chapter [Market Regimes and Machine Learning](market_regimes.html) covers what to do when stationarity fails.
+**Deeper.** Hamilton, *Time Series Analysis* (Princeton, 1994), chapter 3. The companion chapter [Market Regimes and Hidden Markov Models](market_regimes.html) covers what to do when stationarity fails.
 
 ## A.11 The bias–variance trade-off {#a11}
 **The idea.** An estimator can be wrong in two ways. It can be systematically off, pointing at the wrong place on average. Or it can be erratic, jumping around the right place from sample to sample. Total error is the sum of both, and the two trade against each other. Imposing structure moves the estimate toward a wrong but steady answer. Refusing to impose any leaves an answer that is right on average but wildly unsteady. No rule says that zero bias is best, and usually it is not.

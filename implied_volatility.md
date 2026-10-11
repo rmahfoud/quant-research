@@ -112,7 +112,7 @@ Exposure](dealer_hedging.html) derives the Greeks and the hedged-P&L identity in
 detail (its sections 3 and 4) and explains who holds options and why that shows up in their
 prices; this document uses those results and refers back rather than repeating
 them. [Simple and Log Returns](log_returns.html) explains why volatility is defined
-on log returns. [Market Regimes and Machine Learning](market_regimes.html) is the
+on log returns. [Market Regimes and Hidden Markov Models](market_regimes.html) is the
 right frame for using the VIX or the volatility term structure as a regime variable
 (§13.5). [Stochastic Processes](stochastic_processes.html) covers the Brownian
 motion the models here are built on. Each note stands alone.
@@ -2755,7 +2755,7 @@ will fall.
 
 **A regime variable.** The level and especially the term-structure slope work well as
 conditioning variables: an inverted volatility curve is one of the cleaner markers of
-market stress. [Market Regimes and Machine Learning](market_regimes.html) covers how to
+market stress. [Market Regimes and Hidden Markov Models](market_regimes.html) covers how to
 use such a variable without fooling yourself.
 
 **Volatility targeting.** Scaling exposure by inverse volatility can use implied rather

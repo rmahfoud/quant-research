@@ -106,7 +106,7 @@ it realistically is).
 covers the return conventions used for volatility here. [Trend-Following in
 Financial Markets](trend_following.html) derives the convexity of trend rules;
 §5.10 shows that a trend follower and a short-gamma options dealer place the same
-trades for opposite reasons. [Market Regimes and Machine Learning](market_regimes.html)
+trades for opposite reasons. [Market Regimes and Hidden Markov Models](market_regimes.html)
 is the right frame for treating "the dealer gamma regime" as a conditioning
 variable in §10 and §11. Each note stands alone.
 

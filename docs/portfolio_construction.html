@@ -19,7 +19,7 @@ matrix, mean-variance optimisation, shrinkage, risk parity" />
 <meta property="og:url" content="https://rmahfoud.github.io/quant-research/portfolio_construction.html" />
 <meta property="og:locale" content="en_US" />
 <meta property="article:published_time" content="2026-09-09" />
-<meta property="article:modified_time" content="2026-09-26" />
+<meta property="article:modified_time" content="2026-10-09" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Portfolio Construction and the Covariance Matrix" />
 <meta name="twitter:description" content="Why mean-variance optimisation destroys itself when fed sample estimates, and what shrinkage, constraints and transaction costs are secretly doing about it." />
@@ -50,7 +50,7 @@ matrix, mean-variance optimisation, shrinkage, risk parity" />
     "name": "Robert Mahfoud"
   },
   "datePublished": "2026-09-09",
-  "dateModified": "2026-09-26",
+  "dateModified": "2026-10-09",
   "inLanguage": "en",
   "license": "https://creativecommons.org/publicdomain/zero/1.0/",
   "isPartOf": {
@@ -1472,9 +1472,9 @@ treats the <em>cross-sectional</em> problem: given many assets, how much
 of each to hold. A companion chapter, <a href="trend_following.html">Trend-Following in Financial Markets</a>,
 covers the <em>scalar</em> problem of how large a single position should
 be. It treats portfolio construction only as far as a trend system needs
-it. Another, <a href="market_regimes.html">Market Regimes and Machine
-Learning</a>, argues in its section 11.4 that the covariance matrix is
-where regime information pays most reliably. This chapter gives the
+it. Another, <a href="market_regimes.html">Market Regimes and Hidden
+Markov Models</a>, argues in its section 12.4 that the covariance matrix
+is where regime information pays most reliably. This chapter gives the
 detail behind that claim. Those chapters ask <em>what to forecast</em>.
 This one assumes that the forecasts exist and asks what to do with them.
 Each stands alone.</p>
@@ -3659,10 +3659,10 @@ than the turnover it generates. Combining DCC with nonlinear shrinkage
 (DCC-NLS) addresses the dimension problem, and is the modern form.</p>
 <p><strong>When preferred.</strong> When correlation <em>dynamics</em>
 are themselves the object of interest: tail-risk work, stress testing,
-and anything where the spike in crisis correlation matters. Section 11.4
-of <a href="market_regimes.html">Market Regimes and Machine Learning</a>
-makes the same argument from a different angle. The case is weaker when
-a matrix is needed only for one inversion a month.</p>
+and anything where the spike in crisis correlation matters. Section 12.4
+of <a href="market_regimes.html">Market Regimes and Hidden Markov
+Models</a> makes the same argument from a different angle. The case is
+weaker when a matrix is needed only for one inversion a month.</p>
 <h2 id="hierarchical-and-clustering-based-estimators">6.11 Hierarchical
 and clustering-based estimators</h2>
 <p><strong>Intuition.</strong> Assets cluster by sector, asset class and
@@ -6535,7 +6535,7 @@ daily data, equity correlations average over structurally different
 regimes”. That warning states that stationarity, not sample size, caps
 <span class="math inline">\(T\)</span>.</p>
 <p><strong>Deeper.</strong> Hamilton, <em>Time Series Analysis</em>
-(Princeton, 1994), chapter 3. The companion chapter <a href="market_regimes.html">Market Regimes and Machine Learning</a>
+(Princeton, 1994), chapter 3. The companion chapter <a href="market_regimes.html">Market Regimes and Hidden Markov Models</a>
 covers what to do when stationarity fails.</p>
 <h2 id="a11">A.11 The bias–variance trade-off</h2>
 <p><strong>The idea.</strong> An estimator can be wrong in two ways. It

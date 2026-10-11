@@ -1912,7 +1912,7 @@ The middle form is the marginal-IC decomposition. The quantity $(b - \rho a)/\sq
 
 **Why it appears here.** §4.7 notes that after a regime change a correct test can answer a question that no longer matters. §6.2 uses the cumulative IC plot and stability across volatility regimes. §7.5 notes that information decays as others learn it.
 
-**Deeper.** [Foundations of Econometrics](econometrics_foundations.html), section 8.7; [Market Regimes and Machine Learning](market_regimes.html).
+**Deeper.** [Foundations of Econometrics](econometrics_foundations.html), section 8.7; [Market Regimes and Hidden Markov Models](market_regimes.html).
 
 ---
 

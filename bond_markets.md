@@ -86,7 +86,7 @@ Four sections matter most. **§1.4** states the three identities on which the ch
 - explain why the bond–equity correlation changes sign, and what that means for a stock–bond portfolio;
 - build a bond portfolio around a duration target, and recognise the common ways that bond investors lose money.
 
-**Relationship to the other chapters.** [Simple and Log Returns](log_returns.html) covers the return conventions used throughout. [Stochastic Processes](stochastic_processes.html) develops the Brownian machinery behind the term-structure models mentioned in §11.4. [Portfolio Construction and the Covariance Matrix](portfolio_construction.html) is the right frame for the allocation questions of §17. [Market Regimes and Machine Learning](market_regimes.html) is the right frame for the correlation regimes of §14. [Dealer Hedging and Gamma Exposure](dealer_hedging.html) explains the option machinery that §7.6 borrows for callable bonds and mortgages. Each chapter stands alone.
+**Relationship to the other chapters.** [Simple and Log Returns](log_returns.html) covers the return conventions used throughout. [Stochastic Processes](stochastic_processes.html) develops the Brownian machinery behind the term-structure models mentioned in §11.4. [Portfolio Construction and the Covariance Matrix](portfolio_construction.html) is the right frame for the allocation questions of §17. [Market Regimes and Hidden Markov Models](market_regimes.html) is the right frame for the correlation regimes of §14. [Dealer Hedging and Gamma Exposure](dealer_hedging.html) explains the option machinery that §7.6 borrows for callable bonds and mortgages. Each chapter stands alone.
 
 **Epistemic tags.** The chapters in this collection flag claims by status:
 

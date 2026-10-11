@@ -83,7 +83,7 @@ Readers short of time should read four things: **§1.5–§1.6** (the master for
 - pick a research design for a causal question, and name the way that design characteristically fails;
 - recognise the traps specific to time series and financial data: spurious regression, persistent predictors, overlapping horizons, and multiple testing.
 
-**Relationship to the other notes.** [Simple and Log Returns](log_returns.html) §6 treats the time-series econometrics of returns (unit roots, volatility models, cointegration, and long-horizon predictive regressions) from the side of the return convention. This chapter supplies the general machinery behind it. [Market Regimes and Machine Learning](market_regimes.html) goes deep on structural breaks, regime-switching models, and time-series validation, which appear here only in outline (§8.7, §10.6). [Portfolio Construction and the Covariance Matrix](portfolio_construction.html) covers covariance estimation, shrinkage, and the statistics of Sharpe ratios. The momentum and trend-following notes apply the tools of this chapter to specific signals. Each note stands alone.
+**Relationship to the other notes.** [Simple and Log Returns](log_returns.html) §6 treats the time-series econometrics of returns (unit roots, volatility models, cointegration, and long-horizon predictive regressions) from the side of the return convention. This chapter supplies the general machinery behind it. [Market Regimes and Hidden Markov Models](market_regimes.html) goes deep on structural breaks, regime-switching models, and time-series validation, which appear here only in outline (§8.7, §10.6). [Portfolio Construction and the Covariance Matrix](portfolio_construction.html) covers covariance estimation, shrinkage, and the statistics of Sharpe ratios. The momentum and trend-following notes apply the tools of this chapter to specific signals. Each note stands alone.
 
 **A warning about scope.** Nothing here is investment advice. The numerical illustrations are simulations built to isolate one mechanism at a time, not evidence about any market. Where a number comes from a simulation run for this chapter rather than from a published study, the text says so.
 
@@ -1241,7 +1241,7 @@ The equality is a consequence of the model being right. When the density is miss
 - **Robust.** A Gaussian likelihood for a GARCH model gives consistent estimates of the mean and variance parameters even when returns are fat-tailed, provided the conditional mean and variance equations are right ([Bollerslev & Wooldridge, 1992](https://doi.org/10.1080/07474939208800229){target="_blank"}). The Poisson likelihood gives consistent estimates of an exponential conditional mean for any non-negative outcome, count or not, and it handles zeros that a log-linear regression cannot ([Santos Silva & Tenreyro, 2006](https://doi.org/10.1162/rest.88.4.641){target="_blank"}).
 - **Not robust.** Probit and logit coefficients are inconsistent when the latent error is heteroskedastic or has the wrong distribution, although average marginal effects are often approximately right. Censored-regression (Tobit) estimates depend heavily on normality.
 
-**When to reach for likelihood.** Likelihood is the right tool in three situations. The first is when the distribution itself is the object of interest, as with volatility, tail risk, durations, and default probabilities. The second is when latent states must be filtered, as in the regime-switching models of [Market Regimes and Machine Learning](market_regimes.html). The third is when efficiency in a small sample is worth the risk of misspecification.
+**When to reach for likelihood.** Likelihood is the right tool in three situations. The first is when the distribution itself is the object of interest, as with volatility, tail risk, durations, and default probabilities. The second is when latent states must be filtered, as in the regime-switching models of [Market Regimes and Hidden Markov Models](market_regimes.html). The third is when efficiency in a small sample is worth the risk of misspecification.
 
 ## 5.5 M-estimators beyond the mean
 
@@ -1850,7 +1850,7 @@ The table compares the designs of this section on the attributes that discrimina
 
 # 8. Time-series econometrics {#8-time-series}
 
-A cross-section is many units observed once. A time series is one unit observed many times, and that structural difference changes almost everything. There is only one history, so "repeated sampling" has to be reinterpreted. Observations are dependent, so the meat of every standard error changes. Variables can wander without limit, which breaks the asymptotic approximations of §2. This section covers the ideas a practitioner needs. [Simple and Log Returns](log_returns.html) §6 applies several of them to returns specifically, and [Market Regimes and Machine Learning](market_regimes.html) takes regime-switching and change-point models much further.
+A cross-section is many units observed once. A time series is one unit observed many times, and that structural difference changes almost everything. There is only one history, so "repeated sampling" has to be reinterpreted. Observations are dependent, so the meat of every standard error changes. Variables can wander without limit, which breaks the asymptotic approximations of §2. This section covers the ideas a practitioner needs. [Simple and Log Returns](log_returns.html) §6 applies several of them to returns specifically, and [Market Regimes and Hidden Markov Models](market_regimes.html) takes regime-switching and change-point models much further.
 
 ## 8.1 What changes when observations are ordered
 
@@ -1998,7 +1998,7 @@ A relationship estimated over a long sample assumes that the parameters were con
 - **Several breaks.** [Bai & Perron (1998)](https://doi.org/10.2307/2998540){target="_blank"} estimate the number and
   location of multiple breaks.
 
-**Breaks and forecasting.** When parameters change, a rolling estimation window adapts, and an expanding window is more precise, so the choice is a bias–variance trade-off. [Pesaran & Timmermann (2007)](https://doi.org/10.1016/j.jeconom.2006.03.010){target="_blank"} show that it can pay to include some pre-break data even after a break, trading a little bias for a large reduction in variance. [Practice] Averaging forecasts across several window lengths is a common robust alternative to choosing one. Regime-switching and change-point models treat instability as a process rather than an event, and they are the subject of [Market Regimes and Machine Learning](market_regimes.html) §5.
+**Breaks and forecasting.** When parameters change, a rolling estimation window adapts, and an expanding window is more precise, so the choice is a bias–variance trade-off. [Pesaran & Timmermann (2007)](https://doi.org/10.1016/j.jeconom.2006.03.010){target="_blank"} show that it can pay to include some pre-break data even after a break, trading a little bias for a large reduction in variance. [Practice] Averaging forecasts across several window lengths is a common robust alternative to choosing one. Regime-switching and change-point models treat instability as a process rather than an event, and they are the subject of [Market Regimes and Hidden Markov Models](market_regimes.html) §5.
 
 ## 8.8 Forecasting and forecast evaluation
 
@@ -2205,7 +2205,7 @@ A backtest estimates the mean return of a strategy, and the mean is the hardest 
 | Assumed costs | Spreads and impact omitted or understated | Cost models calibrated to trade size and capacity |
 | Too short a sample | A Sharpe ratio of 0.5 needs about 16 years to reach $t = 2$ | Compute the power first (§4.7) |
 
-Two numbers from earlier sections belong next to every backtest. If a strategy's true Sharpe ratio is 0.3 and it is tested for ten years, a backtest that clears $t = 2$ reports a Sharpe ratio of about 0.8 on average (§4.7). And the average published anomaly lost more than half its return after publication (§9.1). The expected out-of-sample performance of a strategy selected from a search is materially below its backtest, even if nothing was done wrong. [Portfolio Construction](portfolio_construction.html), Appendix A.45–A.46, gives the standard error of a Sharpe ratio and the deflated Sharpe ratio. [Momentum in Financial Markets](momentum_deep_dive.html) and [Market Regimes and Machine Learning](market_regimes.html) cover walk-forward and purged validation in detail.
+Two numbers from earlier sections belong next to every backtest. If a strategy's true Sharpe ratio is 0.3 and it is tested for ten years, a backtest that clears $t = 2$ reports a Sharpe ratio of about 0.8 on average (§4.7). And the average published anomaly lost more than half its return after publication (§9.1). The expected out-of-sample performance of a strategy selected from a search is materially below its backtest, even if nothing was done wrong. [Portfolio Construction](portfolio_construction.html), Appendix A.45–A.46, gives the standard error of a Sharpe ratio and the deflated Sharpe ratio. [Momentum in Financial Markets](momentum_deep_dive.html) and [Market Regimes and Hidden Markov Models](market_regimes.html) cover walk-forward and purged validation in detail.
 
 > ### §9 Key takeaways
 >
@@ -2320,8 +2320,8 @@ The remedies follow from the leaks:
 
 - **Walk-forward (forward-chaining) validation.** Train only on the past, and test on the future.
 - **Purging and embargo.** Remove training observations whose label windows overlap the test period, and a buffer after
-  it ([López de Prado, 2018](https://openlibrary.org/isbn/9781119482086){target="_blank"}; [Market Regimes and Machine
-  Learning](market_regimes.html) §10.3 and Appendix A.33).
+  it ([López de Prado, 2018](https://openlibrary.org/isbn/9781119482086){target="_blank"}; [Market Regimes and Hidden
+  Markov Models](market_regimes.html) §11.3 and Appendix A.39).
 - **Group by date** when splitting panels.
 - **Nested validation.** Tune hyperparameters inside the training folds only, and keep a final holdout that is used once.
 

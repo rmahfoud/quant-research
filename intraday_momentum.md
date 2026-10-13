@@ -13,43 +13,25 @@ lang: en
 ---
 
 ```{=html}
-<aside class="eli5">
+<aside class="abstract">
 ```
 
-# ELI5 — the short version {#eli5}
+# Abstract {#abstract}
 
 ```{=latex}
-\begin{eli5}
+\begin{chapterabstract}
 ```
 
-**In one sentence.** Within a single trading day, prices mostly snap back rather than trend; the one solid exception — a market that has moved strongly tends to move a little further in its last half hour — comes from traders who are obliged to buy after rises and sell after falls, and it is small, fading, and profitable only in the cheapest markets to trade.
+Within a trading day, prices mostly revert rather than trend. The one robust exception is late-day continuation: a market that has moved strongly tends to move a little further in its last half hour. Traders who must trade in the direction of the move cause it. The effect is small, it has weakened over time, and it is profitable only in the cheapest markets to trade.
 
-**1. Shrinking the clock changes the game** ([§1](#1-the-question)). The momentum in the first document works because news seeps into prices over weeks. Within a day, news is priced in seconds — in thousandths of a second for major economic reports. So momentum on one-minute charts is not the same idea at a smaller size. It is a different bet, and usually a losing one.
+Within a day, prices absorb news in seconds, so intraday momentum is a different bet from monthly momentum. Short-term moves in individual stocks tend to reverse over minutes to an hour, because dealers charge for providing immediacy and prices recover once the order pressure ends. Continuation needs traders who must buy after rises and sell after falls. Leveraged ETFs rebalance near the close, short-gamma options dealers re-hedge, and stop-loss orders trigger as prices cross levels. This trading concentrates late in the day. Across more than 60 futures markets and 45 years, a 1% move in a stock-index future before the last half hour predicted about 0.04% more in the same direction, followed by a partial reversal over the next day or two. The better-known result, that the first half hour predicts the last, mostly fails out of sample and depends heavily on the 2008 crisis.
 
-**2. The default inside the day is snapping back** ([§2](#2-mechanisms)). When someone has to trade right now, a dealer takes the other side and charges for it by moving the price; when the pressure passes, the price drifts back. So short-term moves in individual stocks tend to reverse, not continue, over minutes to an hour.
+Trading costs decide the outcome. A shorter holding period shrinks the expected move but not the cost per trade. A 30-minute hold needs a forecast about 16 times sharper than a one-month hold to break even. Only the large stock-index futures and index ETFs clear this bar. No documented intraday momentum in individual stocks survives costs. The capacity of the best-documented effect is a few million dollars a year, which is why large funds have not removed it.
 
-**3. The exception is forced trading on a timetable** ([§2](#2-mechanisms)). Some players must trade in the direction the market has already moved. Funds that promise two or three times the index's daily return have to buy after up days and sell after down days, near the close. Options dealers who have sold options must do the same to stay hedged, and stop-loss orders fire as prices break through levels. That trading bunches up late in the day, so a market that has risen strongly by 3:30 tends to rise a little more by 4:00 — and then gives part of it back over the next day or two.
-
-**4. How big is it?** ([§4](#4-evidence)) Across more than sixty futures markets and 45 years, a 1% move in a stock-index future before the last half hour has predicted about 0.04% more in the same direction. The more famous version, in which the first half hour predicts the last, mostly fails when tested on data it was not built on, and leans heavily on the 2008 crisis.
-
-**5. Timing matters more than direction** ([§3](#3-signature)). Whether a move continues depends on *when* in the day it happens: the last half hour is special because that is when the forced trading happens. And randomness fools the eye. About one day in twenty looks like a clean "trend day" by pure chance — twelve a year.
-
-**6. Costs decide almost everything** ([§6](#6-implementation)). The shorter you hold a position, the less the price moves while you hold it, but the cost of trading does not shrink. Holding for thirty minutes instead of a month needs a forecast about sixteen times sharper just to break even. Only the cheapest markets — the big stock-index futures and index funds — clear that bar. For individual stocks, no documented intraday momentum survives the cost of trading.
-
-**7. It is small, which is why it survives** ([§6](#6-implementation)). Even in the deepest futures market in the world, the best-documented effect is worth a few million dollars a year at the size that makes the most money. That is too little for large funds to bother arbitraging away.
-
-**8. Most intraday "discoveries" are illusions** ([§3](#3-signature), [§7](#7-testing)). Prices that bounce between the buying and selling price look like reversal. An index whose stocks have not all started trading looks like morning momentum. A clock that is off by one bar looks like skill. And there are millions of ways to slice a day, so the best of many tries always looks good. Popular breakout systems report spectacular results, but none has been checked by anyone independent, and their best numbers rest on many choices tested on the same data.
-
-**9. The people who try mostly lose** ([§6](#6-implementation)). In Brazil, 97% of people who day-traded futures for at least 300 days lost money. In Taiwan, only a thin slice of day traders showed skill that lasted.
-
-**10. The best use is better timing** ([§8](#8-practice)). If you run a slower strategy, the most reliable payoff is knowing *when* to trade: on a big up day, buy before the last half hour or wait a day rather than at the close, and avoid the first few minutes of the session.
-
----
-
-**If you do only three things:** start from a named group of forced traders rather than from a chart; if you want profit rather than better timing, trade only the cheapest index futures; and run everything on fake random days before believing it.
+Most intraday findings come from measurement errors. Bid–ask bounce looks like reversal. Stale index components look like morning momentum. A one-bar timestamp error looks like skill. The number of ways to slice a day makes the best backtest look good by chance, and about one day in 20 looks like a clean trend day at random. The chapter recommends three things. Start from a named group of forced traders, not a chart pattern. Trade only the cheapest index futures. Test every result on simulated random data first. For slower strategies, the most reliable use of this research is execution timing.
 
 ```{=latex}
-\end{eli5}
+\end{chapterabstract}
 ```
 
 ```{=html}
@@ -102,7 +84,7 @@ Two symbols are overloaded, as in the main document: $\beta$ is a predictive-reg
 
 ## Table of contents
 
-- [ELI5 — the short version](#eli5)
+- [Abstract](#abstract)
 
 1. [The question: does momentum survive inside the day?](#1-the-question)
 2. [Mechanisms: which explanations survive the shorter clock](#2-mechanisms)

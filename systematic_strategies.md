@@ -13,48 +13,25 @@ lang: en
 ---
 
 ```{=html}
-<aside class="eli5">
+<aside class="abstract">
 ```
 
-# ELI5 — the short version {#eli5}
+# Abstract {#abstract}
 
 ```{=latex}
-\begin{eli5}
+\begin{chapterabstract}
 ```
 
-**In one sentence.** A systematic strategy is a rule, written down in advance, for what to own; the only rules that keep making money after everyone knows about them are paid to put up with something unpleasant, so the real work is choosing which discomfort to be paid for, and not being fooled by a backtest.
+A systematic strategy is a rule, fixed in advance, for what to hold. The rules that keep earning after they become widely known are those that pay investors to bear something unpleasant. This chapter covers where such returns come from, which strategies survive, and how to evaluate them.
 
-**1. The rule is not where the money comes from** ([§1](#1-what-a-systematic-strategy-is)). Any strategy's return splits into two parts. One is what simply holding its average position all the time would earn. The other is what it earns by moving in and out at the right moments. The first part is usually most of the return, and it can be bought cheaply. One famous rule owns the US stock market only while the market is above its average price of the last 10 months. It earned about six-sevenths of its 99-year return just by being invested three-quarters of the time. Its genuine timing skill was too small to prove in a century. What it did reliably was cut the worst crash in half.
+A strategy's return splits into a static part, from holding its average position, and a timing part. The static part is usually most of the return, and it is cheap to buy. A rule that holds US stocks only while the market is above its 10-month average earned about six-sevenths of its 99-year return from being invested three-quarters of the time. Its timing skill was too small to prove in a century. It did cut the worst drawdown in half. Before costs, trading is zero-sum, so every lasting excess return needs a counterparty who keeps accepting the worse side. Returns paid by buyers of crash protection, by institutions with forced trades, or by repeated behavioral errors tend to last. Returns from noticing something first are competed away. Published stock-market anomalies lost about 58% of their returns after publication. Lasting premia must cause pain. Value stocks have not regained their 2007 high by the end of 2025, and momentum spent 24 years below its 1932 peak.
 
-**2. Every lasting return has somebody paying it** ([§2](#2-where-returns-come-from)). Before costs, trading is a zero-sum game against the market. Every dollar of outperformance is someone else's shortfall. So the useful question about any strategy is who is on the other side, and why they keep accepting the worse deal. Some returns tend to last: those paid by people buying protection against crashes, by institutions whose rules force them to trade, or by investors repeating the same mistakes. Returns that come from merely noticing something first get competed away. Published stock-market patterns lost about 58% of their returns after publication. The price jump when a stock joins the S&P 500 shrank from over 7% to under 1%.
+Six families have survived: a rebalanced mix of broad markets, multi-market trend following, value combined with momentum, carry, low volatility, and option selling. Calendar and news-reaction effects have mostly disappeared. An individual's advantage is the absence of benchmark and career pressure, but most investors trail their own funds by one to several points a year through badly timed flows. Taxes and costs can outweigh the strategy itself. An 8% pre-tax return compounds at between 4.7% and 8% after tax, depending on the account and turnover. A diversified futures program needs about 140,000 dollars, even with micro contracts.
 
-**3. The returns that last have to hurt** ([§2](#2-where-returns-come-from)). If an extra return came without pain, money would pour in until it vanished. A strategy of buying cheap US stocks fell below its previous high in 2007, and had still not recovered by the end of 2025. Buying recent winners spent 24 years below its 1932 peak. A backtest with no terrible decade in it is a warning sign, not a comfort.
-
-**4. What tends to survive, and what does not** ([§5](#5-the-strategy-families)). Six kinds of strategy have survived:
-
-- a rebalanced mix of broad markets, which is the benchmark to beat;
-- following trends across many markets, which behaves like insurance that pays off in long crises;
-- buying cheap assets and recent winners together, because they fail at different times;
-- favouring assets with a higher yield than others;
-- preferring calmer stocks;
-- selling insurance with options, which pays steadily and occasionally loses years of income in weeks.
-
-Calendar and news-reaction tricks are mostly gone.
-
-**5. An individual's edge is patience and efficiency, not prediction** ([§2](#2-where-returns-come-from), [§7](#7-running-a-strategy-as-an-individual)). Professionals are judged against benchmarks. They can lose their jobs after a bad year, and their clients pull money out at the bottom. An individual faces none of that, which is exactly what holding the uncomfortable strategies requires. The catch is that most individuals do not hold them. Investors' actual returns trail the funds they own by one to several points a year, because they buy after gains and sell after losses.
-
-**6. Taxes and costs can matter more than the idea** ([§7](#7-running-a-strategy-as-an-individual)). Take one strategy earning 8% a year before tax. After tax, it compounds at anywhere from 4.7% to 8%, depending on the account and how often it sells. Harvesting losses for tax purposes was worth about a point a year. A properly diversified futures strategy needs roughly 140,000 dollars, even with the smallest contracts. Below that, funds do the job better.
-
-**7. Backtests flatter, in predictable ways** ([§8](#8-evaluation)). Try 100 versions of a rule with no real skill on 10 years of data. The best will look better than the stock market's century-long record. Real skill takes decades to prove. A good strategy needs about 30 years of history for a four-in-five chance of confirming it. Expect a backtest's performance to roughly halve in real trading. A study of 888 algorithms written on one retail platform found that backtests predicted almost nothing about how they later did.
-
-**8. A strategy that works feels broken much of the time** ([§8](#8-evaluation)). A genuinely good strategy loses money about one year in three. One time in 10, it spends about seven years below its previous high. An alarm tuned not to cry wolf too often takes five or six years to notice that such a strategy has really died. So decide in advance what losses to expect and what would justify stopping. Stop for broken processes or a vanished reason, not for losses alone.
-
----
-
-**If you do only three things:** name who pays before testing anything; hold a few durable, uncomfortable strategies that fail at different times, in tax-sensible accounts; and plan on half the backtest's performance, with stop rules written down before starting.
+Backtests overstate results. The best of 100 skill-free rules tested on 10 years of data beats the stock market's century-long record. Confirming a good strategy with four-in-five probability takes about 30 years of history. A study of 888 retail algorithms found that backtests predicted almost nothing about live results. A good strategy loses money about one year in three. The chapter recommends naming who pays before testing anything, holding a few durable strategies that fail at different times, planning on half the backtested performance, and writing stop rules before starting.
 
 ```{=latex}
-\end{eli5}
+\end{chapterabstract}
 ```
 
 ```{=html}
@@ -140,7 +117,7 @@ Several symbols carry a qualification:
 
 ## Table of contents
 
-- [ELI5 — the short version](#eli5)
+- [Abstract](#abstract)
 
 1. [What a systematic strategy is](#1-what-a-systematic-strategy-is)
 2. [Where returns come from, and why some survive being known](#2-where-returns-come-from)

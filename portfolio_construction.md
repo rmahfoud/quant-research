@@ -13,41 +13,25 @@ lang: en
 ---
 
 ```{=html}
-<aside class="eli5">
+<aside class="abstract">
 ```
 
-# ELI5 — the short version {#eli5}
+# Abstract {#abstract}
 
 ```{=latex}
-\begin{eli5}
+\begin{chapterabstract}
 ```
 
-**In one sentence.** The formula for the best portfolio was settled in 1952 and has never been the problem; the problem is that it takes its estimates literally, and an estimate of how assets move together is far worse than it looks.
+The formula for the optimal portfolio has been known since 1952. The difficulty is in its inputs. The optimizer treats every estimate as exact, and estimates of expected returns and covariances are much noisier than they appear. This chapter explains the damage and the methods that limit it.
 
-**1. The optimiser believes every number it is given** ([§1](#1-what-portfolio-construction-is)). Give it expected returns and a table of how assets move together, and it treats each entry as exact. Suppose the estimate for one asset says 45% when the truth is 4%. The optimiser does not hedge that possibility; it piles in. Better optimisation applied to noisy inputs therefore makes things *worse*. That is the reverse of the usual starting intuition.
+Mean-variance optimization inverts the covariance matrix. Its largest positions are bets between assets it estimates to be nearly identical, which is where the data are weakest. Better optimization of noisy inputs therefore gives worse portfolios. In one simulation with a correct model and a finite sample, the optimizer reported a Sharpe ratio of 5.3 against an attainable 0.43. The ratio of assets to observations measures the damage. Realized risk exceeds predicted risk by a factor of one over one minus that ratio. Doubling the universe does as much harm as halving the history. Expected returns are the most dangerous input. Their errors cost about 11 times as much as volatility errors and 22 times as much as correlation errors. Without a real return forecast, the best choice is to leave expected returns out. The finding that equal weighting beats optimization is evidence against sample means, not against optimization.
 
-**2. Where the damage comes from** ([§2](#2-why-the-naive-answer-fails)). The formula effectively divides by the co-movement table, and dividing by something measured badly is where results explode. The optimiser's largest positions turn out to be bets *between* assets it believes are nearly identical. "Nearly identical" is exactly the belief that the data support least. In one simulation the model was perfectly correct and only the sample was finite. The optimiser still reported a risk-adjusted return of 5.3 against a true attainable 0.43.
+Minimum variance, maximum diversification, inverse volatility, risk parity and equal weighting are one formula. They differ in the proxy they use for expected return and in the structure they impose on the covariance matrix. Equal weighting makes the strongest assumptions of all of them. A no-short constraint is equivalent to shrinking the covariance matrix. A turnover penalty is also a form of shrinkage, toward the current portfolio. Shrinkage, no-shorting, position caps and a turnover penalty applied together can quietly reproduce equal weighting, so measure the distance to it. With proportional costs, rebalance to the edge of a no-trade band whose width grows with the cube root of the cost.
 
-**3. One number shows how bad it is** ([§2](#2-why-the-naive-answer-fails)). Divide the number of assets by the number of observations per asset. The risk actually taken exceeds the risk predicted by a factor of one over one minus that ratio. At one half, a portfolio runs twice the risk it reports. At one, the calculation has no answer at all. It follows that **doubling the universe does exactly as much harm as halving the history**. How many assets to include is a statistical decision, not only a business one.
-
-**4. Expected returns are the dangerous input** ([§2](#2-why-the-naive-answer-fails)). Errors in expected returns do roughly 11 times the damage of errors in volatilities, and 22 times that of errors in correlations. Without a genuine return forecast, leaving expected returns out altogether is not a compromise. It is the best available move. The celebrated finding that naive equal weighting beats optimisation is evidence against *sample average returns*, not against optimising.
-
-**5. Every "risk-based" method is the same formula** ([§7](#7-from-covariance-to-weights), [§8](#8-taxonomy-and-equivalences)). Minimum variance, maximum diversification, inverse volatility, equal risk contribution and equal weighting are one formula. They differ in the stand-in they use for expected return, and in how much structure they impose on the co-movement table. Equal weighting is not the humble choice. It is the most opinionated one in the set, because it asserts that every asset has the same return, the same volatility and the same correlation with everything else.
-
-**6. Constraints already do statistics** ([§8](#8-taxonomy-and-equivalences), [§10](#10-costs-turnover-and-rebalancing)). Forbidding short positions is mathematically the same operation as shrinking the covariance estimate toward something simpler. That equivalence is the hinge of the whole field. It explains why crude practice beat refined theory for decades. It also means that the usual safeguards are not independent. Shrinkage plus no-shorting plus position caps plus a turnover penalty is four shrinkages at once, and together they may quietly rebuild equal weighting. Measure how close the portfolio is to it.
-
-**7. Trading costs are a regulariser too** ([§10](#10-costs-turnover-and-rebalancing)). A penalty on turnover is *provably* the same operation as shrinking the covariance matrix and pulling the answer toward the portfolio already held. With a cost charged on every trade, a portfolio should not rebalance all the way to the target. It should trade to the edge of a no-trade band whose width grows like the cube root of the cost.
-
-**8. Small traps, large consequences** ([§6](#6-estimating-the-covariance-matrix), [§9](#9-implementation-what-actually-matters)). Stale and non-synchronous prices make illiquid and foreign assets look like diversifiers. The optimiser then overweights exactly the positions that are hardest to exit. The standard exponentially weighted risk estimate has an effective memory of about 32 observations. That makes it unusable above roughly 30 assets, and it gives no warning. Volatilities want short windows and correlations want long ones, so estimate the two separately.
-
-**9. The single most useful number** ([§11](#11-evaluation-and-pitfalls)). Divide realised volatility by predicted volatility, out of sample. The ratio needs no forecast and no backtest. A value of 1.16 means the risk model understates risk by 16%. The main benefit of fixing that is honesty, not a smaller number. Compare methods only at matched volatility, because leverage is a free parameter and unmatched comparisons measure nothing. And 10 years of data cannot tell a Sharpe ratio of 0.5 from one of 1.5.
-
----
-
-**If you do only three things:** leave expected returns out unless a genuine forecast exists, shrink the covariance matrix and err toward shrinking too much, and track realised over predicted volatility out of sample.
+Several small errors have large effects. Stale prices make illiquid assets look like diversifiers, and the optimizer then overweights the positions that are hardest to exit. The standard exponentially weighted estimate has an effective memory of about 32 observations, which makes it unreliable above about 30 assets. Estimate volatilities with short windows and correlations with long ones. The chapter recommends three practices: leave out expected returns unless a real forecast exists, shrink the covariance matrix and prefer too much shrinkage to too little, and track realized over predicted volatility out of sample.
 
 ```{=latex}
-\end{eli5}
+\end{chapterabstract}
 ```
 
 ```{=html}
@@ -134,7 +118,7 @@ Several symbols carry a qualification:
 
 ## Table of contents
 
-- [ELI5 — the short version](#eli5)
+- [Abstract](#abstract)
 
 1. [What portfolio construction is](#1-what-portfolio-construction-is)
 2. [Why the naive answer fails](#2-why-the-naive-answer-fails)

@@ -13,39 +13,27 @@ lang: en
 ---
 
 ```{=html}
-<aside class="eli5">
+<aside class="abstract">
 ```
 
-# ELI5 — the short version {#eli5}
+# Abstract {#abstract}
 
 ```{=latex}
-\begin{eli5}
+\begin{chapterabstract}
 ```
 
-**In one sentence.** The everyday percentage return and its logarithm describe the same gain, but each is exactly right for a different job: logarithms add up correctly over time, percentages add up correctly across a portfolio, and wherever the two disagree, the gap is about half the variance.
+Simple returns and log returns carry the same information, and neither approximates the other. Each one is exactly right for a different job. Log returns add across time. Simple returns add across positions. Wherever the two disagree, the gap is about half the variance. This chapter derives these facts and traces their consequences through econometrics, risk models and machine-learning features.
 
-**1. Two labels for one fact** ([§1](#1-what-a-return-is-and-why-there-are-two-of-them)). A 5% gain multiplies money by 1.05. That gain can be written as 5%, or as its logarithm, about 0.0488. Neither number approximates the other, and neither carries more information. They are two scales for the same quantity, like Celsius and Fahrenheit.
+No return measure can add both across time and across positions. Compounding creates a cross-term, and plain addition cannot represent it. Models of a price through time use logs: volatility models, option pricing, simulation and realized variance. Calculations that count money use simple returns: portfolio returns, attribution, profit and loss, costs, leverage and client reporting. A well-built system converts between the two in one place.
 
-**2. The one thing no measure can do** ([§2](#2-the-spine-additivity-or-linearity-never-both)). Log returns add up across *time*: the log returns of three days sum exactly to the three-day log return. Percentage returns add up across *positions*: a portfolio's percentage return is the weighted average of its holdings' returns. **No single measure does both.** This is a theorem, not a convention. Compounding produces a cross-term, the small extra gain earned on earlier gains, and plain addition cannot represent it. The direction of the sum settles the choice. Down a column of days, use logarithms. Across a row of positions, use percentages.
+The half-variance gap appears in many forms. It is the volatility drag on compound growth, the drift correction in geometric Brownian motion, the Kelly growth rate, the rebalancing premium, and the difference between two versions of the Sharpe ratio. A 10% rise followed by a 10% fall leaves an investor down 1%. A threefold leveraged ETF on an index with 20% annual volatility trails three times the index's growth by about 12 percentage points a year, from arithmetic alone.
 
-**3. Half the variance, again and again** ([§3](#3-the-identity-catalogue)). Averages are where the two measures part ways, and the gap is always about half the variance of the returns. The same small correction appears in many places that look unrelated: the drag that volatility puts on compound growth, the correction in continuous-time price models, the best size for a repeated bet, the bonus from rebalancing a portfolio, and the difference between two versions of the Sharpe ratio. Recognising it in each form is most of what fluency in this subject means.
+In many settings the choice does not matter. On daily stock data the two series correlate at 0.99996. Tree-based models give identical results for both, because a monotone transform preserves the order of a feature. The Sharpe ratio is the main exception: its two versions differ by about half the annual volatility, 0.1 for a long-only stock portfolio and 0.3 for a volatile one. Volatility scaling matters about a thousand times more than the choice of measure. The same 3% daily move ranges from half a standard deviation to 30 standard deviations across a realistic universe.
 
-**4. Equal and opposite is not a round trip** ([§5](#5-comparability-laterally-and-longitudinally), [§10](#10-building-intuition)). A rise of 10% followed by a fall of 10% leaves an investor down 1%. A fall of 50% needs a rise of 100% to recover. In logarithms, the same pairs of moves cancel exactly. The missing 1% is the half-variance term again. It also explains why a fund that promises three times an index's daily move trails three times the index's growth by about 12 percentage points a year, when the index swings about 20% a year. The shortfall is arithmetic, not fees.
-
-**5. Where each one is compulsory** ([§7](#7-where-the-choice-is-forced)). Anything that models a price *through time* is written in logarithms: volatility models, option pricing, simulation, and measures of realized variance. For these, the percentage version has no correct formulation. Anything that *counts dollars* uses percentages: portfolio returns, attribution, profit and loss, costs, leverage, and client reporting. Logarithms do not add up across positions. A well-built system converts deliberately at the boundary instead of using one convention everywhere.
-
-**6. Where it does not matter** ([§8](#8-where-it-does-not-matter-quantified), [§11](#11-returns-as-features-and-targets-for-gbt-and-dnn)). On daily stock data the two series have a correlation of 0.99996, and no statistic can tell them apart. For tree-based machine-learning models the two are *provably* identical, because a tree reads only the ordering of a feature, and the logarithm preserves order. The notable exception is the Sharpe ratio, the industry's standard score of return per unit of risk. Its two versions differ by about half the annual volatility: 0.1 for a long-only stock portfolio and 0.3 for a volatile one. A reported Sharpe ratio should say which version it is.
-
-**7. What deserves the attention instead** ([§5](#5-comparability-laterally-and-longitudinally)). Dividing each return by an estimate of the asset's typical move size matters roughly a thousand times more than the choice of measure, and it works with either one. Across a realistic set of assets, the same 3% daily move ranges from half a typical move to thirty typical moves. The choice of measure changes the number by about 1.5%.
-
-**8. How it goes wrong** ([§9](#9-failure-modes)). Logarithms need strictly positive prices, so spreads, interest rates, and profit-and-loss series have no log return at all. A common coding slip takes the logarithm of the return itself instead of one plus the return. The slip quietly turns a return into a sign indicator, and standard libraries absorb it without complaint. Converting a predicted log return back into a percentage gives a typical outcome, not an average one. The missing piece is larger for volatile assets, so it reshuffles a ranking instead of shifting it. Finally, when a backtest and live trading differ by about half the variance per period, the cause is a mismatch of conventions between systems, not trading costs.
-
----
-
-**If you do only three things:** scale returns by their volatility before arguing about the measure; add up across positions in percentages and across time in logarithms, through exactly one conversion function; and expect the two measures to differ by about half the variance wherever an average is involved.
+The common failures are specific. Log returns do not exist for spreads, rates or profit-and-loss series that can be zero or negative. Taking the log of a return instead of one plus the return turns the return into a sign indicator without any error. Converting a predicted log return to a simple return gives a median, not a mean, and the bias reorders a ranking. The chapter recommends scaling returns by volatility before choosing a measure, and adding across positions in simple returns and across time in log returns through one conversion function.
 
 ```{=latex}
-\end{eli5}
+\end{chapterabstract}
 ```
 
 ```{=html}
@@ -117,7 +105,7 @@ Two departures from the collection's reserved letters are deliberate. Here $r$ i
 
 ## Table of contents
 
-- [ELI5 — the short version](#eli5)
+- [Abstract](#abstract)
 
 **Part I — Foundations**
 

@@ -13,43 +13,25 @@ lang: en
 ---
 
 ```{=html}
-<aside class="eli5">
+<aside class="abstract">
 ```
 
-# ELI5 — the short version {#eli5}
+# Abstract {#abstract}
 
 ```{=latex}
-\begin{eli5}
+\begin{chapterabstract}
 ```
 
-**In one sentence.** A "regime" is not something the market has; it is a way of chopping time into a few boxes inside a model you chose — and the honest finding of sixty years of work, confirmed on a century of US stock returns, is that the standard model for it tells *calm* from *turbulent* well and *going up* from *going down* not at all, so its value lies in setting risk, not in picking direction.
+A market regime is an output of a model the analyst chooses, not a property of the market. The standard regime model, the hidden Markov model, separates calm periods from turbulent ones well. It does not separate rising markets from falling ones. A century of US stock returns confirms this. The model's value is in setting risk, not in choosing direction.
 
-**1. The word names a model output, and the output is a set of probabilities** ([§1](#1-what-a-market-regime-is)). "Which regime are we in?" has no answer until you have decided how many there are and how they behave. Two people using different models are not disagreeing about the world; they are using different rulers. And a good regime model never answers with a single label. It says something like "70% calm, 30% stressed". Flattening that into the most likely label throws away the model's own uncertainty, and it is the most common implementation error in the field.
+A regime model returns state probabilities, not a single label. Collapsing the probabilities to the most likely state discards the model's uncertainty and is the most common implementation error. The model can predict only because states persist, and the decay of that persistence limits how far ahead it can help. Clustering, jump models and mixture models are special cases of the hidden Markov model with a restriction added or removed. One statistical fact governs the field. More observations sharpen the estimate of each state's volatility, but each state's mean return improves only with more calendar time. With 10 years of daily data and a correctly specified model, the estimated return gap between two states has the wrong sign about one time in six. The volatility gap from the same fit is 16 times more precise.
 
-**2. Everything useful comes from persistence** ([§1](#1-what-a-market-regime-is)). If the state were redrawn at random every day, the model would predict nothing. It is useful only because today's state tends to carry into tomorrow, and how fast that tendency fades puts a hard ceiling on how far ahead it can help. Work out how long the model's memory lasts; if it is shorter than the gap between your trades, stop.
+Fitted in real time on US stocks, a two-state model finds a calm state with about 10% annual volatility and a turbulent state with about 28%. In hindsight the turbulent state seems to lose about 40 points a year relative to the calm state. Out of sample that gap disappears. Days flagged as turbulent in advance were more than twice as volatile and earned no less. Several software packages report smoothed, look-ahead probabilities by default. A good fit is not evidence of regimes. Data with smoothly drifting volatility and no regimes fits regime models well, and a fat-tailed running volatility estimate forecast the return distribution better than the regime model did.
 
-**3. The workhorse is the hidden Markov model** ([§5](#5-the-formal-models), [§6](#6-hidden-markov-models-in-practice), [§7](#7-taxonomy-and-equivalences)). Picture a hidden switch with a few settings, each producing returns of a different character, and a rule for how often the switch flips. You never see the switch; you infer it from the returns. Most other regime methods — clustering, "jump" models, mixtures — turn out to be this same model with a restriction added or removed.
-
-**4. The result that governs everything else** ([§8](#8-what-is-known-to-work-and-what-is-not)). How *volatile* a state is gets easier to estimate with more observations. Its average *return* improves only with more calendar time, which you cannot buy. Even with ten years of daily data and a perfectly specified model, the estimated return gap between two states comes out with the wrong sign about one time in six, while the volatility difference from the same fit is pinned down sixteen times more sharply. That is arithmetic, not bad implementation.
-
-**5. A century of US stocks says the same** ([§6](#6-hidden-markov-models-in-practice)). Fitted the way it would have been in real time, a two-state model splits days into calm (about 10% annual volatility) and turbulent (about 28%). Looking back, the turbulent state seems to lose money and the calm one to make it — a gap of about 40 points a year. Forecasting ahead, the gap vanishes: the days the model flagged as turbulent *in advance* were more than twice as volatile and earned no less. The apparent "bear state" was hindsight.
-
-**6. Fitting it well is mostly about buying persistence** ([§6](#6-hidden-markov-models-in-practice)). Twenty years of daily data hold only a few dozen regime changes, so the switching rule is estimated from very little. Letting each state have occasional extreme days, so that one bad day no longer counts as a regime change, doubled how long the fitted states last and halved how often they flip. Never let the model see the future: several popular software tools report hindsight-based probabilities by default.
-
-**7. Fitting well is not evidence** ([§2](#2-why-regimes-could-exist)). A process whose volatility drifts smoothly, with no regimes anywhere, produces data that regime models fit beautifully, and adding states always improves the fit. On US stocks, a simple running volatility estimate with fat tails forecast tomorrow's range of outcomes better than the regime model did.
-
-**8. So what is it worth?** ([§12](#12-trading-a-regime-aware-model)). Over 80 years of US data, shrinking the position when the model expects turbulence lifted risk-adjusted return a little — from about 0.52 to about 0.6, within the margin of error — and cut the worst loss from 59% to about 40%. Regimes earn their keep on risk, correlation and drawdown. Directional timing does not survive. Do the trading-cost arithmetic first: in a realistic simulation the overlay breaks even at about 13 basis points of one-way trading cost.
-
-**9. Inside a forecasting model, scale matters more than the regime** ([§9](#9-which-shift-do-you-have), [§10](#10-conditioning-a-forecasting-model)). A regime feature cannot fix a problem with noise levels. The highest-value change is not a regime model at all: divide the thing you are predicting by a trailing volatility estimate. Without that, the most turbulent fifth of days supplies about two-thirds of the error the model learns from.
-
-**10. Count episodes, not days** ([§11](#11-research-and-evaluation)). Your real sample is the number of separate crises, perhaps forty in twenty years. Four years of accumulated crisis leaves risk-adjusted return uncertain by more than 0.5. Shuffle the regime labels while keeping their persistence and confirm your result disappears; simulate from a process with no regimes and confirm your pipeline finds nothing.
-
----
-
-**If you do only three things:** use regimes to set risk rather than direction, keep the probabilities and use only those computed before the fact, and normalise anything you forecast by trailing volatility.
+Over 80 years of US data, cutting exposure when the model expected turbulence raised the Sharpe ratio from about 0.52 to about 0.6, within the margin of error. It reduced the maximum drawdown from 59% to about 40%. The overlay breaks even at about 13 basis points of one-way cost. In forecasting models, dividing the target by trailing volatility matters more than any regime feature. The chapter recommends using regimes for risk rather than direction, keeping filtered probabilities, and normalizing forecast targets by trailing volatility.
 
 ```{=latex}
-\end{eli5}
+\end{chapterabstract}
 ```
 
 ```{=html}
@@ -192,7 +174,7 @@ stationary distribution (which is always $\boldsymbol{\pi}$ or $\pi_k$, indexed 
 
 ## Table of contents
 
-- [ELI5 — the short version](#eli5)
+- [Abstract](#abstract)
 
 **Part I — What a regime is, and what is known about it**
 

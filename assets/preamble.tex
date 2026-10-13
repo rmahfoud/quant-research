@@ -14,7 +14,7 @@
 % this line existed.
 \usepackage{graphicx}
 
-% --- ELI5 card (HTML counterpart: assets/eli5.html) -------------------------
+% --- Abstract card (HTML counterpart: assets/abstract.html) ----------------
 %
 % Core LaTeX plus xcolor only: BasicTeX ships neither framed nor tcolorbox, and
 % a tinted \colorbox would not break across pages. The card is therefore drawn
@@ -22,14 +22,15 @@
 % across pages cleanly and needs no package beyond the xcolor that pandoc's
 % default template already loads.
 %
-% The ELI5 heading sits outside the environment in the source, so it stays an
-% ordinary \section and keeps its place in the document structure.
+% The Abstract heading sits outside the environment in the source, so it stays
+% an ordinary \section and keeps its place in the document structure. The name
+% is chapterabstract because the article class already defines abstract.
 
-\definecolor{eli5accent}{HTML}{0B6E4F}
+\definecolor{abstractaccent}{HTML}{0B6E4F}
 
-\newenvironment{eli5}{%
+\newenvironment{chapterabstract}{%
   \par\addvspace{0.7\baselineskip}%
-  \noindent{\color{eli5accent}\rule{\linewidth}{1.2pt}}%
+  \noindent{\color{abstractaccent}\rule{\linewidth}{1.2pt}}%
   \par\nobreak\vspace{0.45\baselineskip}%
   \begingroup
     \small
@@ -39,6 +40,6 @@
   \par
   \endgroup
   \vspace{0.2\baselineskip}%
-  \noindent{\color{eli5accent}\rule{\linewidth}{0.5pt}}%
+  \noindent{\color{abstractaccent}\rule{\linewidth}{0.5pt}}%
   \par\addvspace{0.9\baselineskip}%
 }

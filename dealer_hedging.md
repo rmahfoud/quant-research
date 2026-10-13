@@ -13,39 +13,27 @@ lang: en
 ---
 
 ```{=html}
-<aside class="eli5">
+<aside class="abstract">
 ```
 
-# ELI5 — the short version {#eli5}
+# Abstract {#abstract}
 
 ```{=latex}
-\begin{eli5}
+\begin{chapterabstract}
 ```
 
-**In one sentence.** Options dealers are forced traders — what they must buy or sell after a price move is dictated by their inventory rather than their opinion — and this document is about when that forced trading really moves the market and when the story is only a story.
+Options dealers hedge mechanically. Their inventory, not their opinion, sets what they must buy or sell after a price move. This chapter asks when that forced trading moves prices, and by how much.
 
-**1. Why a dealer has to trade at all** ([§1](#1-market-makers-and-dealers), [§3](#3-value-and-greeks)). A market maker's job is to be the counterparty anyone can trade against, earning the spread, without taking a view. Sell you a call and it immediately buys shares to cancel the directional exposure. The catch is that an option's directional exposure *changes as the price moves* — the right hedge at 100 is not the right hedge at 101 — so the hedge has to be redone continually. The rate at which the required hedge changes is **gamma**, and the re-hedging is mechanical: position, price, time and volatility determine it, not judgement. That is what makes it possible to reason about at the level of the whole market.
+A dealer who sells an option trades the underlying to remove its directional exposure. The option's delta changes as the price moves, so the dealer must re-hedge. Gamma measures that rate of change. A dealer who is short gamma buys after a rise and sells after a fall, which amplifies moves. A dealer who is long gamma does the reverse and damps them. A continuously hedged option earns gamma times the gap between realized and implied variance. At 20% implied volatility the break-even daily move is about 1.05%.
 
-**2. Two directions, and the whole argument hangs on which one you are in** ([§5](#5-the-gamma-quadrant)). A dealer who is *short* gamma must buy after a rise and sell after a fall, pushing the market the way it is already going. A dealer who is *long* gamma does the opposite — selling strength, buying weakness — and damps the move. Which applies depends on whether customers have been buying options from dealers or selling options to them.
+Options are in zero net supply, so gamma summed over all holders is zero. A claim that "the market is short gamma" is therefore a claim about who holds each side and which side hedges. Open-interest data does not record who is long. Every published gamma-exposure estimate rests on a positioning assumption, and a wrong assumption can flip the sign of the estimate. In the chapter's worked example, the estimate changes from plus 3.9 million dollars per 1% move to minus 63 million.
 
-**3. Options are in zero net supply** ([§2](#2-options-from-zero), [§6](#6-gamma-exposure)). For every long there is a short, so gamma across all holders sums to exactly zero. "The market is short gamma" is therefore never a fact about contracts; it is a claim about *who* is on each side, and that one side hedges while the other does not. This is the hinge of the entire subject and also its weakest link: published open interest says how many contracts exist and never who is long.
+The direction of the hedging effect is established. Its size for broad indices is contested and appears modest. The one study that used measured dealer positions found at most 3.3 points added to S&P 500 annualized daily volatility over 2020–2023. Part of the reported link between calm markets and positive gamma runs in reverse. The best-documented effect is pinning: near expiry, single-stock prices move toward strikes with large open interest. Popular accounts hold up less well. In GameStop, market makers bought calls, which contradicts the gamma-squeeze account. In August 2024, dealers affected prices through wider quotes and thinner liquidity, not through hedging flows.
 
-**4. The one piece of arithmetic** ([§4](#4-delta-hedging)). Hold an option, hedge it continuously, and your profit is gamma multiplied by the gap between how much the price actually moved and how much it was priced to move. There is a break-even move — about 1.05% a day at 20% volatility — and losses beyond it grow quadratically. The premium a short-gamma dealer collects each day is precisely the rent on that exposure.
-
-**5. How large is the effect, really?** ([§7](#7-what-hedging-does-to-prices)). Hedging multiplies a price move by a factor that depends on dealer gamma divided by how much money it takes to shift the market 1%. Long gamma shrinks moves, short gamma magnifies them, and at the extreme the arithmetic runs away entirely. But the calibrated magnitudes are modest: \$5 billion of index gamma per 1% changes volatility by only 5–13%, and the study that used *measured* dealer positions found at most 3.3 points added to S&P daily volatility across 2020–2023. The direction is established; the size for broad indices is contested. Some of the correlation people quote also runs backwards — calm markets and positive gamma go together partly by construction.
-
-**6. What is actually well documented** ([§8](#8-episodes)). Pinning: near expiry, single-stock prices really are drawn toward strikes with large open interest. It is the best-evidenced hedging effect in the field, and it occurs exactly where the mechanics should be strongest — small scale, specific strikes, close to expiry. The famous stories fare worse. In GameStop, position data showed market makers *buying* calls, which contradicts the gamma-squeeze narrative; in August 2024, dealers mattered through wider quotes and thinner liquidity rather than through hedging.
-
-**7. Two traps in the popular version** ([§6](#6-gamma-exposure)). "Calls are positive gamma, puts are negative" is an assumption about who is long, not a property of the contracts — and once hedging starts, a dealer short calls and a dealer short puts make identical trades. And gamma-flip levels and "walls" are model outputs with wide error bands: getting the positioning assumption wrong does not add noise, it flips the sign — in the worked example, from plus 3.9 million dollars per 1% move to minus 63 million.
-
-**8. What it is good for** ([§10](#10-how-traders-use-this)). A conditioning variable, not a signal. It says something about whether moves will be amplified or damped and whether the day will be choppy — never about direction — and to be worth anything it must beat a volatility forecast that already uses implied volatility. Most of its practical value is defensive: sizing, and not supplying liquidity into a hedging cascade.
-
----
-
-**If you remember three things:** the hedging flow is real and mechanical, but only the *unmatched* side of it can move anything; every published gamma number rests on a guess about who is long, and that guess controls the sign; and the documented effects are small and local — pins near expiry — rather than the index-wide forces of market commentary.
+The chapter recommends using dealer gamma as a conditioning variable for volatility and intraday reversals, never as a directional signal. To be useful, it must improve on a volatility forecast that already uses implied volatility. Its main practical value is defensive: it informs position sizing and warns against supplying liquidity while dealers are forced to trade in the same direction as the move.
 
 ```{=latex}
-\end{eli5}
+\end{chapterabstract}
 ```
 
 ```{=html}
@@ -183,7 +171,7 @@ Greek, while $\Delta S$ and $\Delta t$ are changes in price and in time.
 
 ## Table of contents
 
-- [ELI5 — the short version](#eli5)
+- [Abstract](#abstract)
 
 **Part I — Foundations**
 

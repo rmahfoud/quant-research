@@ -54,7 +54,7 @@ PDF_ARGS=(
     -V monofont="Menlo"
     -V monofontoptions="Scale=0.8"
     -V geometry:margin=0.5in
-    # Shared LaTeX preamble (packages + the ELI5 card environment). Note this
+    # Shared LaTeX preamble (packages + the abstract card environment). Note this
     # overrides any `header-includes:` a document sets in its YAML front matter,
     # so preamble additions belong in that file, not in the document.
     --include-in-header="$REL_PREFIX/assets/preamble.tex"
@@ -69,7 +69,7 @@ HTML_ARGS=(
     --mathjax=https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js
     --include-in-header="$REL_PREFIX/assets/reading_widget.html"
     --include-in-header="$REL_PREFIX/assets/sidebar.html"
-    --include-in-header="$REL_PREFIX/assets/eli5.html"
+    --include-in-header="$REL_PREFIX/assets/abstract.html"
     --include-after-body="$REL_PREFIX/assets/mathjax_extensions.html"
     --lua-filter="$REL_PREFIX/scripts/drop_toc_section.lua"
     -V maxwidth=64em

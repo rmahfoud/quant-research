@@ -13,39 +13,25 @@ lang: en
 ---
 
 ```{=html}
-<aside class="eli5">
+<aside class="abstract">
 ```
 
-# ELI5 — the short version {#eli5}
+# Abstract {#abstract}
 
 ```{=latex}
-\begin{eli5}
+\begin{chapterabstract}
 ```
 
-**In one sentence.** A stochastic process is a *random function*: one random draw picks out an entire history of values, past and future together, rather than a single number.
+A stochastic process is a random function. One random draw selects an entire path of values over all times at once, not a single number. This chapter builds the formal definition from that idea and shows which parts of it a practitioner uses.
 
-**1. The picture to hold** ([§6](#readings)). Picture many wiggly lines fanning out from one starting point. Each line is one possible history of a price. The process is the whole fan, together with the rule for how likely each line is. The fan can be read two ways. A vertical cut at one moment shows the spread of values the price might take at that moment. Following one line from left to right gives a single history, which is an ordinary curve with nothing random left in it.
+The definition has four ingredients: a probability space as the source of randomness, an index set of times or locations, a state space for the values, and a measurability condition. Properties such as the Markov property are extra assumptions added to this definition. A process can be read in two ways. Fixing a time gives a random variable: the distribution of values at that moment. Fixing an outcome gives a sample path: an ordinary function with no randomness left. A simulation builds a path step by step, but the definition fixes the whole path with one draw. The values at all times read the same draw. This shared draw is what makes joint events, such as a low value today and a high value next month, have probabilities. Without it, the theory could not relate one moment to another.
 
-**2. The randomness happens once** ([§6](#readings)). A computer simulation builds a path step by step: take a step, roll the dice, take another step. The definition works differently. One draw fixes the entire path at once, and nothing is rolled again later. The step-by-step loop is a way to produce that draw, not the definition of the process.
+Probability assigns sizes to sets of outcomes, not weights to single outcomes. For a number drawn uniformly between 0 and 1, every single value has probability zero, yet some value always occurs. Measure theory handles this case. Length, area, mass and probability are one idea, and probability is the case where the whole space has size one. No consistent rule can size every subset of the unit interval, so the theory fixes in advance the collection of sets it will size. The measurability condition requires every question about the values, such as whether the price is below 90, to pick out one of those sets. If it fails, the probability is undefined, not zero or unknown.
 
-**3. Four ingredients** ([§1](#definition)). The definition needs four things: a source of randomness, a set of labels for the moments (usually times, but they can be places on a map), a set where the values land, and a rule that every question about the values is one that probability can answer. Familiar properties, such as "the future depends only on the present," are extra assumptions added on top of this definition.
-
-**4. Every moment reads the same draw** ([§2](#probability-space)). The values at all times come from one shared draw. The shared draw is what distinguishes a process from a pile of random numbers produced by unconnected experiments. Because every moment reads the same draw, a combined event such as "low today and high next month" has a probability, and the theory can describe how one moment relates to another.
-
-**5. Probability measures collections, not single outcomes** ([Section A](#app-a)). Pick a random number between 0 and 1. Each individual number has probability zero, yet some number always comes up. So probability cannot work by giving each outcome a weight and adding the weights. Instead it assigns sizes to collections of outcomes: "somewhere in the first quarter" has probability one quarter. Assigning sizes to collections is the subject of measure theory. Length, area, mass, and probability are one mathematical idea, and probability is the version in which the whole space has size one. One complication remains: for a number picked evenly between 0 and 1, no consistent rule can size every possible collection, so the theory lists in advance the collections it will size.
-
-**6. Every question must have an answer** ([§5](#measurability)). The definition contains a condition that readers tend to skip. Mathematicians call it *measurability*. It says that each question about the values, such as "which histories put the price below 90?", must pick out one of the collections the theory sizes. If the condition fails, the probability that the price is below 90 is undefined. It is not zero, and it is not unknown.
-
-**7. Snapshots define the process** ([§7](#fdd)). Nobody writes down the space of all histories. A model describes how the values behave jointly at any handful of times. Provided the descriptions for different handfuls agree with one another, a theorem guarantees that a process with exactly that behavior exists. The standard model of a random path, Brownian motion, is specified this way: it starts at zero, separate stretches are independent, and each stretch is bell-shaped. Snapshots at single moments are not enough, because two processes can look identical at every moment and still move together differently. Snapshots also do not settle whether a path is smooth or jumpy. That question needs its own proof.
-
-**8. Lookahead bias has a formal definition** ([§8](#filtrations)). A *filtration* is the list of what is known at each moment, and the list only grows. A process is *adapted* when its value at each moment is known at that moment. Adaptedness is the backtesting rule in mathematical form. A signal that uses information not yet available at its timestamp could not have been traded, however good its results look.
-
----
-
-**If you remember three things:** a process is one random function, not a sequence of separate rolls; the single shared source of randomness is what lets the theory describe how different moments relate; and the measurability condition is what makes the probabilities exist.
+In practice, a model specifies a process by its finite-dimensional distributions: the joint behavior of the values at any finite set of times. If these distributions are consistent, the Kolmogorov extension theorem guarantees that a process with that behavior exists. Brownian motion is specified this way. One-time marginal distributions are not enough, and finite-dimensional distributions do not decide whether paths are continuous. A filtration records what is known at each time, and it only grows. A process is adapted if its value at each time is known at that time. Adaptedness is the formal version of the backtesting rule against lookahead bias.
 
 ```{=latex}
-\end{eli5}
+\end{chapterabstract}
 ```
 
 ```{=html}
@@ -108,7 +94,7 @@ Two symbols need a warning. In this chapter, $\sigma$ appears only in the names 
 
 ## Table of contents
 
-- [ELI5 — the short version](#eli5)
+- [Abstract](#abstract)
 
 **Part I — The definition**
 

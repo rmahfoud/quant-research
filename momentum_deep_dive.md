@@ -13,49 +13,25 @@ lang: en
 ---
 
 ```{=html}
-<aside class="eli5">
+<aside class="abstract">
 ```
 
-# ELI5 — the short version {#eli5}
+# Abstract {#abstract}
 
 ```{=latex}
-\begin{eli5}
+\begin{chapterabstract}
 ```
 
-**In one sentence.** Prices take in news slowly, so something that has been rising for a few months tends to keep rising a little longer.
+Prices absorb news slowly, so an asset that has risen for several months tends to rise a little further. This chapter explains why momentum exists, how to measure it, which signals capture it, and how to test it without fooling oneself.
 
-**1. It is not physics** ([§1](#1-what-is-momentum)). A rolling ball keeps rolling because physics makes it. A price has nothing like that, and yesterday's rise exerts no force on today. What actually happens is that good news makes a company worth more, and the price gets there *in steps* rather than in one jump. Some people hear the news today and others next week. A large fund needs weeks to finish buying. Owners sitting on gains sell too early and hold the price back. Momentum is the price still catching up. If the crowd overshoots, the price has to come back down later, which is reversal. One story explains both.
+Momentum has no physical cause. Good news raises an asset's value, and the price reaches that value in steps. Investors learn the news at different times, and large funds take weeks to trade. If the crowd overshoots, the price reverses later. One mechanism explains both continuation and reversal. Part of the profit may compensate for crash risk, and the split is unknown. The effect itself is established across two centuries of data, dozens of countries and every major asset class,. The horizon sets the sign. Returns over days to a month tend to reverse. Returns over 2 to 12 months tend to continue. Returns over 3 to 5 years tend to reverse again. The standard stock signal therefore uses the past 12 months and skips the most recent one. The variance ratio measures whether a market trends at a given horizon, and a trend follower's profit is roughly proportional to it.
 
-**2. Why nobody has traded it away.** If prices were ever perfectly right, nobody would be paid for the research that keeps them right, so a small gap always stays open. Some of the profit may also be payment for the risk of crashes rather than free money, and nobody knows the mix. What is settled is that the effect is real. It holds across two centuries of data, dozens of countries and every major asset class. It also survived the replication crisis that eliminated most other market anomalies.
+Most trend indicators are the same object. Moving averages, crossovers, MACD and regression slopes are weighted sums of past returns, and at matched look-backs they agree closely. Three choices matter more than the formula: the look-back, the benchmark (zero, peers or a factor model), and scaling by volatility. Trend following wins only 30–45% of the time and pays off in crises. Cross-sectional momentum crashes when markets rebound after a collapse. It lost about 90% in two months in 1932 and about 70% in 2009. Scaling positions down when volatility is high is the most effective defense.
 
-**3. The time scale decides the sign.**
-
-| Look back over… | What tends to happen next |
-|---|---|
-| Days to a month | It **bounces back** |
-| 2–12 months | It **keeps going** — classic momentum |
-| 3–5 years | It **bounces back** again — where "value" lives |
-
-That is why the standard stock signal uses the past 12 months but skips the most recent one: the latest month points the other way.
-
-**4. One number says whether a market trends at all.** Picture three walkers. One flips a coin at every step. One tends to carry on the way it was already going. One tends to double back. After 100 steps, the second is far from home and the third is still near it. The *variance ratio* asks which of the three a price resembles over a given span. It is the first thing to measure on an unfamiliar market, and a trend follower's profit is essentially proportional to it.
-
-**5. What running it feels like.** Trend following is right only 30–45% of the time. Most trends are false starts that get cut for a small loss, and the rare real ones pay for everything. That is the shape of an insurance policy, which is why trend following tends to pay out in crises. Chasing a higher win rate destroys it.
-
-**6. The crash.** The stock-picking version buys winners and sells losers short. After a market collapse, the "losers" are the most beaten-up, riskiest names. When the market rebounds, they rocket, and the strategy is on the wrong side. It lost roughly 90% in two months in 1932, and around 70% in 2009. The best defence is dull: bet smaller when markets are wild.
-
-**7. Nearly every indicator is the same indicator** ([§4](#4-mathematical-and-statistical-characterizations-of-momentum), [§5](#5-taxonomy)). Moving averages, crossovers, MACD and regression slopes all add up recent price moves with different weights. At a matched look-back, they agree almost completely. What actually matters comes in this order. First is how far back the signal looks. Second is what it measures against: zero, peers, or a factor model, which are three different products with different crash risk. Third is dividing by how jumpy the asset is, the single highest-value step in the toolkit. Only then, a long way behind, comes the formula itself.
-
-**8. The hard part is not finding a signal but avoiding self-deception** ([§6](#6-practical-implementation), [§7](#7-testing-momentum-based-trading-signals)). Test a thousand worthless strategies, and the best will show a Sharpe ratio near 1.2 on luck alone. So keep an honest count of everything tried. Real signals are barely better than a coin flip: being right 51.6% of the time is good, and 70% means something is broken. A 10-year Sharpe ratio of 1.0 is consistent with anything from 0.35 to 1.65. The most common bug is using information that was not yet available, such as trading at the closing price that produced the signal. And randomness itself looks like a trend. A coin-flip price crosses back over its starting level about 13 times in 250 days, not 125. So run the pipeline on fake random data first, and treat any profit it finds there as a bug.
-
-**9. What to expect** ([§8](#8-current-best-practices), [§9](#9-synthesis)). A realistic, fully costed program earns a Sharpe ratio of 0.4–0.8. A backtest above 2 is measuring overfitting, unrealistic costs, or capacity that does not exist. At 0.5, it takes about 16 years of results before the number convinces anyone, so a bad decade proves nothing either way. Nobody serious runs momentum on its own. It is one ingredient, and the edge now lies in clean data, cheap execution and crash control rather than in the signal.
-
----
-
-**If you do only three things:** diversify across many markets, scale the position down when volatility rises, and count every configuration you tested.
+The main risk in research is self-deception. The best of a thousand worthless strategies shows a Sharpe ratio near 1.2 by chance. A 10-year Sharpe ratio of 1.0 is consistent with any true value from 0.35 to 1.65. A hit rate of 51.6% is good, and 70% signals a bug, usually look-ahead. A random walk crosses its starting level only about 13 times in 250 days, so random prices look like trends. The chapter concludes that a realistic, fully costed program earns a Sharpe ratio of 0.4–0.8, and a backtest above 2 indicates an error. Diversify across many markets, scale down when volatility rises, and count every configuration tested.
 
 ```{=latex}
-\end{eli5}
+\end{chapterabstract}
 ```
 
 ```{=html}
@@ -132,7 +108,7 @@ Each occurrence is disambiguated where it appears.
 
 ## Table of contents
 
-- [ELI5 — the short version](#eli5)
+- [Abstract](#abstract)
 
 1. [What is momentum?](#1-what-is-momentum)
 2. [Historical evolution of momentum research](#2-historical-evolution-of-momentum-research)

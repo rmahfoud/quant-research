@@ -13,41 +13,25 @@ lang: en
 ---
 
 ```{=html}
-<aside class="eli5">
+<aside class="abstract">
 ```
 
-# ELI5 — the short version {#eli5}
+# Abstract {#abstract}
 
 ```{=latex}
-\begin{eli5}
+\begin{chapterabstract}
 ```
 
-**In one sentence.** A futures contract, a promise to trade something later at a price fixed today, earns the change in today's price plus a "carry" that can be read off the screen in advance, and most of what goes wrong with futures happens in the mechanics (expiry dates, stitched price charts and margin), not in the price.
+A futures position earns the change in the spot price plus a carry that the trader can read from the curve in advance. Most failures with futures come from the mechanics: expiry dates, stitched price series and margin.
 
-**1. What a buyer actually holds** ([§1](#1-what-a-futures-contract-is)). Buying a futures contract costs nothing up front. The buyer leaves a deposit, called margin, which is still the buyer's money. Every evening the exchange moves the day's gains and losses between buyers and sellers in cash. What the buyer holds is exposure, and it is much bigger than the deposit. One standard S&P 500 contract moves like about 325,000 dollars of shares, against a deposit of about 25,000.
+A futures contract costs nothing up front. The trader posts margin, which remains the trader's money, and the exchange settles gains and losses in cash every day. The exposure is far larger than the margin. One standard S&P 500 contract controls about 325,000 dollars of stock against a deposit of about 25,000. For a storable asset, the futures price equals the spot price plus financing and storage costs, minus any income until delivery. The futures price is therefore not a forecast. Only for non-storable underlyings such as the VIX does it act as a forecast, and a biased one. The slope of the curve is carry. In contango a long position loses a little each day as the contract converges to spot. In backwardation it gains. With crude oil at 70 dollars and the next contract at 70.80, a long position pays about 14% a year if the price stays flat.
 
-**2. Where the price comes from** ([§5](#5-the-futures-price)). Take anything that can be bought and stored. Its futures price is today's price, plus the cost of financing and storing it until delivery, minus any income it pays in the meantime. Gold futures sit above gold because holding gold costs interest. Stock-index futures sit slightly above the index when interest rates are higher than dividends. The futures price is therefore not the market's forecast. Only for things that cannot be stored, such as the VIX volatility index, does the futures price behave like a forecast, and then a biased one.
+Rolling to the next contract neither makes nor loses money. The curve's cost is paid daily, not at the roll. A fully cash-collateralized futures position replicates the underlying asset and is not leveraged. In the chapter's worked example, futures plus interest on the cash earned 233 dollars against 232 in dividends from the shares. No single futures price history exists. Each method of stitching contracts preserves one property and breaks another. Back-adjustment can produce negative prices that never traded, and an unadjusted splice books each roll gap as a gain or loss.
 
-**3. A sloping curve is a cost or a credit, not a prediction** ([§5](#5-the-futures-price), [§6](#6-where-a-futures-return-comes-from)). Sometimes later contracts cost more than earlier ones, which traders call contango. A buyer then loses a little every day, as the contract drifts down toward today's price. When later contracts cost less (backwardation), the buyer gains. That drift is carry: what a position earns or pays if nothing else happens. With crude oil at 70 dollars and next month's contract at 70.80, a buyer pays about 14% a year if the price stands still.
-
-**4. Rolling does not cost what people think** ([§6](#6-where-a-futures-return-comes-from), [§7](#7-rolling)). Contracts expire, so traders swap into the next one. The swap happens at market prices, and it neither makes nor loses money. The cost of an upward-sloping curve is paid daily, not at the swap. What matters is swapping before the contract's delivery dates, or the broker will close the position. The swap should also go through as one order rather than two.
-
-**5. A future plus cash is the asset itself** ([§1](#1-what-a-futures-contract-is), [§6](#6-where-a-futures-return-comes-from)). In a worked example, three small S&P 500 contracts are held for a quarter while the index goes nowhere. The contracts lose 492 dollars. The cash behind them earns 725 in interest, for a total of 233. That is close to the 232 in dividends the shares themselves would have paid. Borrowing is therefore a choice, not a feature. Futures backed by the full amount in cash are not leveraged at all.
-
-**6. The price chart is a construction** ([§8](#8-continuous-price-series)). There is no single futures price history, only a chain of contracts at different prices. Joining them requires an adjustment at every swap. Each way of adjusting keeps one thing true and makes another false. One popular method can show prices below zero that never traded. A chart that simply splices the contracts books the gap between them as a gain or loss every month, which hides the carry. Use a series with correct percentage changes for research, and the real current contract for sizing.
-
-**7. Margin decides when the broker forces a trader out** ([§9](#9-margin-and-leverage)). The distance the price can move against a position before the broker closes it is roughly one divided by the leverage, minus a few percent. At 10 times leverage, an ordinary 3% dip ends the trade. Exchanges also raise margin after big moves, exactly when traders have the least to spare. Keep margin to about a quarter or a third of the account.
-
-**8. Small contracts buy precision, not cheapness** ([§10](#10-micro-contracts-and-sizing)). Micro contracts are mostly a tenth of the standard size. Take an account of 100,000 dollars that wants S&P 500 exposure at its intended risk. It would need 0.29 standard contracts, which cannot be bought, or about three micros, which can. Micros cost more per dollar to trade. Spreading across many markets still needs a six-figure account.
-
-**9. Carry is a signal, and a trap** ([§11](#11-carry-as-a-trading-signal), [§14](#14-failure-modes-and-case-studies)). Carry has predicted returns in stocks, bonds, currencies and commodities. But carry trades tend to crash together. A product that collected the steady drift of VIX futures lost about 96% of its value in one day in February 2018. Carry is the part of the return known in advance, not the safe part.
-
----
-
-**If you do only three things:** work out what one contract really controls, and size by risk, never by the margin allowed; know every delivery date and roll early; and build research on a stitched series with correct percentage changes, while keeping spare cash earning interest.
+The chapter's practical conclusions are these. Use a series with correct returns for research and the actual front contract for sizing. At 10 times leverage, an ordinary 3% move triggers a margin call, and exchanges raise margin after large moves. Keep margin use to about a quarter or a third of the account. Micro contracts provide sizing precision, not lower cost: a 100,000-dollar account needs 0.29 standard S&P 500 contracts, or about three micros. Carry predicts returns across asset classes, but carry trades tend to crash together. A product that collected VIX futures carry lost about 96% of its value in one day in February 2018.
 
 ```{=latex}
-\end{eli5}
+\end{chapterabstract}
 ```
 
 ```{=html}
@@ -212,7 +196,7 @@ the financing rate, and $\sigma$ a volatility.
 
 ## Table of contents
 
-- [ELI5 — the short version](#eli5)
+- [Abstract](#abstract)
 
 1. [What a futures contract is](#1-what-a-futures-contract-is)
 2. [Reading a contract specification](#2-reading-a-contract-specification)

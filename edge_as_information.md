@@ -13,41 +13,25 @@ lang: en
 ---
 
 ```{=html}
-<aside class="eli5">
+<aside class="abstract">
 ```
 
-# ELI5 — the short version {#eli5}
+# Abstract {#abstract}
 
 ```{=latex}
-\begin{eli5}
+\begin{chapterabstract}
 ```
 
-**In one sentence.** The Sharpe ratio, the information ratio and the information coefficient are not three different scores but one measurement, taken at different stages, of how much a strategy knows about the future.
+The information coefficient, the information ratio, the Sharpe ratio and the t-statistic of a track record measure one quantity at different stages: how much a strategy knows about future returns. This chapter derives that equivalence and uses it to compare, combine and judge strategies.
 
-**1. One thing, measured at four stages** ([§1](#1-what-an-edge-is)). A strategy makes a forecast, turns it into positions, earns profits and losses, and builds a track record. The information coefficient scores the forecast. The transfer coefficient scores the positions. The information ratio or Sharpe ratio scores the profits, and the t-statistic scores the record. Each stage can only lose what the forecast knew. No stage can add to it.
+Each ratio divides a mean by a standard deviation. The mean grows with the number of independent bets, and the noise grows with its square root, so every ratio grows with the square root of breadth. A strategy passes from forecast to positions to profits to track record. Each stage can lose information but cannot add any. Good forecasts are weak. A forecast that ranks a pair of stocks correctly 51.6% of the time is good, and 3,000 bets measure its quality only roughly. A strategy with a Sharpe ratio of one still loses money on 47.5% of days and in about one year in six.
 
-**2. Every ratio is signal over noise** ([§2](#2-signal-and-noise)). Each of these numbers divides a steady part by a random part. The steady part adds up bet by bet, while the noise grows only with the square root of the number of bets. So all the ratios grow with the square root of the number of independent bets. A strategy with a Sharpe ratio of one is good. It still loses money on 47.5% of days, and in about one year out of six.
+Information theory supplies a common unit for these ratios. Information from independent sources adds, and it scales with the square of the ratios. The fundamental law of active management states this bookkeeping and nothing more. Kelly's result shows that, at fair odds, wealth can grow no faster than information arrives. Squares also explain combination. Adding an uncorrelated strategy with a Sharpe ratio of 0.5 to another with the same ratio lifts the portfolio to 0.71. That gain equals improving the first strategy by 41%, and a second strategy is usually easier to find.
 
-**3. Good forecasts look like noise** ([§2](#2-signal-and-noise)). A forecast that picks the better of two stocks 51.6% of the time is a good one. Plotted point by point, it is invisible. It shows up only when hundreds of bets are averaged. Even 3,000 bets measure its quality only roughly.
-
-**4. Edge is information, and it can be counted in bits** ([§3](#3-edge-as-information)). Information theory, the mathematics built for telephone lines, gives all these ratios a common unit. A good forecast carries about a five-hundredth of a coin toss of information per bet. In 1956 John Kelly showed that, at fair odds, money can grow exactly as fast as information arrives, and no faster. Each bit of information can at most double a gambler's wealth. A strategy with a Sharpe ratio of one learns less than one bit about the market in a year.
-
-**5. Work in squares** ([§3](#3-edge-as-information)). Information from independent sources adds up. Information is measured by the square of these ratios, not by the ratios themselves. The well-known "fundamental law of active management" says no more than this: it is bookkeeping. It also explains why adding a second, unrelated strategy with a Sharpe ratio of a half lifts a portfolio from 0.5 to 0.71. That gain equals making the first strategy 41% better, and the second strategy is usually far easier to find.
-
-**6. Information only leaks** ([§6](#6-using-it)). A ban on selling short, trading costs and slow execution each lose some of what the forecast knew. In the chapter's worked example, a forecast promised an information ratio of 3.1 plausibly delivers about 0.5. It keeps some 3% of the information it was sold on. The cheapest place to win some back is usually how faithfully the portfolio expresses the forecasts, not a cleverer forecast.
-
-**7. The promise of breadth is mostly hollow** ([§7](#7-where-it-breaks)). The arithmetic treats 500 stocks as 500 independent bets. They are not. Stocks move together, and a signal that fails in a given month fails on all of them at once. So adding stocks stops helping long before the arithmetic says it should. The limit is set by how consistently the forecast works from month to month, not by the size of the universe.
-
-**8. Proof takes years** ([§3](#3-edge-as-information)). The same squared number that measures information also measures evidence. To show at the usual standard that an edge is real, a strategy needs about four divided by its squared Sharpe ratio in years of live results. That is four years at a Sharpe ratio of one, and 16 at a half. Each doubling of the number of ideas tried before this one was chosen adds roughly one more bit of evidence to collect. Over three years, a top-quartile manager trails the benchmark about one time in five. A manager with no skill posts a top-quartile record just as often.
-
-**9. Distrust numbers that look too good** ([§5](#5-the-ratio-zoo), [§7](#7-where-it-breaks)). Rival ratios such as Sortino and Calmar add nothing when returns behave normally, and they are noisier. Strategies that sell insurance look superb until the disaster they are paid to bear. A backtested Sharpe ratio above two is more often a mistake in the data than a discovery.
-
----
-
-**If you do only three things:** compare and combine edges in squares, not ratios; before trusting a forecast's promise, count only truly independent bets and list every way the information leaks on its way to the profits; and before judging any track record, ask whether it has run for four divided by its squared Sharpe ratio in years, and longer if many ideas were tried.
+Most of the chapter's conclusions are cautions. Long-only constraints, trading costs and slow execution each lose information. In the worked example, a forecast that promises an information ratio of 3.1 delivers about 0.5. Effective breadth is far smaller than the stock count, because a signal that fails in a given month fails across all stocks at once. Proof takes years. A strategy needs about four divided by its squared Sharpe ratio, in years, to reach conventional significance: four years at a Sharpe ratio of one and 16 at 0.5. It needs more if many ideas were tried first. The Sortino and Calmar ratios add noise, not information, when returns are close to normal. A backtested Sharpe ratio above two more often signals a data error than an edge.
 
 ```{=latex}
-\end{eli5}
+\end{chapterabstract}
 ```
 
 ```{=html}
@@ -140,7 +124,7 @@ Bold symbols are vectors and matrices. In §3.3 and Appendix B, $\Sigma$ is a co
 
 ## Table of contents
 
-- [ELI5 — the short version](#eli5)
+- [Abstract](#abstract)
 
 1. [What an edge is](#1-what-an-edge-is)
 2. [Signal and noise](#2-signal-and-noise)

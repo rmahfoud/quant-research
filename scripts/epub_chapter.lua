@@ -8,7 +8,7 @@
 --
 -- Web-only blocks are dropped: styles, scripts and the interactive canvas
 -- figure, whose print still stands in for it, plus the per-document footer,
--- which the book's title page replaces. The raw-HTML ELI5 card becomes a div.
+-- which the book's title page replaces. The raw-HTML abstract card becomes a div.
 --
 -- Metadata in: epub-chapter (slug), epub-number, epub-chapters (all slugs,
 -- comma-separated).
@@ -124,22 +124,22 @@ end
 
 local function restructure(blocks)
   local shown = html_figures(blocks)
-  local out, eli5 = pandoc.Blocks({}), nil
+  local out, abstract = pandoc.Blocks({}), nil
   for _, block in ipairs(blocks) do
-    if block.t == "RawBlock" and block.format == "html" and block.text:match('^%s*<aside class="eli5">%s*$') then
-      eli5 = pandoc.Blocks({})
+    if block.t == "RawBlock" and block.format == "html" and block.text:match('^%s*<aside class="abstract">%s*$') then
+      abstract = pandoc.Blocks({})
     elseif block.t == "RawBlock" and block.format == "html" and block.text:match("^%s*</aside>%s*$") then
       -- The heading leads the card rather than sitting inside it, as in the
       -- PDF, so it stays a section the book can split at and list.
-      local heading = eli5[1] and eli5[1].t == "Header" and eli5:remove(1)
+      local heading = abstract[1] and abstract[1].t == "Header" and abstract:remove(1)
       if heading then
         out:insert(heading)
       end
-      out:insert(pandoc.Div(eli5, pandoc.Attr("", { "eli5" })))
-      eli5 = nil
+      out:insert(pandoc.Div(abstract, pandoc.Attr("", { "abstract" })))
+      abstract = nil
     else
       local converted = block.t == "RawBlock" and convert_raw(block, shown) or { block }
-      local into = eli5 or out
+      local into = abstract or out
       for _, b in ipairs(converted) do
         into:insert(b)
       end

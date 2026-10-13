@@ -13,41 +13,27 @@ lang: en
 ---
 
 ```{=html}
-<aside class="eli5">
+<aside class="abstract">
 ```
 
-# ELI5 — the short version {#eli5}
+# Abstract {#abstract}
 
 ```{=latex}
-\begin{eli5}
+\begin{chapterabstract}
 ```
 
-**In one sentence.** Value at risk is the loss that should be exceeded on a stated small fraction of days, say one day in twenty, which makes it a good gauge of an ordinary bad day and no gauge at all of a disaster.
+Value at risk is the loss that should be exceeded on a stated small fraction of days, such as one day in 20. It measures an ordinary bad day well. It says nothing about the size of a disaster.
 
-**1. What the number says** ([§1](#1-what-value-at-risk-is)). "A one-day 95% value at risk of 1,600 dollars" means this: on about one trading day in 20, expect to lose more than 1,600. On the other 19, expect to lose less, or to make money. It is a statement about how often, never about how much. The common reading, "the most that can be lost", is backwards. The number is the mildest of the bad days: the floor of the bad region, not its depth.
+A one-day 95% value at risk of 1,600 dollars means that losses should exceed 1,600 on about one day in 20. It states how often, not how much,. Nothing beyond the threshold changes it. A position that earns a little most days and rarely loses a fortune can report a value at risk of zero.
 
-**2. How to picture it** ([§2](#2-reading-a-var-number)). Draw a line through the daily results. Most days fall on the near side, where markets behave and statistics work. A few fall beyond it. Value at risk is where the line sits. A 95% line is crossed about once a month, and a 99% line two or three times a year. Even a perfect 99% model is crossed in nine years out of 10. Nothing that happens beyond the line moves it. A position that earns a little most days and occasionally loses a fortune can report a value at risk of zero, or even a gain.
+For an ordinary portfolio, value at risk is roughly current volatility times a fixed multiplier. At 95% the multiplier barely depends on the model, while volatility changes a great deal. A good volatility forecast therefore supplies most of the answer. Every method simulates or replays possible next days for current holdings and reads the loss at the cutoff. On almost a century of US data, filtered historical simulation worked best. It scales past returns by the volatility at the time and rescales them by today's volatility. It was the only one of seven methods whose breach rate matched its target at both 95% and 99%. Plain one-year historical simulation reacted late and was breached three times too often in 2007–2009.
 
-**3. It is mostly a volatility forecast** ([§2](#2-reading-a-var-number), [§6](#6-computing-var-the-methods)). For an ordinary portfolio, value at risk is roughly today's volatility times a fixed multiplier. At the 95% level, the multiplier barely changes between reasonable models. The volatility does change. US stock-market volatility rose about elevenfold between early 2007 and late 2008, and again within two months in 2020. Tracking current volatility well gives most of the answer. Arguments about the exact shape of the tail matter only further out.
+Value at risk can be checked by counting breaches. Over 500 days a 95% model should have about 25, spread out in time. At 99% the test is weak. A year of data catches a model breached twice as often as claimed only about four times in 10. The measure fails in known ways. It ignores losses beyond the threshold, so strategies that sell disaster insurance look safe. Breaches cluster when markets turn. The square-root-of-time rule fails worst in calm markets: from the calmest starting points, a 10-day 99% figure was breached nearly six times in 100. Once value at risk sets limits and pay, people manage it.
 
-**4. The methods are one recipe** ([§6](#6-computing-var-the-methods), [§8](#8-taxonomy-and-equivalences)). Every method replays or simulates possible tomorrows for today's holdings and reads off the loss at the chosen cut-off. The methods differ in where "how big" and "what shape" come from. On almost a century of US data, the best simple choice measured each past day in units of the volatility at the time, kept that shape, and scaled it by today's volatility. It was the only one of seven methods whose breach rate matched its claim at both 95% and 99%. The popular plain replay of the last year reacted late, and in 2007–2009 it was breached three times too often.
-
-**5. Its great virtue: it can be checked** ([§12](#12-backtesting-and-evaluation)). If the model says one day in 20, count. Over 500 days there should be about 25 breaches, spread out rather than bunched. Few risk numbers can be tested this cheaply. At 99% the check is weak, though. A year of data catches a model that is breached twice as often as it claims only about four times in 10, against nine in 10 at 95%.
-
-**6. Where it breaks** ([§11](#11-limitations-and-failure-modes)). It is blind to the size of losses beyond its line, which makes strategies that quietly sell disaster insurance look safe. Its breaches bunch exactly when markets turn, because every model learns about volatility after the fact. Stretching a one-day figure to 10 days with the usual square-root rule fails worst in calm markets. From the calmest starting points, a 10-day figure meant to be crossed one time in 100 was crossed nearly six times in 100. And once the number sets limits and bonuses, it gets managed. One bank halved its reported figure overnight by changing the model.
-
-**7. How professionals use it** ([§9](#9-how-practitioners-use-it), [§10](#10-how-var-is-presented)). Banks use it as a common unit across trading desks, for limits, and for capital. Regulators have set capital at three or more times a cautious version of it. Fund rules in Europe and the US cap a fund's one-month figure at a fifth of its assets. Clearing houses use versions of it to set margin. Careful users read it alongside stress tests, never alone.
-
-**8. What it does for an individual** ([§13](#13-var-for-an-individual-investor)). It puts every holding on one scale, so a jumpy stock and a sleepy fund can be sized to the same risk. It shows where the risk actually sits. In a worked account of five sector funds, technology was 40% of the money and 55% of the risk, and a 10% holding in autos carried a fifth of it. It also says in advance what ordinary bad times look like. In US stocks, a typical year's worst fall from a peak has been about nine times the average daily value at risk.
-
-**9. The minimal version is small** ([§14](#14-the-minimal-version)). It needs daily prices for each holding, about 40 lines of code, and a weekly look at five things: today's volatility, the 95% figure, the main contributors, a count of breaches, and a replay of a few historic crash days on the current holdings. The replays matter as much as the number. The same account had a one-day figure near 1% of its value, and would have lost 18% on the day of the 1987 crash.
-
----
-
-**If you do only three things:** size and monitor with a 95% one-day figure built on current volatility; count its breaches and look at when they happen; and replay history's worst days on the current holdings, because the number will never reveal them.
+For an individual, value at risk puts all holdings on one risk scale. In the worked account, technology was 40% of the capital and 55% of the risk. The chapter recommends a 95% one-day figure built on current volatility, regular breach counts, and stress replays of historical crash days. The same account had a one-day figure near 1% and would have lost 18% in the 1987 crash.
 
 ```{=latex}
-\end{eli5}
+\end{chapterabstract}
 ```
 
 ```{=html}
@@ -133,7 +119,7 @@ Several conventions carry a qualification:
 
 ## Table of contents
 
-- [ELI5 — the short version](#eli5)
+- [Abstract](#abstract)
 
 1. [What value at risk is](#1-what-value-at-risk-is)
 2. [Reading a VaR number](#2-reading-a-var-number)

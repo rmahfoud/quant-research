@@ -13,41 +13,25 @@ lang: en
 ---
 
 ```{=html}
-<aside class="eli5">
+<aside class="abstract">
 ```
 
-# ELI5 — the short version {#eli5}
+# Abstract {#abstract}
 
 ```{=latex}
-\begin{eli5}
+\begin{chapterabstract}
 ```
 
-**In one sentence.** A trend follower is a rule that holds more of whatever has been going up and sells whatever has been going down, and what such a rule actually earns is not what most descriptions of it claim.
+A trend-following system is any rule that turns past prices into a position and holds more of an asset after larger recent returns. What such a rule earns differs from most descriptions of it.
 
-**1. Markets do not "have" trends** ([§1](#1-what-trend-following-is)). "Spot the trend and ride it" sounds like a description of the world. But any price history splits into a smooth part and a rough part in infinitely many ways, and which one appears depends entirely on the ruler used. Fit a 50-day average and there is one trend. Fit a 10-day average and there are five. So "is this market trending?" is never a measurement. It is always a modelling choice, with the usual trade-off between jumping at noise and arriving late. The honest definition is mechanical: a trend-following system is any rule that turns past prices into a position, and holds more when recent returns were larger.
+A trend is not a measurable property of a market. Its size depends on the filter chosen. Two exact results describe what a trend rule earns. First, the profit of the rule "hold the asset while its price is above its moving average" is proportional to the amount by which the variance ratio exceeds one. The trading rule and the statistical test for trending measure the same quantity, so the opportunity can be measured without a backtest. Second, the realized profit equals the accumulated smooth movement minus the accumulated roughness. A trend follower is long the smooth part of a price path and short the choppy part.
 
-**2. What it is actually paid for** ([§5](#5-the-mathematics-of-trend-following-pl)). Two statements hold exactly, with no assumptions needed. First, the classic rule "own it while the price is above its own average" earns, each day, an amount proportional to how far the market's *variance ratio* exceeds one. The trading rule and the standard statistical test for trending are the same quantity. So the opportunity can be measured without running a backtest at all. Second, the rule's realised profit equals the accumulated smooth movement minus the accumulated jaggedness. A trend follower is long the smooth part of a price path and short the choppy part.
+The edge per market is very small. A respectable diversified program corresponds to a daily return autocorrelation of about 0.0025, which a decade of data from one market cannot distinguish from zero. The return comes from applying that edge across dozens of weakly correlated markets. The option-like payoff, with many small losses and rare large gains, is real. The rule pays for it continuously through small losses in choppy markets. The payoff fails when the rule cannot trade: in gaps, limit moves and weekend jumps. The win rate carries no information. On a random walk, one common rule wins 41% of years and another wins 50%, and both have zero expected return. Because markets drift upward and trend systems are usually long, a backtest can profit with no predictability at all. Subtracting each market's mean return before testing removes this bias.
 
-**3. The edge is tiny, and the diversification is the product** ([§5](#5-the-mathematics-of-trend-following-pl)). A diversified program earning a respectable risk-adjusted return corresponds to a correlation of about 0.0025 between one day's move and the next. That is so small that a decade of data from a single market cannot distinguish it from zero. Nobody is forecasting anything. The money comes from applying a nearly invisible edge across dozens of weakly related markets at once. That is why serious systems are designed around the portfolio rather than the indicator.
-
-**4. The option-like payoff is bought, not given** ([§5](#5-the-mathematics-of-trend-following-pl)). Trend returns have the shape of a bought option: many small losses, rare large gains, and good behaviour in crises. That shape is real, and it is *paid for* continuously, in the choppiness the rule absorbs. Convexity is a cost structure, not a gift. It is also manufactured by trading, so it fails precisely where trading fails: gaps, limit moves and weekend jumps.
-
-**5. The win rate says nothing** ([§1](#1-what-trend-following-is)). On a pure coin-flip market with no edge whatsoever, one common trend rule wins 41% of years and another wins 50%. Both have exactly zero expected return. The hit rate is a property of how positions are sized, not of whether an edge exists.
-
-**6. A profitable backtest is not evidence** ([§2](#2-why-trends-could-exist), [§10](#10-evaluation-testing-a-trend-system-honestly)). Markets drift upward, and a trend system is usually long. So it makes money in a backtest even when there is no predictability at all. Subtract each market's own average return before testing. It is one line of code, and it removes the most common self-deception in this literature.
-
-**7. Where the effort actually goes** ([§7](#7-taxonomy-and-equivalences), [§8](#8-from-signal-to-portfolio)). In order: clean data, volatility scaling, which markets to trade, how to combine them, the horizon, costs, and only then the indicator. In one simulation, adding volatility scaling moved the risk-adjusted return from 0.04 to 0.36, while doubling or halving the look-back cost about 5%. Six of the 10 famous indicators turn out to be the same weighted average of past returns, with the weights rearranged.
-
-**8. Costs, not trends, set the speed** ([§8](#8-from-signal-to-portfolio)). At five basis points a round trip, a 20-day rule is unprofitable, while a 320-day rule keeps 84% of what it earns before costs. That, rather than any belief about where the trends are, is why production systems are slow.
-
-**9. Whether it still works is genuinely open** ([§9](#9-when-trends-fade-and-fail)). Fast trend has decayed, and the slow version probably survives at a reduced level. But a bad decade is statistically uninformative here, because 10 years cannot tell a modest edge from none. So decide in advance what evidence would justify stopping. At these returns, a losing run of several years is unremarkable, and the decision to quit is the largest unhedged risk in the program.
-
----
-
-**If you do only three things:** measure the variance-ratio profile before you backtest anything, demean each market's returns before believing a result, and scale positions by volatility — it is worth more than every indicator choice put together.
+Volatility scaling matters more than the indicator. In one simulation it raised the Sharpe ratio from 0.04 to 0.36, while doubling or halving the look-back changed results by about 5%. Six of 10 well-known indicators are the same weighted average of past returns. Costs set the speed. At five basis points per round trip, a 20-day rule loses money, while a 320-day rule keeps 84% of its gross return. Fast trend has decayed, and slow trend probably survives at a lower level. Ten years of data cannot separate a modest edge from none, so the chapter recommends deciding in advance what evidence would justify stopping.
 
 ```{=latex}
-\end{eli5}
+\end{chapterabstract}
 ```
 
 ```{=html}
@@ -126,7 +110,7 @@ Several symbols carry a qualification:
 
 ## Table of contents
 
-- [ELI5 — the short version](#eli5)
+- [Abstract](#abstract)
 
 1. [What trend-following is](#1-what-trend-following-is)
 2. [Why trends could exist](#2-why-trends-could-exist)

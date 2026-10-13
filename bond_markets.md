@@ -13,41 +13,27 @@ lang: en
 ---
 
 ```{=html}
-<aside class="eli5">
+<aside class="abstract">
 ```
 
-# ELI5 — the short version {#eli5}
+# Abstract {#abstract}
 
 ```{=latex}
-\begin{eli5}
+\begin{chapterabstract}
 ```
 
-**In one sentence.** A bond is a fixed, tradeable schedule of promised payments, so only two things can move its price: what the market charges for money over time, and whether the market believes the payments will arrive.
+A bond's price can move for only two reasons. The market changes what it charges for money over time, or it changes its belief that the payments will arrive. This chapter derives the behavior of government bonds, corporate credit, the yield curve and bond portfolios from that fact.
 
-**1. What the holder owns** ([§1](#1-what-a-bond-is)). A bond is a loan cut into tradeable pieces. The payments are fixed at issue and never change. Only the price that someone will pay today for that fixed schedule moves. Four decisions made at issue shape most of the bond's later behaviour: how long it runs, how big the coupon is, which currency it pays in, and where it sits in the queue if things go wrong.
+Duration sets how far a bond's price moves when yields move. A 30-year bond carries about nine times the rate risk of a two-year bond. On a normal curve, yields can rise about 385 basis points before a two-year bond loses a year's income. For a 30-year bond the figure is about 30 basis points. "Risk-free" means only that the payments will arrive. In 2022 the safest bonds had their worst calendar year on record, and nobody defaulted.
 
-**2. "Risk-free" means one specific thing** ([§1](#1-what-a-bond-is), [§3](#3-government-bonds)). It means that the payments will arrive, and nothing more. A long government bond can lose a third of its value along the way. In 2022 the safest bonds in the world had their worst calendar year on record. Nobody defaulted. The price of money changed.
+A corporate bond equals a government bond plus a written put on the firm's assets. This explains why credit returns show small steady gains and rare large losses, and why spreads widen when volatility rises. Historically, spreads have been about twice realized losses. The other half pays for the risk that defaults cluster in bad times. A spread reveals only the product of default probability and loss given default, never either one alone. Spread-implied default rates exceed historical rates by about 10 times for the best credits, because they are prices, not forecasts.
 
-**3. Duration is the whole rate story** ([§7](#7-duration-convexity)). Duration measures how much the price moves when yields move. Dollar for dollar, a 30-year bond carries roughly nine times the rate risk of a two-year bond. That ratio swamps the extra yield paid for going long. The useful arithmetic is the **cushion**: how far yields can rise before a year's income is wiped out. On a normal curve, it is about 385 basis points for a two-year bond and 30 for a 30-year bond. The long bond pays a third more yield for a thirteenth of the protection.
+The upward slope of the yield curve is mostly a term premium, not a forecast of rising rates. Inversion has preceded every US recession since the 1960s, but the lead time ranges from six months to two years, on a sample of eight. Investors' maturity preferences and limited arbitrage capital let supply and demand move prices. Inflation sets the sign of the stock–bond correlation. It was positive from the 1960s to the late 1990s, negative from about 1998 to 2020, and positive again in 2021–23. Nominal bonds hedge growth shocks, not inflation shocks.
 
-**4. Owning corporate debt is owning a government bond and selling insurance** ([§5](#5-corporate-credit)). A corporate bond is exactly a Treasury plus a written put on the company's assets. The rest of credit follows from that equivalence. It explains the shape of the returns: small steady gains and occasional large losses. It explains why spreads widen when the world gets volatile, and why leverage suits credit badly. Historically, spreads have been about twice the losses actually suffered. So roughly half the spread covers the losses. The other half pays for the risk that defaults arrive in clusters, at the worst moments.
-
-**5. A spread never reveals the odds of default** ([§9](#9-credit-risk)). The market reveals the chance of default multiplied by the loss if default happens. It never reveals the two separately. Any statement of the form "the market implies a 4% chance of default" has quietly assumed a recovery rate. Those implied odds are also far higher than history, by a factor of about 10 for the best credits, because they are prices, not forecasts.
-
-**6. The upward slope of the yield curve is mostly a fee, not a forecast** ([§11](#11-yield-curve)). Curves usually slope up, and rates usually do not rise. So most of the slope is compensation for committing money for longer, not a prediction. Inversion has preceded every US recession since the 1960s. That is real information with useless timing: the lead time has ranged from six months to two years, on a sample of eight.
-
-**7. Who *must* trade explains more than valuation does** ([§12](#12-supply-demand)). Investors have strong maturity preferences. The people who could arbitrage those preferences have limited balance sheets. So supply and demand move prices. The biggest holders are the least price-sensitive, and the most price-sensitive ones are levered. That is how an ordinary shock becomes a dislocation. A bond index also weights by debt outstanding, so an indexed portfolio lends most to whoever has borrowed most.
-
-**8. Whether bonds hedge stocks depends on inflation** ([§14](#14-bonds-equities)). Both are promises of future money. When the discount rate moves, they move together. When growth expectations move, they move in opposite directions. Whichever shock dominates sets the sign of the correlation. It was positive from the 1960s to the late 1990s, negative from about 1998 to 2020, and positive again in 2021–23. The regime variable is inflation. 2022 did not show that diversification failed. Nominal bonds hedge growth shocks, and they never hedged inflation shocks.
-
-**9. The one fact that makes a bond investor calm** ([§17](#17-building-a-portfolio)). A portfolio that keeps its duration constant earns approximately its starting yield over a long enough horizon. A one-off rate shock washes out in about as many years as the portfolio's duration. So a rise in yields is *good* for any investor whose horizon is longer than their duration. The 2022 sell-off raised expected returns for exactly those investors. This is fixed income's version of "valuation predicts long-run returns", and it is far more reliable than the equity version.
-
----
-
-**If you remember three things:** the only two levers are the price of money and the chance of being paid; duration, not yield, decides how much a bond moves; and credit is sold insurance, priced on the assumption that defaults arrive together, because they do.
+The chapter's main practical conclusion is that a portfolio held at constant duration earns about its starting yield over a horizon close to its duration. A rise in yields therefore raises expected returns for any investor whose horizon exceeds that duration.
 
 ```{=latex}
-\end{eli5}
+\end{chapterabstract}
 ```
 
 ```{=html}
@@ -141,7 +127,7 @@ Several symbols carry a qualification:
 
 ## Table of contents
 
-- [ELI5 — the short version](#eli5)
+- [Abstract](#abstract)
 
 **Part I — The object**
 
